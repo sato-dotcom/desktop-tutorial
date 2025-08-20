@@ -1,0 +1,124 @@
+/* 画面全体を高さ100%で使うための設定 */
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+#map {
+    flex-grow: 1;
+    background-color: #aadaff;
+}
+/* 下部コントロールパネルのスタイル */
+#controls-panel {
+    flex-shrink: 0;
+    height: 45%;
+    transition: height 0.3s ease-in-out;
+    overflow-y: auto;
+}
+body.fullscreen-active #controls-panel {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #a8a8a8; border-radius: 3px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #555; }
+/* モーダルウィンドウのスタイル */
+.modal { display: none; }
+.modal.is-open { display: flex; }
+/* Leafletのレイヤーコントロールのスタイル調整 */
+.leaflet-control-layers {
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+/* ローディングスピナー */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s ease infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* 全画面表示用の情報パネル */
+#fullscreen-info-panel {
+    display: none;
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    max-width: 200px;
+}
+body.fullscreen-active #fullscreen-info-panel {
+    display: block;
+}
+/* 方位記号のスタイル */
+.leaflet-control-north-arrow {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    padding: 4px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+#north-arrow-svg {
+    transition: transform 0.2s linear;
+}
+
+/* ユーザー位置マーカーのスタイル */
+.user-location-marker-rotator {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s linear;
+}
+.user-location-marker svg {
+    width: 100%;
+    height: 100%;
+    fill: #1e90ff;
+    stroke: white;
+    stroke-width: 2px;
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5));
+}
+/* マップペインのトランジション */
+.leaflet-map-pane {
+    transition: transform 0.2s linear;
+}
+
+/* ★★★ 削除 ★★★
+   ヘディングアップ時のオフセット指定を削除しました。
+   この機能は将来的にJavaScript側で、より安全な方法で再実装する可能性があります。
+*/
+
+.leaflet-control-custom-btn {
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+.leaflet-control-custom-btn.following {
+    color: #007bff;
+}
+.leaflet-control-custom-btn.not-following {
+    color: #6c757d;
+}
