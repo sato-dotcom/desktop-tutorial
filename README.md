@@ -1,5 +1,38 @@
-# Welcome to GitHub Desktop!
+# 海洋版測量支援アプリ「うみねこ」開発サマリー
 
-This is your README. READMEs are where you can communicate what your project is and how to use it.
+この開発は複数のAIを協力させて進めています。 
+開発者・ユーザー(Akinori):実験・結果報告
+ChatGPT:セカンドオピニオンとしてレビュー・解説を担当
+Gemini:実際のコード修正
 
-Write your name on line 6, save it, and then head back to GitHub Desktop.
+目標：ヘディングアップ表示の実装
+
+📝 開発の経緯（要点）
+課題
+「Leafletでの全画面表示切替時に現在地マーカーがずれる／動かない」問題。
+追従モード（ON/OFF）や地図の向き（ノースアップ／ヘディングアップ）を組み合わせると挙動が安定しない。
+
+試したアプローチ
+requestAnimationFrame や setTimeout で遅延 → 改善せず。
+map.once('resize', ...) に委ねる → 変化なし。
+強制リフロー (container.offsetWidth) → 効果なし。
+updateMapView(true) を呼ぶ方式 → 意図通り動かず。
+ピクセル補正（panBy）方式 → 稀に成功するが安定せず。
+GPS更新とUIイベントをフラグで連携 → 結果は変わらず。
+最後に「resize イベント完了後に updateMapView を呼ぶ」方式も試したが期待通りに動かない。
+現状 どの方式でも「全画面切替直後の現在地再配置」が安定して動作していない。
+室内・屋外でテストしたが同じ結果。 挙動としては「全画面ONにしてもOFF時の中央位置にマーカーが残る」。
+
+🔄 役割分担 私のコメント: 実験環境、テスト結果、ユーザーとしての期待挙動を記録。
+ChatGPTのレビュー: コード上の問題点や見落としを技術的に分析。
+Geminiの役割: 実際にコードを修正し、Canvasで出力。
+
+📑 今後のやり取りフォーマット（推奨）
+--- 私のコメント ---
+実験の結果や気づいた点を書く
+--- ChatGPTのレビュー ---
+コードや挙動の技術的分析 ---
+ChatGPTの要望文（Gemini向け）---
+Geminiに依頼したい修正内容を明確に指示
+
+👉 この形式なら、次のAIが「誰の発言か」を混同せずに理解しやすく、同じ失敗を繰り返さない。
