@@ -146,20 +146,9 @@ function setupEventListeners() {
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
 
-    // ★★★ 修正点: デバウンス処理を導入 ★★★
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        // 既存のタイマーをクリア
-        clearTimeout(resizeTimer);
-        // 新しいタイマーを設定
-        resizeTimer = setTimeout(() => {
-            map.invalidateSize({ pan: false });
-            // リサイズ完了後、追従がONの時だけ再配置する
-            if (window.isFollowingUser) {
-                updateMapView(true);
-            }
-        }, 150); // 150msの遅延
-    });
+    // ★★★ 変更点: 汎用的なリサイズ処理を削除 ★★★
+    // 全画面切替の再描画はtoggleFullscreen関数内で専用に処理するため、
+    // ここでのイベントリスナーは不要になります。これにより、意図しない二重実行を防ぎます。
 }
 
 function switchMode(mode) {
@@ -403,15 +392,18 @@ function toggleFullscreen() {
     // 進行中のアニメーションを停止
     map.stop();
 
-    // 2. Leafletに地図コンテナのサイズが変更されたことを通知する。
-    // この命令の完了後、Leafletは内部的に 'resize' イベントを発火させる。
-    map.invalidateSize();
+    // ★★★ 修正点: setTimeoutを使用して安定化 ★★★
+    // 300ms待ってから、地図のサイズ更新と再描画を行う。
+    // この遅延は、ブラウザがUIの再描画を完了し、
+    // 新しい地図コンテナのサイズが確定するのを待つために重要です。
+    setTimeout(() => {
+        // Leafletに地図コンテナのサイズが変更されたことを通知
+        map.invalidateSize({ animate: false });
 
-    // 3. 'resize' イベントを一度だけ捕捉し、再描画処理を実行する。
-    map.once('resize', () => {
-        // 現在地情報がある場合のみ、強制再描画を実行
-        if (currentPosition) {
-            updateMapView(true);
+        // 追従モードがONの場合のみ、地図を現在地に再配置する
+        if (window.isFollowingUser && currentPosition) {
+            updateMapView(true); // trueは強制再配置を意味する
         }
-    });
+    }, 300); // 300msの遅延
 }
+
