@@ -78,14 +78,14 @@ body.fullscreen-active #fullscreen-info-panel {
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 #north-arrow-svg {
-    transition: transform 0.2s linear;
+    transition: transform 0.3s ease-out; /* ease-outに変更 */
 }
 
 /* ユーザー位置マーカーのスタイル */
 .user-location-marker-rotator {
     width: 100%;
     height: 100%;
-    transition: transform 0.2s linear;
+    transition: transform 0.3s ease-out; /* ease-outに変更 */
 }
 .user-location-marker svg {
     width: 100%;
@@ -97,13 +97,8 @@ body.fullscreen-active #fullscreen-info-panel {
 }
 /* マップペインのトランジション */
 .leaflet-map-pane {
-    transition: transform 0.2s linear;
+    transition: transform 0.3s ease-out; /* ease-outに変更 */
 }
-
-/* ★★★ 削除 ★★★
-   ヘディングアップ時のオフセット指定を削除しました。
-   この機能は将来的にJavaScript側で、より安全な方法で再実装する可能性があります。
-*/
 
 .leaflet-control-custom-btn {
     background-color: white;
