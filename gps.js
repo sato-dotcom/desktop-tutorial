@@ -9,18 +9,21 @@ function startGeolocation() {
 
 function startCompass() {
     const requestPermission = () => {
+        // iOS 13+ではユーザーの許可が必要
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(permissionState => {
                     if (permissionState === 'granted') {
-                        window.addEventListener('deviceorientation', handleOrientationEvent);
+                        window.addEventListener('deviceorientationabsolute', onCompassUpdate);
                     }
                 })
                 .catch(console.error);
         } else {
-            window.addEventListener('deviceorientation', handleOrientationEvent);
+            // その他のブラウザでは許可は不要
+            window.addEventListener('deviceorientationabsolute', onCompassUpdate);
         }
     };
+    // ユーザーによる初回アクション（クリックなど）をトリガーに許可を求める
     document.body.addEventListener('click', requestPermission, { once: true });
 }
 
@@ -75,26 +78,4 @@ function handlePositionError(error) {
     if (error.code === 3) msg = "タイムアウト";
     dom.gpsStatus.textContent = msg;
     dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
-}
-
-function handleOrientationEvent(event) {
-    let rawHeading;
-    if (event.webkitCompassHeading) { 
-      rawHeading = event.webkitCompassHeading;
-    } else if (event.alpha !== null) {
-      rawHeading = 360 - event.alpha;
-    } else {
-      return;
-    }
-
-    const smoothingFactor = 0.2;
-    let diff = rawHeading - currentHeading;
-    if (diff > 180) { diff -= 360; } 
-    else if (diff < -180) { diff += 360; }
-    currentHeading += diff * smoothingFactor;
-    currentHeading = (currentHeading + 360) % 360;
-    
-    if (currentMode === 'navigate' && targetMarker) {
-        updateNavigationInfo();
-    }
 }

@@ -96,32 +96,3 @@ function initializeMap() {
     });
     currentUserMarker = L.marker([0, 0], { icon: userIcon, pane: 'markerPane' }).addTo(map);
 }
-
-
-/**
- * マップの回転を制御する
- */
-function updateMapRotation() {
-    if (!currentPosition || !currentUserMarker || !currentUserMarker._icon) return;
-
-    const mapPane = map.getPane('mapPane');
-    const northArrow = document.getElementById('north-arrow-svg');
-    const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-
-    let mapRotation = 0;
-    let markerRotation = 0;
-    
-    const effectiveHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
-
-    if (mapOrientationMode === 'north-up') {
-        mapRotation = 0;
-        markerRotation = effectiveHeading;
-    } else { // 'course-up'
-        mapRotation = window.isFollowingUser ? -effectiveHeading : 0;
-        markerRotation = window.isFollowingUser ? 0 : effectiveHeading;
-    }
-    
-    mapPane.style.transform = `rotate(${mapRotation}deg)`;
-    rotator.style.transform = `rotate(${markerRotation}deg)`;
-    northArrow.style.transform = `rotate(${-mapRotation}deg)`;
-}
