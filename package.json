@@ -1,0 +1,15 @@
+{
+  "name": "umineko-app",
+  "version": "1.0.0",
+  "description": "海洋測量支援アプリ「うみねこ」",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

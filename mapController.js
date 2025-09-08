@@ -86,25 +86,24 @@ function updateMapView(force = false) {
 
     const userLatLng = L.latLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
     const zoom = map.getZoom();
-    const mapSize = map.getSize();
 
-    // 1. アンカー位置（ユーザーを配置したい画面上の目標地点）を決定
+    // 1. 目的のアンカーポイント（画面上のピクセル位置）を決定
+    const mapSize = map.getSize();
     const anchorPoint = L.point(
         mapSize.x / 2,
         (mapOrientationMode === 'north-up') ? (mapSize.y / 2) : (mapSize.y * 0.75)
     );
 
-    // 2. 現在の地図の中心のピクセル座標を取得
-    const centerPoint = map.project(map.getCenter(), zoom);
-    
-    // 3. ユーザーの地理座標をピクセル座標に変換
-    const userPoint = map.project(userLatLng, zoom);
+    // 2. 現在の地図の中心と、アンカーポイント下の地理座標を取得
+    const currentCenterLatLng = map.getCenter();
+    const currentLatLngAtAnchor = map.containerPointToLatLng(anchorPoint);
 
-    // 4. ユーザー位置がアンカー位置に来るような、新しい中心のピクセル座標を計算
-    const newCenterPoint = centerPoint.add(userPoint.subtract(centerPoint)).subtract(anchorPoint).add(L.point(mapSize.x/2, mapSize.y/2));
-    
-    // 5. 新しい中心のピクセル座標を地理座標に戻す
-    const newCenterLatLng = map.unproject(newCenterPoint, zoom);
+    // 3. 中心とアンカーの地理的なオフセット（緯度経度の差）を計算
+    const latOffset = currentCenterLatLng.lat - currentLatLngAtAnchor.lat;
+    const lngOffset = currentCenterLatLng.lng - currentLatLngAtAnchor.lng;
+
+    // 4. ユーザーの現在地にオフセットを加えて、新しい地図の中心を算出
+    const newCenterLatLng = L.latLng(userLatLng.lat + latOffset, userLatLng.lng + lngOffset);
 
     if (force) {
         map.setView(newCenterLatLng, zoom, { animate: false });
@@ -112,8 +111,7 @@ function updateMapView(force = false) {
     }
     
     // 通常の追従（スムーズスクロール）
-    const currentCenter = map.getCenter();
-    if (Math.abs(currentCenter.lat - newCenterLatLng.lat) > 0.000001 || Math.abs(currentCenter.lng - newCenterLatLng.lng) > 0.000001) {
+    if (map.getCenter().distanceTo(newCenterLatLng) > 1) { // 1m以上ずれていたら移動
         map.panTo(newCenterLatLng, { animate: true, duration: 0.2, easeLinearity: 0.5 });
     }
 }
@@ -139,23 +137,24 @@ function updateMapRotation() {
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
 
     let mapRotationValue = 0;
-    let markerRotation = 0;
     
     // GPSの進行方向(course)があれば優先し、なければコンパス(heading)を使う
     const effectiveHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
 
     if (mapOrientationMode === 'north-up') {
-        // ノースアップモードでは、地図もマーカーも一切回転させない
+        // ノースアップモードでは、地図は回転させない
         mapRotationValue = 0;
-        markerRotation = 0; 
     } else { // course-up (ヘディングアップ/HUDモード)
-        // 追従中のみ地図を回転させ、マーカーは常に上向き固定
+        // 追従中のみ地図を回転させる
         mapRotationValue = window.isFollowingUser ? -effectiveHeading : 0;
-        markerRotation = 0;
     }
     
+    // ノースアップ時はマーカーも回転させない
+    const markerRotation = (mapOrientationMode === 'north-up') ? 0 : effectiveHeading;
+
     mapPane.style.transform = `rotate(${mapRotationValue}deg)`;
-    rotator.style.transform = `rotate(${markerRotation}deg)`;
+    // マーカーは常に進行方向を向く（ノースアップ時は0度になるため静止）
+    rotator.style.transform = `rotate(${markerRotation}deg)`; 
     northArrow.style.transform = `rotate(${-mapRotationValue}deg)`;
 }
 
@@ -221,8 +220,9 @@ function updateFollowButtonState() {
  * フォールバックとして、クリック直後にも安定化処理をタイマーで呼び出します。
  */
 function toggleFullscreen() {
-    // フルスクリーンAPIを呼び出す
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+    const isCurrentlyFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+
+    if (!isCurrentlyFullscreen) {
         document.documentElement.requestFullscreen().catch(err => {
             alert(`フルスクリーンモードへの移行に失敗しました: ${err.message}`);
         });

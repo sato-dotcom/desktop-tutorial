@@ -6,13 +6,12 @@
     <title>うみねこ (海洋版測量支援アプリ)</title>
     
     <!-- 外部ライブラリ -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
     
-    <!-- アプリのCSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- ★★★ 変更点: ビルドされたCSSファイルを読み込む ★★★ -->
+    <link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="bg-gray-200 font-sans">
 
@@ -69,12 +68,9 @@
                         <label for="export-coord-system-select" class="block text-sm font-medium text-gray-700">エクスポート座標系</label>
                         <select id="export-coord-system-select" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"></select>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 mt-3">
+                    <div class="grid grid-cols-1 gap-2 mt-3">
                         <button id="export-csv-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300" disabled>
                             <i class="fas fa-download mr-2"></i>CSV出力
-                        </button>
-                        <button id="generate-report-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300" disabled>
-                            ✨ 日報生成
                         </button>
                     </div>
                     <button id="delete-all-btn" class="w-full mt-3 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300" disabled>
@@ -178,16 +174,6 @@
             </div>
         </div>
     </div>
-    <div id="report-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-[2000]">
-        <div class="bg-white p-4 rounded-lg shadow-xl w-11/12 max-w-lg h-4/5 flex flex-col">
-            <h2 class="text-xl font-bold mb-2 flex-shrink-0">✨ AI生成 作業日報</h2>
-            <div id="report-content" class="flex-grow bg-gray-100 p-2 border rounded overflow-y-auto custom-scrollbar"></div>
-            <div class="flex justify-between items-center mt-2 flex-shrink-0">
-                <button id="copy-report-btn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400" disabled>クリップボードにコピー</button>
-                <button id="close-report-btn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">閉じる</button>
-            </div>
-        </div>
-    </div>
 
     <!-- 外部ライブラリ -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -204,3 +190,5 @@
 
 </body>
 </html>
+
+
