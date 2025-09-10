@@ -10,7 +10,7 @@ window.onload = () => {
     // イベントリスナーを設定
     setupEventListeners(); 
     
-    // 全画面表示のイベントリスナー（変更なし）
+    // 全画面表示のイベントリスナー
     document.addEventListener('fullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('webkitfullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('mozfullscreenchange', stabilizeAfterFullScreen);

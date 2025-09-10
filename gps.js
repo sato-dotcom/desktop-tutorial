@@ -11,11 +11,8 @@ function startGeolocation() {
 
 function startCompass() {
     const addListeners = () => {
-        // iOS13+ で推奨される絶対方位（磁北基準）
-        // ★★★ 変更点: 'deviceorientationabsolute' を優先し、なければ 'deviceorientation' を使う ★★★
         if ('DeviceOrientationEvent' in window) {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                // iOS 13+
                 DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
                         if (permissionState === 'granted') {
@@ -23,23 +20,19 @@ function startCompass() {
                         }
                     }).catch(console.error);
             } else {
-                // Android やその他のブラウザ
-                window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
-                window.addEventListener('deviceorientation', onCompassUpdate, true);
+                // 'deviceorientationabsolute' を優先し、なければ 'deviceorientation' を使う
+                if ('ondeviceorientationabsolute' in window) {
+                    window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
+                } else {
+                    window.addEventListener('deviceorientation', onCompassUpdate, true);
+                }
             }
         }
     };
     
-    // ユーザーによる初回アクション（クリックなど）をトリガーに許可を求める
     document.body.addEventListener('click', addListeners, { once: true });
 }
 
-
-/**
- * GPS更新処理
- * 追従OFFの時はマーカーと情報表示の更新に留め、地図は絶対に動かさない。
- * 追従ONの時のみ、司令塔(updateMapView)を呼び出して地図を動かす。
- */
 function handlePositionSuccess(position) {
     const isFirstTime = currentPosition === null;
     currentPosition = position;
@@ -47,7 +40,7 @@ function handlePositionSuccess(position) {
     const { latitude, longitude, accuracy, heading } = position.coords;
     currentUserCourse = (heading !== null && !isNaN(heading)) ? heading : null;
 
-    // UIパネルの表示更新
+    // UI表示更新
     dom.currentLat.textContent = latitude.toFixed(7);
     dom.currentLon.textContent = longitude.toFixed(7);
     dom.currentAcc.textContent = accuracy.toFixed(1);
@@ -58,7 +51,6 @@ function handlePositionSuccess(position) {
     dom.fullscreenAcc.textContent = accuracy.toFixed(1);
     updateGnssStatus(accuracy);
     updateCurrentXYDisplay();
-
     updateUserMarkerOnly(position);
 
     if (currentMode === 'navigate' && targetMarker) {
@@ -69,6 +61,7 @@ function handlePositionSuccess(position) {
         map.setView([latitude, longitude], 16, { animate: false });
     }
     
+    // 追従モードなら地図を更新
     if (window.isFollowingUser) {
         updateMapView(false);
     }
