@@ -188,3 +188,59 @@ function toggleFullscreen() {
     }, 500);
 }
 
+// ===== 追従モードと中央補正の追加処理 =====
+
+// 現在の位置を保存する変数
+let currentLatLng = null;
+
+// 位置更新時の処理
+function onPositionUpdate(latlng) {
+  currentLatLng = latlng;
+  if (userMarker) {
+    userMarker.setLatLng(latlng);
+  }
+  // 追従モードがONのときだけ中央に移動
+  if (appState.followUser) {
+    recenterAbsolutely(latlng);
+    console.log('[follow] setView center to user');
+  } else {
+    console.log('[follow] OFF: center unchanged');
+  }
+}
+
+// マーカーを中央に置く処理（ズレ補正付き）
+function recenterAbsolutely(latlng) {
+  map.setView(latlng, map.getZoom(), { animate: false });
+
+  // 1フレーム後にズレを測って補正
+  requestAnimationFrame(() => {
+    const rect = map.getContainer().getBoundingClientRect();
+    const screenCenterY = rect.top + rect.height / 2;
+    const point = map.latLngToContainerPoint(latlng);
+    const markerY = rect.top + point.y;
+    const deltaY = Math.round(markerY - screenCenterY);
+
+    if (Math.abs(deltaY) > 4) {
+      map.panBy([0, -deltaY], { animate: false });
+      console.log('[recenter] vertical correction applied', deltaY);
+    }
+  });
+}
+
+// 追従モード切り替え
+function toggleFollowUser(on) {
+  appState.followUser = on;
+  console.log('[toggle] followUser =', on);
+  if (on && currentLatLng) {
+    recenterAbsolutely(currentLatLng);
+  }
+}
+
+// ヘディングアップ切り替え
+function toggleHeadingUp(on) {
+  appState.headingUp = on;
+  console.log('[toggle] headingUp =', on);
+  if (currentLatLng) {
+    recenterAbsolutely(currentLatLng);
+  }
+}

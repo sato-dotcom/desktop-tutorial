@@ -188,3 +188,20 @@ function toggleFullscreen() {
     }, 500);
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* ページがスクロールしないようにする */
+}
+
+#map {
+  position: fixed;
+  inset: 0;
+  height: 100dvh; /* スマホのアドレスバーを除いた高さ */
+  width: 100vw;
+}
+
+@supports not (height: 100dvh) {
+  #map { height: 100vh; }
+}
