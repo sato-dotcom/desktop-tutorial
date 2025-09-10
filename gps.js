@@ -1,3 +1,5 @@
+// gps.js
+
 function startGeolocation() {
     if (!navigator.geolocation) {
         dom.gpsStatus.textContent = "ブラウザが非対応です";
@@ -8,24 +10,36 @@ function startGeolocation() {
 }
 
 function startCompass() {
+    const addListeners = () => {
+        // iOS13+ で推奨される絶対方位（磁北基準）
+        if ('DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
+             window.addEventListener('deviceorientation', onCompassUpdate, true);
+        } else {
+             // Android やその他のブラウザ用のイベント
+             window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
+             window.addEventListener('deviceorientation', onCompassUpdate, true);
+        }
+    };
+    
     const requestPermission = () => {
         // iOS 13+ではユーザーの許可が必要
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(permissionState => {
                     if (permissionState === 'granted') {
-                        window.addEventListener('deviceorientationabsolute', onCompassUpdate);
+                        addListeners();
                     }
                 })
                 .catch(console.error);
         } else {
             // その他のブラウザでは許可は不要
-            window.addEventListener('deviceorientationabsolute', onCompassUpdate);
+            addListeners();
         }
     };
     // ユーザーによる初回アクション（クリックなど）をトリガーに許可を求める
     document.body.addEventListener('click', requestPermission, { once: true });
 }
+
 
 /**
  * GPS更新処理
