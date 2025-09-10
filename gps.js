@@ -12,32 +12,26 @@ function startGeolocation() {
 function startCompass() {
     const addListeners = () => {
         // iOS13+ で推奨される絶対方位（磁北基準）
-        if ('DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
-             window.addEventListener('deviceorientation', onCompassUpdate, true);
-        } else {
-             // Android やその他のブラウザ用のイベント
-             window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
-             window.addEventListener('deviceorientation', onCompassUpdate, true);
+        // ★★★ 変更点: 'deviceorientationabsolute' を優先し、なければ 'deviceorientation' を使う ★★★
+        if ('DeviceOrientationEvent' in window) {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOS 13+
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', onCompassUpdate, true);
+                        }
+                    }).catch(console.error);
+            } else {
+                // Android やその他のブラウザ
+                window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
+                window.addEventListener('deviceorientation', onCompassUpdate, true);
+            }
         }
     };
     
-    const requestPermission = () => {
-        // iOS 13+ではユーザーの許可が必要
-        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-            DeviceOrientationEvent.requestPermission()
-                .then(permissionState => {
-                    if (permissionState === 'granted') {
-                        addListeners();
-                    }
-                })
-                .catch(console.error);
-        } else {
-            // その他のブラウザでは許可は不要
-            addListeners();
-        }
-    };
     // ユーザーによる初回アクション（クリックなど）をトリガーに許可を求める
-    document.body.addEventListener('click', requestPermission, { once: true });
+    document.body.addEventListener('click', addListeners, { once: true });
 }
 
 
@@ -50,7 +44,6 @@ function handlePositionSuccess(position) {
     const isFirstTime = currentPosition === null;
     currentPosition = position;
     
-    // --- UIとマーカー更新は、追従状態に関わらず常に行う ---
     const { latitude, longitude, accuracy, heading } = position.coords;
     currentUserCourse = (heading !== null && !isNaN(heading)) ? heading : null;
 
@@ -66,22 +59,18 @@ function handlePositionSuccess(position) {
     updateGnssStatus(accuracy);
     updateCurrentXYDisplay();
 
-    // マーカー位置の更新
     updateUserMarkerOnly(position);
 
-    // ナビゲーション情報の更新
     if (currentMode === 'navigate' && targetMarker) {
         updateNavigationInfo();
     }
 
-    // 初回測位時のみズーム
     if (isFirstTime) {
         map.setView([latitude, longitude], 16, { animate: false });
     }
     
-    // 通常の追従処理
     if (window.isFollowingUser) {
-        updateMapView(false); // スムーズな追従
+        updateMapView(false);
     }
 }
 
@@ -93,3 +82,4 @@ function handlePositionError(error) {
     dom.gpsStatus.textContent = msg;
     dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
 }
+

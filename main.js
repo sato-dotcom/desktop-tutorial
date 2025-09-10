@@ -10,7 +10,7 @@ window.onload = () => {
     // イベントリスナーを設定
     setupEventListeners(); 
     
-    // ★★★ 変更点: プレフィックス付きのイベントリスナーを追加 ★★★
+    // 全画面表示のイベントリスナー（変更なし）
     document.addEventListener('fullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('webkitfullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('mozfullscreenchange', stabilizeAfterFullScreen);
@@ -26,3 +26,4 @@ window.onload = () => {
     // 描画ループを開始
     renderLoop();
 };
+
