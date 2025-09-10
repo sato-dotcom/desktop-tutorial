@@ -244,3 +244,33 @@ function toggleHeadingUp(on) {
     recenterAbsolutely(currentLatLng);
   }
 }
+
+// 現在地更新処理（GPSイベントから呼ばれる）
+function onPositionUpdate(latlng) {
+  currentLatLng = latlng;
+  if (userMarker) {
+    userMarker.setLatLng(latlng);
+  }
+  if (appState.followUser) {
+    recenterAbsolutely(latlng);
+    console.log('[follow] setView center to user');
+  } else {
+    console.log('[follow] OFF: center unchanged');
+  }
+}
+
+// 中央補正処理
+function recenterAbsolutely(latlng) {
+  map.setView(latlng, map.getZoom(), { animate: false });
+  requestAnimationFrame(() => {
+    const rect = map.getContainer().getBoundingClientRect();
+    const screenCenterY = rect.top + rect.height / 2;
+    const point = map.latLngToContainerPoint(latlng);
+    const markerY = rect.top + point.y;
+    const deltaY = Math.round(markerY - screenCenterY);
+    if (Math.abs(deltaY) > 4) {
+      map.panBy([0, -deltaY], { animate: false });
+      console.log('[recenter] vertical correction applied', deltaY);
+    }
+  });
+}
