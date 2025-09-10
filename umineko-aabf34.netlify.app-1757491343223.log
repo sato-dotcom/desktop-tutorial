@@ -1,0 +1,19 @@
+mapController.js:12 --- ✅ Fullscreen Change Event Triggered ---
+mapController.js:25 --- 🚀 Running stabilization logic... ---
+mapController.js:30 --- 🎯 Map recentered via setView after fullscreen change ---
+mapController.js:12 --- ✅ Fullscreen Change Event Triggered ---
+mapController.js:25 --- 🚀 Running stabilization logic... ---
+mapController.js:30 --- 🎯 Map recentered via setView after fullscreen change ---
+mapController.js:12 --- ✅ Fullscreen Change Event Triggered ---
+mapController.js:25 --- 🚀 Running stabilization logic... ---
+mapController.js:30 --- 🎯 Map recentered via setView after fullscreen change ---
+mapController.js:127 --- 🔄 Orientation mode changed to: course-up ---
+mapController.js:127 --- 🔄 Orientation mode changed to: north-up ---
+mapController.js:127 --- 🔄 Orientation mode changed to: course-up ---
+mapController.js:127 --- 🔄 Orientation mode changed to: north-up ---
+mapController.js:12 --- ✅ Fullscreen Change Event Triggered ---
+mapController.js:25 --- 🚀 Running stabilization logic... ---
+mapController.js:127 --- 🔄 Orientation mode changed to: course-up ---
+mapController.js:127 --- 🔄 Orientation mode changed to: north-up ---
+mapController.js:127 --- 🔄 Orientation mode changed to: course-up ---
+mapController.js:127 --- 🔄 Orientation mode changed to: north-up ---
