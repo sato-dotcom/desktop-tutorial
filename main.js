@@ -4,11 +4,30 @@
 window.onload = () => {
     // 各種初期化
     initializeCoordSystemDefinitions();
-    initializeMap();
+    initializeMap(); // ここでUIコントロール(ボタン)がDOMに追加される
     initializeCoordSystemSelector();
     
-    // イベントリスナーを設定
+    // イベントリスナーを設定 (ボタン以外)
     setupEventListeners(); 
+    
+    // ★★★ 2) UIイベント接続をここで行う ★★★
+    const followUserBtn = document.getElementById('follow-user-btn');
+    if (followUserBtn) {
+        followUserBtn.addEventListener('click', (e) => {
+             e.preventDefault();
+             e.stopPropagation();
+             toggleFollowUser(!appState.followUser);
+        });
+    }
+
+    const orientationBtn = document.getElementById('orientation-toggle-btn');
+    if (orientationBtn) {
+        orientationBtn.addEventListener('click', (e) => {
+             e.preventDefault();
+             e.stopPropagation();
+             toggleHeadingUp(!appState.headingUp);
+        });
+    }
     
     // 全画面表示のイベントリスナー
     document.addEventListener('fullscreenchange', stabilizeAfterFullScreen);

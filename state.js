@@ -11,12 +11,20 @@ let tempCoordsForModal = null;
 let currentMode = 'acquire'; // 'acquire' or 'navigate'
 let indexToDelete = null; // 削除対象のインデックスを保持
 let manualInputMode = 'latlon'; // 'latlon' or 'xy'
-// 変数をwindowオブジェクトに直接配置し、全ファイルでの共有を保証します。
-window.isFollowingUser = true; // 現在地追従モードの状態
+
+// ★★★ 新規追加: アプリケーションの状態を一元管理 ★★★
+const appState = {
+    followUser: true, // 現在地追従モードの状態
+    headingUp: false // ヘディングアップモードの状態
+};
+
+// --- 削除済: 古いグローバル変数 (appStateに移行) ---
+// window.isFollowingUser
+// let mapOrientationMode
+
 let isResizing = false;
 let currentHeading = 0; // デバイスの向き（コンパス）
 let currentUserCourse = null; // GPSによる進行方向
-let mapOrientationMode = 'north-up'; // 'north-up' or 'course-up'
 let currentGnssStatus = '---'; // GNSSステータスを保持
 let isBearingInverted = false; // 船首方位の反転状態
 
@@ -86,4 +94,3 @@ const dom = {
     fullscreenBearingText: document.getElementById('fullscreen-bearing-text'),
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
 };
-

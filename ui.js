@@ -1,11 +1,8 @@
 function setupEventListeners() {
     dom.followUserBtn = document.getElementById('follow-user-btn');
-    updateFollowButtonState();
-
-    if (dom.followUserBtn) {
-        dom.followUserBtn.addEventListener('click', toggleFollowUser);
-    }
-
+    
+    // ★★★ 2) 追従ボタンのイベント接続は main.js に移動 ★★★
+    
     dom.modeAcquireTab.addEventListener('click', () => switchMode('acquire'));
     dom.modeNavigateTab.addEventListener('click', () => switchMode('navigate'));
     dom.recordPointBtn.addEventListener('click', handleRecordPoint);
@@ -43,10 +40,9 @@ function setupEventListeners() {
     dom.importedPointList.addEventListener('click', handleImportedListClick);
 
     map.on('dragstart', () => {
-        if (window.isFollowingUser) {
-            window.isFollowingUser = false;
-            updateFollowButtonState();
-            map.stop(); // ドラッグ開始時にもアニメーションを停止
+        // ドラッグを開始したら、追従モードを強制的にOFFにする
+        if (appState.followUser) {
+            toggleFollowUser(false); // 新しい関数を呼ぶ
         }
     });
     
@@ -221,35 +217,5 @@ function updateGnssStatus(accuracy) {
     dom.fullscreenGnssStatus.className = `font-mono text-xs ${statusColor}`;
 }
 
-/**
- * 追従ON/OFFを切り替える関数
- */
-function toggleFollowUser() {
-    window.isFollowingUser = !window.isFollowingUser;
-    updateFollowButtonState();
-
-    if (window.isFollowingUser) {
-        // 追従を再開した瞬間に、地図を強制的に現在地へスナップさせる
-        if (currentPosition) {
-            updateMapView(true);
-        }
-    } else {
-        // 追従をOFFにした時、進行中の地図アニメーション（panTo）を即座に停止する
-        map.stop();
-    }
-}
-
-
-function updateFollowButtonState() {
-    if(!dom.followUserBtn) return;
-    if (window.isFollowingUser) {
-        dom.followUserBtn.classList.add('following');
-        dom.followUserBtn.classList.remove('not-following');
-        dom.followUserBtn.title = '現在地に追従中 (クリックで解除)';
-    } else {
-        dom.followUserBtn.classList.remove('following');
-        dom.followUserBtn.classList.add('not-following');
-        dom.followUserBtn.title = '現在地への追従を再開';
-    }
-}
-
+// ★★★ 4) 古い追従処理の無効化 ★★★
+// toggleFollowUser と updateFollowButtonState は mapController.js に移行したため削除

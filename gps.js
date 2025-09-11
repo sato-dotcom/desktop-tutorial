@@ -20,7 +20,6 @@ function startCompass() {
                         }
                     }).catch(console.error);
             } else {
-                // 'deviceorientationabsolute' を優先し、なければ 'deviceorientation' を使う
                 if ('ondeviceorientationabsolute' in window) {
                     window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
                 } else {
@@ -33,37 +32,20 @@ function startCompass() {
     document.body.addEventListener('click', addListeners, { once: true });
 }
 
+/**
+ * GPSの位置情報取得が成功した際のコールバック関数。
+ * ★★★ 変更点: 処理の大部分を onPositionUpdate に移譲 ★★★
+ */
 function handlePositionSuccess(position) {
     const isFirstTime = currentPosition === null;
-    currentPosition = position;
-    
-    const { latitude, longitude, accuracy, heading } = position.coords;
-    currentUserCourse = (heading !== null && !isNaN(heading)) ? heading : null;
-
-    // UI表示更新
-    dom.currentLat.textContent = latitude.toFixed(7);
-    dom.currentLon.textContent = longitude.toFixed(7);
-    dom.currentAcc.textContent = accuracy.toFixed(1);
-    dom.gpsStatus.textContent = "GPS受信中";
-    dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
-    dom.fullscreenLat.textContent = latitude.toFixed(7);
-    dom.fullscreenLon.textContent = longitude.toFixed(7);
-    dom.fullscreenAcc.textContent = accuracy.toFixed(1);
-    updateGnssStatus(accuracy);
-    updateCurrentXYDisplay();
-    updateUserMarkerOnly(position);
-
-    if (currentMode === 'navigate' && targetMarker) {
-        updateNavigationInfo();
-    }
-
+ 
+    // ★★★ 3) 位置更新処理を onPositionUpdate に委譲 ★★★
+    onPositionUpdate(position);
+ 
+    // 初回測位時のみズーム（これは一度きりの処理なのでここに残す）
     if (isFirstTime) {
+        const { latitude, longitude } = position.coords;
         map.setView([latitude, longitude], 16, { animate: false });
-    }
-    
-    // 追従モードなら地図を更新
-    if (window.isFollowingUser) {
-        updateMapView(false);
     }
 }
 

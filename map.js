@@ -79,9 +79,10 @@ function initializeMap() {
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
             container.innerHTML = `<a id="orientation-toggle-btn" href="#" title="北を上に固定中 (進行方向固定に切替)" class="leaflet-control-custom-btn"><i class="fas fa-compass"></i></a>`;
-            L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation)
-                      .on(container, 'click', L.DomEvent.preventDefault)
-                      .on(container, 'click', toggleOrientationMode);
+            
+            // ★★★ 2) ヘディングアップボタンのイベント接続は main.js に移動 ★★★
+            L.DomEvent.disableClickPropagation(container);
+            
             return container;
         }
     });
