@@ -1,8 +1,17 @@
-function setupEventListeners() {
+// ui.js
+
+/**
+ * ★★★ 2) UIの初期化とイベントリスナーの設定 ★★★
+ * DOM要素の取得と、静的なイベントリスナーを設定します。
+ * 状態に依存するイベント（ボタンのトグルなど）はmain.jsで別途設定します。
+ */
+function initializeUI() {
+    // DOM要素をキャッシュ
     dom.followUserBtn = document.getElementById('follow-user-btn');
-    
-    // ★★★ 2) 追従ボタンのイベント接続は main.js に移動 ★★★
-    
+    dom.orientationToggleBtn = document.getElementById('orientation-toggle-btn');
+    dom.fullscreenBtn = document.getElementById('fullscreen-btn');
+
+    // 静的なイベントリスナー
     dom.modeAcquireTab.addEventListener('click', () => switchMode('acquire'));
     dom.modeNavigateTab.addEventListener('click', () => switchMode('navigate'));
     dom.recordPointBtn.addEventListener('click', handleRecordPoint);
@@ -19,6 +28,7 @@ function setupEventListeners() {
     dom.savePointNameBtn.addEventListener('click', savePointName);
     dom.cancelPointNameBtn.addEventListener('click', () => dom.pointNameModal.classList.remove('is-open'));
     dom.suggestNameBtn.addEventListener('click', handleSuggestName);
+    
     dom.cancelDeleteBtn.addEventListener('click', () => {
         dom.deleteConfirmModal.classList.remove('is-open');
         indexToDelete = null;
@@ -33,6 +43,7 @@ function setupEventListeners() {
         dom.deleteConfirmModal.classList.remove('is-open');
         indexToDelete = null;
     });
+    
     dom.cancelDeleteAllBtn.addEventListener('click', () => dom.deleteAllConfirmModal.classList.remove('is-open'));
     dom.confirmDeleteAllBtn.addEventListener('click', deleteAllData);
 
@@ -40,15 +51,19 @@ function setupEventListeners() {
     dom.importedPointList.addEventListener('click', handleImportedListClick);
 
     map.on('dragstart', () => {
-        // ドラッグを開始したら、追従モードを強制的にOFFにする
         if (appState.followUser) {
-            toggleFollowUser(false); // 新しい関数を呼ぶ
+            toggleFollowUser(false); // ドラッグしたら追従をOFF
         }
     });
     
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
+    
+    // 初期UI状態を設定
+    updateFollowButtonState();
+    updateOrientationButtonState();
 }
+
 
 function switchMode(mode) {
     currentMode = mode;
@@ -90,16 +105,14 @@ function switchManualInput(mode) {
 }
 
 function updatePointList() {
+    dom.pointList.innerHTML = '';
     if (recordedPoints.length === 0) {
         dom.pointList.innerHTML = '<p class="text-gray-500 text-sm">まだ記録はありません。</p>';
-        dom.exportCsvBtn.disabled = true;
-    } else {
-        dom.exportCsvBtn.disabled = false;
     }
     
+    dom.exportCsvBtn.disabled = recordedPoints.length === 0;
     dom.deleteAllBtn.disabled = recordedPoints.length === 0 && importedPoints.length === 0;
 
-    dom.pointList.innerHTML = '';
     recordedPoints.forEach((p, index) => {
         const item = document.createElement('div');
         const visibilityClass = p.isVisible ? '' : 'opacity-50';
@@ -126,10 +139,10 @@ function updatePointList() {
 }
 
 function updateImportedPointList() {
+    dom.importedPointList.innerHTML = '';
     if (importedPoints.length === 0) {
         dom.importedPointList.innerHTML = '<p class="text-gray-500 text-sm">ファイルが読み込まれていません。</p>';
     } else {
-         dom.importedPointList.innerHTML = '';
         importedPoints.forEach((p, index) => {
             const item = document.createElement('div');
             const visibilityClass = p.isVisible ? '' : 'opacity-50';
@@ -217,5 +230,26 @@ function updateGnssStatus(accuracy) {
     dom.fullscreenGnssStatus.className = `font-mono text-xs ${statusColor}`;
 }
 
-// ★★★ 4) 古い追従処理の無効化 ★★★
-// toggleFollowUser と updateFollowButtonState は mapController.js に移行したため削除
+// ---------------------------------
+// 状態に依存するUI更新
+// ---------------------------------
+
+function updateFollowButtonState() {
+    if(!dom.followUserBtn) return;
+    dom.followUserBtn.classList.toggle('following', appState.followUser);
+    dom.followUserBtn.classList.toggle('not-following', !appState.followUser);
+    dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
+}
+
+function updateOrientationButtonState() {
+    if(!dom.orientationToggleBtn) return;
+    const icon = dom.orientationToggleBtn.querySelector('i');
+    if (appState.headingUp) {
+        icon.className = 'fas fa-location-arrow';
+        dom.orientationToggleBtn.title = 'マーカーが端末の向きを表示中 (北固定に切替)';
+    } else {
+        icon.className = 'fas fa-compass';
+        dom.orientationToggleBtn.title = 'マーカーは北を固定表示中 (端末の向き表示に切替)';
+    }
+}
+

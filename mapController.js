@@ -1,156 +1,125 @@
 // mapController.js
 
-const HEADING_FILTER_ALPHA = 0.2;
-const HEADING_CHANGE_THRESHOLD = 3;
-
-// ★★★ 4) 古い追従処理の無効化: 関連する古い関数は全て削除・置換 ★★★
-
 /**
- * ★★★ 5) 中央補正処理 recenterAbsolutely(latlng) の実装 ★★★
- * 地図を指定された緯度経度の中央に即時移動させ、1フレーム後にピクセル単位の微調整を行う。
- * @param {L.LatLng} latlng - 中心に表示する緯度経度
+ * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
  */
-function recenterAbsolutely(latlng) {
-    if (!map || !latlng) return;
-
-    map.setView(latlng, map.getZoom(), { animate: false });
-    
-    requestAnimationFrame(() => {
-        const mapSize = map.getSize();
-        const targetPoint = mapSize.divideBy(2);
-        const currentPoint = map.latLngToContainerPoint(latlng);
-        const offset = targetPoint.subtract(currentPoint);
-
-        if (Math.abs(offset.x) > 4 || Math.abs(offset.y) > 4) {
-            console.log(`[recenter] vertical/horizontal correction applied. Offset: x=${offset.x.toFixed(1)}, y=${offset.y.toFixed(1)}`);
-            map.panBy(offset, { animate: false });
-        }
-    });
-}
-
-/**
- * ★★★ 1) toggleFollowUser の実装 ★★★
- * 追従モードのON/OFFを切り替える。
- * @param {boolean} on - 新しい追従状態
- */
-function toggleFollowUser(on) {
-    appState.followUser = on;
-    console.log(`--- 👣 [Action] Follow mode toggled to: ${appState.followUser} ---`);
-    updateFollowButtonState();
-    
-    if (appState.followUser && currentPosition) {
-        const userLatLng = L.latLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
-        recenterAbsolutely(userLatLng);
-    } else if (!appState.followUser) {
-        map.stop(); // 追従OFF時に進行中のアニメーションを停止
-    }
-}
-
-/**
- * ★★★ 1) toggleHeadingUp の実装 ★★★
- * ヘディングアップモードのON/OFFを切り替える。
- * @param {boolean} on - 新しいヘディングアップ状態
- */
-function toggleHeadingUp(on) {
-    appState.headingUp = on;
-    console.log(`--- 🔄 [Action] HeadingUp mode toggled to: ${appState.headingUp} ---`);
-    updateOrientationButtonState();
-
-    if (appState.followUser && currentPosition) {
-        const userLatLng = L.latLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
-        recenterAbsolutely(userLatLng);
-    }
-}
-
-/**
- * ★★★ 3) onPositionUpdate の実装 ★★★
- * GPSから新しい位置情報を受け取った際のメイン処理。UI更新と追従判定を行う。
- * @param {GeolocationPosition} position - watchPositionからの位置情報オブジェクト
- */
-function onPositionUpdate(position) {
-    const latlng = L.latLng(position.coords.latitude, position.coords.longitude);
-    const { latitude, longitude, accuracy, heading } = position.coords;
-
-    // グローバルな位置情報を更新
-    currentPosition = position;
-    currentUserCourse = (heading !== null && !isNaN(heading)) ? heading : null;
-
-    // 全てのUI要素を更新
-    dom.currentLat.textContent = latitude.toFixed(7);
-    dom.currentLon.textContent = longitude.toFixed(7);
-    dom.currentAcc.textContent = accuracy.toFixed(1);
-    dom.gpsStatus.textContent = "GPS受信中";
-    dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
-    dom.fullscreenLat.textContent = latitude.toFixed(7);
-    dom.fullscreenLon.textContent = longitude.toFixed(7);
-    dom.fullscreenAcc.textContent = accuracy.toFixed(1);
-    updateGnssStatus(accuracy);
-    updateCurrentXYDisplay();
-    updateUserMarkerOnly(position);
-
-    if (currentMode === 'navigate' && targetMarker) {
-        updateNavigationInfo();
-    }
-
-    // 追従がONの場合のみ中央揃えを実行
-    if (appState.followUser) {
-        recenterAbsolutely(latlng);
-    } else {
-        console.log("[follow] OFF: center unchanged");
-    }
-}
-
 function stabilizeAfterFullScreen() {
-    console.log("--- ✅ Fullscreen Change Event Triggered ---");
+    console.log("--- 📺 Fullscreen Change Event Triggered ---");
     const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
     document.body.classList.toggle('fullscreen-active', isFullscreen);
 
     const btn = document.getElementById('fullscreen-btn');
     if (btn) {
-        btn.querySelector('i').className = isFullscreen ? 'fas fa-compress' : 'fas fa-expand';
+        const icon = btn.querySelector('i');
+        icon.classList.toggle('fa-expand', !isFullscreen);
+        icon.classList.toggle('fa-compress', isFullscreen);
         btn.title = isFullscreen ? '通常表示に戻る' : '全画面表示';
     }
 
+    // 描画が安定するのを待ってから中央揃えを実行
     requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            map.invalidateSize({ animate: false });
-            if (currentPosition && appState.followUser) {
-                const currentLatLng = L.latLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
-                recenterAbsolutely(currentLatLng);
-            }
-        });
+        map.invalidateSize({ animate: false });
+        if (currentPosition && appState.followUser) {
+            console.log("--- 🎯 Recenter map after fullscreen change ---");
+            recenterAbsolutely(currentPosition.coords);
+        }
     });
 }
 
-function onCompassUpdate(event) {
-    if (event.alpha === null) return;
-    const rawHeading = event.webkitCompassHeading || event.alpha;
-    let smoothedHeading = currentHeading;
-    
-    let delta = rawHeading - smoothedHeading;
-    if (delta > 180) { delta -= 360; } 
-    else if (delta < -180) { delta += 360; }
+/**
+ * ★★★ 1) & 5) 全画面/PC/スマホのズレを吸収する中央補正処理 ★★★
+ * 画面中央にマーカーを絶対的に配置する。
+ * @param {object} latlng - { latitude, longitude }
+ */
+function recenterAbsolutely(latlng) {
+    if (!map || !latlng) return;
 
-    smoothedHeading += delta * HEADING_FILTER_ALPHA;
-    smoothedHeading = (smoothedHeading + 360) % 360;
+    // まずsetViewで大まかに中央へ
+    map.setView([latlng.latitude, latlng.longitude], map.getZoom(), { animate: false });
 
-    if (Math.abs(smoothedHeading - currentHeading) > HEADING_CHANGE_THRESHOLD) {
-        currentHeading = smoothedHeading;
+    // 1フレーム待ってから、ピクセル単位のズレを補正
+    requestAnimationFrame(() => {
+        if (!currentPosition) return; // rAFの間にGPSが切れる可能性を考慮
+
+        // 地図コンテナの実際の表示領域の中心点を計算
+        const mapContainer = map.getContainer();
+        const rect = mapContainer.getBoundingClientRect();
+        const containerCenter = L.point(rect.width / 2, rect.height / 2);
+
+        // 現在地マーカーの画面上のピクセル位置を取得
+        const markerPoint = map.latLngToContainerPoint(L.latLng(latlng.latitude, latlng.longitude));
+        
+        // 理想の中央と現在のマーカー位置のピクセル差分を計算
+        const offset = containerCenter.subtract(markerPoint);
+
+        // 4px以上のsignificantなズレがある場合のみ補正
+        if (Math.abs(offset.x) > 4 || Math.abs(offset.y) > 4) {
+             console.log(`[recenter] Correction applied. DeltaX: ${offset.x.toFixed(2)}, DeltaY: ${offset.y.toFixed(2)}`);
+             map.panBy(offset, { animate: false });
+        }
+    });
+}
+
+
+/**
+ * GPSの位置情報が更新されるたびに呼び出される中央処理関数。
+ */
+function onPositionUpdate(position) {
+    currentPosition = position;
+    const { latitude, longitude, accuracy, heading } = position.coords;
+    currentUserCourse = (heading !== null && !isNaN(heading)) ? heading : null;
+
+    // --- UI更新 ---
+    const latlng = { latitude, longitude };
+    updateUserMarkerOnly(latlng);
+    updateAllInfoPanels(position);
+
+    // --- 地図の中心移動 ---
+    if (appState.followUser) {
+        recenterAbsolutely(latlng);
+    } else {
+        // ★★★ 4) 追従OFF時のログ出力 ★★★
+        console.log("[follow] OFF: center unchanged");
     }
 }
 
-function updateUserMarkerOnly(position) {
-    if (!currentUserMarker || !position) return;
-    const latlng = [position.coords.latitude, position.coords.longitude];
-    currentUserMarker.setLatLng(latlng);
+/**
+ * ★★★ 2) 追従モードのON/OFFを切り替える関数 ★★★
+ * @param {boolean} on - trueならON、falseならOFF
+ */
+function toggleFollowUser(on) {
+    appState.followUser = on;
+    console.log(`--- 📍 Follow User Toggled: ${on ? 'ON' : 'OFF'} ---`);
+    updateFollowButtonState(); // UIの見た目を更新
+
+    // 追従をONにした瞬間に、即座に中央揃えを実行
+    if (on && currentPosition) {
+        recenterAbsolutely(currentPosition.coords);
+    }
 }
 
+/**
+ * ヘディングアップモードのON/OFFを切り替える関数
+ * @param {boolean} on - trueならON、falseならOFF
+ */
+function toggleHeadingUp(on) {
+    appState.headingUp = on;
+    console.log(`--- 🧭 Heading Up Toggled: ${on ? 'ON' : 'OFF'} ---`);
+    updateOrientationButtonState();
+}
+
+/**
+ * マーカーアイコンの回転を制御します。
+ */
 function updateMapRotation() {
-    if (!currentUserMarker?._icon) return;
+    if (!currentUserMarker?._icon || !currentPosition) return;
+
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     let markerRotation = 0;
-    
+
+    // ヘディングアップモードがONの時のみ、マーカーを回転させる
     if (appState.headingUp) {
+        // GPSの進行方向(course)があれば優先し、なければコンパス(currentHeading)を使う
         const effectiveHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
         markerRotation = effectiveHeading;
     }
@@ -158,49 +127,51 @@ function updateMapRotation() {
     rotator.style.transform = `rotate(${markerRotation}deg)`; 
 }
 
+/**
+ * 毎フレーム描画を行うメインループです。
+ */
 function renderLoop() {
     updateMapRotation();
     requestAnimationFrame(renderLoop);
 }
 
-function updateFollowButtonState() {
-    if(!dom.followUserBtn) return;
-    dom.followUserBtn.classList.toggle('following', appState.followUser);
-    dom.followUserBtn.classList.toggle('not-following', !appState.followUser);
-    dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
+// ---------------------------------
+// UI更新のヘルパー関数群
+// ---------------------------------
+
+function updateUserMarkerOnly(latlng) {
+    if (!currentUserMarker || !latlng) return;
+    const leafletLatLng = L.latLng(latlng.latitude, latlng.longitude);
+    
+    // マーカーが地図の範囲外に出ていないかチェック
+    const bounds = map.getBounds();
+    if (!bounds.contains(leafletLatLng)) {
+        console.warn("Marker is out of map bounds. Re-centering forcefully.");
+        map.setView(leafletLatLng); // 強制的に中央に戻す
+    }
+    currentUserMarker.setLatLng(leafletLatLng);
 }
 
-function updateOrientationButtonState() {
-    const btn = document.getElementById('orientation-toggle-btn');
-    if (!btn) return;
-    const icon = btn.querySelector('i');
-    if (appState.headingUp) {
-        icon.className = 'fas fa-location-arrow';
-        btn.title = '進行方向をマーカーで表示中 (北固定に切替)';
-    } else {
-        icon.className = 'fas fa-compass';
-        btn.title = '北を上に固定中 (進行方向表示に切替)';
-    }
-}
+function updateAllInfoPanels(position) {
+    const { latitude, longitude, accuracy } = position.coords;
+    
+    // 通常パネル
+    dom.currentLat.textContent = latitude.toFixed(7);
+    dom.currentLon.textContent = longitude.toFixed(7);
+    dom.currentAcc.textContent = accuracy.toFixed(1);
+    dom.gpsStatus.textContent = "GPS受信中";
+    dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
+    
+    // 全画面パネル
+    dom.fullscreenLat.textContent = latitude.toFixed(7);
+    dom.fullscreenLon.textContent = longitude.toFixed(7);
+    dom.fullscreenAcc.textContent = accuracy.toFixed(1);
+    
+    updateGnssStatus(accuracy);
+    updateCurrentXYDisplay();
 
-function toggleFullscreen() {
-    // この関数のロジックは変更なし
-    const isCurrentlyFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    if (!isCurrentlyFullscreen) {
-        document.documentElement.requestFullscreen().catch(err => {
-            alert(`フルスクリーンモードへの移行に失敗しました: ${err.message}`);
-        });
-    } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    if (currentMode === 'navigate' && targetMarker) {
+        updateNavigationInfo();
     }
-    setTimeout(() => {
-        const isFullscreenNow = !!(document.fullscreenElement || document.webkitFullscreenElement);
-        const bodyHasClass = document.body.classList.contains('fullscreen-active');
-        if (isFullscreenNow !== bodyHasClass) {
-             console.log("--- ⚠️ Fallback Stabilization Triggered ---");
-             stabilizeAfterFullScreen();
-        }
-    }, 500);
 }
 
