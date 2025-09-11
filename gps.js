@@ -13,7 +13,12 @@ function startGeolocation() {
         dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
         return;
     }
-    watchId = navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
+    console.log("--- 🛰️ Starting Geolocation ---");
+    watchId = navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, { 
+        enableHighAccuracy: true, 
+        timeout: 10000, 
+        maximumAge: 0 
+    });
 }
 
 /**
@@ -21,6 +26,7 @@ function startGeolocation() {
  */
 function startCompass() {
     const addListeners = () => {
+        console.log("--- 🧭 Requesting compass permissions ---");
         // iOS 13+
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
@@ -44,19 +50,16 @@ function startCompass() {
 }
 
 /**
- * ★★★ 3) 方位センサーのフィルタリングを強化 ★★★
  * コンパスの方位データが更新されたときに呼び出されます。
  * @param {DeviceOrientationEvent} event - デバイスの向きに関するイベント情報
  */
 function onCompassUpdate(event) {
     let rawHeading = null;
     
-    // iOS/iPadOS 13+ と Android Chrome で 'alpha' の基準が異なるため、
-    // 'webkitCompassHeading' があれば最優先で利用する
     if (event.webkitCompassHeading) { // For iOS
         rawHeading = event.webkitCompassHeading;
     } else if (event.alpha !== null) { // For Android
-        rawHeading = event.absolute ? event.alpha : 360 - event.alpha; // Androidでは北が0度になるように調整
+        rawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
 
     if (rawHeading === null) return;
@@ -65,38 +68,33 @@ function onCompassUpdate(event) {
         lastCompassHeading = rawHeading;
     }
 
-    // --- Low-pass filter (平滑化) ---
-    let smoothedHeading = HEADING_FILTER_ALPHA * rawHeading + (1 - HEADING_FILTER_ALPHA) * lastCompassHeading;
+    let diff = rawHeading - lastCompassHeading;
+    if (diff > 180) { diff -= 360; }
+    else if (diff < -180) { diff += 360; }
     
-    // --- Shortest path interpolation (最短回転補間) ---
-    let diff = smoothedHeading - lastCompassHeading;
-    if (diff > 180) {
-        lastCompassHeading += 360;
-    } else if (diff < -180) {
-        lastCompassHeading -= 360;
-    }
-    // 再度平滑化
-    smoothedHeading = HEADING_FILTER_ALPHA * smoothedHeading + (1 - HEADING_FILTER_ALPHA) * lastCompassHeading;
-    
-    // --- Update threshold (更新閾値) ---
-    const change = Math.abs(smoothedHeading - currentHeading);
-    if (change < HEADING_UPDATE_THRESHOLD && change > 0.1) { // 0.1は静止時の微振動を許容するため
-        return;
-    }
+    let smoothedHeading = lastCompassHeading + diff * HEADING_FILTER_ALPHA;
+    smoothedHeading = (smoothedHeading + 360) % 360;
 
-    currentHeading = (smoothedHeading + 360) % 360;
-    lastCompassHeading = smoothedHeading;
+    if (Math.abs(smoothedHeading - currentHeading) > HEADING_UPDATE_THRESHOLD) {
+        currentHeading = smoothedHeading;
+        lastCompassHeading = smoothedHeading;
+    }
 }
 
 
 /**
  * GPSの位置情報取得が成功した際のコールバック関数。
- * 処理の大部分を onPositionUpdate に移譲。
  */
 function handlePositionSuccess(position) {
+    // 修正方針 1: ログ出力
+    console.log(`[GPS] update ${position.coords.latitude} ${position.coords.longitude}`);
+    // 処理の本体は mapController.js の onPositionUpdate に移譲
     onPositionUpdate(position);
 }
 
+/**
+ * GPSの位置情報取得が失敗した際のコールバック関数。
+ */
 function handlePositionError(error) {
     let msg = "測位エラー";
     if (error.code === 1) msg = "アクセス拒否";
@@ -104,5 +102,5 @@ function handlePositionError(error) {
     if (error.code === 3) msg = "タイムアウト";
     dom.gpsStatus.textContent = msg;
     dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
+    console.error(`GPS Error: ${msg}`, error);
 }
-

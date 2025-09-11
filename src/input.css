@@ -1,207 +1,97 @@
-// mapController.js
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-// --- ★★★ 新規追加: 方位フィルター設定 ★★★ ---
-const HEADING_FILTER_ALPHA = 0.2; // ローパスフィルターの係数 (0.0 a 1.0). 小さいほど滑らか
-const HEADING_CHANGE_THRESHOLD = 3; // この角度(度)以上変化した場合のみ描画更新
-
-/**
- * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
- * ★★★ 変更点: setViewによる確実な再センタリング ★★★
- */
-function stabilizeAfterFullScreen() {
-    console.log("--- ✅ Fullscreen Change Event Triggered ---");
-    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    document.body.classList.toggle('fullscreen-active', isFullscreen);
-
-    const btn = document.getElementById('fullscreen-btn');
-    if (btn) {
-        btn.querySelector('i').className = isFullscreen ? 'fas fa-compress' : 'fas fa-expand';
-        btn.title = isFullscreen ? '通常表示に戻る' : '全画面表示';
-    }
-
-    // ★★★ 必須対応: rAF×2 → invalidateSize() → setView() の順で安定化 ★★★
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            console.log("--- 🚀 Running stabilization logic... ---");
-            map.invalidateSize({ animate: false });
-            if (currentPosition && window.isFollowingUser) {
-                const currentLatLng = [currentPosition.coords.latitude, currentPosition.coords.longitude];
-                map.setView(currentLatLng, map.getZoom(), { animate: false });
-                 console.log("--- 🎯 Map recentered via setView after fullscreen change ---");
-            }
-        });
-    });
-}
-
-/**
- * ★★★ 変更点: 新しい方位フィルターを導入 ★★★
- * コンパスの方位データが更新されたときに呼び出されます。
- */
-function onCompassUpdate(event) {
-    if (event.alpha === null) return;
-    const rawHeading = event.webkitCompassHeading || event.alpha;
-
-    let smoothedHeading = currentHeading;
-    
-    // 最短距離での角度差を計算
-    let delta = rawHeading - smoothedHeading;
-    if (delta > 180) { delta -= 360; } 
-    else if (delta < -180) { delta += 360; }
-
-    // ローパスフィルターを適用
-    smoothedHeading += delta * HEADING_FILTER_ALPHA;
-    smoothedHeading = (smoothedHeading + 360) % 360;
-
-    // 前回の確定値からの変化が閾値を超えた場合のみ更新
-    if (Math.abs(smoothedHeading - currentHeading) > HEADING_CHANGE_THRESHOLD) {
-        currentHeading = smoothedHeading;
-    }
-}
-
-/**
- * ★★★ 変更点: setViewのみを使用するシンプルな中央固定ロジックに変更 ★★★
- * 地図の中心を現在地に合わせて更新します。
- */
-function updateMapView(force = false) {
-    if (!map || !currentPosition) return;
-    if (!window.isFollowingUser && !force) return;
-
-    const userLatLng = L.latLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
-    
-    // ★★★ 必須対応: 現在地の中央固定は map.setView() のみで行う ★★★
-    map.setView(userLatLng, map.getZoom(), { animate: false });
-}
-
-
-/**
- * 現在地マーカーの位置のみを更新します。
- */
-function updateUserMarkerOnly(position) {
-    if (!currentUserMarker || !position) return;
-    const latlng = [position.coords.latitude, position.coords.longitude];
-    currentUserMarker.setLatLng(latlng);
-}
-
-/**
- * ★★★ 変更点: 地図を回転させず、マーカーアイコンのみ回転させる ★★★
- */
-function updateMapRotation() {
-    if (!currentUserMarker?._icon) return;
-
-    // ★★★ 必須対応: mapPaneへの transform を全撤去 ★★★
-    const mapPane = map.getPane('mapPane');
-    mapPane.style.transform = ''; // 回転をリセット
-    mapPane.style.transformOrigin = ''; // 回転軸をリセット
-
-    const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-    const northArrow = document.getElementById('north-arrow-svg');
-    
-    let markerRotation = 0;
-    
-    // ★★★ 必須対応: ヘディングアップは「マーカーアイコンのみ回転」で表現 ★★★
-    if (mapOrientationMode === 'course-up') {
-        const effectiveHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
-        markerRotation = effectiveHeading;
-    }
-    
-    rotator.style.transform = `rotate(${markerRotation}deg)`; 
-    northArrow.style.transform = ''; // 北矢印は常に北を指す(回転しない)
-}
-
-
-/**
- * 毎フレーム描画を行うメインループです。
- */
-function renderLoop() {
-    updateMapRotation();
-    requestAnimationFrame(renderLoop);
-}
-
-/**
- * ★★★ 変更点: ログ出力追加 ★★★
- * 地図の表示モード（ノースアップ/ヘディングアップ）を切り替えます。
- */
-function toggleOrientationMode() {
-    mapOrientationMode = (mapOrientationMode === 'north-up') ? 'course-up' : 'north-up';
-    // ★★★ 必須対応: トグル時ログ ★★★
-    console.log(`--- 🔄 Orientation mode changed to: ${mapOrientationMode} ---`);
-
-    const btn = document.getElementById('orientation-toggle-btn');
-    const icon = btn.querySelector('i');
-    if (mapOrientationMode === 'course-up') {
-        icon.className = 'fas fa-location-arrow';
-        btn.title = '進行方向をマーカーで表示中 (北固定に切替)';
-    } else {
-        icon.className = 'fas fa-compass';
-        btn.title = '北を上に固定中 (進行方向表示に切替)';
-    }
-}
-
-/**
- * ★★★ 変更点: ログ出力追加 ★★★
- * 現在地への追従モードをON/OFFします。
- */
-function toggleFollowUser() {
-    window.isFollowingUser = !window.isFollowingUser;
-    // ★★★ 必須対応: トグル時ログ ★★★
-    console.log(`--- 👣 Follow mode changed to: ${window.isFollowingUser} ---`);
-    updateFollowButtonState();
-
-    if (window.isFollowingUser && currentPosition) {
-        updateMapView(true); 
-    } else {
-        map.stop();
-    }
-}
-
-/**
- * 追従ボタンの見た目を更新します。
- */
-function updateFollowButtonState() {
-    if(!dom.followUserBtn) return;
-    dom.followUserBtn.classList.toggle('following', window.isFollowingUser);
-    dom.followUserBtn.classList.toggle('not-following', !window.isFollowingUser);
-    dom.followUserBtn.title = window.isFollowingUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
-}
-
-/**
- * フルスクリーンモードへの移行・解除を要求します。
- */
-function toggleFullscreen() {
-    const isCurrentlyFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    if (!isCurrentlyFullscreen) {
-        document.documentElement.requestFullscreen().catch(err => {
-            alert(`フルスクリーンモードへの移行に失敗しました: ${err.message}`);
-        });
-    } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-    }
-    // フォールバック処理
-    setTimeout(() => {
-        const isFullscreenNow = !!(document.fullscreenElement || document.webkitFullscreenElement);
-        const bodyHasClass = document.body.classList.contains('fullscreen-active');
-        if (isFullscreenNow !== bodyHasClass) {
-             console.log("--- ⚠️ Fallback Stabilization Triggered ---");
-             stabilizeAfterFullScreen();
-        }
-    }, 500);
-}
-
+/* Basic layout */
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden; /* ページがスクロールしないようにする */
+  @apply m-0 p-0 h-full overflow-hidden font-sans;
 }
 
 #map {
-  position: fixed;
-  inset: 0;
-  height: 100dvh; /* スマホのアドレスバーを除いた高さ */
-  width: 100vw;
+  @apply fixed inset-0 w-screen bg-gray-400;
+  height: 100vh; /* Fallback */
+  height: 100dvh;
 }
 
-@supports not (height: 100dvh) {
-  #map { height: 100vh; }
+/* --- Custom Leaflet Controls --- */
+.leaflet-control-custom-btn {
+  @apply w-[34px] h-[34px] flex items-center justify-center text-lg cursor-pointer;
+  line-height: 34px;
+}
+
+/* 修正方針 4: 追従・ヘディングアップボタンの状態別スタイル */
+.leaflet-control-custom-btn.is-on {
+  @apply bg-blue-500 text-white;
+}
+.leaflet-control-custom-btn.is-on:hover {
+  @apply bg-blue-600;
+}
+
+.leaflet-control-custom-btn.is-off {
+  @apply bg-white text-gray-800;
+}
+.leaflet-control-custom-btn.is-off:hover {
+  @apply bg-gray-100;
+}
+
+
+/* --- User Marker --- */
+.user-location-marker {
+    @apply transition-transform duration-300 ease-linear;
+}
+.user-location-marker-rotator {
+    @apply w-full h-full transition-transform duration-300 ease-linear;
+}
+.user-location-marker svg {
+    @apply w-full h-full fill-current text-blue-500;
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+}
+
+
+/* --- Controls Panel --- */
+#controls-panel {
+    @apply fixed bottom-0 left-0 right-0 max-h-[60%] transition-transform duration-300 ease-in-out;
+    transform: translateY(0);
+}
+
+/* --- Fullscreen Mode --- */
+body.fullscreen-active #controls-panel {
+    transform: translateY(100%);
+}
+body.fullscreen-active #fullscreen-info-panel {
+    @apply opacity-100;
+}
+#fullscreen-info-panel {
+    @apply fixed top-4 left-4 bg-white bg-opacity-80 p-3 rounded-lg shadow-lg pointer-events-none opacity-0 transition-opacity;
+    backdrop-filter: blur(5px);
+}
+
+/* --- Modals --- */
+.modal {
+    @apply hidden; /* Default hidden */
+}
+.modal.is-open {
+    @apply flex; /* Show when open */
+}
+
+/* --- Scrollbar --- */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-full;
+}
+
+/* Spinner for AI button */
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

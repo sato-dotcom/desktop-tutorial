@@ -1,17 +1,10 @@
 // ui.js
 
 /**
- * ★★★ 2) UIの初期化とイベントリスナーの設定 ★★★
- * DOM要素の取得と、静的なイベントリスナーを設定します。
- * 状態に依存するイベント（ボタンのトグルなど）はmain.jsで別途設定します。
+ * UIの初期化とイベントリスナーの設定
  */
 function initializeUI() {
-    // DOM要素をキャッシュ
-    dom.followUserBtn = document.getElementById('follow-user-btn');
-    dom.orientationToggleBtn = document.getElementById('orientation-toggle-btn');
-    dom.fullscreenBtn = document.getElementById('fullscreen-btn');
-
-    // 静的なイベントリスナー
+    // 静的なイベントリスナー (動的に生成されるボタン以外)
     dom.modeAcquireTab.addEventListener('click', () => switchMode('acquire'));
     dom.modeNavigateTab.addEventListener('click', () => switchMode('navigate'));
     dom.recordPointBtn.addEventListener('click', handleRecordPoint);
@@ -52,14 +45,14 @@ function initializeUI() {
 
     map.on('dragstart', () => {
         if (appState.followUser) {
-            toggleFollowUser(false); // ドラッグしたら追従をOFF
+            toggleFollowUser(false);
         }
     });
     
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
     
-    // 初期UI状態を設定
+    // 修正方針 3: 初期UI状態を設定
     updateFollowButtonState();
     updateOrientationButtonState();
 }
@@ -212,38 +205,40 @@ function updateCurrentXYDisplay() {
 
 function updateGnssStatus(accuracy) {
     let statusText = '---';
-    let statusColor = 'text-gray-500';
-    if (accuracy <= 0.5) {
-        statusText = 'FIX';
-        statusColor = 'text-green-600 font-bold';
-    } else if (accuracy <= 2.0) {
-        statusText = 'FLOAT';
-        statusColor = 'text-blue-600 font-bold';
-    } else {
-        statusText = 'SINGLE';
-        statusColor = 'text-orange-600 font-bold';
-    }
+    if (accuracy <= 0.5) { statusText = 'FIX'; }
+    else if (accuracy <= 2.0) { statusText = 'FLOAT'; }
+    else { statusText = 'SINGLE'; }
     currentGnssStatus = statusText;
-    dom.gnssStatus.textContent = statusText;
-    dom.gnssStatus.className = `font-mono text-xs ${statusColor}`;
-    dom.fullscreenGnssStatus.textContent = statusText;
-    dom.fullscreenGnssStatus.className = `font-mono text-xs ${statusColor}`;
+
+    // 通常パネルと全画面パネルの両方を更新
+    [dom.gnssStatus, dom.fullscreenGnssStatus].forEach(el => {
+        el.textContent = statusText;
+        el.className = 'font-mono text-xs'; // Reset classes
+        if (statusText === 'FIX') el.classList.add('text-green-600', 'font-bold');
+        else if (statusText === 'FLOAT') el.classList.add('text-blue-600', 'font-bold');
+        else if (statusText === 'SINGLE') el.classList.add('text-orange-600', 'font-bold');
+        else el.classList.add('text-gray-500');
+    });
 }
 
-// ---------------------------------
-// 状態に依存するUI更新
-// ---------------------------------
+// --- 状態に依存するUI更新 ---
 
 function updateFollowButtonState() {
     if(!dom.followUserBtn) return;
-    dom.followUserBtn.classList.toggle('following', appState.followUser);
-    dom.followUserBtn.classList.toggle('not-following', !appState.followUser);
+    // 修正方針 4: is-on/is-offクラスでUIを制御
+    dom.followUserBtn.classList.toggle('is-on', appState.followUser);
+    dom.followUserBtn.classList.toggle('is-off', !appState.followUser);
     dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
 }
 
 function updateOrientationButtonState() {
     if(!dom.orientationToggleBtn) return;
     const icon = dom.orientationToggleBtn.querySelector('i');
+    
+    // 修正方針 4: is-on/is-offクラスでUIを制御
+    dom.orientationToggleBtn.classList.toggle('is-on', appState.headingUp);
+    dom.orientationToggleBtn.classList.toggle('is-off', !appState.headingUp);
+
     if (appState.headingUp) {
         icon.className = 'fas fa-location-arrow';
         dom.orientationToggleBtn.title = 'マーカーが端末の向きを表示中 (北固定に切替)';
@@ -252,4 +247,3 @@ function updateOrientationButtonState() {
         dom.orientationToggleBtn.title = 'マーカーは北を固定表示中 (端末の向き表示に切替)';
     }
 }
-

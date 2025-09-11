@@ -10,26 +10,34 @@ window.onload = () => {
 
     // 各種初期化
     initializeCoordSystemDefinitions();
-    initializeMap(); // Leaflet地図の初期化
+    initializeMap(); // Leaflet地図とコントロールを初期化
     initializeCoordSystemSelector();
-    initializeUI();  // DOM要素の取得と静的イベントリスナーの設定
+
+    // --- DOM要素の取得とイベントリスナーの設定 ---
+    // LeafletコントロールがDOMに追加された後に要素を取得
+    dom.followUserBtn = document.getElementById('follow-user-btn');
+    dom.orientationToggleBtn = document.getElementById('orientation-toggle-btn');
+    dom.fullscreenBtn = document.getElementById('fullscreen-btn');
+
+    initializeUI();  // 静的イベントリスナーとUIの初期状態を設定
 
     // --- 状態に依存する動的なイベントリスナーをここで設定 ---
     if (dom.followUserBtn) {
-        dom.followUserBtn.addEventListener('click', () => toggleFollowUser(!appState.followUser));
+        dom.followUserBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFollowUser(!appState.followUser);
+        });
     }
     if (dom.orientationToggleBtn) {
-        dom.orientationToggleBtn.addEventListener('click', () => toggleHeadingUp(!appState.headingUp));
+        dom.orientationToggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleHeadingUp(!appState.headingUp);
+        });
     }
     if (dom.fullscreenBtn) {
-        dom.fullscreenBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => alert(`Fullscreen failed: ${err.message}`));
-            } else {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-            }
-        });
+        // イベント接続はmap.jsのコントロール定義内で行われているため、ここでは不要
     }
 
     // 全画面表示の変更を監視するイベントリスナー
@@ -48,4 +56,3 @@ window.onload = () => {
     // 描画ループを開始
     renderLoop();
 };
-
