@@ -15,22 +15,21 @@ html, body {
 
 /* --- Custom Leaflet Controls --- */
 .leaflet-control-custom-btn {
-  @apply w-[34px] h-[34px] flex items-center justify-center text-lg cursor-pointer;
+  @apply w-[34px] h-[34px] flex items-center justify-center text-lg cursor-pointer transition-colors duration-200;
   line-height: 34px;
 }
 
-/* 修正方針 4: 追従・ヘディングアップボタンの状態別スタイル */
-.leaflet-control-custom-btn.is-on {
+/* 修正方針 2: CSSの優先度を上げるため、セレクタを詳細化 */
+.leaflet-bar a.leaflet-control-custom-btn.is-on,
+.leaflet-bar a.leaflet-control-custom-btn.is-on:hover {
   @apply bg-blue-500 text-white;
 }
-.leaflet-control-custom-btn.is-on:hover {
-  @apply bg-blue-600;
-}
 
-.leaflet-control-custom-btn.is-off {
+.leaflet-bar a.leaflet-control-custom-btn.is-off,
+.leaflet-bar a.leaflet-control-custom-btn.is-off:hover {
   @apply bg-white text-gray-800;
 }
-.leaflet-control-custom-btn.is-off:hover {
+.leaflet-bar a.leaflet-control-custom-btn.is-off:hover {
   @apply bg-gray-100;
 }
 
@@ -40,7 +39,7 @@ html, body {
     @apply transition-transform duration-300 ease-linear;
 }
 .user-location-marker-rotator {
-    @apply w-full h-full transition-transform duration-300 ease-linear;
+    @apply w-full h-full transition-transform duration-200 ease-linear; /* 回転を滑らかに */
 }
 .user-location-marker svg {
     @apply w-full h-full fill-current text-blue-500;
@@ -68,10 +67,10 @@ body.fullscreen-active #fullscreen-info-panel {
 
 /* --- Modals --- */
 .modal {
-    @apply hidden; /* Default hidden */
+    @apply hidden;
 }
 .modal.is-open {
-    @apply flex; /* Show when open */
+    @apply flex;
 }
 
 /* --- Scrollbar --- */
@@ -95,3 +94,4 @@ body.fullscreen-active #fullscreen-info-panel {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+

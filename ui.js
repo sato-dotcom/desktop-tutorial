@@ -4,24 +4,20 @@
  * UIの初期化とイベントリスナーの設定
  */
 function initializeUI() {
-    // 静的なイベントリスナー (動的に生成されるボタン以外)
+    // 静的なイベントリスナー
     dom.modeAcquireTab.addEventListener('click', () => switchMode('acquire'));
     dom.modeNavigateTab.addEventListener('click', () => switchMode('navigate'));
     dom.recordPointBtn.addEventListener('click', handleRecordPoint);
     dom.exportCsvBtn.addEventListener('click', exportToCSV);
     dom.deleteAllBtn.addEventListener('click', () => dom.deleteAllConfirmModal.classList.add('is-open'));
-    
     dom.importCsvBtn.addEventListener('click', () => dom.csvFileInput.click());
     dom.csvFileInput.addEventListener('change', handleFileImport);
-    
     dom.manualInputLatLonTab.addEventListener('click', () => switchManualInput('latlon'));
     dom.manualInputXyTab.addEventListener('click', () => switchManualInput('xy'));
     dom.setTargetBtn.addEventListener('click', handleSetTargetManual);
-    
     dom.savePointNameBtn.addEventListener('click', savePointName);
     dom.cancelPointNameBtn.addEventListener('click', () => dom.pointNameModal.classList.remove('is-open'));
     dom.suggestNameBtn.addEventListener('click', handleSuggestName);
-    
     dom.cancelDeleteBtn.addEventListener('click', () => {
         dom.deleteConfirmModal.classList.remove('is-open');
         indexToDelete = null;
@@ -36,23 +32,19 @@ function initializeUI() {
         dom.deleteConfirmModal.classList.remove('is-open');
         indexToDelete = null;
     });
-    
     dom.cancelDeleteAllBtn.addEventListener('click', () => dom.deleteAllConfirmModal.classList.remove('is-open'));
     dom.confirmDeleteAllBtn.addEventListener('click', deleteAllData);
-
     dom.pointList.addEventListener('click', handlePointListClick);
     dom.importedPointList.addEventListener('click', handleImportedListClick);
-
     map.on('dragstart', () => {
         if (appState.followUser) {
             toggleFollowUser(false);
         }
     });
-    
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
     
-    // 修正方針 3: 初期UI状態を設定
+    // 修正方針 2: 初期UI状態を確実に設定
     updateFollowButtonState();
     updateOrientationButtonState();
 }
@@ -210,7 +202,6 @@ function updateGnssStatus(accuracy) {
     else { statusText = 'SINGLE'; }
     currentGnssStatus = statusText;
 
-    // 通常パネルと全画面パネルの両方を更新
     [dom.gnssStatus, dom.fullscreenGnssStatus].forEach(el => {
         el.textContent = statusText;
         el.className = 'font-mono text-xs'; // Reset classes
@@ -225,7 +216,6 @@ function updateGnssStatus(accuracy) {
 
 function updateFollowButtonState() {
     if(!dom.followUserBtn) return;
-    // 修正方針 4: is-on/is-offクラスでUIを制御
     dom.followUserBtn.classList.toggle('is-on', appState.followUser);
     dom.followUserBtn.classList.toggle('is-off', !appState.followUser);
     dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
@@ -235,7 +225,6 @@ function updateOrientationButtonState() {
     if(!dom.orientationToggleBtn) return;
     const icon = dom.orientationToggleBtn.querySelector('i');
     
-    // 修正方針 4: is-on/is-offクラスでUIを制御
     dom.orientationToggleBtn.classList.toggle('is-on', appState.headingUp);
     dom.orientationToggleBtn.classList.toggle('is-off', !appState.headingUp);
 
@@ -247,3 +236,4 @@ function updateOrientationButtonState() {
         dom.orientationToggleBtn.title = 'マーカーは北を固定表示中 (端末の向き表示に切替)';
     }
 }
+

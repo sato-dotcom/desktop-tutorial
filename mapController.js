@@ -2,6 +2,7 @@
 
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
+ * 即時補正と遅延補正の二段階でズレを吸収します。
  */
 function stabilizeAfterFullScreen() {
     console.log("--- 📺 Fullscreen Change Event Triggered ---");
@@ -16,40 +17,45 @@ function stabilizeAfterFullScreen() {
         btn.title = isFullscreen ? '通常表示に戻る' : '全画面表示';
     }
 
-    // 描画が安定するのを待ってから中央揃えを実行
-    requestAnimationFrame(() => {
+    // 1. 即時補正: まず描画サイズを更新し、すぐに中央へ
+    map.invalidateSize({ animate: false });
+    if (currentPosition && appState.followUser) {
+        console.log("--- 🎯 Recenter (Immediate) after fullscreen change ---");
+        recenterAbsolutely(currentPosition.coords);
+    }
+    
+    // 2. 遅延補正: レンダリングが完全に落ち着いた後、再度中央へ
+    setTimeout(() => {
         map.invalidateSize({ animate: false });
         if (currentPosition && appState.followUser) {
-            console.log("--- 🎯 Recenter map after fullscreen change ---");
+            console.log("--- 🎯 Recenter (Delayed) after fullscreen change ---");
             recenterAbsolutely(currentPosition.coords);
         }
-    });
+    }, 200); // 200ms待機
 }
+
 
 /**
  * 画面中央にマーカーを絶対的に配置します。
- * 全画面切替やデバイスサイズの違いによるズレを吸収します。
+ * getBoundingClientRectとgetSizeを比較し、動的にズレを補正します。
  * @param {object} latlng - { latitude, longitude }
  */
 function recenterAbsolutely(latlng) {
     if (!map || !latlng) return;
 
-    map.setView([latlng.latitude, latlng.longitude], map.getZoom(), { animate: false });
+    map.setView([latlng.latitude, latlng.longitude], map.getZoom(), { animate: false, noMoveStart: true });
 
     requestAnimationFrame(() => {
         if (!currentPosition) return;
 
-        const mapContainer = map.getContainer();
-        const rect = mapContainer.getBoundingClientRect();
-        const containerCenter = L.point(rect.width / 2, rect.height / 2);
-
+        const mapSize = map.getSize();
+        const containerCenter = L.point(mapSize.x / 2, mapSize.y / 2);
         const markerPoint = map.latLngToContainerPoint(L.latLng(latlng.latitude, latlng.longitude));
-        
         const offset = containerCenter.subtract(markerPoint);
 
-        if (Math.abs(offset.x) > 4 || Math.abs(offset.y) > 4) {
-             console.log(`[recenter] Correction applied. DeltaX: ${offset.x.toFixed(2)}, DeltaY: ${offset.y.toFixed(2)}`);
-             map.panBy(offset, { animate: false });
+        if (Math.abs(offset.x) > 1 || Math.abs(offset.y) > 1) {
+             console.log(`[recenter] Applying correction. Offset X: ${offset.x.toFixed(1)}, Y: ${offset.y.toFixed(1)}`);
+             map.panBy(offset, { animate: false, noMoveStart: true });
         }
     });
 }
@@ -67,11 +73,10 @@ function onPositionUpdate(position) {
     updateUserMarkerOnly(latlng);
     updateAllInfoPanels(position);
 
-    // 修正方針 1: followUser の状態に応じて処理を分岐
     if (appState.followUser) {
         recenterAbsolutely(latlng);
     } else {
-        console.log('[GPS] 追従OFF: 中央移動なし');
+        // console.log('[GPS] 追従OFF: 中央移動なし'); // ログが多すぎるためコメントアウト
     }
 }
 
@@ -81,9 +86,8 @@ function onPositionUpdate(position) {
  */
 function toggleFollowUser(on) {
     appState.followUser = on;
-    // 修正方針 3: ログ出力
     console.log(`[toggle] followUser=${on}`);
-    updateFollowButtonState(); // UIの見た目を更新
+    updateFollowButtonState();
 
     if (on && currentPosition) {
         recenterAbsolutely(currentPosition.coords);
@@ -96,7 +100,6 @@ function toggleFollowUser(on) {
  */
 function toggleHeadingUp(on) {
     appState.headingUp = on;
-    // 修正方針 3: ログ出力
     console.log(`[toggle] headingUp=${on}`);
     updateOrientationButtonState();
 }
@@ -153,14 +156,12 @@ function updateUserMarkerOnly(latlng) {
 function updateAllInfoPanels(position) {
     const { latitude, longitude, accuracy } = position.coords;
     
-    // 通常パネル
     dom.currentLat.textContent = latitude.toFixed(7);
     dom.currentLon.textContent = longitude.toFixed(7);
     dom.currentAcc.textContent = accuracy.toFixed(1);
     dom.gpsStatus.textContent = "GPS受信中";
     dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
     
-    // 全画面パネル
     dom.fullscreenLat.textContent = latitude.toFixed(7);
     dom.fullscreenLon.textContent = longitude.toFixed(7);
     dom.fullscreenAcc.textContent = accuracy.toFixed(1);
@@ -172,3 +173,4 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
+

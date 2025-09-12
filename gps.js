@@ -1,8 +1,9 @@
 // gps.js
 
-let lastCompassHeading = null; // for filtering
-const HEADING_FILTER_ALPHA = 0.2; // for low-pass filter
-const HEADING_UPDATE_THRESHOLD = 3; // in degrees
+let lastCompassHeading = null; 
+// 修正方針 3: フィルター係数と更新閾値を調整
+const HEADING_FILTER_ALPHA = 0.3; // フィルター係数 (0.0 - 1.0). 小さいほど滑らか
+const HEADING_UPDATE_THRESHOLD = 5; // この角度(度)以上変化した場合のみ描画更新
 
 /**
  * GPSの測位を開始します。
@@ -27,7 +28,6 @@ function startGeolocation() {
 function startCompass() {
     const addListeners = () => {
         console.log("--- 🧭 Requesting compass permissions ---");
-        // iOS 13+
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(permissionState => {
@@ -36,7 +36,6 @@ function startCompass() {
                     }
                 }).catch(console.error);
         } else {
-            // Android and other browsers
             if ('ondeviceorientationabsolute' in window) {
                 window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
             } else {
@@ -44,8 +43,6 @@ function startCompass() {
             }
         }
     };
-    
-    // ユーザーの初回アクション（クリック）をトリガーに許可を求める
     document.body.addEventListener('click', addListeners, { once: true });
 }
 
@@ -56,9 +53,9 @@ function startCompass() {
 function onCompassUpdate(event) {
     let rawHeading = null;
     
-    if (event.webkitCompassHeading) { // For iOS
+    if (event.webkitCompassHeading) { 
         rawHeading = event.webkitCompassHeading;
-    } else if (event.alpha !== null) { // For Android
+    } else if (event.alpha !== null) { 
         rawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
 
@@ -68,13 +65,17 @@ function onCompassUpdate(event) {
         lastCompassHeading = rawHeading;
     }
 
+    // 修正方針 3: より安定したフィルター処理
+    // 最短距離での角度差を計算
     let diff = rawHeading - lastCompassHeading;
     if (diff > 180) { diff -= 360; }
     else if (diff < -180) { diff += 360; }
     
+    // ローパスフィルターを適用
     let smoothedHeading = lastCompassHeading + diff * HEADING_FILTER_ALPHA;
     smoothedHeading = (smoothedHeading + 360) % 360;
 
+    // 更新閾値を超えた場合のみ値を更新
     if (Math.abs(smoothedHeading - currentHeading) > HEADING_UPDATE_THRESHOLD) {
         currentHeading = smoothedHeading;
         lastCompassHeading = smoothedHeading;
@@ -86,9 +87,7 @@ function onCompassUpdate(event) {
  * GPSの位置情報取得が成功した際のコールバック関数。
  */
 function handlePositionSuccess(position) {
-    // 修正方針 1: ログ出力
-    console.log(`[GPS] update ${position.coords.latitude} ${position.coords.longitude}`);
-    // 処理の本体は mapController.js の onPositionUpdate に移譲
+    console.log(`[GPS] update ${position.coords.latitude.toFixed(6)} ${position.coords.longitude.toFixed(6)}`);
     onPositionUpdate(position);
 }
 
@@ -104,3 +103,4 @@ function handlePositionError(error) {
     dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
     console.error(`GPS Error: ${msg}`, error);
 }
+
