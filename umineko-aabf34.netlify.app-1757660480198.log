@@ -1,0 +1,66 @@
+main.js:8 --- 🚀 App Initializing ---
+main.js:9 Initial State: followUser=true, headingUp=false
+gps.js:16 --- 🛰️ Starting Geolocation ---
+gps.js:90 [GPS] update 34.01901234914166 131.83619138326804
+gps.js:90 [GPS] update 34.018980951033875 131.8361970698823
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+gps.js:90 [GPS] update 34.018972734057066 131.83619342051688
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: 243.00
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:85 [toggle] followUser=false
+gps.js:29 --- 🧭 Requesting compass permissions ---
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: -188.47
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:85 [toggle] followUser=false
+gps.js:90 [GPS] update 34.0189790979731 131.83620150688995
+mapController.js:74 [GPS] 追従OFF: 中央移動なし
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: 243.00
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:85 [toggle] followUser=false
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: -189.47
+mapController.js:85 [toggle] followUser=false
+mapController.js:100 [toggle] headingUp=true
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+gps.js:90 [GPS] update 34.01896167976868 131.836225863865
+mapController.js:74 [GPS] 追従OFF: 中央移動なし
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: 243.00
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:85 [toggle] followUser=false
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: -189.47
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: 5.95
+mapController.js:85 [toggle] followUser=false
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: 243.00
+mapController.js:85 [toggle] followUser=false
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:100 [toggle] headingUp=false
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: 243.00
+mapController.js:85 [toggle] followUser=false
+mapController.js:85 [toggle] followUser=true
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: 243.00
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+mapController.js:7 --- 📺 Fullscreen Change Event Triggered ---
+mapController.js:23 --- 🎯 Recenter map after fullscreen change ---
+gps.js:90 [GPS] update 34.018981077748734 131.8362186362821
+mapController.js:51 [recenter] Correction applied. DeltaX: 0.00, DeltaY: -189.47
