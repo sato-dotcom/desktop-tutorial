@@ -138,12 +138,12 @@ function updateMapRotation() {
         targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
     }
 
-    // 最短経路での回転差分を計算
-    let diff = targetHeading - displayedHeading;
-    if (diff > 180) { diff -= 360; }
-    if (diff < -180) { diff += 360; }
+    // --- ★ 修正点: 境界バグを修正した最短回転差分の計算 ---
+    // ((target - current + 540) % 360) - 180 で -180°から+180°の範囲に正規化
+    const diff = ((targetHeading - displayedHeading + 540) % 360) - 180;
 
-    // 差がごくわずかならアニメーションを停止
+
+    // 差がごくわずかならアニメーションを停止し、値を補正
     if (Math.abs(diff) < 0.5) {
         displayedHeading = targetHeading;
     } else {
