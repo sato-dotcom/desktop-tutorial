@@ -1,6 +1,6 @@
 // gps.js
 
-const DEBUG = false; // デバッグログを有効にする場合はtrueに設定
+const DEBUG = true; // デバッグログとUIを有効にする場合はtrueに設定
 const HEADING_FILTER_ALPHA = 0.3; // フィルター係数 (0.0 - 1.0). 小さいほど滑らか
 const HEADING_UPDATE_THRESHOLD = 1; // 更新閾値（度）。1度程度の揺れは許容する。
 const HEADING_SPIKE_THRESHOLD = 45; // これ以上の急な変化はスパイクとして無視する（度）
@@ -37,6 +37,7 @@ let currentDeclination = 0;
 let lastDeclinationUpdatePos = null;
 let lastDeclinationUpdateAt = 0;
 let lastCompassHeading = null;
+let debugPanel = null;
 
 // --- ユーティリティ関数 ---
 
@@ -144,8 +145,10 @@ function startGeolocation() {
 function handlePositionSuccess(position) {
     const { latitude, longitude } = position.coords;
     // 磁気偏角を更新してから、位置情報の処理を行う
-    updateDeclinationIfNeeded(latitude, longitude);
-    onPositionUpdate(position); // mapController.js の関数を呼び出す
+    updateDeclinationIfNeeded(latitude, longitude).then(() => {
+        onPositionUpdate(position); // mapController.js の関数を呼び出す
+        updateDebugPanel();
+    });
 }
 
 function handlePositionError(error) {
@@ -225,5 +228,45 @@ function onCompassUpdate(event) {
         currentHeading = (newHeading + 360) % 360;
         if (DEBUG) console.log(`[Compass] update -> ${currentHeading.toFixed(1)}° (TN)`);
     }
+    updateDebugPanel();
 }
+
+// --- デバッグUI関連 ---
+function initDebugPanel() {
+    if (!DEBUG) return;
+    debugPanel = document.createElement('div');
+    debugPanel.style.position = 'fixed';
+    debugPanel.style.bottom = '10px';
+    debugPanel.style.right = '10px';
+    debugPanel.style.background = 'rgba(0,0,0,0.6)';
+    debugPanel.style.color = '#fff';
+    debugPanel.style.fontSize = '12px';
+    debugPanel.style.fontFamily = 'monospace';
+    debugPanel.style.padding = '6px 8px';
+    debugPanel.style.borderRadius = '4px';
+    debugPanel.style.zIndex = '9999';
+    debugPanel.style.pointerEvents = 'none';
+    document.body.appendChild(debugPanel);
+    updateDebugPanel();
+}
+
+function updateDebugPanel() {
+    if (!DEBUG || !debugPanel) return;
+    const zone = lastDeclinationUpdatePos
+        ? detectJGD2011Zone(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon)
+        : '-';
+    const decl = currentDeclination ? currentDeclination.toFixed(2) : '-';
+    const heading = (typeof currentHeading === 'number')
+        ? currentHeading.toFixed(1)
+        : '-';
+    debugPanel.innerHTML =
+        `Zone: ${zone}<br>` +
+        `Decl: ${decl}°<br>` +
+        `Heading(TN): ${heading}°`;
+}
+
+// アプリ初期化時に呼び出し
+window.addEventListener('load', () => {
+    initDebugPanel();
+});
 
