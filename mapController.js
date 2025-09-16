@@ -1,5 +1,9 @@
 // mapController.js
 
+// 回転アニメーション用の状態変数
+let displayedHeading = 0; // 画面に実際に表示されている角度
+const ROTATION_LERP_FACTOR = 0.1; // 回転のスムーズさ（小さいほど滑らか）
+
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
  * 即時補正と遅延補正の二段階でズレを吸収します。
@@ -121,21 +125,36 @@ function toggleFullscreen() {
 
 
 /**
- * マーカーアイコンの回転を制御します。
+ * マーカーアイコンの回転を滑らかに補間し、常に最短方向で回転させます。
  */
 function updateMapRotation() {
-    if (!currentUserMarker?._icon || !currentPosition) return;
+    if (!currentUserMarker?._icon) return;
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-    let markerRotation = 0;
+    let targetHeading = 0; // デフォルトは北向き
 
     if (appState.headingUp) {
-        const effectiveHeading = (currentUserCourse !== null) ? currentUserCourse : currentHeading;
-        markerRotation = effectiveHeading;
+        // GPSの進行方向(course)があれば優先し、なければコンパス(currentHeading)を使う
+        targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
     }
-    
-    rotator.style.transform = `rotate(${markerRotation}deg)`; 
+
+    // 最短経路での回転差分を計算
+    let diff = targetHeading - displayedHeading;
+    if (diff > 180) { diff -= 360; }
+    if (diff < -180) { diff += 360; }
+
+    // 差がごくわずかならアニメーションを停止
+    if (Math.abs(diff) < 0.5) {
+        displayedHeading = targetHeading;
+    } else {
+        // 線形補間（Lerp）で目標角度に滑らかに近づける
+        displayedHeading += diff * ROTATION_LERP_FACTOR;
+    }
+    displayedHeading = (displayedHeading + 360) % 360;
+
+    rotator.style.transform = `rotate(${displayedHeading}deg)`;
 }
+
 
 /**
  * 毎フレーム描画を行うメインループです。

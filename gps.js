@@ -1,9 +1,9 @@
 // gps.js
 
-let lastCompassHeading = null; 
-// 修正方針 3: フィルター係数と更新閾値を調整
+let lastCompassHeading = null;
 const HEADING_FILTER_ALPHA = 0.3; // フィルター係数 (0.0 - 1.0). 小さいほど滑らか
-const HEADING_UPDATE_THRESHOLD = 5; // この角度(度)以上変化した場合のみ描画更新
+const HEADING_UPDATE_THRESHOLD = 1; // 更新閾値（度）。1度程度の揺れは許容する。
+const HEADING_SPIKE_THRESHOLD = 45; // これ以上の急な変化はスパイクとして無視する（度）
 
 /**
  * GPSの測位を開始します。
@@ -15,10 +15,10 @@ function startGeolocation() {
         return;
     }
     console.log("--- 🛰️ Starting Geolocation ---");
-    watchId = navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, { 
-        enableHighAccuracy: true, 
-        timeout: 10000, 
-        maximumAge: 0 
+    watchId = navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
     });
 }
 
@@ -39,7 +39,7 @@ function startCompass() {
             if ('ondeviceorientationabsolute' in window) {
                 window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
             } else {
-                 window.addEventListener('deviceorientation', onCompassUpdate, true);
+                window.addEventListener('deviceorientation', onCompassUpdate, true);
             }
         }
     };
@@ -48,14 +48,15 @@ function startCompass() {
 
 /**
  * コンパスの方位データが更新されたときに呼び出されます。
+ * スパイク除去と平滑化フィルターを適用します。
  * @param {DeviceOrientationEvent} event - デバイスの向きに関するイベント情報
  */
 function onCompassUpdate(event) {
     let rawHeading = null;
-    
-    if (event.webkitCompassHeading) { 
+
+    if (event.webkitCompassHeading) {
         rawHeading = event.webkitCompassHeading;
-    } else if (event.alpha !== null) { 
+    } else if (event.alpha !== null) {
         rawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
 
@@ -63,22 +64,33 @@ function onCompassUpdate(event) {
 
     if (lastCompassHeading === null) {
         lastCompassHeading = rawHeading;
+        currentHeading = rawHeading;
+        return;
     }
 
-    // 修正方針 3: より安定したフィルター処理
-    // 最短距離での角度差を計算
+    // スパイク除去：急激な値の変化を無視
     let diff = rawHeading - lastCompassHeading;
-    if (diff > 180) { diff -= 360; }
-    else if (diff < -180) { diff += 360; }
-    
-    // ローパスフィルターを適用
-    let smoothedHeading = lastCompassHeading + diff * HEADING_FILTER_ALPHA;
-    smoothedHeading = (smoothedHeading + 360) % 360;
+    if (Math.abs(diff) > 180) { // 350度 -> 10度のような変化に対応
+        diff = diff > 0 ? diff - 360 : diff + 360;
+    }
+    if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD) {
+        console.log(`[Compass] Spike detected: ${diff.toFixed(1)}°. Ignoring.`);
+        return; // 閾値を超える急な変化は無視
+    }
+    lastCompassHeading = rawHeading;
 
-    // 更新閾値を超えた場合のみ値を更新
-    if (Math.abs(smoothedHeading - currentHeading) > HEADING_UPDATE_THRESHOLD) {
-        currentHeading = smoothedHeading;
-        lastCompassHeading = smoothedHeading;
+
+    // 最短回転：現在の表示角度との差を計算
+    let targetDiff = rawHeading - currentHeading;
+    if (targetDiff > 180) { targetDiff -= 360; }
+    if (targetDiff < -180) { targetDiff += 360; }
+
+    // フィルター：新しい角度を滑らかに計算
+    let newHeading = currentHeading + targetDiff * HEADING_FILTER_ALPHA;
+
+    // 更新閾値：微小な変化は無視
+    if (Math.abs(newHeading - currentHeading) > HEADING_UPDATE_THRESHOLD) {
+         currentHeading = (newHeading + 360) % 360;
     }
 }
 
