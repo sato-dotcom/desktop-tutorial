@@ -106,6 +106,13 @@ function toggleHeadingUp(on) {
     appState.headingUp = on;
     console.log(`[toggle] headingUp=${on}`);
     updateOrientationButtonState();
+
+    // ★ 修正点: ヘディングアップON時に表示角度を即時同期し、大回転を防止
+    if (on) {
+        const targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
+        displayedHeading = targetHeading; // 表示角度を目標角度にスナップさせる
+        console.log(`[Heading Snap] Displayed heading snapped to ${targetHeading.toFixed(1)}°`);
+    }
 }
 
 
@@ -138,7 +145,7 @@ function updateMapRotation() {
         targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
     }
 
-    // --- ★ 修正点: 境界バグを修正した最短回転差分の計算 ---
+    // --- 境界バグを修正した最短回転差分の計算 ---
     // ((target - current + 540) % 360) - 180 で -180°から+180°の範囲に正規化
     const diff = ((targetHeading - displayedHeading + 540) % 360) - 180;
 
