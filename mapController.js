@@ -2,7 +2,7 @@
 
 // 回転アニメーション用の状態変数
 let displayedHeading = 0; // 実際に表示している角度
-let skipRotationOnce = false; // 次の1フレームだけ差分計算をスキップ
+let skipRotationOnce = 0; // スキップする残りフレーム数（0なら通常処理）
 const ROTATION_LERP_FACTOR = 0.1; // 小さいほど滑らか
 
 /**
@@ -109,22 +109,19 @@ function toggleHeadingUp(on) {
     updateOrientationButtonState();
 
     if (on) {
-        // 現在の進行方向（course）またはコンパス値を取得
         const targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
             ? currentUserCourse
             : currentHeading;
 
-        // 表示角度・基準角度をすべて同期
         displayedHeading = targetHeading;
         currentHeading = targetHeading;
-        if (currentUserCourse !== null && !isNaN(currentUserCourse)) {
-            currentUserCourse = targetHeading;
-        }
+        // nullでも必ず同期
+        currentUserCourse = targetHeading;
 
         console.log(`[Heading Snap] Synced all headings to ${targetHeading.toFixed(1)}°`);
 
-        // 次の1フレームは差分計算をスキップして安定化
-        skipRotationOnce = true;
+        // 2フレーム分スキップ
+        skipRotationOnce = 2;
     }
 }
 
@@ -151,7 +148,7 @@ function updateMapRotation() {
     if (!currentUserMarker?._icon) return;
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-    let targetHeading = 0; // デフォルトは北向き
+    let targetHeading = 0;
 
     if (appState.headingUp) {
         targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
@@ -159,33 +156,28 @@ function updateMapRotation() {
             : currentHeading;
     }
 
-    // 次の1フレームだけ差分計算をスキップ
-    if (skipRotationOnce) {
+    // スキップフレーム処理
+    if (skipRotationOnce > 0) {
         displayedHeading = targetHeading;
-        skipRotationOnce = false;
+        skipRotationOnce--;
         rotator.style.transform = `rotate(${displayedHeading}deg)`;
         return;
     }
 
-    // 差分を -180°〜+180° に正規化
     let diff = ((targetHeading - displayedHeading + 540) % 360) - 180;
 
-    // ±90°以上の差分は異常値として制限（急回転防止）
     if (Math.abs(diff) > 90) {
         console.log(`[Rotation Spike] diff=${diff.toFixed(1)}° → 補間制限`);
         diff = diff > 0 ? 90 : -90;
     }
 
-    // 差がごくわずかなら補間せず同期
     if (Math.abs(diff) < 0.5) {
         displayedHeading = targetHeading;
     } else {
         displayedHeading += diff * ROTATION_LERP_FACTOR;
     }
 
-    // 0〜360°に正規化
     displayedHeading = (displayedHeading + 360) % 360;
-
     rotator.style.transform = `rotate(${displayedHeading}deg)`;
 }
 
