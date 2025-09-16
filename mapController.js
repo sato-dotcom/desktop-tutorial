@@ -1,8 +1,9 @@
 // mapController.js
 
 // 回転アニメーション用の状態変数
-let displayedHeading = 0; // 画面に実際に表示されている角度
-const ROTATION_LERP_FACTOR = 0.1; // 回転のスムーズさ（小さいほど滑らか）
+let displayedHeading = 0; // 実際に表示している角度
+let skipRotationOnce = false; // 次の1フレームだけ差分計算をスキップ
+const ROTATION_LERP_FACTOR = 0.1; // 小さいほど滑らか
 
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
@@ -99,20 +100,32 @@ function toggleFollowUser(on) {
 }
 
 /**
- * ヘディングアップモードのON/OFFを切り替える関数
- * @param {boolean} on - trueならON、falseならOFF
- */
+ * ヘディングアップモードのON/OFF切り替え
+ * @param {boolean} on - trueならON、falseならOFF
+ */
 function toggleHeadingUp(on) {
-    appState.headingUp = on;
-    console.log(`[toggle] headingUp=${on}`);
-    updateOrientationButtonState();
+    appState.headingUp = on;
+    console.log(`[toggle] headingUp=${on}`);
+    updateOrientationButtonState();
 
-    // ★ 修正点: ヘディングアップON時に表示角度を即時同期し、大回転を防止
-    if (on) {
-        const targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
-        displayedHeading = targetHeading; // 表示角度を目標角度にスナップさせる
-        console.log(`[Heading Snap] Displayed heading snapped to ${targetHeading.toFixed(1)}°`);
-    }
+    if (on) {
+        // 現在の進行方向（course）またはコンパス値を取得
+        const targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
+            ? currentUserCourse
+            : currentHeading;
+
+        // 表示角度・基準角度をすべて同期
+        displayedHeading = targetHeading;
+        currentHeading = targetHeading;
+        if (currentUserCourse !== null && !isNaN(currentUserCourse)) {
+            currentUserCourse = targetHeading;
+        }
+
+        console.log(`[Heading Snap] Synced all headings to ${targetHeading.toFixed(1)}°`);
+
+        // 次の1フレームは差分計算をスキップして安定化
+        skipRotationOnce = true;
+    }
 }
 
 
@@ -132,34 +145,48 @@ function toggleFullscreen() {
 
 
 /**
- * マーカーアイコンの回転を滑らかに補間し、常に最短方向で回転させます。
- */
+ * マーカーの回転を滑らかに補間し、常に最短方向で回転
+ */
 function updateMapRotation() {
-    if (!currentUserMarker?._icon) return;
+    if (!currentUserMarker?._icon) return;
 
-    const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-    let targetHeading = 0; // デフォルトは北向き
+    const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
+    let targetHeading = 0; // デフォルトは北向き
 
-    if (appState.headingUp) {
-        // GPSの進行方向(course)があれば優先し、なければコンパス(currentHeading)を使う
-        targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
-    }
+    if (appState.headingUp) {
+        targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
+            ? currentUserCourse
+            : currentHeading;
+    }
 
-    // --- 境界バグを修正した最短回転差分の計算 ---
-    // ((target - current + 540) % 360) - 180 で -180°から+180°の範囲に正規化
-    const diff = ((targetHeading - displayedHeading + 540) % 360) - 180;
+    // 次の1フレームだけ差分計算をスキップ
+    if (skipRotationOnce) {
+        displayedHeading = targetHeading;
+        skipRotationOnce = false;
+        rotator.style.transform = `rotate(${displayedHeading}deg)`;
+        return;
+    }
 
+    // 差分を -180°〜+180° に正規化
+    let diff = ((targetHeading - displayedHeading + 540) % 360) - 180;
 
-    // 差がごくわずかならアニメーションを停止し、値を補正
-    if (Math.abs(diff) < 0.5) {
-        displayedHeading = targetHeading;
-    } else {
-        // 線形補間（Lerp）で目標角度に滑らかに近づける
-        displayedHeading += diff * ROTATION_LERP_FACTOR;
-    }
-    displayedHeading = (displayedHeading + 360) % 360;
+    // ±90°以上の差分は異常値として制限（急回転防止）
+    if (Math.abs(diff) > 90) {
+        console.log(`[Rotation Spike] diff=${diff.toFixed(1)}° → 補間制限`);
+        diff = diff > 0 ? 90 : -90;
+    }
 
-    rotator.style.transform = `rotate(${displayedHeading}deg)`;
+    // 差がごくわずかなら補間せず同期
+    if (Math.abs(diff) < 0.5) {
+        displayedHeading = targetHeading;
+    } else {
+        displayedHeading += diff * ROTATION_LERP_FACTOR;
+    }
+
+    // 0〜360°に正規化
+    displayedHeading = (displayedHeading + 360) % 360;
+
+    rotator.style.transform = `rotate(${displayedHeading}deg)`;
 }
 
 
