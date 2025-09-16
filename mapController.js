@@ -1,8 +1,9 @@
 // mapController.js
 
-// 修正方針 3: アニメーション用の状態変数を追加
+// 回転アニメーション用の状態変数
 let displayedHeading = 0; // 画面に実際に表示されている角度
 const ROTATION_LERP_FACTOR = 0.1; // 回転のスムーズさ（小さいほど滑らか）
+
 
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
@@ -73,6 +74,7 @@ function onPositionUpdate(position) {
     if (appState.followUser) {
         recenterAbsolutely(latlng);
     } else {
+        // 修正方針1: 追従OFF時のログ出力
         console.log("[GPS] 追従OFF: 中央移動なし");
     }
 }
@@ -102,7 +104,7 @@ function toggleHeadingUp(on) {
 
 
 /**
- * 修正方針 3: マーカーアイコンの回転を滑らかに補間する
+ * マーカーアイコンの回転を滑らかに補間する
  */
 function updateMapRotation() {
     if (!currentUserMarker?._icon) return;
@@ -115,7 +117,7 @@ function updateMapRotation() {
         targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse)) ? currentUserCourse : currentHeading;
     }
 
-    // 修正方針 2: 最短経路での回転差分を計算
+    // 最短経路での回転差分を計算
     let diff = targetHeading - displayedHeading;
     if (diff > 180) { diff -= 360; }
     if (diff < -180) { diff += 360; }

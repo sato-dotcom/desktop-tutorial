@@ -100,6 +100,7 @@ function onCompassUpdate(event) {
  * GPSの位置情報取得が成功した際のコールバック関数。
  */
 function handlePositionSuccess(position) {
+    // 修正方針1: GPS更新時にログを出力
     console.log(`[GPS] update ${position.coords.latitude.toFixed(6)} ${position.coords.longitude.toFixed(6)}`);
     onPositionUpdate(position);
 }
