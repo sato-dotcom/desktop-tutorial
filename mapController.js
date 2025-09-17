@@ -179,7 +179,11 @@ function updateMapRotation() {
     }
 
     displayedHeading = (displayedHeading + 360) % 360;
+    
+    // ★★★ 修正点: 地図とマーカーの回転角度を記録 ★★★
+    mapRotationAngle = 0; // 現在の実装では地図は回転しないため、常に0
     lastDrawnMarkerAngle = displayedHeading; // 描画角度をグローバル変数に記録
+    
     rotator.style.transform = `rotate(${displayedHeading}deg)`;
 }
 

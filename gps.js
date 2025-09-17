@@ -1,13 +1,12 @@
 // gps.js
 
-const DEBUG = true; // デバッグログとUIを有効にする場合はtrueに設定
-const HEADING_FILTER_ALPHA = 0.3; // フィルター係数 (0.0 - 1.0). 小さいほど滑らか
-const HEADING_UPDATE_THRESHOLD = 1; // 更新閾値（度）。1度程度の揺れは許容する。
-const HEADING_SPIKE_THRESHOLD = 45; // これ以上の急な変化はスパイクとして無視する（度）
+const DEBUG = true; // デバッグ表示を有効にする場合はtrueに設定
+const HEADING_FILTER_ALPHA = 0.3;
+const HEADING_UPDATE_THRESHOLD = 1;
+const HEADING_SPIKE_THRESHOLD = 45;
 
-// 磁気偏角APIの更新条件
-const DECLINATION_UPDATE_DISTANCE_M = 1000; // この距離(m)以上移動したら更新
-const DECLINATION_UPDATE_INTERVAL_MS = 3 * 60 * 60 * 1000; // 3時間ごとに更新
+const DECLINATION_UPDATE_DISTANCE_M = 1000; // m
+const DECLINATION_UPDATE_INTERVAL_MS = 3 * 60 * 60 * 1000; // 3時間
 
 // 系番号ごとの中央経線と代表磁偏角（度）
 const JGD2011_ZONE_INFO = {
@@ -32,31 +31,19 @@ const JGD2011_ZONE_INFO = {
     19: { lon0: 154.0, declination: 2.0 }
 };
 
-// 状態変数
 let currentDeclination = 0;
 let lastDeclinationUpdatePos = null;
 let lastDeclinationUpdateAt = 0;
 let lastCompassHeading = null;
-let debugPanel = null;
 
-// --- ユーティリティ関数 ---
-
-/**
- * 磁北を真北に変換します。
- * @param {number} magneticHeading - 磁北基準の方位（度）
- * @param {number} declination - 磁気偏角（度）
- * @returns {number | null} 真北基準の方位（度）
- */
+// --- ユーティリティ ---
 function toTrueNorth(magneticHeading, declination) {
     if (magneticHeading === null || isNaN(magneticHeading)) return null;
     return (magneticHeading + declination + 360) % 360;
 }
 
-/**
- * 2点間の距離をメートルで計算します（球面三角法）。
- */
 function getDistanceMeters(lat1, lon1, lat2, lon2) {
-    const R = 6371000; // 地球の半径 (メートル)
+    const R = 6371000;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) ** 2 +
@@ -66,9 +53,6 @@ function getDistanceMeters(lat1, lon1, lat2, lon2) {
     return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
 }
 
-/**
- * 緯度経度から最も近いJGD2011の系番号を判定します。
- */
 function detectJGD2011Zone(lat, lon) {
     let minDiff = Infinity;
     let zone = null;
@@ -82,19 +66,13 @@ function detectJGD2011Zone(lat, lon) {
     return zone;
 }
 
-/**
- * 磁気偏角を更新すべきかどうかを判定します。
- */
 function shouldUpdateDeclination(lat, lon) {
     const now = Date.now();
-    if (!lastDeclinationUpdatePos) return true; // 初回
-    if (now - lastDeclinationUpdateAt > DECLINATION_UPDATE_INTERVAL_MS) return true; // 時間経過
-    return getDistanceMeters(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon, lat, lon) > DECLINATION_UPDATE_DISTANCE_M; // 距離移動
+    if (!lastDeclinationUpdatePos) return true;
+    if (now - lastDeclinationUpdateAt > DECLINATION_UPDATE_INTERVAL_MS) return true;
+    return getDistanceMeters(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon, lat, lon) > DECLINATION_UPDATE_DISTANCE_M;
 }
 
-/**
- * 国土地理院APIから磁気偏角を取得します。
- */
 async function fetchDeclination(lat, lon) {
     const url = `https://vldb.gsi.go.jp/sokuchi/geomag/api/declination?lat=${lat}&lon=${lon}`;
     const res = await fetch(url);
@@ -104,13 +82,8 @@ async function fetchDeclination(lat, lon) {
     return data.declination;
 }
 
-/**
- * 必要に応じて磁気偏角を更新します。
- * API取得に失敗した場合は、系番号に応じた代表値でフォールバックします。
- */
 async function updateDeclinationIfNeeded(lat, lon) {
     if (!shouldUpdateDeclination(lat, lon)) return currentDeclination;
-
     try {
         const decl = await fetchDeclination(lat, lon);
         currentDeclination = decl;
@@ -120,15 +93,12 @@ async function updateDeclinationIfNeeded(lat, lon) {
         currentDeclination = JGD2011_ZONE_INFO[zone]?.declination ?? 0;
         console.error(`磁偏角API失敗。系${zone}の代表値を使用: ${currentDeclination.toFixed(2)}°`);
     }
-
     lastDeclinationUpdatePos = { lat, lon };
     lastDeclinationUpdateAt = Date.now();
     return currentDeclination;
 }
 
-
-// --- GPS関連 ---
-
+// --- GPS ---
 function startGeolocation() {
     if (!navigator.geolocation) {
         dom.gpsStatus.textContent = "ブラウザが非対応です";
@@ -144,9 +114,8 @@ function startGeolocation() {
 
 function handlePositionSuccess(position) {
     const { latitude, longitude } = position.coords;
-    // 磁気偏角を更新してから、位置情報の処理を行う
     updateDeclinationIfNeeded(latitude, longitude).then(() => {
-        onPositionUpdate(position); // mapController.js の関数を呼び出す
+        onPositionUpdate(position);
         updateDebugPanel(null, lastDrawnMarkerAngle);
     });
 }
@@ -161,8 +130,7 @@ function handlePositionError(error) {
     console.error(`GPS Error: ${msg}`, error);
 }
 
-// --- コンパス関連 ---
-
+// --- コンパス ---
 function startCompass() {
     const addListeners = () => {
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -188,7 +156,6 @@ function startCompass() {
     document.body.addEventListener('click', addListeners, { once: true });
 }
 
-
 function onCompassUpdate(event) {
     let rawHeading = null;
     if (event.webkitCompassHeading !== undefined) {
@@ -198,7 +165,6 @@ function onCompassUpdate(event) {
     }
     if (rawHeading === null || isNaN(rawHeading)) return;
 
-    // 常に真北に補正してから処理
     const trueHeading = toTrueNorth(rawHeading, currentDeclination);
     if (trueHeading === null) return;
 
@@ -210,7 +176,6 @@ function onCompassUpdate(event) {
         return;
     }
 
-    // スパイク除去
     let diff = trueHeading - lastCompassHeading;
     if (Math.abs(diff) > 180) diff = diff > 0 ? diff - 360 : diff + 360;
     if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD) {
@@ -220,7 +185,6 @@ function onCompassUpdate(event) {
     }
     lastCompassHeading = trueHeading;
 
-    // 平滑化フィルター
     let targetDiff = trueHeading - currentHeading;
     if (targetDiff > 180) targetDiff -= 360;
     if (targetDiff < -180) targetDiff += 360;
@@ -233,7 +197,10 @@ function onCompassUpdate(event) {
     updateDebugPanel(rawHeading, lastDrawnMarkerAngle);
 }
 
-// --- デバッグUI関連（DrawnAngle対応版） ---
+
+// --- デバッグUI関連（拡張版） ---
+let debugPanel = null;
+
 function initDebugPanel() {
     if (!DEBUG) return;
     debugPanel = document.createElement('div');
@@ -270,6 +237,9 @@ function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
     const drawn = (drawnAngle !== null && !isNaN(drawnAngle))
         ? drawnAngle.toFixed(1)
         : '-';
+    const mapRot = (mapRotationAngle !== null && !isNaN(mapRotationAngle))
+        ? mapRotationAngle.toFixed(1)
+        : '-';
 
     debugPanel.innerHTML =
         `Zone: ${zone}<br>` +
@@ -277,7 +247,8 @@ function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
         `Raw: ${raw}°<br>` +
         `Last: ${last}°<br>` +
         `Heading(TN): ${headingTN}°<br>` +
-        `DrawnAngle: ${drawn}°`;
+        `DrawnAngle: ${drawn}°<br>` +
+        `MapRotation: ${mapRot}°`;
 }
 
 // アプリ初期化時に呼び出し
