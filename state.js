@@ -27,8 +27,11 @@ let currentHeading = 0; // デバイスの向き（コンパス）
 let currentUserCourse = null; // GPSによる進行方向
 let currentGnssStatus = '---'; // GNSSステータスを保持
 let isBearingInverted = false; // 船首方位の反転状態
-let lastDrawnMarkerAngle = null; // 最後に描画されたマーカーの角度
-let mapRotationAngle = null; // 地図自体の回転角度
+
+// --- デバッグ用グローバル変数 ---
+let lastDrawnMarkerAngle = null; // 最後にマーカー描画に使われた角度
+let mapRotationAngle = 0; // 地図の回転角 (現在は未使用)
+let lastRawHeading = null; // センサーから取得した生のコンパス値（磁北基準）
 
 // --- DOM要素 ---
 const dom = {
@@ -96,5 +99,6 @@ const dom = {
     fullscreenBearingText: document.getElementById('fullscreen-bearing-text'),
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
 };
+
 
 

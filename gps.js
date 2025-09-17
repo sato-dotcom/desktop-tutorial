@@ -1,6 +1,6 @@
 // gps.js
 
-const DEBUG = true; // デバッグ表示を有効にする場合はtrueに設定
+const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
 const HEADING_FILTER_ALPHA = 0.3;
 const HEADING_UPDATE_THRESHOLD = 1;
 const HEADING_SPIKE_THRESHOLD = 45;
@@ -114,10 +114,9 @@ function startGeolocation() {
 
 function handlePositionSuccess(position) {
     const { latitude, longitude } = position.coords;
-    updateDeclinationIfNeeded(latitude, longitude).then(() => {
-        onPositionUpdate(position);
-        updateDebugPanel(null, lastDrawnMarkerAngle);
-    });
+    updateDeclinationIfNeeded(latitude, longitude);
+    onPositionUpdate(position); // mapController.jsの関数を呼び出す
+    updateDebugPanel(null, lastDrawnMarkerAngle);
 }
 
 function handlePositionError(error) {
@@ -163,6 +162,9 @@ function onCompassUpdate(event) {
     } else if (event.alpha !== null) {
         rawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
+    
+    lastRawHeading = rawHeading;
+
     if (rawHeading === null || isNaN(rawHeading)) return;
 
     const trueHeading = toTrueNorth(rawHeading, currentDeclination);
@@ -180,7 +182,6 @@ function onCompassUpdate(event) {
     if (Math.abs(diff) > 180) diff = diff > 0 ? diff - 360 : diff + 360;
     if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD) {
         if (DEBUG) console.log(`[Compass] Spike ${diff.toFixed(1)}° ignored`);
-        updateDebugPanel(rawHeading, lastDrawnMarkerAngle);
         return;
     }
     lastCompassHeading = trueHeading;
@@ -198,7 +199,7 @@ function onCompassUpdate(event) {
 }
 
 
-// --- デバッグUI関連（拡張版） ---
+// --- デバッグUI関連（DrawnAngle対応版） ---
 let debugPanel = null;
 
 function initDebugPanel() {
@@ -251,7 +252,7 @@ function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
         `MapRotation: ${mapRot}°`;
 }
 
-// アプリ初期化時に呼び出し
+
 window.addEventListener('load', () => {
     initDebugPanel();
 });
