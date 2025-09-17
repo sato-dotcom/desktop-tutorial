@@ -206,6 +206,7 @@ function onCompassUpdate(event) {
         lastCompassHeading = trueHeading;
         currentHeading = trueHeading;
         if (DEBUG) console.log(`[Compass] init ${trueHeading.toFixed(1)}° (TN)`);
+        updateDebugPanel(rawHeading);
         return;
     }
 
@@ -214,6 +215,7 @@ function onCompassUpdate(event) {
     if (Math.abs(diff) > 180) diff = diff > 0 ? diff - 360 : diff + 360;
     if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD) {
         if (DEBUG) console.log(`[Compass] Spike ${diff.toFixed(1)}° ignored`);
+        updateDebugPanel(rawHeading);
         return;
     }
     lastCompassHeading = trueHeading;
@@ -228,10 +230,10 @@ function onCompassUpdate(event) {
         currentHeading = (newHeading + 360) % 360;
         if (DEBUG) console.log(`[Compass] update -> ${currentHeading.toFixed(1)}° (TN)`);
     }
-    updateDebugPanel();
+    updateDebugPanel(rawHeading);
 }
 
-// --- デバッグUI関連 ---
+// --- デバッグUI関連（拡張版） ---
 function initDebugPanel() {
     if (!DEBUG) return;
     debugPanel = document.createElement('div');
@@ -250,19 +252,28 @@ function initDebugPanel() {
     updateDebugPanel();
 }
 
-function updateDebugPanel() {
+function updateDebugPanel(rawHeadingVal = null) {
     if (!DEBUG || !debugPanel) return;
     const zone = lastDeclinationUpdatePos
         ? detectJGD2011Zone(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon)
         : '-';
     const decl = currentDeclination ? currentDeclination.toFixed(2) : '-';
-    const heading = (typeof currentHeading === 'number')
+    const headingTN = (typeof currentHeading === 'number')
         ? currentHeading.toFixed(1)
         : '-';
+    const raw = (rawHeadingVal !== null && !isNaN(rawHeadingVal))
+        ? rawHeadingVal.toFixed(1)
+        : '-';
+    const last = (lastCompassHeading !== null && !isNaN(lastCompassHeading))
+        ? lastCompassHeading.toFixed(1)
+        : '-';
+
     debugPanel.innerHTML =
         `Zone: ${zone}<br>` +
         `Decl: ${decl}°<br>` +
-        `Heading(TN): ${heading}°`;
+        `Raw: ${raw}°<br>` +
+        `Last: ${last}°<br>` +
+        `Heading(TN): ${headingTN}°`;
 }
 
 // アプリ初期化時に呼び出し
