@@ -1,9 +1,8 @@
 // mapController.js
 
 // 回転アニメーション用の状態変数
-let displayedHeading = 0; // 実際に表示している角度
 let skipRotationOnce = 0; // スキップする残りフレーム数（0なら通常処理）
-const ROTATION_LERP_FACTOR = 0.1; // 小さいほど滑らか
+const ROTATION_LERP_FACTOR = 0.3; // 補間率 (小さいほど滑らか)
 
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
@@ -80,8 +79,6 @@ function onPositionUpdate(position) {
 
     if (appState.followUser) {
         recenterAbsolutely(latlng);
-    } else {
-        // console.log('[GPS] 追従OFF: 中央移動なし'); // ログが多すぎるためコメントアウト
     }
 }
 
@@ -113,10 +110,9 @@ function toggleHeadingUp(on) {
             ? currentUserCourse
             : currentHeading;
 
-        displayedHeading = targetHeading;
+        // displayedHeading と currentHeading を同期
+        lastDrawnMarkerAngle = targetHeading;
         currentHeading = targetHeading;
-        // nullでも必ず同期
-        currentUserCourse = targetHeading;
 
         console.log(`[Heading Snap] Synced all headings to ${targetHeading.toFixed(1)}°`);
 
@@ -145,46 +141,43 @@ function toggleFullscreen() {
  * マーカーの回転を滑らかに補間し、常に最短方向で回転
  */
 function updateMapRotation() {
-    if (!currentUserMarker?._icon) return;
+    if (!currentUserMarker?._icon) return;
 
-    const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-    let targetHeading = 0;
+    const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
+    let targetAngle = 0;
 
-    if (appState.headingUp) {
-        // ★★★ 修正点: 描画の目標角度を常に`currentHeading`に統一 ★★★
-        // これにより、マーカーはデバッグパネルのHeading(TN)の値に向かって回転します。
-        targetHeading = currentHeading;
-    }
+    if (appState.headingUp) {
+        targetAngle = currentHeading; // gps.jsで計算済みの真北基準値
+    }
 
-    // スキップフレーム処理
-    if (skipRotationOnce > 0) {
-        displayedHeading = targetHeading;
-        skipRotationOnce--;
-        rotator.style.transform = `rotate(${displayedHeading}deg)`;
-        lastDrawnMarkerAngle = displayedHeading; // 描画角度をグローバル変数に記録
-        return;
-    }
+    // 初回描画時または値が無効な場合
+    if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
+        lastDrawnMarkerAngle = targetAngle;
+    }
 
-    let diff = ((targetHeading - displayedHeading + 540) % 360) - 180;
+    // スキップフレーム処理
+    if (skipRotationOnce > 0) {
+        lastDrawnMarkerAngle = targetAngle;
+        skipRotationOnce--;
+    } else {
+        // 最短距離での回転差分を計算
+        let diff = targetAngle - lastDrawnMarkerAngle;
+        if (diff > 180) diff -= 360;
+        if (diff < -180) diff += 360;
 
-    if (Math.abs(diff) > 90) {
-        console.log(`[Rotation Spike] diff=${diff.toFixed(1)}° → 補間制限`);
-        diff = diff > 0 ? 90 : -90;
-    }
+        // 急な回転を抑制する
+        if (Math.abs(diff) > 90) {
+            console.log(`[Rotation Spike] diff=${diff.toFixed(1)}° → 補間制限`);
+            diff = diff > 0 ? 90 : -90;
+        }
+        
+        // 補間処理
+        lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
+        lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360;
+    }
 
-    if (Math.abs(diff) < 0.5) {
-        displayedHeading = targetHeading;
-    } else {
-        displayedHeading += diff * ROTATION_LERP_FACTOR;
-    }
-
-    displayedHeading = (displayedHeading + 360) % 360;
-    
-    // ★★★ 修正点: 地図とマーカーの回転角度を記録 ★★★
-    mapRotationAngle = 0; // 現在の実装では地図は回転しないため、常に0
-    lastDrawnMarkerAngle = displayedHeading; // 描画角度をグローバル変数に記録
-    
-    rotator.style.transform = `rotate(${displayedHeading}deg)`;
+    mapRotationAngle = 0; // 地図は回転しない
+    rotator.style.transform = `rotate(${lastDrawnMarkerAngle}deg)`;
 }
 
 
