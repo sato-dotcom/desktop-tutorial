@@ -116,7 +116,7 @@ function handlePositionSuccess(position) {
     const { latitude, longitude } = position.coords;
     updateDeclinationIfNeeded(latitude, longitude);
     onPositionUpdate(position); // mapController.jsの関数を呼び出す
-    updateDebugPanel(null, lastDrawnMarkerAngle);
+    updateDebugPanel(lastRawHeading, lastDrawnMarkerAngle);
 }
 
 function handlePositionError(error) {
@@ -156,32 +156,62 @@ function startCompass() {
 }
 
 function onCompassUpdate(event) {
-    let rawHeading = null;
+    // センサーから新しい生の値を取得
+    let newRawHeading = null;
     if (event.webkitCompassHeading !== undefined) {
-        rawHeading = event.webkitCompassHeading;
+        newRawHeading = event.webkitCompassHeading;
     } else if (event.alpha !== null) {
-        rawHeading = event.absolute ? event.alpha : 360 - event.alpha;
+        // iOS 13以降では、deviceorientationイベントはデフォルトで相対値(alpha: 0-360)を返す
+        // event.absoluteがtrueの場合、絶対方位を示している
+        newRawHeading = event.absolute ? event.alpha : 360 - event.alpha;
+    }
+
+    if (newRawHeading === null || isNaN(newRawHeading)) return;
+
+    // --- ★★★ 修正箇所: 境界跨ぎ補正とスパイク除去 ★★★ ---
+    let correctedRawHeading = newRawHeading;
+
+    if (lastRawHeading !== null && !isNaN(lastRawHeading)) {
+        // 前回値との差分を計算（最短方向）
+        let delta = newRawHeading - lastRawHeading;
+        if (delta > 180) delta -= 360;
+        if (delta < -180) delta += 360;
+
+        // スパイク除去（閾値を超える急な変化は無視）
+        if (Math.abs(delta) > HEADING_SPIKE_THRESHOLD) {
+            if (DEBUG) console.log(`[DEBUG-FILTER] Spike ignored: delta=${delta.toFixed(1)}° raw=${newRawHeading.toFixed(1)}° last=${lastRawHeading.toFixed(1)}°`);
+            // スパイクを検出した場合は更新せず、前回の値を維持して終了
+            updateDebugPanel(lastRawHeading, lastDrawnMarkerAngle);
+            return;
+        }
+        
+        // 補正後の差分を前回値に加算して新しい値を計算
+        correctedRawHeading = (lastRawHeading + delta + 360) % 360;
     }
     
-    lastRawHeading = rawHeading;
+    // 次回計算のために補正後の値を保存
+    lastRawHeading = correctedRawHeading;
+    // --- ★★★ 修正箇所ここまで ★★★ ---
 
-    if (rawHeading === null || isNaN(rawHeading)) return;
-
-    const trueHeading = toTrueNorth(rawHeading, currentDeclination);
+    // 以降の処理では、補正された `correctedRawHeading` を使用する
+    const trueHeading = toTrueNorth(correctedRawHeading, currentDeclination);
     if (trueHeading === null) return;
 
     if (lastCompassHeading === null) {
         lastCompassHeading = trueHeading;
         currentHeading = trueHeading;
         if (DEBUG) console.log(`[Compass] init ${trueHeading.toFixed(1)}° (TN)`);
-        updateDebugPanel(rawHeading, lastDrawnMarkerAngle);
+        updateDebugPanel(correctedRawHeading, lastDrawnMarkerAngle);
         return;
     }
 
+    // 既存の平滑化フィルタ（これは変更しない）
     let diff = trueHeading - lastCompassHeading;
     if (Math.abs(diff) > 180) diff = diff > 0 ? diff - 360 : diff + 360;
+    
+    // trueHeadingに対するスパイク除去も念のため残す
     if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD) {
-        if (DEBUG) console.log(`[Compass] Spike ${diff.toFixed(1)}° ignored`);
+        if (DEBUG) console.log(`[Compass] Spike (on TrueNorth) ${diff.toFixed(1)}° ignored`);
         return;
     }
     lastCompassHeading = trueHeading;
@@ -195,7 +225,8 @@ function onCompassUpdate(event) {
         currentHeading = (newHeading + 360) % 360;
         if (DEBUG) console.log(`[Compass] update -> ${currentHeading.toFixed(1)}° (TN)`);
     }
-    updateDebugPanel(rawHeading, lastDrawnMarkerAngle);
+    
+    updateDebugPanel(correctedRawHeading, lastDrawnMarkerAngle);
 }
 
 
@@ -245,8 +276,8 @@ function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
     debugPanel.innerHTML =
         `Zone: ${zone}<br>` +
         `Decl: ${decl}°<br>` +
-        `Raw: ${raw}°<br>` +
-        `Last: ${last}°<br>` +
+        `Raw(filtered): ${raw}°<br>` + // filtered を追記
+        `Last(TN): ${last}°<br>` + // TN を追記
         `Heading(TN): ${headingTN}°<br>` +
         `DrawnAngle: ${drawn}°<br>` +
         `MapRotation: ${mapRot}°`;
@@ -256,4 +287,3 @@ function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
 window.addEventListener('load', () => {
     initDebugPanel();
 });
-
