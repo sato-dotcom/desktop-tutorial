@@ -3,6 +3,7 @@
 // 回転アニメーション用の状態変数
 let skipRotationOnce = 0; // スキップする残りフレーム数（0なら通常処理）
 const ROTATION_LERP_FACTOR = 0.3; // 補間率 (小さいほど滑らか)
+let lastSummaryTs = 0; // 最後のサマリログ出力タイムスタンプ
 
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
@@ -165,14 +166,21 @@ function updateMapRotation() {
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
 
-        // 差分が閾値を超えた場合に詳細ログを出力
-        if (appState.headingUp) {
-            const absDiff = Math.abs(diff);
-            if (absDiff > 30) { // 閾値 (30°) を超えたら詳細ログ
-                console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}`);
-            } else { // 通常時は簡易ログ
-                console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
-            }
+        // ★★★ 修正点: ログ出力条件を緩和し、サマリログを追加 ★★★
+        const absDiff = Math.abs(diff);
+
+        // 閾値緩和＆headingUp条件撤廃
+        if (absDiff > 12) { // 閾値を12°に下げる
+            console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}`);
+        } else {
+            console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
+        }
+        
+        // 5秒ごとのサマリ出力
+        const now = Date.now();
+        if (now - lastSummaryTs > 5000) {
+            console.log(`[DEBUG-SUM] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}`);
+            lastSummaryTs = now;
         }
 
         // 急な回転を抑制する
