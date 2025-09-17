@@ -151,9 +151,9 @@ function updateMapRotation() {
     let targetHeading = 0;
 
     if (appState.headingUp) {
-        targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
-            ? currentUserCourse
-            : currentHeading;
+        // ★★★ 修正点: 描画の目標角度を常に`currentHeading`に統一 ★★★
+        // これにより、マーカーはデバッグパネルのHeading(TN)の値に向かって回転します。
+        targetHeading = currentHeading;
     }
 
     // スキップフレーム処理
