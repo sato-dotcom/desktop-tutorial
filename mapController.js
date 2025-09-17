@@ -107,6 +107,10 @@ function toggleHeadingUp(on) {
     console.log(`[toggle] headingUp=${on}`);
     updateOrientationButtonState();
 
+    // ★★★ 修正箇所: モード切替時にlastDrawnMarkerAngleを強制同期 ★★★
+    lastDrawnMarkerAngle = currentHeading;
+    console.log(`[DEBUG-RM] Sync lastDrawnMarkerAngle to currentHeading (${currentHeading.toFixed(1)}°)`);
+
     if (on) {
         const targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
             ? currentUserCourse
@@ -162,12 +166,14 @@ function updateMapRotation() {
         lastDrawnMarkerAngle = targetAngle;
         skipRotationOnce--;
     } else {
+        // ★★★ 修正箇所: デバッグログ追加 ★★★
+        console.log(`[DEBUG-RM] target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}° current=${currentHeading.toFixed(1)}°`);
+        
         // 最短距離での回転差分を計算
         let diff = targetAngle - lastDrawnMarkerAngle;
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
 
-        // ★★★ 修正点: courseJumpの計算とログ出力を追加 ★★★
         const courseJump = (currentUserCourse !== null && lastCourse !== null)
             ? (currentUserCourse - lastCourse).toFixed(1)
             : '-';
@@ -239,3 +245,4 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
+
