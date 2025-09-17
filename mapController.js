@@ -161,6 +161,7 @@ function updateMapRotation() {
         displayedHeading = targetHeading;
         skipRotationOnce--;
         rotator.style.transform = `rotate(${displayedHeading}deg)`;
+        lastDrawnMarkerAngle = displayedHeading; // 描画角度をグローバル変数に記録
         return;
     }
 
@@ -178,6 +179,7 @@ function updateMapRotation() {
     }
 
     displayedHeading = (displayedHeading + 360) % 360;
+    lastDrawnMarkerAngle = displayedHeading; // 描画角度をグローバル変数に記録
     rotator.style.transform = `rotate(${displayedHeading}deg)`;
 }
 

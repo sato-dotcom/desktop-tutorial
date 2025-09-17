@@ -147,7 +147,7 @@ function handlePositionSuccess(position) {
     // 磁気偏角を更新してから、位置情報の処理を行う
     updateDeclinationIfNeeded(latitude, longitude).then(() => {
         onPositionUpdate(position); // mapController.js の関数を呼び出す
-        updateDebugPanel();
+        updateDebugPanel(null, lastDrawnMarkerAngle);
     });
 }
 
@@ -206,7 +206,7 @@ function onCompassUpdate(event) {
         lastCompassHeading = trueHeading;
         currentHeading = trueHeading;
         if (DEBUG) console.log(`[Compass] init ${trueHeading.toFixed(1)}° (TN)`);
-        updateDebugPanel(rawHeading);
+        updateDebugPanel(rawHeading, lastDrawnMarkerAngle);
         return;
     }
 
@@ -215,7 +215,7 @@ function onCompassUpdate(event) {
     if (Math.abs(diff) > 180) diff = diff > 0 ? diff - 360 : diff + 360;
     if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD) {
         if (DEBUG) console.log(`[Compass] Spike ${diff.toFixed(1)}° ignored`);
-        updateDebugPanel(rawHeading);
+        updateDebugPanel(rawHeading, lastDrawnMarkerAngle);
         return;
     }
     lastCompassHeading = trueHeading;
@@ -230,10 +230,10 @@ function onCompassUpdate(event) {
         currentHeading = (newHeading + 360) % 360;
         if (DEBUG) console.log(`[Compass] update -> ${currentHeading.toFixed(1)}° (TN)`);
     }
-    updateDebugPanel(rawHeading);
+    updateDebugPanel(rawHeading, lastDrawnMarkerAngle);
 }
 
-// --- デバッグUI関連（拡張版） ---
+// --- デバッグUI関連（DrawnAngle対応版） ---
 function initDebugPanel() {
     if (!DEBUG) return;
     debugPanel = document.createElement('div');
@@ -252,7 +252,7 @@ function initDebugPanel() {
     updateDebugPanel();
 }
 
-function updateDebugPanel(rawHeadingVal = null) {
+function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
     if (!DEBUG || !debugPanel) return;
     const zone = lastDeclinationUpdatePos
         ? detectJGD2011Zone(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon)
@@ -267,13 +267,17 @@ function updateDebugPanel(rawHeadingVal = null) {
     const last = (lastCompassHeading !== null && !isNaN(lastCompassHeading))
         ? lastCompassHeading.toFixed(1)
         : '-';
+    const drawn = (drawnAngle !== null && !isNaN(drawnAngle))
+        ? drawnAngle.toFixed(1)
+        : '-';
 
     debugPanel.innerHTML =
         `Zone: ${zone}<br>` +
         `Decl: ${decl}°<br>` +
         `Raw: ${raw}°<br>` +
         `Last: ${last}°<br>` +
-        `Heading(TN): ${headingTN}°`;
+        `Heading(TN): ${headingTN}°<br>` +
+        `DrawnAngle: ${drawn}°`;
 }
 
 // アプリ初期化時に呼び出し

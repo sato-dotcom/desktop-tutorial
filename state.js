@@ -25,6 +25,7 @@ const appState = {
 let isResizing = false;
 let currentHeading = 0; // デバイスの向き（コンパス）
 let currentUserCourse = null; // GPSによる進行方向
+let lastDrawnMarkerAngle = null; // 実際に描画されたマーカーの角度
 let currentGnssStatus = '---'; // GNSSステータスを保持
 let isBearingInverted = false; // 船首方位の反転状態
 
@@ -94,3 +95,4 @@ const dom = {
     fullscreenBearingText: document.getElementById('fullscreen-bearing-text'),
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
 };
+
