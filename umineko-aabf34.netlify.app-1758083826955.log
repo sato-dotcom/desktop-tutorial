@@ -1,0 +1,2840 @@
+main.js:8 --- 🚀 App Initializing ---
+main.js:9 Initial State: followUser=true, headingUp=false
+gps.js:94 磁偏角API失敗。系3の代表値を使用: 7.50°
+updateDeclinationIfNeeded @ gps.js:94
+gps.js:176 [Compass] init 285.1° (TN)
+mapController.js:105 [toggle] headingUp=true
+mapController.js:117 [Heading Snap] Synced all headings to 285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:91 [toggle] followUser=false
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:91 [toggle] followUser=true
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+mapController.js:174 [DEBUG] diff=0.0° target=285.1° last=285.1°
+gps.js:196 [Compass] update -> 286.4° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=286.4° last=285.1°
+mapController.js:174 [DEBUG] diff=0.9° target=286.4° last=285.5°
+gps.js:196 [Compass] update -> 287.5° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=287.5° last=285.8°
+mapController.js:174 [DEBUG] diff=1.2° target=287.5° last=286.3°
+gps.js:196 [Compass] update -> 288.7° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=288.7° last=286.7°
+gps.js:196 [Compass] update -> 289.7° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=289.7° last=287.3°
+mapController.js:174 [DEBUG] diff=1.7° target=289.7° last=288.0°
+gps.js:196 [Compass] update -> 290.8° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=290.8° last=288.5°
+mapController.js:174 [DEBUG] diff=1.6° target=290.8° last=289.2°
+gps.js:196 [Compass] update -> 291.9° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=291.9° last=289.7°
+gps.js:196 [Compass] update -> 293.1° (TN)
+mapController.js:174 [DEBUG] diff=2.7° target=293.1° last=290.4°
+gps.js:196 [Compass] update -> 294.3° (TN)
+mapController.js:174 [DEBUG] diff=3.1° target=294.3° last=291.2°
+gps.js:196 [Compass] update -> 295.5° (TN)
+mapController.js:174 [DEBUG] diff=3.4° target=295.5° last=292.1°
+gps.js:196 [Compass] update -> 296.8° (TN)
+mapController.js:174 [DEBUG] diff=3.6° target=296.8° last=293.1°
+mapController.js:174 [DEBUG] diff=2.5° target=296.8° last=294.2°
+gps.js:196 [Compass] update -> 298.0° (TN)
+mapController.js:174 [DEBUG] diff=3.0° target=298.0° last=295.0°
+gps.js:196 [Compass] update -> 299.4° (TN)
+mapController.js:174 [DEBUG] diff=3.5° target=299.4° last=295.9°
+gps.js:196 [Compass] update -> 300.8° (TN)
+gps.js:196 [Compass] update -> 302.2° (TN)
+mapController.js:174 [DEBUG] diff=5.2° target=302.2° last=297.0°
+gps.js:196 [Compass] update -> 303.6° (TN)
+mapController.js:174 [DEBUG] diff=5.1° target=303.6° last=298.5°
+mapController.js:174 [DEBUG] diff=3.6° target=303.6° last=300.1°
+gps.js:196 [Compass] update -> 305.1° (TN)
+mapController.js:174 [DEBUG] diff=3.9° target=305.1° last=301.1°
+mapController.js:174 [DEBUG] diff=2.8° target=305.1° last=302.3°
+gps.js:196 [Compass] update -> 306.5° (TN)
+mapController.js:174 [DEBUG] diff=3.3° target=306.5° last=303.1°
+gps.js:196 [Compass] update -> 307.8° (TN)
+mapController.js:174 [DEBUG] diff=3.7° target=307.8° last=304.1°
+gps.js:196 [Compass] update -> 309.1° (TN)
+mapController.js:174 [DEBUG] diff=3.8° target=309.1° last=305.2°
+gps.js:196 [Compass] update -> 310.1° (TN)
+mapController.js:174 [DEBUG] diff=3.8° target=310.1° last=306.4°
+mapController.js:174 [DEBUG] diff=2.6° target=310.1° last=307.5°
+gps.js:196 [Compass] update -> 311.3° (TN)
+mapController.js:174 [DEBUG] diff=3.0° target=311.3° last=308.3°
+gps.js:196 [Compass] update -> 312.4° (TN)
+mapController.js:174 [DEBUG] diff=3.2° target=312.4° last=309.2°
+mapController.js:174 [DEBUG] diff=2.2° target=312.4° last=310.2°
+gps.js:196 [Compass] update -> 313.5° (TN)
+mapController.js:174 [DEBUG] diff=2.7° target=313.5° last=310.8°
+gps.js:196 [Compass] update -> 314.6° (TN)
+mapController.js:174 [DEBUG] diff=2.9° target=314.6° last=311.6°
+gps.js:196 [Compass] update -> 315.6° (TN)
+mapController.js:174 [DEBUG] diff=3.1° target=315.6° last=312.5°
+mapController.js:174 [DEBUG] diff=2.2° target=315.6° last=313.4°
+gps.js:196 [Compass] update -> 316.7° (TN)
+mapController.js:174 [DEBUG] diff=2.7° target=316.7° last=314.1°
+mapController.js:174 [DEBUG] diff=1.9° target=316.7° last=314.9°
+gps.js:196 [Compass] update -> 317.7° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=317.7° last=315.4°
+mapController.js:174 [DEBUG] diff=1.6° target=317.7° last=316.1°
+gps.js:196 [Compass] update -> 318.8° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=318.8° last=316.6°
+gps.js:196 [Compass] update -> 319.8° (TN)
+mapController.js:174 [DEBUG] diff=2.5° target=319.8° last=317.3°
+mapController.js:174 [DEBUG] diff=1.8° target=319.8° last=318.0°
+mapController.js:174 [DEBUG] diff=1.2° target=319.8° last=318.6°
+gps.js:196 [Compass] update -> 321.0° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=321.0° last=318.9°
+mapController.js:174 [DEBUG] diff=1.4° target=321.0° last=319.5°
+gps.js:196 [Compass] update -> 322.2° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=322.2° last=320.0°
+gps.js:196 [Compass] update -> 323.3° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=323.3° last=320.6°
+mapController.js:174 [DEBUG] diff=1.9° target=323.3° last=321.4°
+mapController.js:174 [DEBUG] diff=1.3° target=323.3° last=322.0°
+gps.js:196 [Compass] update -> 324.5° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=324.5° last=322.4°
+gps.js:196 [Compass] update -> 325.5° (TN)
+mapController.js:174 [DEBUG] diff=2.5° target=325.5° last=323.0°
+mapController.js:174 [DEBUG] diff=1.8° target=325.5° last=323.8°
+mapController.js:174 [DEBUG] diff=1.2° target=325.5° last=324.3°
+gps.js:196 [Compass] update -> 326.6° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=326.6° last=324.6°
+mapController.js:174 [DEBUG] diff=1.3° target=326.6° last=325.2°
+mapController.js:174 [DEBUG] diff=0.9° target=326.6° last=325.6°
+gps.js:196 [Compass] update -> 327.6° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=327.6° last=325.9°
+mapController.js:174 [DEBUG] diff=1.2° target=327.6° last=326.4°
+gps.js:196 [Compass] update -> 328.8° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=328.8° last=326.8°
+gps.js:196 [Compass] update -> 329.8° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=329.8° last=327.4°
+mapController.js:174 [DEBUG] diff=1.7° target=329.8° last=328.1°
+mapController.js:174 [DEBUG] diff=1.2° target=329.8° last=328.6°
+mapController.js:174 [DEBUG] diff=0.8° target=329.8° last=329.0°
+gps.js:196 [Compass] update -> 330.9° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=330.9° last=329.2°
+mapController.js:174 [DEBUG] diff=1.2° target=330.9° last=329.7°
+mapController.js:174 [DEBUG] diff=0.8° target=330.9° last=330.1°
+gps.js:196 [Compass] update -> 331.9° (TN)
+mapController.js:174 [DEBUG] diff=1.6° target=331.9° last=330.3°
+mapController.js:174 [DEBUG] diff=1.1° target=331.9° last=330.8°
+mapController.js:174 [DEBUG] diff=0.8° target=331.9° last=331.1°
+mapController.js:174 [DEBUG] diff=0.5° target=331.9° last=331.4°
+mapController.js:174 [DEBUG] diff=0.4° target=331.9° last=331.5°
+mapController.js:174 [DEBUG] diff=0.3° target=331.9° last=331.7°
+mapController.js:174 [DEBUG] diff=0.2° target=331.9° last=331.7°
+mapController.js:174 [DEBUG] diff=0.1° target=331.9° last=331.8°
+mapController.js:174 [DEBUG] diff=0.1° target=331.9° last=331.8°
+mapController.js:174 [DEBUG] diff=0.1° target=331.9° last=331.9°
+mapController.js:174 [DEBUG] diff=0.0° target=331.9° last=331.9°
+mapController.js:174 [DEBUG] diff=0.0° target=331.9° last=331.9°
+mapController.js:174 [DEBUG] diff=0.0° target=331.9° last=331.9°
+mapController.js:174 [DEBUG] diff=0.0° target=331.9° last=331.9°
+mapController.js:174 [DEBUG] diff=0.0° target=331.9° last=331.9°
+mapController.js:174 [DEBUG] diff=0.0° target=331.9° last=331.9°
+gps.js:196 [Compass] update -> 330.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.3° target=330.6° last=331.9°
+mapController.js:174 [DEBUG] diff=-0.9° target=330.6° last=331.5°
+mapController.js:174 [DEBUG] diff=-0.6° target=330.6° last=331.2°
+gps.js:196 [Compass] update -> 329.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=329.3° last=331.1°
+mapController.js:174 [DEBUG] diff=-1.2° target=329.3° last=330.5°
+gps.js:196 [Compass] update -> 328.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=328.3° last=330.2°
+mapController.js:174 [DEBUG] diff=-1.3° target=328.3° last=329.6°
+mapController.js:174 [DEBUG] diff=-0.9° target=328.3° last=329.2°
+mapController.js:174 [DEBUG] diff=-0.6° target=328.3° last=328.9°
+mapController.js:174 [DEBUG] diff=-0.5° target=328.3° last=328.7°
+gps.js:196 [Compass] update -> 327.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.4° target=327.2° last=328.6°
+mapController.js:174 [DEBUG] diff=-1.0° target=327.2° last=328.2°
+mapController.js:174 [DEBUG] diff=-0.7° target=327.2° last=327.9°
+mapController.js:174 [DEBUG] diff=-0.5° target=327.2° last=327.7°
+mapController.js:174 [DEBUG] diff=-0.3° target=327.2° last=327.5°
+mapController.js:174 [DEBUG] diff=-0.2° target=327.2° last=327.4°
+mapController.js:174 [DEBUG] diff=-0.2° target=327.2° last=327.4°
+mapController.js:174 [DEBUG] diff=-0.1° target=327.2° last=327.3°
+mapController.js:174 [DEBUG] diff=-0.1° target=327.2° last=327.3°
+mapController.js:174 [DEBUG] diff=-0.1° target=327.2° last=327.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=327.2° last=327.2°
+gps.js:196 [Compass] update -> 326.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.1° target=326.1° last=327.2°
+mapController.js:174 [DEBUG] diff=-0.8° target=326.1° last=326.9°
+gps.js:196 [Compass] update -> 324.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=324.8° last=326.7°
+gps.js:196 [Compass] update -> 323.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=323.8° last=326.1°
+mapController.js:174 [DEBUG] diff=-1.6° target=323.8° last=325.4°
+mapController.js:174 [DEBUG] diff=-1.2° target=323.8° last=324.9°
+mapController.js:174 [DEBUG] diff=-0.8° target=323.8° last=324.6°
+gps.js:196 [Compass] update -> 322.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=322.7° last=324.3°
+mapController.js:174 [DEBUG] diff=-1.1° target=322.7° last=323.8°
+gps.js:196 [Compass] update -> 321.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=321.6° last=323.5°
+mapController.js:174 [DEBUG] diff=-1.3° target=321.6° last=322.9°
+mapController.js:174 [DEBUG] diff=-0.9° target=321.6° last=322.6°
+gps.js:196 [Compass] update -> 320.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=320.6° last=322.3°
+mapController.js:174 [DEBUG] diff=-1.1° target=320.6° last=321.8°
+gps.js:196 [Compass] update -> 319.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=319.6° last=321.4°
+mapController.js:174 [DEBUG] diff=-1.3° target=319.6° last=320.9°
+mapController.js:174 [DEBUG] diff=-0.9° target=319.6° last=320.5°
+mapController.js:174 [DEBUG] diff=-0.6° target=319.6° last=320.2°
+mapController.js:174 [DEBUG] diff=-0.4° target=319.6° last=320.0°
+gps.js:196 [Compass] update -> 318.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.4° target=318.5° last=319.9°
+mapController.js:174 [DEBUG] diff=-1.0° target=318.5° last=319.5°
+gps.js:196 [Compass] update -> 317.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=317.2° last=319.2°
+gps.js:196 [Compass] update -> 316.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.6° target=316.0° last=318.6°
+mapController.js:174 [DEBUG] diff=-1.8° target=316.0° last=317.8°
+gps.js:196 [Compass] update -> 314.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.4° target=314.8° last=317.3°
+gps.js:196 [Compass] update -> 313.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.7° target=313.8° last=316.5°
+mapController.js:174 [DEBUG] diff=-1.9° target=313.8° last=315.7°
+mapController.js:174 [DEBUG] diff=-1.3° target=313.8° last=315.2°
+mapController.js:174 [DEBUG] diff=-0.9° target=313.8° last=314.8°
+mapController.js:174 [DEBUG] diff=-0.6° target=313.8° last=314.5°
+mapController.js:174 [DEBUG] diff=-0.5° target=313.8° last=314.3°
+mapController.js:174 [DEBUG] diff=-0.3° target=313.8° last=314.2°
+mapController.js:174 [DEBUG] diff=-0.2° target=313.8° last=314.1°
+mapController.js:174 [DEBUG] diff=-0.2° target=313.8° last=314.0°
+mapController.js:174 [DEBUG] diff=-0.1° target=313.8° last=313.9°
+mapController.js:174 [DEBUG] diff=-0.1° target=313.8° last=313.9°
+mapController.js:174 [DEBUG] diff=-0.1° target=313.8° last=313.9°
+mapController.js:174 [DEBUG] diff=-0.0° target=313.8° last=313.9°
+mapController.js:174 [DEBUG] diff=-0.0° target=313.8° last=313.9°
+mapController.js:174 [DEBUG] diff=-0.0° target=313.8° last=313.9°
+mapController.js:174 [DEBUG] diff=-0.0° target=313.8° last=313.9°
+gps.js:196 [Compass] update -> 314.9° (TN)
+mapController.js:174 [DEBUG] diff=1.0° target=314.9° last=313.8°
+gps.js:196 [Compass] update -> 315.9° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=315.9° last=314.2°
+mapController.js:174 [DEBUG] diff=1.2° target=315.9° last=314.7°
+gps.js:196 [Compass] update -> 316.9° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=316.9° last=315.0°
+mapController.js:174 [DEBUG] diff=1.3° target=316.9° last=315.6°
+mapController.js:174 [DEBUG] diff=0.9° target=316.9° last=316.0°
+gps.js:196 [Compass] update -> 318.1° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=318.1° last=316.3°
+gps.js:196 [Compass] update -> 319.5° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=319.5° last=316.8°
+gps.js:196 [Compass] update -> 320.5° (TN)
+mapController.js:174 [DEBUG] diff=2.9° target=320.5° last=317.6°
+mapController.js:174 [DEBUG] diff=2.0° target=320.5° last=318.5°
+gps.js:196 [Compass] update -> 321.5° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=321.5° last=319.1°
+mapController.js:174 [DEBUG] diff=1.7° target=321.5° last=319.8°
+mapController.js:174 [DEBUG] diff=1.2° target=321.5° last=320.3°
+gps.js:196 [Compass] update -> 322.8° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=322.8° last=320.7°
+gps.js:196 [Compass] update -> 323.9° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=323.9° last=321.3°
+mapController.js:174 [DEBUG] diff=1.8° target=323.9° last=322.1°
+gps.js:196 [Compass] update -> 325.1° (TN)
+mapController.js:174 [DEBUG] diff=2.5° target=325.1° last=322.6°
+mapController.js:174 [DEBUG] diff=1.7° target=325.1° last=323.4°
+mapController.js:174 [DEBUG] diff=1.2° target=325.1° last=323.9°
+gps.js:196 [Compass] update -> 326.2° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=326.2° last=324.3°
+mapController.js:174 [DEBUG] diff=1.4° target=326.2° last=324.8°
+gps.js:196 [Compass] update -> 327.6° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=327.6° last=325.3°
+gps.js:196 [Compass] update -> 329.0° (TN)
+mapController.js:174 [DEBUG] diff=3.0° target=329.0° last=326.0°
+mapController.js:174 [DEBUG] diff=2.1° target=329.0° last=326.9°
+gps.js:196 [Compass] update -> 330.3° (TN)
+mapController.js:174 [DEBUG] diff=2.8° target=330.3° last=327.5°
+gps.js:196 [Compass] update -> 331.6° (TN)
+mapController.js:174 [DEBUG] diff=3.2° target=331.6° last=328.3°
+gps.js:196 [Compass] update -> 332.6° (TN)
+mapController.js:174 [DEBUG] diff=3.3° target=332.6° last=329.3°
+mapController.js:174 [DEBUG] diff=2.3° target=332.6° last=330.3°
+gps.js:196 [Compass] update -> 333.7° (TN)
+mapController.js:174 [DEBUG] diff=2.7° target=333.7° last=331.0°
+mapController.js:174 [DEBUG] diff=1.9° target=333.7° last=331.8°
+mapController.js:174 [DEBUG] diff=1.3° target=333.7° last=332.4°
+mapController.js:174 [DEBUG] diff=0.9° target=333.7° last=332.8°
+mapController.js:174 [DEBUG] diff=0.6° target=333.7° last=333.0°
+mapController.js:174 [DEBUG] diff=0.5° target=333.7° last=333.2°
+mapController.js:174 [DEBUG] diff=0.3° target=333.7° last=333.4°
+mapController.js:174 [DEBUG] diff=0.2° target=333.7° last=333.5°
+gps.js:196 [Compass] update -> 334.8° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=334.8° last=333.5°
+mapController.js:174 [DEBUG] diff=0.9° target=334.8° last=333.9°
+gps.js:196 [Compass] update -> 336.0° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=336.0° last=334.2°
+gps.js:196 [Compass] update -> 337.0° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=337.0° last=334.7°
+mapController.js:174 [DEBUG] diff=1.6° target=337.0° last=335.4°
+gps.js:196 [Compass] update -> 338.0° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=338.0° last=335.9°
+mapController.js:174 [DEBUG] diff=1.5° target=338.0° last=336.5°
+gps.js:196 [Compass] update -> 339.2° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=339.2° last=337.0°
+gps.js:196 [Compass] update -> 340.5° (TN)
+mapController.js:174 [DEBUG] diff=2.8° target=340.5° last=337.6°
+gps.js:196 [Compass] update -> 341.9° (TN)
+mapController.js:174 [DEBUG] diff=3.4° target=341.9° last=338.5°
+mapController.js:174 [DEBUG] diff=2.4° target=341.9° last=339.5°
+mapController.js:174 [DEBUG] diff=1.7° target=341.9° last=340.2°
+gps.js:196 [Compass] update -> 343.1° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=343.1° last=340.7°
+gps.js:196 [Compass] update -> 344.2° (TN)
+mapController.js:174 [DEBUG] diff=2.8° target=344.2° last=341.4°
+gps.js:196 [Compass] update -> 345.4° (TN)
+mapController.js:174 [DEBUG] diff=3.1° target=345.4° last=342.3°
+mapController.js:174 [DEBUG] diff=2.2° target=345.4° last=343.2°
+mapController.js:174 [DEBUG] diff=1.5° target=345.4° last=343.8°
+gps.js:196 [Compass] update -> 346.5° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=346.5° last=344.3°
+gps.js:196 [Compass] update -> 347.8° (TN)
+mapController.js:174 [DEBUG] diff=2.8° target=347.8° last=344.9°
+gps.js:196 [Compass] update -> 349.0° (TN)
+mapController.js:174 [DEBUG] diff=3.2° target=349.0° last=345.8°
+gps.js:196 [Compass] update -> 350.0° (TN)
+mapController.js:174 [DEBUG] diff=3.3° target=350.0° last=346.7°
+gps.js:196 [Compass] update -> 351.0° (TN)
+mapController.js:174 [DEBUG] diff=3.3° target=351.0° last=347.7°
+mapController.js:174 [DEBUG] diff=2.3° target=351.0° last=348.7°
+mapController.js:174 [DEBUG] diff=1.6° target=351.0° last=349.4°
+gps.js:196 [Compass] update -> 352.1° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=352.1° last=349.9°
+mapController.js:174 [DEBUG] diff=1.5° target=352.1° last=350.6°
+mapController.js:174 [DEBUG] diff=1.1° target=352.1° last=351.0°
+mapController.js:174 [DEBUG] diff=0.7° target=352.1° last=351.3°
+mapController.js:174 [DEBUG] diff=0.5° target=352.1° last=351.6°
+mapController.js:174 [DEBUG] diff=0.4° target=352.1° last=351.7°
+mapController.js:174 [DEBUG] diff=0.3° target=352.1° last=351.8°
+mapController.js:174 [DEBUG] diff=0.2° target=352.1° last=351.9°
+gps.js:196 [Compass] update -> 353.3° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=353.3° last=352.0°
+gps.js:196 [Compass] update -> 354.3° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=354.3° last=352.3°
+mapController.js:174 [DEBUG] diff=1.4° target=354.3° last=352.9°
+mapController.js:174 [DEBUG] diff=1.0° target=354.3° last=353.3°
+gps.js:196 [Compass] update -> 355.4° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=355.4° last=353.6°
+mapController.js:174 [DEBUG] diff=1.3° target=355.4° last=354.2°
+gps.js:196 [Compass] update -> 356.7° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=356.7° last=354.5°
+mapController.js:174 [DEBUG] diff=1.5° target=356.7° last=355.2°
+mapController.js:174 [DEBUG] diff=1.0° target=356.7° last=355.6°
+gps.js:196 [Compass] update -> 357.8° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=357.8° last=355.9°
+mapController.js:174 [DEBUG] diff=1.3° target=357.8° last=356.5°
+gps.js:196 [Compass] update -> 358.9° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=358.9° last=356.9°
+mapController.js:174 [DEBUG] diff=1.4° target=358.9° last=357.5°
+gps.js:196 [Compass] update -> 359.9° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=359.9° last=357.9°
+mapController.js:174 [DEBUG] diff=1.4° target=359.9° last=358.5°
+mapController.js:174 [DEBUG] diff=1.0° target=359.9° last=358.9°
+mapController.js:174 [DEBUG] diff=0.7° target=359.9° last=359.2°
+gps.js:196 [Compass] update -> 0.9° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=0.9° last=359.4°
+mapController.js:174 [DEBUG] diff=1.1° target=0.9° last=359.8°
+gps.js:196 [Compass] update -> 1.9° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=1.9° last=0.2°
+mapController.js:174 [DEBUG] diff=1.2° target=1.9° last=0.7°
+mapController.js:174 [DEBUG] diff=0.9° target=1.9° last=1.1°
+gps.js:196 [Compass] update -> 3.0° (TN)
+mapController.js:174 [DEBUG] diff=1.6° target=3.0° last=1.3°
+mapController.js:174 [DEBUG] diff=1.2° target=3.0° last=1.8°
+gps.js:196 [Compass] update -> 4.0° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=4.0° last=2.2°
+mapController.js:174 [DEBUG] diff=1.3° target=4.0° last=2.7°
+mapController.js:174 [DEBUG] diff=0.9° target=4.0° last=3.1°
+gps.js:196 [Compass] update -> 5.1° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=5.1° last=3.4°
+mapController.js:174 [DEBUG] diff=1.2° target=5.1° last=3.9°
+gps.js:196 [Compass] update -> 6.1° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=6.1° last=4.2°
+mapController.js:174 [DEBUG] diff=1.3° target=6.1° last=4.8°
+gps.js:196 [Compass] update -> 7.2° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=7.2° last=5.2°
+mapController.js:174 [DEBUG] diff=1.4° target=7.2° last=5.8°
+mapController.js:174 [DEBUG] diff=1.0° target=7.2° last=6.2°
+mapController.js:174 [DEBUG] diff=0.7° target=7.2° last=6.5°
+gps.js:196 [Compass] update -> 8.2° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=8.2° last=6.7°
+gps.js:196 [Compass] update -> 9.3° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=9.3° last=7.2°
+mapController.js:174 [DEBUG] diff=1.5° target=9.3° last=7.8°
+gps.js:196 [Compass] update -> 10.4° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=10.4° last=8.3°
+mapController.js:174 [DEBUG] diff=1.5° target=10.4° last=8.9°
+mapController.js:174 [DEBUG] diff=1.1° target=10.4° last=9.4°
+gps.js:196 [Compass] update -> 11.6° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=11.6° last=9.7°
+mapController.js:174 [DEBUG] diff=1.3° target=11.6° last=10.2°
+gps.js:196 [Compass] update -> 12.6° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=12.6° last=10.6°
+mapController.js:174 [DEBUG] diff=1.4° target=12.6° last=11.2°
+mapController.js:174 [DEBUG] diff=1.0° target=12.6° last=11.6°
+mapController.js:174 [DEBUG] diff=0.7° target=12.6° last=11.9°
+mapController.js:174 [DEBUG] diff=0.5° target=12.6° last=12.1°
+mapController.js:174 [DEBUG] diff=0.3° target=12.6° last=12.3°
+mapController.js:174 [DEBUG] diff=0.2° target=12.6° last=12.4°
+mapController.js:174 [DEBUG] diff=0.2° target=12.6° last=12.5°
+mapController.js:174 [DEBUG] diff=0.1° target=12.6° last=12.5°
+mapController.js:174 [DEBUG] diff=0.1° target=12.6° last=12.5°
+mapController.js:174 [DEBUG] diff=0.1° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+mapController.js:174 [DEBUG] diff=0.0° target=12.6° last=12.6°
+gps.js:196 [Compass] update -> 11.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.1° target=11.6° last=12.6°
+mapController.js:174 [DEBUG] diff=-0.7° target=11.6° last=12.3°
+mapController.js:174 [DEBUG] diff=-0.5° target=11.6° last=12.1°
+mapController.js:174 [DEBUG] diff=-0.4° target=11.6° last=11.9°
+gps.js:196 [Compass] update -> 10.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.3° target=10.5° last=11.8°
+mapController.js:174 [DEBUG] diff=-0.9° target=10.5° last=11.4°
+gps.js:196 [Compass] update -> 9.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=9.5° last=11.2°
+mapController.js:174 [DEBUG] diff=-1.2° target=9.5° last=10.7°
+mapController.js:174 [DEBUG] diff=-0.8° target=9.5° last=10.3°
+gps.js:196 [Compass] update -> 8.4° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=8.4° last=10.1°
+mapController.js:174 [DEBUG] diff=-1.1° target=8.4° last=9.6°
+gps.js:196 [Compass] update -> 7.4° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=7.4° last=9.2°
+mapController.js:174 [DEBUG] diff=-1.3° target=7.4° last=8.7°
+gps.js:196 [Compass] update -> 6.4° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=6.4° last=8.3°
+mapController.js:174 [DEBUG] diff=-1.3° target=6.4° last=7.7°
+mapController.js:174 [DEBUG] diff=-0.9° target=6.4° last=7.3°
+gps.js:196 [Compass] update -> 5.4° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=5.4° last=7.0°
+mapController.js:174 [DEBUG] diff=-1.2° target=5.4° last=6.5°
+gps.js:196 [Compass] update -> 4.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=4.3° last=6.2°
+mapController.js:174 [DEBUG] diff=-1.3° target=4.3° last=5.6°
+mapController.js:174 [DEBUG] diff=-0.9° target=4.3° last=5.2°
+gps.js:196 [Compass] update -> 3.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=3.2° last=5.0°
+mapController.js:174 [DEBUG] diff=-1.2° target=3.2° last=4.5°
+gps.js:196 [Compass] update -> 2.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=2.2° last=4.1°
+mapController.js:174 [DEBUG] diff=-1.3° target=2.2° last=3.5°
+mapController.js:174 [DEBUG] diff=-0.9° target=2.2° last=3.1°
+gps.js:196 [Compass] update -> 1.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=1.2° last=2.9°
+mapController.js:174 [DEBUG] diff=-1.2° target=1.2° last=2.4°
+mapController.js:174 [DEBUG] diff=-0.8° target=1.2° last=2.0°
+gps.js:196 [Compass] update -> 0.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=0.2° last=1.8°
+mapController.js:174 [DEBUG] diff=-1.1° target=0.2° last=1.3°
+gps.js:196 [Compass] update -> 359.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=359.0° last=1.0°
+gps.js:196 [Compass] update -> 357.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=357.9° last=0.4°
+gps.js:196 [Compass] update -> 356.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.8° target=356.8° last=359.6°
+mapController.js:174 [DEBUG] diff=-1.9° target=356.8° last=358.8°
+mapController.js:174 [DEBUG] diff=-1.4° target=356.8° last=358.2°
+gps.js:196 [Compass] update -> 355.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=355.6° last=357.8°
+mapController.js:174 [DEBUG] diff=-1.5° target=355.6° last=357.1°
+mapController.js:174 [DEBUG] diff=-1.0° target=355.6° last=356.7°
+gps.js:196 [Compass] update -> 354.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=354.6° last=356.4°
+mapController.js:174 [DEBUG] diff=-1.3° target=354.6° last=355.8°
+gps.js:196 [Compass] update -> 353.5° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=353.5° last=355.4°
+mapController.js:174 [DEBUG] diff=-1.4° target=353.5° last=354.9°
+gps.js:196 [Compass] update -> 352.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=352.4° last=354.4°
+mapController.js:174 [DEBUG] diff=-1.4° target=352.4° last=353.8°
+mapController.js:174 [DEBUG] diff=-1.0° target=352.4° last=353.4°
+gps.js:196 [Compass] update -> 351.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=351.3° last=353.1°
+mapController.js:174 [DEBUG] diff=-1.2° target=351.3° last=352.6°
+gps.js:196 [Compass] update -> 350.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=350.2° last=352.2°
+mapController.js:174 [DEBUG] diff=-1.4° target=350.2° last=351.6°
+mapController.js:174 [DEBUG] diff=-1.0° target=350.2° last=351.2°
+gps.js:196 [Compass] update -> 349.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=349.1° last=350.9°
+mapController.js:174 [DEBUG] diff=-1.2° target=349.1° last=350.4°
+gps.js:196 [Compass] update -> 348.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=348.1° last=350.0°
+mapController.js:174 [DEBUG] diff=-1.3° target=348.1° last=349.4°
+mapController.js:174 [DEBUG] diff=-0.9° target=348.1° last=349.0°
+mapController.js:174 [DEBUG] diff=-0.6° target=348.1° last=348.8°
+gps.js:196 [Compass] update -> 347.0° (TN)
+mapController.js:174 [DEBUG] diff=-1.5° target=347.0° last=348.6°
+mapController.js:174 [DEBUG] diff=-1.1° target=347.0° last=348.1°
+gps.js:196 [Compass] update -> 345.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=345.8° last=347.8°
+mapController.js:174 [DEBUG] diff=-1.4° target=345.8° last=347.2°
+mapController.js:174 [DEBUG] diff=-0.9° target=345.8° last=346.8°
+gps.js:196 [Compass] update -> 344.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=344.8° last=346.5°
+mapController.js:174 [DEBUG] diff=-1.2° target=344.8° last=346.0°
+mapController.js:174 [DEBUG] diff=-0.8° target=344.8° last=345.6°
+mapController.js:174 [DEBUG] diff=-0.6° target=344.8° last=345.4°
+mapController.js:174 [DEBUG] diff=-0.4° target=344.8° last=345.2°
+gps.js:196 [Compass] update -> 343.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.4° target=343.6° last=345.1°
+mapController.js:174 [DEBUG] diff=-1.0° target=343.6° last=344.6°
+mapController.js:174 [DEBUG] diff=-0.7° target=343.6° last=344.3°
+gps.js:196 [Compass] update -> 342.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=342.6° last=344.1°
+mapController.js:174 [DEBUG] diff=-1.1° target=342.6° last=343.7°
+mapController.js:174 [DEBUG] diff=-0.8° target=342.6° last=343.3°
+mapController.js:174 [DEBUG] diff=-0.5° target=342.6° last=343.1°
+mapController.js:174 [DEBUG] diff=-0.4° target=342.6° last=343.0°
+gps.js:196 [Compass] update -> 341.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.3° target=341.5° last=342.8°
+mapController.js:174 [DEBUG] diff=-0.9° target=341.5° last=342.5°
+gps.js:196 [Compass] update -> 340.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=340.5° last=342.2°
+mapController.js:174 [DEBUG] diff=-1.1° target=340.5° last=341.7°
+mapController.js:174 [DEBUG] diff=-0.8° target=340.5° last=341.3°
+mapController.js:174 [DEBUG] diff=-0.6° target=340.5° last=341.1°
+gps.js:196 [Compass] update -> 339.4° (TN)
+mapController.js:174 [DEBUG] diff=-1.5° target=339.4° last=340.9°
+mapController.js:174 [DEBUG] diff=-1.1° target=339.4° last=340.5°
+gps.js:196 [Compass] update -> 338.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=338.3° last=340.1°
+mapController.js:174 [DEBUG] diff=-1.3° target=338.3° last=339.6°
+gps.js:196 [Compass] update -> 337.1° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=337.1° last=339.2°
+mapController.js:174 [DEBUG] diff=-1.4° target=337.1° last=338.6°
+gps.js:196 [Compass] update -> 336.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=336.0° last=338.1°
+mapController.js:174 [DEBUG] diff=-1.5° target=336.0° last=337.5°
+gps.js:196 [Compass] update -> 335.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=335.0° last=337.0°
+gps.js:196 [Compass] update -> 333.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.6° target=333.9° last=336.4°
+mapController.js:174 [DEBUG] diff=-1.8° target=333.9° last=335.6°
+gps.js:196 [Compass] update -> 332.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=332.9° last=335.1°
+mapController.js:174 [DEBUG] diff=-1.6° target=332.9° last=334.4°
+gps.js:196 [Compass] update -> 331.7° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=331.7° last=334.0°
+mapController.js:174 [DEBUG] diff=-1.6° target=331.7° last=333.3°
+gps.js:196 [Compass] update -> 330.5° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=330.5° last=332.8°
+mapController.js:174 [DEBUG] diff=-1.6° target=330.5° last=332.1°
+gps.js:196 [Compass] update -> 329.5° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=329.5° last=331.7°
+mapController.js:174 [DEBUG] diff=-1.5° target=329.5° last=331.0°
+gps.js:196 [Compass] update -> 328.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=328.4° last=330.6°
+gps.js:196 [Compass] update -> 327.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=327.4° last=329.9°
+mapController.js:174 [DEBUG] diff=-1.8° target=327.4° last=329.2°
+mapController.js:174 [DEBUG] diff=-1.2° target=327.4° last=328.6°
+gps.js:196 [Compass] update -> 326.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=326.3° last=328.2°
+mapController.js:174 [DEBUG] diff=-1.4° target=326.3° last=327.7°
+gps.js:196 [Compass] update -> 325.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=325.2° last=327.3°
+gps.js:196 [Compass] update -> 324.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=324.2° last=326.6°
+mapController.js:174 [DEBUG] diff=-1.7° target=324.2° last=325.9°
+mapController.js:174 [DEBUG] diff=-1.2° target=324.2° last=325.4°
+gps.js:196 [Compass] update -> 322.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=322.9° last=325.0°
+mapController.js:174 [DEBUG] diff=-1.4° target=322.9° last=324.4°
+gps.js:196 [Compass] update -> 321.7° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=321.7° last=324.0°
+gps.js:196 [Compass] update -> 320.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.7° target=320.6° last=323.3°
+mapController.js:174 [DEBUG] diff=-1.9° target=320.6° last=322.5°
+gps.js:196 [Compass] update -> 319.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=319.4° last=321.9°
+mapController.js:174 [DEBUG] diff=-1.7° target=319.4° last=321.2°
+gps.js:196 [Compass] update -> 318.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=318.4° last=320.6°
+mapController.js:174 [DEBUG] diff=-1.6° target=318.4° last=320.0°
+gps.js:196 [Compass] update -> 317.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=317.2° last=319.5°
+mapController.js:174 [DEBUG] diff=-1.6° target=317.2° last=318.8°
+mapController.js:174 [DEBUG] diff=-1.1° target=317.2° last=318.3°
+gps.js:196 [Compass] update -> 316.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=316.1° last=318.0°
+mapController.js:174 [DEBUG] diff=-1.3° target=316.1° last=317.4°
+gps.js:196 [Compass] update -> 314.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=314.9° last=317.0°
+mapController.js:174 [DEBUG] diff=-1.5° target=314.9° last=316.4°
+gps.js:196 [Compass] update -> 313.7° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=313.7° last=316.0°
+mapController.js:174 [DEBUG] diff=-1.5° target=313.7° last=315.3°
+gps.js:196 [Compass] update -> 312.7° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=312.7° last=314.8°
+mapController.js:174 [DEBUG] diff=-1.5° target=312.7° last=314.2°
+gps.js:196 [Compass] update -> 311.7° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=311.7° last=313.8°
+mapController.js:174 [DEBUG] diff=-1.4° target=311.7° last=313.1°
+gps.js:196 [Compass] update -> 310.7° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=310.7° last=312.7°
+mapController.js:174 [DEBUG] diff=-1.4° target=310.7° last=312.1°
+mapController.js:174 [DEBUG] diff=-1.0° target=310.7° last=311.7°
+gps.js:196 [Compass] update -> 309.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=309.7° last=311.4°
+mapController.js:174 [DEBUG] diff=-1.2° target=309.7° last=310.9°
+mapController.js:174 [DEBUG] diff=-0.8° target=309.7° last=310.5°
+gps.js:196 [Compass] update -> 308.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=308.5° last=310.3°
+mapController.js:174 [DEBUG] diff=-1.2° target=308.5° last=309.7°
+mapController.js:174 [DEBUG] diff=-0.8° target=308.5° last=309.4°
+gps.js:196 [Compass] update -> 307.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=307.5° last=309.1°
+mapController.js:174 [DEBUG] diff=-1.1° target=307.5° last=308.7°
+mapController.js:174 [DEBUG] diff=-0.8° target=307.5° last=308.3°
+mapController.js:174 [DEBUG] diff=-0.5° target=307.5° last=308.1°
+mapController.js:174 [DEBUG] diff=-0.4° target=307.5° last=307.9°
+mapController.js:174 [DEBUG] diff=-0.3° target=307.5° last=307.8°
+mapController.js:174 [DEBUG] diff=-0.2° target=307.5° last=307.7°
+mapController.js:174 [DEBUG] diff=-0.1° target=307.5° last=307.7°
+mapController.js:174 [DEBUG] diff=-0.1° target=307.5° last=307.6°
+mapController.js:174 [DEBUG] diff=-0.1° target=307.5° last=307.6°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.6°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.6°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.6°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.6°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=307.5° last=307.5°
+gps.js:196 [Compass] update -> 308.8° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=308.8° last=307.5°
+gps.js:196 [Compass] update -> 309.8° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=309.8° last=307.9°
+mapController.js:174 [DEBUG] diff=1.3° target=309.8° last=308.5°
+mapController.js:174 [DEBUG] diff=0.9° target=309.8° last=308.9°
+gps.js:196 [Compass] update -> 310.8° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=310.8° last=309.1°
+mapController.js:174 [DEBUG] diff=1.2° target=310.8° last=309.7°
+gps.js:196 [Compass] update -> 311.9° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=311.9° last=310.0°
+mapController.js:174 [DEBUG] diff=1.3° target=311.9° last=310.6°
+mapController.js:174 [DEBUG] diff=0.9° target=311.9° last=311.0°
+gps.js:196 [Compass] update -> 313.0° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=313.0° last=311.3°
+mapController.js:174 [DEBUG] diff=1.2° target=313.0° last=311.8°
+mapController.js:174 [DEBUG] diff=0.9° target=313.0° last=312.2°
+gps.js:196 [Compass] update -> 314.1° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=314.1° last=312.4°
+mapController.js:174 [DEBUG] diff=1.2° target=314.1° last=312.9°
+gps.js:196 [Compass] update -> 315.2° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=315.2° last=313.3°
+mapController.js:174 [DEBUG] diff=1.4° target=315.2° last=313.8°
+gps.js:196 [Compass] update -> 316.3° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=316.3° last=314.3°
+mapController.js:174 [DEBUG] diff=1.4° target=316.3° last=314.9°
+gps.js:196 [Compass] update -> 317.4° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=317.4° last=315.3°
+mapController.js:174 [DEBUG] diff=1.5° target=317.4° last=315.9°
+mapController.js:174 [DEBUG] diff=1.0° target=317.4° last=316.4°
+gps.js:196 [Compass] update -> 318.6° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=318.6° last=316.7°
+gps.js:196 [Compass] update -> 319.6° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=319.6° last=317.2°
+mapController.js:174 [DEBUG] diff=1.6° target=319.6° last=317.9°
+gps.js:196 [Compass] update -> 320.7° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=320.7° last=318.4°
+mapController.js:174 [DEBUG] diff=1.6° target=320.7° last=319.1°
+mapController.js:174 [DEBUG] diff=1.1° target=320.7° last=319.6°
+gps.js:196 [Compass] update -> 322.0° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=322.0° last=319.9°
+gps.js:196 [Compass] update -> 323.0° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=323.0° last=320.6°
+gps.js:196 [Compass] update -> 324.1° (TN)
+mapController.js:174 [DEBUG] diff=2.8° target=324.1° last=321.3°
+mapController.js:174 [DEBUG] diff=2.0° target=324.1° last=322.1°
+mapController.js:174 [DEBUG] diff=1.4° target=324.1° last=322.7°
+gps.js:196 [Compass] update -> 325.1° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=325.1° last=323.1°
+mapController.js:174 [DEBUG] diff=1.4° target=325.1° last=323.7°
+gps.js:196 [Compass] update -> 326.1° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=326.1° last=324.1°
+mapController.js:174 [DEBUG] diff=1.4° target=326.1° last=324.7°
+mapController.js:174 [DEBUG] diff=1.0° target=326.1° last=325.2°
+gps.js:196 [Compass] update -> 327.2° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=327.2° last=325.5°
+mapController.js:174 [DEBUG] diff=1.2° target=327.2° last=326.0°
+mapController.js:174 [DEBUG] diff=0.8° target=327.2° last=326.3°
+gps.js:196 [Compass] update -> 328.3° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=328.3° last=326.6°
+mapController.js:174 [DEBUG] diff=1.2° target=328.3° last=327.1°
+mapController.js:174 [DEBUG] diff=0.8° target=328.3° last=327.4°
+gps.js:196 [Compass] update -> 329.3° (TN)
+mapController.js:174 [DEBUG] diff=1.6° target=329.3° last=327.7°
+mapController.js:174 [DEBUG] diff=1.1° target=329.3° last=328.2°
+mapController.js:174 [DEBUG] diff=0.8° target=329.3° last=328.5°
+mapController.js:174 [DEBUG] diff=0.5° target=329.3° last=328.7°
+gps.js:196 [Compass] update -> 330.4° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=330.4° last=328.9°
+mapController.js:174 [DEBUG] diff=1.1° target=330.4° last=329.3°
+mapController.js:174 [DEBUG] diff=0.7° target=330.4° last=329.7°
+mapController.js:174 [DEBUG] diff=0.5° target=330.4° last=329.9°
+gps.js:196 [Compass] update -> 331.5° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=331.5° last=330.0°
+mapController.js:174 [DEBUG] diff=1.0° target=331.5° last=330.5°
+mapController.js:174 [DEBUG] diff=0.7° target=331.5° last=330.8°
+mapController.js:174 [DEBUG] diff=0.5° target=331.5° last=331.0°
+gps.js:196 [Compass] update -> 332.5° (TN)
+mapController.js:174 [DEBUG] diff=1.4° target=332.5° last=331.2°
+mapController.js:174 [DEBUG] diff=1.0° target=332.5° last=331.6°
+mapController.js:174 [DEBUG] diff=0.7° target=332.5° last=331.9°
+gps.js:196 [Compass] update -> 333.5° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=333.5° last=332.1°
+mapController.js:174 [DEBUG] diff=1.0° target=333.5° last=332.5°
+mapController.js:174 [DEBUG] diff=0.7° target=333.5° last=332.8°
+mapController.js:174 [DEBUG] diff=0.5° target=333.5° last=333.0°
+mapController.js:174 [DEBUG] diff=0.4° target=333.5° last=333.2°
+gps.js:196 [Compass] update -> 334.6° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=334.6° last=333.3°
+mapController.js:174 [DEBUG] diff=0.9° target=334.6° last=333.7°
+mapController.js:174 [DEBUG] diff=0.6° target=334.6° last=334.0°
+mapController.js:174 [DEBUG] diff=0.4° target=334.6° last=334.1°
+mapController.js:174 [DEBUG] diff=0.3° target=334.6° last=334.3°
+gps.js:196 [Compass] update -> 335.6° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=335.6° last=334.4°
+mapController.js:174 [DEBUG] diff=0.9° target=335.6° last=334.7°
+mapController.js:174 [DEBUG] diff=0.6° target=335.6° last=335.0°
+mapController.js:174 [DEBUG] diff=0.4° target=335.6° last=335.2°
+mapController.js:174 [DEBUG] diff=0.3° target=335.6° last=335.3°
+mapController.js:174 [DEBUG] diff=0.2° target=335.6° last=335.4°
+gps.js:196 [Compass] update -> 336.7° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=336.7° last=335.5°
+mapController.js:174 [DEBUG] diff=0.8° target=336.7° last=335.8°
+mapController.js:174 [DEBUG] diff=0.6° target=336.7° last=336.1°
+mapController.js:174 [DEBUG] diff=0.4° target=336.7° last=336.3°
+mapController.js:174 [DEBUG] diff=0.3° target=336.7° last=336.4°
+mapController.js:174 [DEBUG] diff=0.2° target=336.7° last=336.5°
+gps.js:196 [Compass] update -> 337.7° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=337.7° last=336.5°
+mapController.js:174 [DEBUG] diff=0.8° target=337.7° last=336.9°
+mapController.js:174 [DEBUG] diff=0.6° target=337.7° last=337.1°
+mapController.js:174 [DEBUG] diff=0.4° target=337.7° last=337.3°
+mapController.js:174 [DEBUG] diff=0.3° target=337.7° last=337.4°
+mapController.js:174 [DEBUG] diff=0.2° target=337.7° last=337.5°
+mapController.js:174 [DEBUG] diff=0.1° target=337.7° last=337.6°
+gps.js:196 [Compass] update -> 338.8° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=338.8° last=337.6°
+mapController.js:174 [DEBUG] diff=0.8° target=338.8° last=338.0°
+mapController.js:174 [DEBUG] diff=0.6° target=338.8° last=338.2°
+mapController.js:174 [DEBUG] diff=0.4° target=338.8° last=338.4°
+mapController.js:174 [DEBUG] diff=0.3° target=338.8° last=338.5°
+gps.js:196 [Compass] update -> 339.9° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=339.9° last=338.6°
+mapController.js:174 [DEBUG] diff=0.9° target=339.9° last=339.0°
+mapController.js:174 [DEBUG] diff=0.6° target=339.9° last=339.2°
+gps.js:196 [Compass] update -> 340.9° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=340.9° last=339.4°
+mapController.js:174 [DEBUG] diff=1.0° target=340.9° last=339.9°
+mapController.js:174 [DEBUG] diff=0.7° target=340.9° last=340.2°
+mapController.js:174 [DEBUG] diff=0.5° target=340.9° last=340.4°
+mapController.js:174 [DEBUG] diff=0.4° target=340.9° last=340.5°
+gps.js:196 [Compass] update -> 341.9° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=341.9° last=340.6°
+mapController.js:174 [DEBUG] diff=0.9° target=341.9° last=341.0°
+mapController.js:174 [DEBUG] diff=0.6° target=341.9° last=341.3°
+mapController.js:174 [DEBUG] diff=0.4° target=341.9° last=341.5°
+mapController.js:174 [DEBUG] diff=0.3° target=341.9° last=341.6°
+gps.js:196 [Compass] update -> 343.0° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=343.0° last=341.7°
+mapController.js:174 [DEBUG] diff=0.9° target=343.0° last=342.1°
+mapController.js:174 [DEBUG] diff=0.6° target=343.0° last=342.4°
+mapController.js:174 [DEBUG] diff=0.5° target=343.0° last=342.6°
+gps.js:196 [Compass] update -> 344.1° (TN)
+mapController.js:174 [DEBUG] diff=1.4° target=344.1° last=342.7°
+mapController.js:174 [DEBUG] diff=1.0° target=344.1° last=343.1°
+mapController.js:174 [DEBUG] diff=0.7° target=344.1° last=343.4°
+gps.js:196 [Compass] update -> 345.1° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=345.1° last=343.6°
+mapController.js:174 [DEBUG] diff=1.0° target=345.1° last=344.0°
+mapController.js:174 [DEBUG] diff=0.7° target=345.1° last=344.3°
+mapController.js:174 [DEBUG] diff=0.5° target=345.1° last=344.6°
+mapController.js:174 [DEBUG] diff=0.4° target=345.1° last=344.7°
+gps.js:196 [Compass] update -> 346.1° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=346.1° last=344.8°
+mapController.js:174 [DEBUG] diff=0.9° target=346.1° last=345.2°
+mapController.js:174 [DEBUG] diff=0.6° target=346.1° last=345.5°
+mapController.js:174 [DEBUG] diff=0.4° target=346.1° last=345.7°
+mapController.js:174 [DEBUG] diff=0.3° target=346.1° last=345.8°
+gps.js:196 [Compass] update -> 347.1° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=347.1° last=345.9°
+mapController.js:174 [DEBUG] diff=0.9° target=347.1° last=346.3°
+mapController.js:174 [DEBUG] diff=0.6° target=347.1° last=346.5°
+mapController.js:174 [DEBUG] diff=0.4° target=347.1° last=346.7°
+mapController.js:174 [DEBUG] diff=0.3° target=347.1° last=346.8°
+gps.js:196 [Compass] update -> 348.2° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=348.2° last=346.9°
+mapController.js:174 [DEBUG] diff=0.9° target=348.2° last=347.3°
+mapController.js:174 [DEBUG] diff=0.6° target=348.2° last=347.6°
+mapController.js:174 [DEBUG] diff=0.4° target=348.2° last=347.8°
+mapController.js:174 [DEBUG] diff=0.3° target=348.2° last=347.9°
+mapController.js:174 [DEBUG] diff=0.2° target=348.2° last=348.0°
+mapController.js:174 [DEBUG] diff=0.2° target=348.2° last=348.0°
+gps.js:196 [Compass] update -> 349.3° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=349.3° last=348.1°
+mapController.js:174 [DEBUG] diff=0.8° target=349.3° last=348.4°
+mapController.js:174 [DEBUG] diff=0.6° target=349.3° last=348.7°
+mapController.js:174 [DEBUG] diff=0.4° target=349.3° last=348.9°
+mapController.js:174 [DEBUG] diff=0.3° target=349.3° last=349.0°
+gps.js:196 [Compass] update -> 350.3° (TN)
+mapController.js:174 [DEBUG] diff=1.2° target=350.3° last=349.1°
+mapController.js:174 [DEBUG] diff=0.9° target=350.3° last=349.4°
+mapController.js:174 [DEBUG] diff=0.6° target=350.3° last=349.7°
+gps.js:196 [Compass] update -> 351.4° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=351.4° last=349.9°
+mapController.js:174 [DEBUG] diff=1.1° target=351.4° last=350.3°
+mapController.js:174 [DEBUG] diff=0.7° target=351.4° last=350.6°
+gps.js:196 [Compass] update -> 352.4° (TN)
+mapController.js:174 [DEBUG] diff=1.6° target=352.4° last=350.9°
+mapController.js:174 [DEBUG] diff=1.1° target=352.4° last=351.3°
+mapController.js:174 [DEBUG] diff=0.8° target=352.4° last=351.7°
+gps.js:196 [Compass] update -> 353.4° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=353.4° last=351.9°
+mapController.js:174 [DEBUG] diff=1.1° target=353.4° last=352.4°
+mapController.js:174 [DEBUG] diff=0.8° target=353.4° last=352.7°
+mapController.js:174 [DEBUG] diff=0.5° target=353.4° last=352.9°
+gps.js:196 [Compass] update -> 354.5° (TN)
+mapController.js:174 [DEBUG] diff=1.4° target=354.5° last=353.1°
+mapController.js:174 [DEBUG] diff=1.0° target=354.5° last=353.5°
+gps.js:196 [Compass] update -> 355.6° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=355.6° last=353.8°
+mapController.js:174 [DEBUG] diff=1.2° target=355.6° last=354.3°
+mapController.js:174 [DEBUG] diff=0.9° target=355.6° last=354.7°
+gps.js:196 [Compass] update -> 356.6° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=356.6° last=355.0°
+mapController.js:174 [DEBUG] diff=1.2° target=356.6° last=355.5°
+mapController.js:174 [DEBUG] diff=0.8° target=356.6° last=355.8°
+gps.js:196 [Compass] update -> 357.7° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=357.7° last=356.1°
+mapController.js:174 [DEBUG] diff=1.2° target=357.7° last=356.6°
+mapController.js:174 [DEBUG] diff=0.8° target=357.7° last=356.9°
+mapController.js:174 [DEBUG] diff=0.6° target=357.7° last=357.2°
+gps.js:196 [Compass] update -> 358.7° (TN)
+mapController.js:174 [DEBUG] diff=1.4° target=358.7° last=357.3°
+mapController.js:174 [DEBUG] diff=1.0° target=358.7° last=357.7°
+mapController.js:174 [DEBUG] diff=0.7° target=358.7° last=358.0°
+mapController.js:174 [DEBUG] diff=0.5° target=358.7° last=358.3°
+mapController.js:174 [DEBUG] diff=0.3° target=358.7° last=358.4°
+gps.js:196 [Compass] update -> 359.8° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=359.8° last=358.5°
+mapController.js:174 [DEBUG] diff=0.9° target=359.8° last=358.9°
+mapController.js:174 [DEBUG] diff=0.7° target=359.8° last=359.2°
+gps.js:196 [Compass] update -> 0.9° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=0.9° last=359.4°
+mapController.js:174 [DEBUG] diff=1.1° target=0.9° last=359.8°
+mapController.js:174 [DEBUG] diff=0.7° target=0.9° last=0.2°
+mapController.js:174 [DEBUG] diff=0.5° target=0.9° last=0.4°
+mapController.js:174 [DEBUG] diff=0.4° target=0.9° last=0.5°
+gps.js:196 [Compass] update -> 1.9° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=1.9° last=0.6°
+mapController.js:174 [DEBUG] diff=0.9° target=1.9° last=1.0°
+mapController.js:174 [DEBUG] diff=0.6° target=1.9° last=1.3°
+mapController.js:174 [DEBUG] diff=0.4° target=1.9° last=1.5°
+mapController.js:174 [DEBUG] diff=0.3° target=1.9° last=1.6°
+mapController.js:174 [DEBUG] diff=0.2° target=1.9° last=1.7°
+mapController.js:174 [DEBUG] diff=0.2° target=1.9° last=1.8°
+mapController.js:174 [DEBUG] diff=0.1° target=1.9° last=1.8°
+mapController.js:174 [DEBUG] diff=0.1° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.1° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+mapController.js:174 [DEBUG] diff=0.0° target=1.9° last=1.9°
+gps.js:196 [Compass] update -> 0.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.1° target=0.8° last=1.9°
+mapController.js:174 [DEBUG] diff=-0.8° target=0.8° last=1.6°
+gps.js:196 [Compass] update -> 359.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=359.6° last=1.3°
+mapController.js:174 [DEBUG] diff=-1.2° target=359.6° last=0.8°
+mapController.js:174 [DEBUG] diff=-0.8° target=359.6° last=0.5°
+gps.js:196 [Compass] update -> 358.3° (TN)
+gps.js:196 [Compass] update -> 357.2° (TN)
+mapController.js:174 [DEBUG] diff=-3.0° target=357.2° last=0.2°
+mapController.js:174 [DEBUG] diff=-2.1° target=357.2° last=359.3°
+mapController.js:174 [DEBUG] diff=-1.5° target=357.2° last=358.7°
+mapController.js:174 [DEBUG] diff=-1.0° target=357.2° last=358.2°
+gps.js:196 [Compass] update -> 356.0° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=356.0° last=357.9°
+gps.js:196 [Compass] update -> 355.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=355.0° last=357.3°
+mapController.js:174 [DEBUG] diff=-1.6° target=355.0° last=356.6°
+gps.js:196 [Compass] update -> 353.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=353.9° last=356.1°
+mapController.js:174 [DEBUG] diff=-1.6° target=353.9° last=355.5°
+gps.js:196 [Compass] update -> 352.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=352.9° last=355.0°
+mapController.js:174 [DEBUG] diff=-1.5° target=352.9° last=354.4°
+mapController.js:174 [DEBUG] diff=-1.1° target=352.9° last=353.9°
+gps.js:196 [Compass] update -> 351.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=351.7° last=353.6°
+mapController.js:174 [DEBUG] diff=-1.3° target=351.7° last=353.0°
+mapController.js:174 [DEBUG] diff=-0.9° target=351.7° last=352.6°
+gps.js:196 [Compass] update -> 350.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=350.5° last=352.4°
+mapController.js:174 [DEBUG] diff=-1.3° target=350.5° last=351.8°
+gps.js:196 [Compass] update -> 349.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=349.5° last=351.4°
+mapController.js:174 [DEBUG] diff=-1.4° target=349.5° last=350.8°
+gps.js:196 [Compass] update -> 348.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=348.4° last=350.4°
+mapController.js:174 [DEBUG] diff=-1.4° target=348.4° last=349.8°
+gps.js:196 [Compass] update -> 347.3° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=347.3° last=349.4°
+mapController.js:174 [DEBUG] diff=-1.5° target=347.3° last=348.8°
+mapController.js:174 [DEBUG] diff=-1.0° target=347.3° last=348.3°
+mapController.js:174 [DEBUG] diff=-0.7° target=347.3° last=348.0°
+mapController.js:174 [DEBUG] diff=-0.5° target=347.3° last=347.8°
+gps.js:196 [Compass] update -> 346.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.4° target=346.3° last=347.6°
+mapController.js:174 [DEBUG] diff=-1.0° target=346.3° last=347.2°
+mapController.js:174 [DEBUG] diff=-0.7° target=346.3° last=346.9°
+mapController.js:174 [DEBUG] diff=-0.5° target=346.3° last=346.7°
+mapController.js:174 [DEBUG] diff=-0.3° target=346.3° last=346.6°
+mapController.js:174 [DEBUG] diff=-0.2° target=346.3° last=346.5°
+mapController.js:174 [DEBUG] diff=-0.2° target=346.3° last=346.4°
+mapController.js:174 [DEBUG] diff=-0.1° target=346.3° last=346.4°
+mapController.js:174 [DEBUG] diff=-0.1° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.1° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+mapController.js:174 [DEBUG] diff=-0.0° target=346.3° last=346.3°
+gps.js:196 [Compass] update -> 347.3° (TN)
+mapController.js:174 [DEBUG] diff=1.1° target=347.3° last=346.3°
+mapController.js:174 [DEBUG] diff=0.7° target=347.3° last=346.6°
+gps.js:196 [Compass] update -> 348.5° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=348.5° last=346.8°
+gps.js:196 [Compass] update -> 349.6° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=349.6° last=347.3°
+mapController.js:174 [DEBUG] diff=1.6° target=349.6° last=348.0°
+mapController.js:174 [DEBUG] diff=1.1° target=349.6° last=348.5°
+gps.js:196 [Compass] update -> 350.7° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=350.7° last=348.8°
+mapController.js:174 [DEBUG] diff=1.3° target=350.7° last=349.4°
+gps.js:196 [Compass] update -> 351.8° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=351.8° last=349.8°
+mapController.js:174 [DEBUG] diff=1.4° target=351.8° last=350.4°
+mapController.js:174 [DEBUG] diff=1.0° target=351.8° last=350.8°
+gps.js:196 [Compass] update -> 352.9° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=352.9° last=351.1°
+mapController.js:174 [DEBUG] diff=1.2° target=352.9° last=351.7°
+gps.js:196 [Compass] update -> 354.0° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=354.0° last=352.0°
+mapController.js:174 [DEBUG] diff=1.4° target=354.0° last=352.6°
+gps.js:196 [Compass] update -> 355.0° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=355.0° last=353.0°
+mapController.js:174 [DEBUG] diff=1.4° target=355.0° last=353.6°
+mapController.js:174 [DEBUG] diff=1.0° target=355.0° last=354.0°
+mapController.js:174 [DEBUG] diff=0.7° target=355.0° last=354.3°
+gps.js:196 [Compass] update -> 356.1° (TN)
+mapController.js:174 [DEBUG] diff=1.6° target=356.1° last=354.6°
+mapController.js:174 [DEBUG] diff=1.1° target=356.1° last=355.0°
+gps.js:196 [Compass] update -> 357.2° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=357.2° last=355.3°
+mapController.js:174 [DEBUG] diff=1.3° target=357.2° last=355.9°
+mapController.js:174 [DEBUG] diff=0.9° target=357.2° last=356.3°
+gps.js:196 [Compass] update -> 358.3° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=358.3° last=356.5°
+mapController.js:174 [DEBUG] diff=1.2° target=358.3° last=357.1°
+mapController.js:174 [DEBUG] diff=0.9° target=358.3° last=357.4°
+gps.js:196 [Compass] update -> 359.3° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=359.3° last=357.7°
+mapController.js:174 [DEBUG] diff=1.2° target=359.3° last=358.2°
+mapController.js:174 [DEBUG] diff=0.8° target=359.3° last=358.5°
+mapController.js:174 [DEBUG] diff=0.6° target=359.3° last=358.8°
+gps.js:196 [Compass] update -> 0.4° (TN)
+mapController.js:174 [DEBUG] diff=1.5° target=0.4° last=358.9°
+mapController.js:174 [DEBUG] diff=1.0° target=0.4° last=359.4°
+mapController.js:174 [DEBUG] diff=0.7° target=0.4° last=359.7°
+mapController.js:174 [DEBUG] diff=0.5° target=0.4° last=359.9°
+mapController.js:174 [DEBUG] diff=0.4° target=0.4° last=0.1°
+gps.js:196 [Compass] update -> 1.5° (TN)
+mapController.js:174 [DEBUG] diff=1.4° target=1.5° last=0.2°
+mapController.js:174 [DEBUG] diff=1.0° target=1.5° last=0.6°
+mapController.js:174 [DEBUG] diff=0.7° target=1.5° last=0.9°
+mapController.js:174 [DEBUG] diff=0.5° target=1.5° last=1.1°
+gps.js:196 [Compass] update -> 2.6° (TN)
+mapController.js:174 [DEBUG] diff=1.4° target=2.6° last=1.2°
+mapController.js:174 [DEBUG] diff=1.0° target=2.6° last=1.6°
+gps.js:196 [Compass] update -> 3.7° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=3.7° last=1.9°
+gps.js:196 [Compass] update -> 4.7° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=4.7° last=2.5°
+mapController.js:174 [DEBUG] diff=1.6° target=4.7° last=3.1°
+mapController.js:174 [DEBUG] diff=1.1° target=4.7° last=3.6°
+mapController.js:174 [DEBUG] diff=0.8° target=4.7° last=4.0°
+gps.js:196 [Compass] update -> 5.9° (TN)
+mapController.js:174 [DEBUG] diff=1.7° target=5.9° last=4.2°
+mapController.js:174 [DEBUG] diff=1.2° target=5.9° last=4.7°
+gps.js:196 [Compass] update -> 7.1° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=7.1° last=5.1°
+gps.js:196 [Compass] update -> 8.2° (TN)
+mapController.js:174 [DEBUG] diff=2.5° target=8.2° last=5.7°
+mapController.js:174 [DEBUG] diff=1.7° target=8.2° last=6.4°
+mapController.js:174 [DEBUG] diff=1.2° target=8.2° last=6.9°
+mapController.js:174 [DEBUG] diff=0.9° target=8.2° last=7.3°
+mapController.js:174 [DEBUG] diff=0.6° target=8.2° last=7.6°
+mapController.js:174 [DEBUG] diff=0.4° target=8.2° last=7.7°
+mapController.js:174 [DEBUG] diff=0.3° target=8.2° last=7.9°
+mapController.js:174 [DEBUG] diff=0.2° target=8.2° last=8.0°
+mapController.js:174 [DEBUG] diff=0.1° target=8.2° last=8.0°
+mapController.js:174 [DEBUG] diff=0.1° target=8.2° last=8.1°
+mapController.js:174 [DEBUG] diff=0.1° target=8.2° last=8.1°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.1°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.1°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.1°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.1°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.1°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+mapController.js:174 [DEBUG] diff=0.0° target=8.2° last=8.2°
+gps.js:196 [Compass] update -> 7.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.0° target=7.1° last=8.2°
+mapController.js:174 [DEBUG] diff=-0.7° target=7.1° last=7.8°
+mapController.js:174 [DEBUG] diff=-0.5° target=7.1° last=7.6°
+mapController.js:174 [DEBUG] diff=-0.4° target=7.1° last=7.5°
+mapController.js:174 [DEBUG] diff=-0.2° target=7.1° last=7.4°
+mapController.js:174 [DEBUG] diff=-0.2° target=7.1° last=7.3°
+gps.js:196 [Compass] update -> 6.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.2° target=6.1° last=7.2°
+mapController.js:174 [DEBUG] diff=-0.8° target=6.1° last=6.9°
+mapController.js:174 [DEBUG] diff=-0.6° target=6.1° last=6.6°
+mapController.js:174 [DEBUG] diff=-0.4° target=6.1° last=6.5°
+gps.js:196 [Compass] update -> 5.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.3° target=5.1° last=6.3°
+mapController.js:174 [DEBUG] diff=-0.9° target=5.1° last=6.0°
+mapController.js:174 [DEBUG] diff=-0.6° target=5.1° last=5.7°
+mapController.js:174 [DEBUG] diff=-0.4° target=5.1° last=5.5°
+gps.js:196 [Compass] update -> 4.0° (TN)
+mapController.js:174 [DEBUG] diff=-1.3° target=4.0° last=5.4°
+mapController.js:174 [DEBUG] diff=-0.9° target=4.0° last=5.0°
+mapController.js:174 [DEBUG] diff=-0.6° target=4.0° last=4.7°
+mapController.js:174 [DEBUG] diff=-0.5° target=4.0° last=4.5°
+gps.js:196 [Compass] update -> 3.0° (TN)
+mapController.js:174 [DEBUG] diff=-1.4° target=3.0° last=4.4°
+mapController.js:174 [DEBUG] diff=-0.9° target=3.0° last=4.0°
+mapController.js:174 [DEBUG] diff=-0.7° target=3.0° last=3.7°
+gps.js:196 [Compass] update -> 1.9° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=1.9° last=3.5°
+mapController.js:174 [DEBUG] diff=-1.1° target=1.9° last=3.0°
+gps.js:196 [Compass] update -> 0.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=0.8° last=2.7°
+mapController.js:174 [DEBUG] diff=-1.3° target=0.8° last=2.1°
+mapController.js:174 [DEBUG] diff=-0.9° target=0.8° last=1.7°
+gps.js:196 [Compass] update -> 359.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=359.7° last=1.4°
+mapController.js:174 [DEBUG] diff=-1.2° target=359.7° last=0.9°
+mapController.js:174 [DEBUG] diff=-0.8° target=359.7° last=0.5°
+gps.js:196 [Compass] update -> 358.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=358.6° last=0.3°
+mapController.js:174 [DEBUG] diff=-1.1° target=358.6° last=359.8°
+mapController.js:174 [DEBUG] diff=-0.8° target=358.6° last=359.5°
+mapController.js:174 [DEBUG] diff=-0.6° target=358.6° last=359.2°
+gps.js:196 [Compass] update -> 357.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.5° target=357.6° last=359.0°
+mapController.js:174 [DEBUG] diff=-1.0° target=357.6° last=358.6°
+mapController.js:174 [DEBUG] diff=-0.7° target=357.6° last=358.3°
+gps.js:196 [Compass] update -> 356.5° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=356.5° last=358.1°
+mapController.js:174 [DEBUG] diff=-1.1° target=356.5° last=357.6°
+mapController.js:174 [DEBUG] diff=-0.8° target=356.5° last=357.3°
+gps.js:196 [Compass] update -> 355.4° (TN)
+mapController.js:174 [DEBUG] diff=-1.6° target=355.4° last=357.0°
+mapController.js:174 [DEBUG] diff=-1.1° target=355.4° last=356.6°
+mapController.js:174 [DEBUG] diff=-0.8° target=355.4° last=356.2°
+gps.js:196 [Compass] update -> 354.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=354.3° last=356.0°
+mapController.js:174 [DEBUG] diff=-1.2° target=354.3° last=355.5°
+mapController.js:174 [DEBUG] diff=-0.8° target=354.3° last=355.1°
+gps.js:196 [Compass] update -> 353.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=353.2° last=354.9°
+mapController.js:174 [DEBUG] diff=-1.2° target=353.2° last=354.4°
+gps.js:196 [Compass] update -> 352.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=352.0° last=354.0°
+mapController.js:174 [DEBUG] diff=-1.4° target=352.0° last=353.4°
+mapController.js:174 [DEBUG] diff=-1.0° target=352.0° last=353.0°
+gps.js:196 [Compass] update -> 350.9° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=350.9° last=352.7°
+mapController.js:174 [DEBUG] diff=-1.2° target=350.9° last=352.2°
+gps.js:196 [Compass] update -> 349.9° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=349.9° last=351.8°
+mapController.js:174 [DEBUG] diff=-1.4° target=349.9° last=351.2°
+gps.js:196 [Compass] update -> 348.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=348.8° last=350.8°
+mapController.js:174 [DEBUG] diff=-1.4° target=348.8° last=350.2°
+mapController.js:174 [DEBUG] diff=-1.0° target=348.8° last=349.8°
+gps.js:196 [Compass] update -> 347.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=347.7° last=349.5°
+mapController.js:174 [DEBUG] diff=-1.3° target=347.7° last=348.9°
+gps.js:196 [Compass] update -> 346.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=346.6° last=348.6°
+mapController.js:174 [DEBUG] diff=-1.4° target=346.6° last=348.0°
+mapController.js:174 [DEBUG] diff=-1.0° target=346.6° last=347.5°
+gps.js:196 [Compass] update -> 345.4° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=345.4° last=347.3°
+mapController.js:174 [DEBUG] diff=-1.3° target=345.4° last=346.7°
+gps.js:196 [Compass] update -> 344.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=344.2° last=346.3°
+gps.js:196 [Compass] update -> 343.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=343.2° last=345.7°
+mapController.js:174 [DEBUG] diff=-1.7° target=343.2° last=344.9°
+mapController.js:174 [DEBUG] diff=-1.2° target=343.2° last=344.4°
+gps.js:196 [Compass] update -> 342.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=342.2° last=344.1°
+mapController.js:174 [DEBUG] diff=-1.3° target=342.2° last=343.5°
+gps.js:196 [Compass] update -> 341.1° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=341.1° last=343.1°
+gps.js:196 [Compass] update -> 340.1° (TN)
+mapController.js:174 [DEBUG] diff=-2.4° target=340.1° last=342.5°
+mapController.js:174 [DEBUG] diff=-1.7° target=340.1° last=341.8°
+mapController.js:174 [DEBUG] diff=-1.2° target=340.1° last=341.3°
+gps.js:196 [Compass] update -> 339.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=339.1° last=340.9°
+mapController.js:174 [DEBUG] diff=-1.3° target=339.1° last=340.4°
+gps.js:196 [Compass] update -> 338.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=338.0° last=340.0°
+mapController.js:174 [DEBUG] diff=-1.4° target=338.0° last=339.4°
+mapController.js:174 [DEBUG] diff=-1.0° target=338.0° last=339.0°
+mapController.js:174 [DEBUG] diff=-0.7° target=338.0° last=338.7°
+mapController.js:174 [DEBUG] diff=-0.5° target=338.0° last=338.5°
+gps.js:196 [Compass] update -> 336.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.5° target=336.8° last=338.3°
+mapController.js:174 [DEBUG] diff=-1.1° target=336.8° last=337.9°
+gps.js:196 [Compass] update -> 335.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=335.7° last=337.6°
+mapController.js:174 [DEBUG] diff=-1.3° target=335.7° last=337.0°
+mapController.js:174 [DEBUG] diff=-0.9° target=335.7° last=336.6°
+gps.js:196 [Compass] update -> 334.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=334.6° last=336.3°
+mapController.js:174 [DEBUG] diff=-1.2° target=334.6° last=335.8°
+gps.js:196 [Compass] update -> 333.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=333.4° last=335.4°
+mapController.js:174 [DEBUG] diff=-1.4° target=333.4° last=334.8°
+mapController.js:174 [DEBUG] diff=-1.0° target=333.4° last=334.4°
+gps.js:196 [Compass] update -> 332.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=332.0° last=334.1°
+gps.js:196 [Compass] update -> 330.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.6° target=330.8° last=333.5°
+mapController.js:174 [DEBUG] diff=-1.8° target=330.8° last=332.7°
+mapController.js:174 [DEBUG] diff=-1.3° target=330.8° last=332.1°
+gps.js:196 [Compass] update -> 329.7° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=329.7° last=331.7°
+mapController.js:174 [DEBUG] diff=-1.4° target=329.7° last=331.1°
+mapController.js:174 [DEBUG] diff=-1.0° target=329.7° last=330.7°
+gps.js:196 [Compass] update -> 328.6° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=328.6° last=330.4°
+mapController.js:174 [DEBUG] diff=-1.3° target=328.6° last=329.9°
+gps.js:196 [Compass] update -> 327.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=327.4° last=329.5°
+mapController.js:174 [DEBUG] diff=-1.4° target=327.4° last=328.9°
+gps.js:196 [Compass] update -> 326.3° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=326.3° last=328.4°
+mapController.js:174 [DEBUG] diff=-1.5° target=326.3° last=327.8°
+gps.js:196 [Compass] update -> 325.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=325.2° last=327.4°
+gps.js:196 [Compass] update -> 324.1° (TN)
+mapController.js:174 [DEBUG] diff=-2.6° target=324.1° last=326.7°
+mapController.js:174 [DEBUG] diff=-1.8° target=324.1° last=325.9°
+mapController.js:174 [DEBUG] diff=-1.3° target=324.1° last=325.4°
+mapController.js:174 [DEBUG] diff=-0.9° target=324.1° last=325.0°
+gps.js:196 [Compass] update -> 322.9° (TN)
+gps.js:196 [Compass] update -> 321.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.9° target=321.8° last=324.7°
+mapController.js:174 [DEBUG] diff=-2.1° target=321.8° last=323.9°
+mapController.js:174 [DEBUG] diff=-1.4° target=321.8° last=323.2°
+gps.js:196 [Compass] update -> 320.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=320.6° last=322.8°
+gps.js:196 [Compass] update -> 319.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.6° target=319.6° last=322.2°
+mapController.js:174 [DEBUG] diff=-1.8° target=319.6° last=321.4°
+mapController.js:174 [DEBUG] diff=-1.3° target=319.6° last=320.9°
+gps.js:196 [Compass] update -> 318.5° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=318.5° last=320.5°
+mapController.js:174 [DEBUG] diff=-1.4° target=318.5° last=319.9°
+gps.js:196 [Compass] update -> 317.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=317.4° last=319.5°
+gps.js:196 [Compass] update -> 316.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.7° target=316.2° last=318.8°
+gps.js:196 [Compass] update -> 315.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.9° target=315.2° last=318.0°
+mapController.js:174 [DEBUG] diff=-2.0° target=315.2° last=317.2°
+mapController.js:174 [DEBUG] diff=-1.4° target=315.2° last=316.6°
+gps.js:196 [Compass] update -> 314.1° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=314.1° last=316.1°
+mapController.js:174 [DEBUG] diff=-1.4° target=314.1° last=315.5°
+mapController.js:174 [DEBUG] diff=-1.0° target=314.1° last=315.1°
+gps.js:196 [Compass] update -> 313.0° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=313.0° last=314.8°
+mapController.js:174 [DEBUG] diff=-1.3° target=313.0° last=314.3°
+gps.js:196 [Compass] update -> 311.9° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=311.9° last=313.9°
+gps.js:196 [Compass] update -> 310.8° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=310.8° last=313.3°
+mapController.js:174 [DEBUG] diff=-1.7° target=310.8° last=312.5°
+mapController.js:174 [DEBUG] diff=-1.2° target=310.8° last=312.0°
+gps.js:196 [Compass] update -> 309.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=309.7° last=311.7°
+mapController.js:174 [DEBUG] diff=-1.4° target=309.7° last=311.1°
+gps.js:196 [Compass] update -> 308.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=308.6° last=310.7°
+mapController.js:174 [DEBUG] diff=-1.4° target=308.6° last=310.1°
+gps.js:196 [Compass] update -> 307.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=307.4° last=309.6°
+mapController.js:174 [DEBUG] diff=-1.6° target=307.4° last=309.0°
+gps.js:196 [Compass] update -> 306.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.1° target=306.4° last=308.5°
+mapController.js:174 [DEBUG] diff=-1.5° target=306.4° last=307.9°
+gps.js:196 [Compass] update -> 305.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=305.4° last=307.4°
+mapController.js:174 [DEBUG] diff=-1.4° target=305.4° last=306.8°
+mapController.js:174 [DEBUG] diff=-1.0° target=305.4° last=306.4°
+gps.js:196 [Compass] update -> 304.3° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=304.3° last=306.1°
+mapController.js:174 [DEBUG] diff=-1.2° target=304.3° last=305.5°
+gps.js:196 [Compass] update -> 303.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=303.2° last=305.2°
+mapController.js:174 [DEBUG] diff=-1.4° target=303.2° last=304.6°
+gps.js:196 [Compass] update -> 302.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=302.0° last=304.2°
+gps.js:196 [Compass] update -> 301.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=301.0° last=303.5°
+mapController.js:174 [DEBUG] diff=-1.8° target=301.0° last=302.7°
+mapController.js:174 [DEBUG] diff=-1.2° target=301.0° last=302.2°
+gps.js:196 [Compass] update -> 299.9° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=299.9° last=301.8°
+mapController.js:174 [DEBUG] diff=-1.4° target=299.9° last=301.3°
+gps.js:196 [Compass] update -> 298.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=298.6° last=300.9°
+gps.js:196 [Compass] update -> 297.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.8° target=297.4° last=300.2°
+mapController.js:174 [DEBUG] diff=-1.9° target=297.4° last=299.3°
+gps.js:196 [Compass] update -> 296.3° (TN)
+mapController.js:174 [DEBUG] diff=-2.5° target=296.3° last=298.8°
+mapController.js:174 [DEBUG] diff=-1.7° target=296.3° last=298.0°
+gps.js:196 [Compass] update -> 295.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=295.2° last=297.5°
+mapController.js:174 [DEBUG] diff=-1.6° target=295.2° last=296.8°
+gps.js:196 [Compass] update -> 294.2° (TN)
+mapController.js:174 [DEBUG] diff=-2.2° target=294.2° last=296.3°
+mapController.js:174 [DEBUG] diff=-1.5° target=294.2° last=295.7°
+mapController.js:174 [DEBUG] diff=-1.1° target=294.2° last=295.2°
+gps.js:196 [Compass] update -> 293.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.8° target=293.2° last=294.9°
+mapController.js:174 [DEBUG] diff=-1.2° target=293.2° last=294.4°
+gps.js:196 [Compass] update -> 292.1° (TN)
+mapController.js:174 [DEBUG] diff=-1.9° target=292.1° last=294.0°
+mapController.js:174 [DEBUG] diff=-1.3° target=292.1° last=293.4°
+mapController.js:174 [DEBUG] diff=-0.9° target=292.1° last=293.0°
+mapController.js:174 [DEBUG] diff=-0.7° target=292.1° last=292.7°
+mapController.js:174 [DEBUG] diff=-0.5° target=292.1° last=292.5°
+mapController.js:174 [DEBUG] diff=-0.3° target=292.1° last=292.4°
+mapController.js:174 [DEBUG] diff=-0.2° target=292.1° last=292.3°
+mapController.js:174 [DEBUG] diff=-0.2° target=292.1° last=292.2°
+mapController.js:174 [DEBUG] diff=-0.1° target=292.1° last=292.2°
+mapController.js:174 [DEBUG] diff=-0.1° target=292.1° last=292.2°
+mapController.js:174 [DEBUG] diff=-0.1° target=292.1° last=292.1°
+mapController.js:174 [DEBUG] diff=-0.0° target=292.1° last=292.1°
+mapController.js:174 [DEBUG] diff=-0.0° target=292.1° last=292.1°
+mapController.js:174 [DEBUG] diff=-0.0° target=292.1° last=292.1°
+mapController.js:174 [DEBUG] diff=-0.0° target=292.1° last=292.1°
+mapController.js:174 [DEBUG] diff=-0.0° target=292.1° last=292.1°
+gps.js:196 [Compass] update -> 293.2° (TN)
+mapController.js:174 [DEBUG] diff=1.1° target=293.2° last=292.1°
+gps.js:196 [Compass] update -> 294.3° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=294.3° last=292.4°
+gps.js:196 [Compass] update -> 295.3° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=295.3° last=293.0°
+gps.js:196 [Compass] update -> 296.3° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=296.3° last=293.7°
+mapController.js:174 [DEBUG] diff=1.9° target=296.3° last=294.5°
+mapController.js:174 [DEBUG] diff=1.3° target=296.3° last=295.0°
+gps.js:196 [Compass] update -> 297.5° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=297.5° last=295.4°
+gps.js:196 [Compass] update -> 298.6° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=298.6° last=296.0°
+mapController.js:174 [DEBUG] diff=1.8° target=298.6° last=296.8°
+gps.js:196 [Compass] update -> 299.8° (TN)
+mapController.js:174 [DEBUG] diff=2.5° target=299.8° last=297.4°
+mapController.js:174 [DEBUG] diff=1.7° target=299.8° last=298.1°
+gps.js:196 [Compass] update -> 300.9° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=300.9° last=298.6°
+mapController.js:174 [DEBUG] diff=1.6° target=300.9° last=299.3°
+gps.js:196 [Compass] update -> 302.2° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=302.2° last=299.8°
+gps.js:196 [Compass] update -> 303.3° (TN)
+mapController.js:174 [DEBUG] diff=2.8° target=303.3° last=300.5°
+gps.js:196 [Compass] update -> 304.3° (TN)
+mapController.js:174 [DEBUG] diff=3.0° target=304.3° last=301.3°
+mapController.js:174 [DEBUG] diff=2.1° target=304.3° last=302.2°
+mapController.js:174 [DEBUG] diff=1.5° target=304.3° last=302.9°
+gps.js:196 [Compass] update -> 305.5° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=305.5° last=303.3°
+gps.js:196 [Compass] update -> 306.5° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=306.5° last=303.9°
+mapController.js:174 [DEBUG] diff=1.8° target=306.5° last=304.7°
+gps.js:196 [Compass] update -> 307.7° (TN)
+mapController.js:174 [DEBUG] diff=2.5° target=307.7° last=305.2°
+mapController.js:174 [DEBUG] diff=1.7° target=307.7° last=306.0°
+mapController.js:174 [DEBUG] diff=1.2° target=307.7° last=306.5°
+gps.js:196 [Compass] update -> 309.0° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=309.0° last=306.9°
+gps.js:196 [Compass] update -> 310.1° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=310.1° last=307.5°
+gps.js:196 [Compass] update -> 311.2° (TN)
+mapController.js:174 [DEBUG] diff=3.0° target=311.2° last=308.3°
+gps.js:196 [Compass] update -> 312.4° (TN)
+mapController.js:174 [DEBUG] diff=3.2° target=312.4° last=309.2°
+mapController.js:174 [DEBUG] diff=2.2° target=312.4° last=310.1°
+gps.js:196 [Compass] update -> 313.5° (TN)
+mapController.js:174 [DEBUG] diff=2.7° target=313.5° last=310.8°
+gps.js:196 [Compass] update -> 314.5° (TN)
+mapController.js:174 [DEBUG] diff=2.9° target=314.5° last=311.6°
+gps.js:196 [Compass] update -> 315.6° (TN)
+mapController.js:174 [DEBUG] diff=3.1° target=315.6° last=312.5°
+mapController.js:174 [DEBUG] diff=2.2° target=315.6° last=313.4°
+gps.js:196 [Compass] update -> 316.9° (TN)
+mapController.js:174 [DEBUG] diff=2.8° target=316.9° last=314.1°
+mapController.js:174 [DEBUG] diff=2.0° target=316.9° last=314.9°
+gps.js:196 [Compass] update -> 318.1° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=318.1° last=315.5°
+gps.js:196 [Compass] update -> 319.3° (TN)
+mapController.js:174 [DEBUG] diff=3.0° target=319.3° last=316.3°
+gps.js:196 [Compass] update -> 320.4° (TN)
+mapController.js:174 [DEBUG] diff=3.1° target=320.4° last=317.2°
+gps.js:196 [Compass] update -> 321.7° (TN)
+mapController.js:174 [DEBUG] diff=3.5° target=321.7° last=318.2°
+gps.js:196 [Compass] update -> 323.0° (TN)
+mapController.js:174 [DEBUG] diff=3.7° target=323.0° last=319.2°
+mapController.js:174 [DEBUG] diff=2.6° target=323.0° last=320.3°
+gps.js:196 [Compass] update -> 324.2° (TN)
+mapController.js:174 [DEBUG] diff=3.0° target=324.2° last=321.1°
+gps.js:196 [Compass] update -> 325.3° (TN)
+mapController.js:174 [DEBUG] diff=3.3° target=325.3° last=322.0°
+gps.js:196 [Compass] update -> 326.3° (TN)
+mapController.js:174 [DEBUG] diff=3.3° target=326.3° last=323.0°
+gps.js:196 [Compass] update -> 327.3° (TN)
+mapController.js:174 [DEBUG] diff=3.3° target=327.3° last=324.0°
+mapController.js:174 [DEBUG] diff=2.3° target=327.3° last=325.0°
+gps.js:196 [Compass] update -> 328.5° (TN)
+mapController.js:174 [DEBUG] diff=2.9° target=328.5° last=325.7°
+mapController.js:174 [DEBUG] diff=2.0° target=328.5° last=326.6°
+gps.js:196 [Compass] update -> 329.6° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=329.6° last=327.2°
+mapController.js:174 [DEBUG] diff=1.7° target=329.6° last=327.9°
+gps.js:196 [Compass] update -> 330.7° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=330.7° last=328.4°
+mapController.js:174 [DEBUG] diff=1.6° target=330.7° last=329.1°
+mapController.js:174 [DEBUG] diff=1.1° target=330.7° last=329.6°
+gps.js:196 [Compass] update -> 331.8° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=331.8° last=329.9°
+mapController.js:174 [DEBUG] diff=1.4° target=331.8° last=330.5°
+gps.js:196 [Compass] update -> 333.0° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=333.0° last=330.9°
+mapController.js:174 [DEBUG] diff=1.5° target=333.0° last=331.5°
+gps.js:196 [Compass] update -> 334.1° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=334.1° last=332.0°
+mapController.js:174 [DEBUG] diff=1.5° target=334.1° last=332.6°
+gps.js:196 [Compass] update -> 335.2° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=335.2° last=333.1°
+mapController.js:174 [DEBUG] diff=1.5° target=335.2° last=333.7°
+gps.js:196 [Compass] update -> 336.3° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=336.3° last=334.1°
+mapController.js:174 [DEBUG] diff=1.5° target=336.3° last=334.8°
+gps.js:196 [Compass] update -> 337.4° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=337.4° last=335.2°
+gps.js:196 [Compass] update -> 338.5° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=338.5° last=335.9°
+mapController.js:174 [DEBUG] diff=1.9° target=338.5° last=336.7°
+mapController.js:174 [DEBUG] diff=1.3° target=338.5° last=337.2°
+gps.js:196 [Compass] update -> 339.7° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=339.7° last=337.6°
+mapController.js:174 [DEBUG] diff=1.4° target=339.7° last=338.3°
+gps.js:196 [Compass] update -> 340.9° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=340.9° last=338.7°
+mapController.js:174 [DEBUG] diff=1.5° target=340.9° last=339.3°
+mapController.js:174 [DEBUG] diff=1.1° target=340.9° last=339.8°
+gps.js:196 [Compass] update -> 342.1° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=342.1° last=340.1°
+gps.js:196 [Compass] update -> 343.1° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=343.1° last=340.7°
+mapController.js:174 [DEBUG] diff=1.7° target=343.1° last=341.4°
+gps.js:196 [Compass] update -> 344.2° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=344.2° last=341.9°
+mapController.js:174 [DEBUG] diff=1.6° target=344.2° last=342.6°
+mapController.js:174 [DEBUG] diff=1.1° target=344.2° last=343.1°
+gps.js:196 [Compass] update -> 345.3° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=345.3° last=343.4°
+mapController.js:174 [DEBUG] diff=1.3° target=345.3° last=344.0°
+gps.js:196 [Compass] update -> 346.4° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=346.4° last=344.4°
+mapController.js:174 [DEBUG] diff=1.4° target=346.4° last=345.0°
+mapController.js:174 [DEBUG] diff=1.0° target=346.4° last=345.4°
+gps.js:196 [Compass] update -> 347.5° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=347.5° last=345.7°
+gps.js:196 [Compass] update -> 348.6° (TN)
+mapController.js:174 [DEBUG] diff=2.4° target=348.6° last=346.2°
+mapController.js:174 [DEBUG] diff=1.7° target=348.6° last=346.9°
+mapController.js:174 [DEBUG] diff=1.2° target=348.6° last=347.4°
+gps.js:196 [Compass] update -> 349.7° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=349.7° last=347.8°
+mapController.js:174 [DEBUG] diff=1.4° target=349.7° last=348.4°
+mapController.js:174 [DEBUG] diff=1.0° target=349.7° last=348.8°
+gps.js:196 [Compass] update -> 350.9° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=350.9° last=349.1°
+gps.js:196 [Compass] update -> 351.9° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=351.9° last=349.6°
+gps.js:196 [Compass] update -> 353.0° (TN)
+mapController.js:174 [DEBUG] diff=2.7° target=353.0° last=350.3°
+mapController.js:174 [DEBUG] diff=1.9° target=353.0° last=351.1°
+mapController.js:174 [DEBUG] diff=1.3° target=353.0° last=351.7°
+gps.js:196 [Compass] update -> 354.2° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=354.2° last=352.1°
+mapController.js:174 [DEBUG] diff=1.4° target=354.2° last=352.7°
+gps.js:196 [Compass] update -> 355.3° (TN)
+mapController.js:174 [DEBUG] diff=2.1° target=355.3° last=353.1°
+mapController.js:174 [DEBUG] diff=1.5° target=355.3° last=353.8°
+gps.js:196 [Compass] update -> 356.5° (TN)
+mapController.js:174 [DEBUG] diff=2.2° target=356.5° last=354.2°
+gps.js:196 [Compass] update -> 357.5° (TN)
+mapController.js:174 [DEBUG] diff=2.6° target=357.5° last=354.9°
+mapController.js:174 [DEBUG] diff=1.8° target=357.5° last=355.7°
+mapController.js:174 [DEBUG] diff=1.3° target=357.5° last=356.2°
+gps.js:196 [Compass] update -> 358.5° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=358.5° last=356.6°
+mapController.js:174 [DEBUG] diff=1.3° target=358.5° last=357.2°
+gps.js:196 [Compass] update -> 359.6° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=359.6° last=357.6°
+mapController.js:174 [DEBUG] diff=1.4° target=359.6° last=358.2°
+mapController.js:174 [DEBUG] diff=1.0° target=359.6° last=358.6°
+gps.js:196 [Compass] update -> 0.7° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=0.7° last=358.9°
+mapController.js:174 [DEBUG] diff=1.3° target=0.7° last=359.5°
+gps.js:196 [Compass] update -> 1.9° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=1.9° last=359.8°
+mapController.js:174 [DEBUG] diff=1.4° target=1.9° last=0.4°
+mapController.js:174 [DEBUG] diff=1.0° target=1.9° last=0.9°
+gps.js:196 [Compass] update -> 3.0° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=3.0° last=1.2°
+gps.js:196 [Compass] update -> 4.0° (TN)
+mapController.js:174 [DEBUG] diff=2.3° target=4.0° last=1.7°
+mapController.js:174 [DEBUG] diff=1.6° target=4.0° last=2.4°
+mapController.js:174 [DEBUG] diff=1.1° target=4.0° last=2.9°
+gps.js:196 [Compass] update -> 5.0° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=5.0° last=3.2°
+mapController.js:174 [DEBUG] diff=1.3° target=5.0° last=3.8°
+mapController.js:174 [DEBUG] diff=0.9° target=5.0° last=4.2°
+mapController.js:174 [DEBUG] diff=0.6° target=5.0° last=4.4°
+gps.js:196 [Compass] update -> 6.2° (TN)
+mapController.js:174 [DEBUG] diff=1.6° target=6.2° last=4.6°
+mapController.js:174 [DEBUG] diff=1.1° target=6.2° last=5.1°
+gps.js:196 [Compass] update -> 7.3° (TN)
+mapController.js:174 [DEBUG] diff=1.9° target=7.3° last=5.4°
+mapController.js:174 [DEBUG] diff=1.3° target=7.3° last=6.0°
+mapController.js:174 [DEBUG] diff=0.9° target=7.3° last=6.4°
+gps.js:196 [Compass] update -> 8.5° (TN)
+mapController.js:174 [DEBUG] diff=1.8° target=8.5° last=6.7°
+mapController.js:174 [DEBUG] diff=1.3° target=8.5° last=7.2°
+gps.js:196 [Compass] update -> 9.6° (TN)
+mapController.js:174 [DEBUG] diff=2.0° target=9.6° last=7.6°
+mapController.js:174 [DEBUG] diff=1.4° target=9.6° last=8.2°
+mapController.js:174 [DEBUG] diff=1.0° target=9.6° last=8.6°
+mapController.js:174 [DEBUG] diff=0.7° target=9.6° last=8.9°
+mapController.js:174 [DEBUG] diff=0.5° target=9.6° last=9.1°
+mapController.js:174 [DEBUG] diff=0.3° target=9.6° last=9.3°
+mapController.js:174 [DEBUG] diff=0.2° target=9.6° last=9.4°
+mapController.js:174 [DEBUG] diff=0.2° target=9.6° last=9.4°
+mapController.js:174 [DEBUG] diff=0.1° target=9.6° last=9.5°
+mapController.js:174 [DEBUG] diff=0.1° target=9.6° last=9.5°
+mapController.js:174 [DEBUG] diff=0.1° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+mapController.js:174 [DEBUG] diff=0.0° target=9.6° last=9.6°
+gps.js:196 [Compass] update -> 10.7° (TN)
+mapController.js:174 [DEBUG] diff=1.0° target=10.7° last=9.6°
+mapController.js:174 [DEBUG] diff=0.7° target=10.7° last=9.9°
+mapController.js:174 [DEBUG] diff=0.5° target=10.7° last=10.1°
+mapController.js:174 [DEBUG] diff=0.4° target=10.7° last=10.3°
+gps.js:196 [Compass] update -> 11.7° (TN)
+mapController.js:174 [DEBUG] diff=1.3° target=11.7° last=10.4°
+mapController.js:174 [DEBUG] diff=0.9° target=11.7° last=10.8°
+mapController.js:174 [DEBUG] diff=0.6° target=11.7° last=11.0°
+gps.js:196 [Compass] update -> 12.8° (TN)
+mapController.js:174 [DEBUG] diff=1.6° target=12.8° last=11.2°
+mapController.js:174 [DEBUG] diff=1.1° target=12.8° last=11.7°
+mapController.js:174 [DEBUG] diff=0.8° target=12.8° last=12.0°
+mapController.js:174 [DEBUG] diff=0.5° target=12.8° last=12.2°
+mapController.js:174 [DEBUG] diff=0.4° target=12.8° last=12.4°
+mapController.js:174 [DEBUG] diff=0.3° target=12.8° last=12.5°
+mapController.js:174 [DEBUG] diff=0.2° target=12.8° last=12.6°
+mapController.js:174 [DEBUG] diff=0.1° target=12.8° last=12.7°
+mapController.js:174 [DEBUG] diff=0.1° target=12.8° last=12.7°
+mapController.js:174 [DEBUG] diff=0.1° target=12.8° last=12.7°
+gps.js:196 [Compass] update -> 13.8° (TN)
+mapController.js:174 [DEBUG] diff=1.1° target=13.8° last=12.7°
+mapController.js:174 [DEBUG] diff=0.8° target=13.8° last=13.1°
+mapController.js:174 [DEBUG] diff=0.5° target=13.8° last=13.3°
+mapController.js:174 [DEBUG] diff=0.4° target=13.8° last=13.5°
+mapController.js:174 [DEBUG] diff=0.3° target=13.8° last=13.6°
+mapController.js:174 [DEBUG] diff=0.2° target=13.8° last=13.7°
+mapController.js:174 [DEBUG] diff=0.1° target=13.8° last=13.7°
+mapController.js:174 [DEBUG] diff=0.1° target=13.8° last=13.7°
+mapController.js:174 [DEBUG] diff=0.1° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+mapController.js:174 [DEBUG] diff=0.0° target=13.8° last=13.8°
+gps.js:196 [Compass] update -> 12.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.0° target=12.8° last=13.8°
+mapController.js:174 [DEBUG] diff=-0.7° target=12.8° last=13.5°
+gps.js:196 [Compass] update -> 11.7° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=11.7° last=13.3°
+gps.js:196 [Compass] update -> 10.6° (TN)
+mapController.js:174 [DEBUG] diff=-2.3° target=10.6° last=12.8°
+mapController.js:174 [DEBUG] diff=-1.6° target=10.6° last=12.1°
+mapController.js:174 [DEBUG] diff=-1.1° target=10.6° last=11.7°
+gps.js:196 [Compass] update -> 9.3° (TN)
+mapController.js:174 [DEBUG] diff=-2.0° target=9.3° last=11.3°
+gps.js:196 [Compass] update -> 8.0° (TN)
+mapController.js:174 [DEBUG] diff=-2.7° target=8.0° last=10.7°
+gps.js:196 [Compass] update -> 6.8° (TN)
+mapController.js:174 [DEBUG] diff=-3.2° target=6.8° last=9.9°
+gps.js:196 [Compass] update -> 4.4° (TN)
+mapController.js:174 [DEBUG] diff=-4.6° target=4.4° last=9.0°
+mapController.js:174 [DEBUG] diff=-3.2° target=4.4° last=7.6°
+mapController.js:174 [DEBUG] diff=-2.2° target=4.4° last=6.6°
+gps.js:196 [Compass] update -> 2.3° (TN)
+mapController.js:174 [DEBUG] diff=-3.7° target=2.3° last=6.0°
+gps.js:196 [Compass] update -> 0.3° (TN)
+mapController.js:174 [DEBUG] diff=-4.6° target=0.3° last=4.9°
+gps.js:196 [Compass] update -> 358.4° (TN)
+mapController.js:174 [DEBUG] diff=-5.1° target=358.4° last=3.5°
+mapController.js:174 [DEBUG] diff=-3.6° target=358.4° last=2.0°
+gps.js:196 [Compass] update -> 356.4° (TN)
+mapController.js:174 [DEBUG] diff=-4.5° target=356.4° last=0.9°
+gps.js:196 [Compass] update -> 354.3° (TN)
+mapController.js:174 [DEBUG] diff=-5.3° target=354.3° last=359.6°
+gps.js:196 [Compass] update -> 351.9° (TN)
+mapController.js:174 [DEBUG] diff=-6.0° target=351.9° last=358.0°
+gps.js:196 [Compass] update -> 349.4° (TN)
+mapController.js:174 [DEBUG] diff=-6.7° target=349.4° last=356.2°
+gps.js:196 [Compass] update -> 346.8° (TN)
+mapController.js:174 [DEBUG] diff=-7.3° target=346.8° last=354.2°
+gps.js:196 [Compass] update -> 344.1° (TN)
+mapController.js:174 [DEBUG] diff=-7.8° target=344.1° last=352.0°
+mapController.js:174 [DEBUG] diff=-5.5° target=344.1° last=349.6°
+gps.js:196 [Compass] update -> 341.5° (TN)
+mapController.js:174 [DEBUG] diff=-6.4° target=341.5° last=348.0°
+gps.js:196 [Compass] update -> 338.8° (TN)
+mapController.js:174 [DEBUG] diff=-7.2° target=338.8° last=346.0°
+gps.js:196 [Compass] update -> 336.1° (TN)
+mapController.js:174 [DEBUG] diff=-7.7° target=336.1° last=343.9°
+gps.js:196 [Compass] update -> 333.4° (TN)
+mapController.js:174 [DEBUG] diff=-8.2° target=333.4° last=341.6°
+gps.js:196 [Compass] update -> 329.9° (TN)
+mapController.js:174 [DEBUG] diff=-9.2° target=329.9° last=339.1°
+mapController.js:174 [DEBUG] diff=-6.5° target=329.9° last=336.3°
+gps.js:196 [Compass] update -> 326.7° (TN)
+mapController.js:174 [DEBUG] diff=-7.7° target=326.7° last=334.4°
+gps.js:196 [Compass] update -> 323.6° (TN)
+mapController.js:174 [DEBUG] diff=-8.4° target=323.6° last=332.1°
+gps.js:196 [Compass] update -> 320.7° (TN)
+mapController.js:174 [DEBUG] diff=-8.9° target=320.7° last=329.5°
+gps.js:196 [Compass] update -> 317.8° (TN)
+mapController.js:174 [DEBUG] diff=-9.1° target=317.8° last=326.9°
+mapController.js:174 [DEBUG] diff=-6.4° target=317.8° last=324.1°
+gps.js:196 [Compass] update -> 315.0° (TN)
+mapController.js:174 [DEBUG] diff=-7.3° target=315.0° last=322.2°
+gps.js:196 [Compass] update -> 312.7° (TN)
+mapController.js:174 [DEBUG] diff=-7.4° target=312.7° last=320.1°
+gps.js:196 [Compass] update -> 310.5° (TN)
+mapController.js:174 [DEBUG] diff=-7.4° target=310.5° last=317.8°
+gps.js:196 [Compass] update -> 308.3° (TN)
+mapController.js:174 [DEBUG] diff=-7.3° target=308.3° last=315.6°
+gps.js:196 [Compass] update -> 306.1° (TN)
+mapController.js:174 [DEBUG] diff=-7.3° target=306.1° last=313.4°
+gps.js:196 [Compass] update -> 303.8° (TN)
+mapController.js:174 [DEBUG] diff=-7.5° target=303.8° last=311.2°
+mapController.js:174 [DEBUG] diff=-5.2° target=303.8° last=309.0°
+gps.js:196 [Compass] update -> 301.5° (TN)
+mapController.js:174 [DEBUG] diff=-6.0° target=301.5° last=307.4°
+gps.js:196 [Compass] update -> 299.2° (TN)
+mapController.js:174 [DEBUG] diff=-6.4° target=299.2° last=305.6°
+gps.js:196 [Compass] update -> 297.4° (TN)
+mapController.js:174 [DEBUG] diff=-6.3° target=297.4° last=303.7°
+gps.js:196 [Compass] update -> 295.8° (TN)
+mapController.js:174 [DEBUG] diff=-6.0° target=295.8° last=301.8°
+gps.js:196 [Compass] update -> 294.5° (TN)
+mapController.js:174 [DEBUG] diff=-5.5° target=294.5° last=300.0°
+mapController.js:174 [DEBUG] diff=-3.9° target=294.5° last=298.4°
+gps.js:196 [Compass] update -> 293.2° (TN)
+mapController.js:174 [DEBUG] diff=-4.0° target=293.2° last=297.2°
+gps.js:196 [Compass] update -> 292.0° (TN)
+mapController.js:174 [DEBUG] diff=-4.0° target=292.0° last=296.0°
+gps.js:196 [Compass] update -> 290.7° (TN)
+mapController.js:174 [DEBUG] diff=-4.1° target=290.7° last=294.8°
+gps.js:196 [Compass] update -> 289.4° (TN)
+mapController.js:174 [DEBUG] diff=-4.2° target=289.4° last=293.6°
+gps.js:196 [Compass] update -> 288.0° (TN)
+mapController.js:174 [DEBUG] diff=-4.3° target=288.0° last=292.3°
+mapController.js:174 [DEBUG] diff=-3.0° target=288.0° last=291.0°
+gps.js:196 [Compass] update -> 286.8° (TN)
+mapController.js:174 [DEBUG] diff=-3.4° target=286.8° last=290.1°
+mapController.js:174 [DEBUG] diff=-2.4° target=286.8° last=289.1°
+gps.js:196 [Compass] update -> 285.6° (TN)
+gps.js:196 [Compass] update -> 284.5° (TN)
+mapController.js:174 [DEBUG] diff=-3.9° target=284.5° last=288.4°
+gps.js:196 [Compass] update -> 283.4° (TN)
+mapController.js:174 [DEBUG] diff=-3.8° target=283.4° last=287.2°
+mapController.js:174 [DEBUG] diff=-2.7° target=283.4° last=286.1°
+gps.js:196 [Compass] update -> 282.3° (TN)
+mapController.js:174 [DEBUG] diff=-3.0° target=282.3° last=285.3°
+gps.js:196 [Compass] update -> 281.2° (TN)
+mapController.js:174 [DEBUG] diff=-3.2° target=281.2° last=284.4°
+mapController.js:174 [DEBUG] diff=-2.2° target=281.2° last=283.4°
+gps.js:196 [Compass] update -> 280.1° (TN)
+mapController.js:174 [DEBUG] diff=-2.7° target=280.1° last=282.8°
+mapController.js:174 [DEBUG] diff=-1.9° target=280.1° last=282.0°
+mapController.js:174 [DEBUG] diff=-1.3° target=280.1° last=281.4°
+mapController.js:174 [DEBUG] diff=-0.9° target=280.1° last=281.0°
+gps.js:196 [Compass] update -> 279.0° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=279.0° last=280.7°
+mapController.js:174 [DEBUG] diff=-1.2° target=279.0° last=280.2°
+mapController.js:174 [DEBUG] diff=-0.8° target=279.0° last=279.9°
+mapController.js:174 [DEBUG] diff=-0.6° target=279.0° last=279.6°
+mapController.js:174 [DEBUG] diff=-0.4° target=279.0° last=279.4°
+mapController.js:174 [DEBUG] diff=-0.3° target=279.0° last=279.3°
+gps.js:196 [Compass] update -> 278.0° (TN)
+mapController.js:174 [DEBUG] diff=-1.3° target=278.0° last=279.2°
+mapController.js:174 [DEBUG] diff=-0.9° target=278.0° last=278.9°
+mapController.js:174 [DEBUG] diff=-0.6° target=278.0° last=278.6°
+gps.js:196 [Compass] update -> 276.9° (TN)
+mapController.js:174 [DEBUG] diff=-1.5° target=276.9° last=278.4°
+mapController.js:174 [DEBUG] diff=-1.1° target=276.9° last=278.0°
+mapController.js:174 [DEBUG] diff=-0.7° target=276.9° last=277.6°
+gps.js:196 [Compass] update -> 275.8° (TN)
+mapController.js:174 [DEBUG] diff=-1.7° target=275.8° last=277.4°
+gps.js:196 [Compass] update -> 274.5° (TN)
+mapController.js:174 [DEBUG] diff=-2.4° target=274.5° last=276.9°
+gps.js:196 [Compass] update -> 273.5° (TN)
+mapController.js:174 [DEBUG] diff=-2.7° target=273.5° last=276.2°
+mapController.js:174 [DEBUG] diff=-1.9° target=273.5° last=275.4°
+gps.js:196 [Compass] update -> 272.4° (TN)
+mapController.js:174 [DEBUG] diff=-2.4° target=272.4° last=274.8°
+mapController.js:174 [DEBUG] diff=-1.7° target=272.4° last=274.1°
+mapController.js:174 [DEBUG] diff=-1.2° target=272.4° last=273.6°
+mapController.js:174 [DEBUG] diff=-0.8° target=272.4° last=273.3°
+mapController.js:174 [DEBUG] diff=-0.6° target=272.4° last=273.0°
+mapController.js:174 [DEBUG] diff=-0.4° target=272.4° last=272.8°
+mapController.js:174 [DEBUG] diff=-0.3° target=272.4° last=272.7°
+mapController.js:174 [DEBUG] diff=-0.2° target=272.4° last=272.6°
+mapController.js:174 [DEBUG] diff=-0.1° target=272.4° last=272.6°
+mapController.js:174 [DEBUG] diff=-0.1° target=272.4° last=272.5°
+mapController.js:174 [DEBUG] diff=-0.1° target=272.4° last=272.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=272.4° last=272.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=272.4° last=272.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=272.4° last=272.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=272.4° last=272.5°
+mapController.js:174 [DEBUG] diff=-0.0° target=272.4° last=272.4°
+gps.js:196 [Compass] update -> 273.4° (TN)
+mapController.js:174 [DEBUG] diff=1.0° target=273.4° last=272.4°
+mapController.js:174 [DEBUG] diff=0.7° target=273.4° last=272.7°
+mapController.js:174 [DEBUG] diff=0.5° target=273.4° last=273.0°
+mapController.js:174 [DEBUG] diff=0.3° target=273.4° last=273.1°
+mapController.js:174 [DEBUG] diff=0.2° target=273.4° last=273.2°
+mapController.js:174 [DEBUG] diff=0.2° target=273.4° last=273.3°
+mapController.js:174 [DEBUG] diff=0.1° target=273.4° last=273.3°
+mapController.js:174 [DEBUG] diff=0.1° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.1° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+mapController.js:174 [DEBUG] diff=0.0° target=273.4° last=273.4°
+gps.js:196 [Compass] update -> 272.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.2° target=272.2° last=273.4°
+mapController.js:174 [DEBUG] diff=-0.9° target=272.2° last=273.1°
+mapController.js:174 [DEBUG] diff=-0.6° target=272.2° last=272.8°
+gps.js:196 [Compass] update -> 271.2° (TN)
+mapController.js:174 [DEBUG] diff=-1.5° target=271.2° last=272.6°
+mapController.js:174 [DEBUG] diff=-1.0° target=271.2° last=272.2°
+mapController.js:174 [DEBUG] diff=-0.7° target=271.2° last=271.9°
+mapController.js:174 [DEBUG] diff=-0.5° target=271.2° last=271.7°
+mapController.js:174 [DEBUG] diff=-0.4° target=271.2° last=271.5°
+mapController.js:174 [DEBUG] diff=-0.2° target=271.2° last=271.4°
+mapController.js:174 [DEBUG] diff=-0.2° target=271.2° last=271.3°
+mapController.js:174 [DEBUG] diff=-0.1° target=271.2° last=271.3°
+mapController.js:174 [DEBUG] diff=-0.1° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.1° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
+mapController.js:174 [DEBUG] diff=-0.0° target=271.2° last=271.2°
