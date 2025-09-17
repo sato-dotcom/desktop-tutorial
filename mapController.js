@@ -106,11 +106,12 @@ function toggleHeadingUp(on) {
     updateOrientationButtonState();
 
     if (on) {
+        // ★★★ 修正点: モード切替時に描画角度を現在の角度に同期させる ★★★
         const targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
             ? currentUserCourse
             : currentHeading;
 
-        // displayedHeading と currentHeading を同期
+        // lastDrawnMarkerAngle と currentHeading を同期してジャンプを防ぐ
         lastDrawnMarkerAngle = targetHeading;
         currentHeading = targetHeading;
 
@@ -164,6 +165,11 @@ function updateMapRotation() {
         let diff = targetAngle - lastDrawnMarkerAngle;
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
+
+        // ★★★ 修正点: 差分をコンソールにログ出力 ★★★
+        if (appState.headingUp) {
+            console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
+        }
 
         // 急な回転を抑制する
         if (Math.abs(diff) > 90) {
