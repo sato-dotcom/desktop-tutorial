@@ -4,6 +4,7 @@
 let skipRotationOnce = 0; // スキップする残りフレーム数（0なら通常処理）
 const ROTATION_LERP_FACTOR = 0.3; // 補間率 (小さいほど滑らか)
 let lastSummaryTs = 0; // 最後のサマリログ出力タイムスタンプ
+let lastCourse = null; // GPS進行方向の前回値を保持
 
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
@@ -166,20 +167,23 @@ function updateMapRotation() {
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
 
-        // ★★★ 修正点: ログ出力条件を緩和し、サマリログを追加 ★★★
+        // ★★★ 修正点: courseJumpの計算とログ出力を追加 ★★★
+        const courseJump = (currentUserCourse !== null && lastCourse !== null)
+            ? (currentUserCourse - lastCourse).toFixed(1)
+            : '-';
+        lastCourse = currentUserCourse;
+
         const absDiff = Math.abs(diff);
 
-        // 閾値緩和＆headingUp条件撤廃
         if (absDiff > 12) { // 閾値を12°に下げる
-            console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}`);
+            console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
         } else {
             console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
         }
         
-        // 5秒ごとのサマリ出力
         const now = Date.now();
         if (now - lastSummaryTs > 5000) {
-            console.log(`[DEBUG-SUM] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}`);
+            console.log(`[DEBUG-SUM] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
             lastSummaryTs = now;
         }
 
@@ -235,4 +239,3 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
-
