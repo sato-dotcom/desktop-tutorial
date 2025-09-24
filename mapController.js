@@ -150,11 +150,21 @@ function updateMapRotation() {
     if (!currentUserMarker?._icon) return;
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-    let targetAngle = 0;
+    
+    // --- 修正箇所: モードに応じて目標角度の計算方法を変更 ---
+    let targetAngle;
+    let relativeAngleForLog = null;
 
-    // ヘディングアップモードの時のみ、目標角度をコンパスの値に設定
-    if (appState.headingUp) {
+    if (!appState.headingUp) {
+        // ノースアップモード：マーカーは端末の絶対的な向きを示す
         targetAngle = currentHeading;
+    } else {
+        // ヘディングアップモード：マーカーは地図に対する相対的な向きを示す
+        let relative = (lastRawHeading ?? currentHeading) - currentHeading;
+        if (relative > 180) relative -= 360;
+        if (relative < -180) relative += 360;
+        targetAngle = relative;
+        relativeAngleForLog = relative;
     }
 
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
@@ -201,13 +211,14 @@ function updateMapRotation() {
         lastDrawnMarkerAngle = (lastDrawnMarkerAngle + limitedDiff + 360) % 360;
     }
 
+    // --- 修正箇所: 最終的な描画とログ出力 ---
+    const finalAngle = -lastDrawnMarkerAngle;
+    rotator.style.transform = `rotate(${finalAngle}deg)`;
+
     if (!appState.headingUp) {
-        rotator.style.transform = 'rotate(0deg)';
-        console.log(`[DEBUG-RM2] mode=NorthUp fixedAngle=0 raw=${lastRawHeading ?? '-'}° mapRotation=${mapRotationAngle.toFixed(1)}°`);
+        console.log(`[DEBUG-RM2] mode=NorthUp target=${targetAngle.toFixed(1)}° mapRotation=${mapRotationAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}°`);
     } else {
-        const invertedAngle = -lastDrawnMarkerAngle;
-        rotator.style.transform = `rotate(${invertedAngle}deg)`;
-        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° diff=${diff.toFixed(1)}° limitedDiff=${limitedDiff.toFixed(1)}° mapRotation=${mapRotationAngle.toFixed(1)}°`);
+        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° mapRotation=${mapRotationAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}° relative=${relativeAngleForLog !== null ? relativeAngleForLog.toFixed(1) : '-'}`);
     }
 }
 
