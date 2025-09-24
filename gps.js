@@ -1,43 +1,32 @@
 // gps.js
 
 const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
-const HEADING_FILTER_ALPHA = 0.3;
-const HEADING_UPDATE_THRESHOLD = 1;
-// ★★★ 修正方針 2: スパイク除去の閾値 (調整可能) ★★★
-const HEADING_SPIKE_THRESHOLD = 45;
+// ★★★ 調整可能なパラメータ ★★★
+const HEADING_FILTER_ALPHA = 0.3; // 平滑化フィルタ係数 (0.2-0.4推奨)
+const HEADING_UPDATE_THRESHOLD = 1; // 更新をトリガーする最小角度変化
+const HEADING_SPIKE_THRESHOLD = 45; // スパイクとみなすrawHeadingの急変角度 (30-60°推奨)
 
 const DECLINATION_UPDATE_DISTANCE_M = 1000; // m
 const DECLINATION_UPDATE_INTERVAL_MS = 3 * 60 * 60 * 1000; // 3時間
 
-// 系番号ごとの中央経線と代表磁偏角（度）
 const JGD2011_ZONE_INFO = {
-    1: { lon0: 129.5, declination: 7.0 },
-    2: { lon0: 131.0, declination: 7.5 },
-    3: { lon0: 132.1666667, declination: 7.5 },
-    4: { lon0: 133.5, declination: 7.0 },
-    5: { lon0: 134.3333333, declination: 6.8 },
-    6: { lon0: 136.0, declination: 6.5 },
-    7: { lon0: 137.1666667, declination: 6.0 },
-    8: { lon0: 138.5, declination: 5.5 },
-    9: { lon0: 139.8333333, declination: 5.0 },
-    10: { lon0: 140.8333333, declination: 4.5 },
-    11: { lon0: 140.25, declination: 7.0 },
-    12: { lon0: 142.25, declination: 6.5 },
-    13: { lon0: 144.25, declination: 6.0 },
-    14: { lon0: 142.0, declination: 3.0 },
-    15: { lon0: 127.5, declination: 6.0 },
-    16: { lon0: 124.0, declination: 5.5 },
-    17: { lon0: 131.0, declination: 5.0 },
-    18: { lon0: 136.0833333, declination: 4.0 },
+    1: { lon0: 129.5, declination: 7.0 }, 2: { lon0: 131.0, declination: 7.5 },
+    3: { lon0: 132.1666667, declination: 7.5 }, 4: { lon0: 133.5, declination: 7.0 },
+    5: { lon0: 134.3333333, declination: 6.8 }, 6: { lon0: 136.0, declination: 6.5 },
+    7: { lon0: 137.1666667, declination: 6.0 }, 8: { lon0: 138.5, declination: 5.5 },
+    9: { lon0: 139.8333333, declination: 5.0 }, 10: { lon0: 140.8333333, declination: 4.5 },
+    11: { lon0: 140.25, declination: 7.0 }, 12: { lon0: 142.25, declination: 6.5 },
+    13: { lon0: 144.25, declination: 6.0 }, 14: { lon0: 142.0, declination: 3.0 },
+    15: { lon0: 127.5, declination: 6.0 }, 16: { lon0: 124.0, declination: 5.5 },
+    17: { lon0: 131.0, declination: 5.0 }, 18: { lon0: 136.0833333, declination: 4.0 },
     19: { lon0: 154.0, declination: 2.0 }
 };
 
 let currentDeclination = 0;
 let lastDeclinationUpdatePos = null;
 let lastDeclinationUpdateAt = 0;
-let lastCompassHeading = null;
 let lastCurrentHeading = null;
-// ★★★ 修正方針 3: 初期化フラグ ★★★
+// C. 初期化の確実化: フラグを再実装
 let compassInitialized = false;
 
 // --- ユーティリティ ---
@@ -50,22 +39,15 @@ function getDistanceMeters(lat1, lon1, lat2, lon2) {
     const R = 6371000;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) ** 2 +
-        Math.cos(lat1 * Math.PI / 180) *
-        Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLon / 2) ** 2;
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
     return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
 }
 
 function detectJGD2011Zone(lat, lon) {
-    let minDiff = Infinity;
-    let zone = null;
+    let minDiff = Infinity, zone = null;
     for (const [zoneNum, info] of Object.entries(JGD2011_ZONE_INFO)) {
         const diff = Math.abs(lon - info.lon0);
-        if (diff < minDiff) {
-            minDiff = diff;
-            zone = parseInt(zoneNum, 10);
-        }
+        if (diff < minDiff) { minDiff = diff; zone = parseInt(zoneNum, 10); }
     }
     return zone;
 }
@@ -77,29 +59,21 @@ function shouldUpdateDeclination(lat, lon) {
     return getDistanceMeters(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon, lat, lon) > DECLINATION_UPDATE_DISTANCE_M;
 }
 
-async function fetchDeclination(lat, lon) {
-    const url = `https://vldb.gsi.go.jp/sokuchi/geomag/api/declination?lat=${lat}&lon=${lon}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (typeof data.declination !== 'number') throw new Error("Invalid API response");
-    return data.declination;
-}
-
 async function updateDeclinationIfNeeded(lat, lon) {
-    if (!shouldUpdateDeclination(lat, lon)) return currentDeclination;
+    if (!shouldUpdateDeclination(lat, lon)) return;
     try {
-        const decl = await fetchDeclination(lat, lon);
-        currentDeclination = decl;
-        if (DEBUG) console.log(`磁偏角API成功: ${decl.toFixed(2)}°`);
+        const res = await fetch(`https://vldb.gsi.go.jp/sokuchi/geomag/api/declination?lat=${lat}&lon=${lon}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (typeof data.declination !== 'number') throw new Error("Invalid API response");
+        currentDeclination = data.declination;
     } catch (err) {
         const zone = detectJGD2011Zone(lat, lon);
         currentDeclination = JGD2011_ZONE_INFO[zone]?.declination ?? 0;
-        console.error(`磁偏角API失敗。系${zone}の代表値を使用: ${currentDeclination.toFixed(2)}°`);
+        console.error(`磁偏角API失敗。系${zone}の代表値を使用: ${currentDeclination.toFixed(2)}°`, err);
     }
     lastDeclinationUpdatePos = { lat, lon };
     lastDeclinationUpdateAt = Date.now();
-    return currentDeclination;
 }
 
 // --- GPS ---
@@ -110,17 +84,14 @@ function startGeolocation() {
         return;
     }
     watchId = navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
+        enableHighAccuracy: true, timeout: 10000, maximumAge: 0
     });
 }
 
 function handlePositionSuccess(position) {
-    const { latitude, longitude } = position.coords;
-    updateDeclinationIfNeeded(latitude, longitude);
-    onPositionUpdate(position); // mapController.jsの関数を呼び出す
-    updateDebugPanel(lastRawHeading, lastDrawnMarkerAngle);
+    updateDeclinationIfNeeded(position.coords.latitude, position.coords.longitude);
+    onPositionUpdate(position);
+    updateDebugPanel();
 }
 
 function handlePositionError(error) {
@@ -136,24 +107,14 @@ function handlePositionError(error) {
 // --- コンパス ---
 function startCompass() {
     const addListeners = () => {
+        const eventName = ('ondeviceorientationabsolute' in window) ? 'deviceorientationabsolute' : 'deviceorientation';
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(state => {
-                    if (state === 'granted') {
-                        window.addEventListener('deviceorientation', onCompassUpdate, true);
-                    } else {
-                        console.warn('Compass permission denied');
-                    }
-                })
-                .catch(err => {
-                    console.error('Compass permission request error:', err);
-                });
+                    if (state === 'granted') window.addEventListener(eventName, onCompassUpdate, true);
+                }).catch(err => console.error('Compass permission request error:', err));
         } else {
-            if ('ondeviceorientationabsolute' in window) {
-                window.addEventListener('deviceorientationabsolute', onCompassUpdate, true);
-            } else {
-                window.addEventListener('deviceorientation', onCompassUpdate, true);
-            }
+            window.addEventListener(eventName, onCompassUpdate, true);
         }
     };
     document.body.addEventListener('click', addListeners, { once: true });
@@ -166,18 +127,14 @@ function onCompassUpdate(event) {
     } else if (event.alpha !== null) {
         newRawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
-
     if (newRawHeading === null || isNaN(newRawHeading)) return;
 
     if (lastRawHeading !== null) {
         let delta = newRawHeading - lastRawHeading;
         if (delta > 180) delta -= 360;
         if (delta < -180) delta += 360;
-
-        // ★★★ 修正方針 2 & 4: スパイク除去 & ログ強化 ★★★
         if (Math.abs(delta) > HEADING_SPIKE_THRESHOLD) {
-            console.log(`[DEBUG-RM2] Spike抑制 diff=${delta.toFixed(1)}`);
-            return;
+            return; // rawHeadingのスパイクはここで除去
         }
     }
     lastRawHeading = newRawHeading;
@@ -185,87 +142,49 @@ function onCompassUpdate(event) {
     const trueHeading = toTrueNorth(lastRawHeading, currentDeclination);
     if (trueHeading === null) return;
     
-    // 平滑化フィルタ (Low-pass filter)
-    if (lastCurrentHeading === null) {
-        lastCurrentHeading = trueHeading;
-    }
+    if (lastCurrentHeading === null) lastCurrentHeading = trueHeading;
     let delta = trueHeading - lastCurrentHeading;
     if (delta > 180) delta -= 360;
     if (delta < -180) delta += 360;
-    
-    currentHeading = (lastCurrentHeading + (delta * HEADING_FILTER_ALPHA) + 360) % 360;
+    currentHeading = (lastCurrentHeading + delta * HEADING_FILTER_ALPHA + 360) % 360;
     lastCurrentHeading = currentHeading;
 
-    // ★★★ 修正方針 3: 初期化改善 ★★★
-    if (!compassInitialized) {
+    // C. 初期化の確実化
+    if (!compassInitialized && typeof currentHeading === 'number' && !isNaN(currentHeading)) {
         compassInitialized = true;
-        // ★★★ 修正方針 4: デバッグログ強化 ★★★
-        console.log("[DEBUG-INIT] 初期化イベント: updateMapRotation強制呼び出し");
-        // この時点で`currentHeading`には有効な値が入っているため、直接呼び出す
-        if (typeof updateMapRotation === 'function') {
-            updateMapRotation();
-        }
+        // E. ログ仕様
+        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)}, current=${currentHeading.toFixed(1)} → updateMapRotation(force)`);
     }
     
-    updateDebugPanel(lastRawHeading, lastDrawnMarkerAngle);
+    // D. センサー更新を主軸にマーカー描画を呼び出す
+    if (typeof updateMapRotation === 'function') {
+        updateMapRotation();
+    }
+    
+    updateDebugPanel();
 }
-
 
 // --- デバッグUI関連 ---
 let debugPanel = null;
-
 function initDebugPanel() {
     if (!DEBUG) return;
     debugPanel = document.createElement('div');
-    debugPanel.style.position = 'fixed';
-    debugPanel.style.bottom = '10px';
-    debugPanel.style.right = '10px';
-    debugPanel.style.background = 'rgba(0,0,0,0.6)';
-    debugPanel.style.color = '#fff';
-    debugPanel.style.fontSize = '12px';
-    debugPanel.style.fontFamily = 'monospace';
-    debugPanel.style.padding = '6px 8px';
-    debugPanel.style.borderRadius = '4px';
-    debugPanel.style.zIndex = '9999';
-    debugPanel.style.pointerEvents = 'none';
+    Object.assign(debugPanel.style, {
+        position: 'fixed', bottom: '10px', right: '10px',
+        background: 'rgba(0,0,0,0.6)', color: '#fff', fontSize: '12px',
+        fontFamily: 'monospace', padding: '6px 8px', borderRadius: '4px',
+        zIndex: '9999', pointerEvents: 'none'
+    });
     document.body.appendChild(debugPanel);
     updateDebugPanel();
 }
 
-function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
+function updateDebugPanel() {
     if (!DEBUG || !debugPanel) return;
-    const zone = lastDeclinationUpdatePos
-        ? detectJGD2011Zone(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon)
-        : '-';
-    const decl = currentDeclination ? currentDeclination.toFixed(2) : '-';
-    const headingTN = (typeof currentHeading === 'number')
-        ? currentHeading.toFixed(1)
-        : '-';
-    const raw = (rawHeadingVal !== null && !isNaN(rawHeadingVal))
-        ? rawHeadingVal.toFixed(1)
-        : '-';
-    const last = (lastCompassHeading !== null && !isNaN(lastCompassHeading))
-        ? lastCompassHeading.toFixed(1)
-        : '-';
-    const drawn = (drawnAngle !== null && !isNaN(drawnAngle))
-        ? drawnAngle.toFixed(1)
-        : '-';
-    const mapRot = (mapRotationAngle !== null && !isNaN(mapRotationAngle))
-        ? mapRotationAngle.toFixed(1)
-        : '-';
-
-    debugPanel.innerHTML =
-        `Zone: ${zone}<br>` +
-        `Decl: ${decl}°<br>` +
-        `Raw(filtered): ${raw}°<br>` + 
-        `Last(TN): ${last}°<br>` +
-        `Heading(TN): ${headingTN}°<br>` +
-        `DrawnAngle: ${drawn}°<br>` +
-        `MapRotation: ${mapRot}°`;
+    const headingTN = (typeof currentHeading === 'number') ? currentHeading.toFixed(1) : '-';
+    const raw = (lastRawHeading !== null && !isNaN(lastRawHeading)) ? lastRawHeading.toFixed(1) : '-';
+    debugPanel.innerHTML = `Heading(TN): ${headingTN}°<br>Raw: ${raw}°`;
 }
 
-
-window.addEventListener('load', () => {
-    initDebugPanel();
-});
+window.addEventListener('load', initDebugPanel);
 
