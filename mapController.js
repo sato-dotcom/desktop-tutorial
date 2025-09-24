@@ -1,14 +1,14 @@
 // mapController.js
 
-// ★★★ 調整可能なパラメータ ★★★
-const ROTATION_LERP_FACTOR = 0.3; // 補間係数 (0.2-0.4推奨)
+// F. 調整可能パラメータ
+const ROTATION_LERP_FACTOR = 0.3; // LERP α (0.2-0.4推奨)
 const HEADING_SPIKE_THRESHOLD = 45; // スパイク検知の閾値 (30-60°推奨)
 const MAX_CONSECUTIVE_SKIPS = 3; // 連続スキップ上限
-const FAILSAFE_TIMEOUT_MS = 1000; // フェイルセーフ発火までの無更新時間
+const FAILSAFE_FRAME_THRESHOLD = 10; // フェイルセーフ発火までの無更新フレーム
 
 // --- 状態変数 ---
 let consecutiveSpikes = 0;
-let failsafeTimeout = null;
+let noUpdateFrames = 0;
 
 
 /**
@@ -102,70 +102,79 @@ function toggleFullscreen() {
  * マーカーの回転処理。モードに応じて挙動を分離。
  */
 function updateMapRotation() {
-    if (!currentUserMarker?._icon) return;
-    const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
-    if (!rotator) return;
-    
-    // D. フェイルセーフ: 無更新タイムアウトをリセット
-    clearTimeout(failsafeTimeout);
-    failsafeTimeout = setTimeout(() => {
-        console.warn(`[FAILSAFE] no-valid-update frames > ${FAILSAFE_TIMEOUT_MS}ms → set target=0`);
-        rotator.style.transform = `rotate(0deg)`;
-    }, FAILSAFE_TIMEOUT_MS);
+    try {
+        if (!currentUserMarker?._icon) return;
+        const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
+        if (!rotator) return;
+        
+        noUpdateFrames = 0; // 有効な呼び出しがあったのでカウンタをリセット
 
-    let goalAngle;
-    const mode = appState.headingUp ? 'HeadingUp' : 'NorthUp';
+        let targetAngle;
+        const mode = appState.headingUp ? 'HeadingUp' : 'NorthUp';
 
-    // B. ガード条件の緩和: 不正な値は警告を出し、0度で一時反映
-    if (currentHeading === null || isNaN(currentHeading)) {
-        console.warn(`[WARN-HEADING] raw=${lastRawHeading}, current=${currentHeading} → fallback target=0`);
-        goalAngle = 0;
-    } else {
-        goalAngle = currentHeading;
-    }
-
-    // C. モード挙動の厳密分離
-    if (!appState.headingUp) {
-        // --- ノースアップモード ---
-        goalAngle = 0;
-        lastDrawnMarkerAngle = 0; 
-    } else {
-        // --- ヘディングアップモード ---
-        if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
-            lastDrawnMarkerAngle = goalAngle;
-        }
-
-        const diff = normalizeDeg(goalAngle - lastDrawnMarkerAngle);
-
-        // B. スパイク除去（連続スキップ制限付き）
-        if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
-            consecutiveSpikes++;
-            console.log(`[DEBUG-SPIKE] diff=${diff.toFixed(1)}° threshold=${HEADING_SPIKE_THRESHOLD}° → hold last=${lastDrawnMarkerAngle.toFixed(1)}° (skip: ${consecutiveSpikes})`);
+        // B. NaN/undefinedガードとフェイルセーフ適用
+        if (currentHeading === null || isNaN(currentHeading) || lastRawHeading === null || isNaN(lastRawHeading)) {
+            console.warn(`[WARN-HEADING] raw=${lastRawHeading}, current=${currentHeading} → fallback target=0`);
+            targetAngle = 0;
         } else {
-            if (consecutiveSpikes >= MAX_CONSECUTIVE_SKIPS) {
-                console.warn(`[DEBUG-SPIKE] Forced sync after ${consecutiveSpikes} skips.`);
+            // C. モード挙動の厳密分離
+            if (!appState.headingUp) {
+                // --- ノースアップモード ---
+                targetAngle = 0;
+                lastDrawnMarkerAngle = 0;
+            } else {
+                // --- ヘディングアップモード ---
+                // B. 初期フレームは絶対に捨てない
+                if (lastDrawnMarkerAngle === null) {
+                    lastDrawnMarkerAngle = currentHeading;
+                }
+                targetAngle = currentHeading;
+                const diff = normalizeDeg(targetAngle - lastDrawnMarkerAngle);
+
+                // B. スパイク除去（連続スキップ制限付き）
+                if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
+                    consecutiveSpikes++;
+                    console.log(`[DEBUG-SPIKE] diff=${diff.toFixed(1)}° threshold=${HEADING_SPIKE_THRESHOLD}° → hold last=${lastDrawnMarkerAngle.toFixed(1)}° (skip: ${consecutiveSpikes})`);
+                    // 角度は更新しない
+                } else {
+                    if (consecutiveSpikes >= MAX_CONSECUTIVE_SKIPS) {
+                        console.warn(`[DEBUG-SPIKE] Forced sync after ${consecutiveSpikes} skips.`);
+                    }
+                    consecutiveSpikes = 0;
+                    // 補間
+                    lastDrawnMarkerAngle = (lastDrawnMarkerAngle + diff * ROTATION_LERP_FACTOR + 360) % 360;
+                }
             }
-            consecutiveSpikes = 0;
-            // 補間
-            lastDrawnMarkerAngle = (lastDrawnMarkerAngle + diff * ROTATION_LERP_FACTOR + 360) % 360;
         }
+        
+        // E. ログ仕様
+        const rawForLog = (lastRawHeading !== null) ? lastRawHeading.toFixed(1) : '---';
+        const currentForLog = (currentHeading !== null) ? currentHeading.toFixed(1) : '---';
+        const lastForLog = (lastDrawnMarkerAngle !== null) ? lastDrawnMarkerAngle.toFixed(1) : '---';
+        const diffForLog = (lastDrawnMarkerAngle !== null && targetAngle !== null) ? normalizeDeg(targetAngle - lastDrawnMarkerAngle).toFixed(1) : '---';
+        
+        console.log(`[DEBUG-RM2] mode=${mode} raw=${rawForLog}° current=${currentForLog}° target=${(targetAngle||0).toFixed(1)}° last=${lastForLog}° diff=${diffForLog}°`);
+        
+        // C. 二重適用の禁止: マーカーのスタイルのみ更新
+        const finalAngle = appState.headingUp ? -lastDrawnMarkerAngle : 0;
+        rotator.style.transform = `rotate(${finalAngle}deg)`;
+
+    } catch (err) {
+        console.error('[ERROR-ROT] err=', err);
     }
-    
-    // E. ログ仕様
-    const rawForLog = (lastRawHeading !== null) ? lastRawHeading.toFixed(1) : '---';
-    const currentForLog = (currentHeading !== null) ? currentHeading.toFixed(1) : '---';
-    const lastForLog = (lastDrawnMarkerAngle !== null) ? lastDrawnMarkerAngle.toFixed(1) : '---';
-    const diffForLog = (lastDrawnMarkerAngle !== null && goalAngle !== null) ? normalizeDeg(goalAngle - lastDrawnMarkerAngle).toFixed(1) : '---';
-    
-    console.log(`[DEBUG-RM2] mode=${mode} raw=${rawForLog}° current=${currentForLog}° target=${goalAngle.toFixed(1)}° last=${lastForLog}° diff=${diffForLog}°`);
-    
-    // F. 二重適用の禁止: マーカーのスタイルのみ更新
-    const finalAngle = appState.headingUp ? -lastDrawnMarkerAngle : 0;
-    rotator.style.transform = `rotate(${finalAngle}deg)`;
 }
 
 function renderLoop() {
-    // センサーイベント駆動に変更したため、ループ内での呼び出しは不要
+    // D. フェイルセーフカウンタ
+    noUpdateFrames++;
+    if(noUpdateFrames > FAILSAFE_FRAME_THRESHOLD) {
+        console.warn(`[FAILSAFE] no-valid-update frames=${noUpdateFrames} → set target=0`);
+        if (currentUserMarker?._icon) {
+            const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
+            if(rotator) rotator.style.transform = `rotate(0deg)`;
+        }
+        noUpdateFrames=0; // リセットして再試行
+    }
     requestAnimationFrame(renderLoop);
 }
 

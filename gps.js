@@ -1,7 +1,7 @@
 // gps.js
 
 const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
-// ★★★ 調整可能なパラメータ ★★★
+// F. 調整可能パラメータ
 const HEADING_FILTER_ALPHA = 0.3; // 平滑化フィルタ係数 (0.2-0.4推奨)
 const HEADING_SPIKE_THRESHOLD = 45; // スパイクとみなすrawHeadingの急変角度 (30-60°推奨)
 
@@ -51,13 +51,6 @@ function detectJGD2011Zone(lat, lon) {
     return zone;
 }
 
-function shouldUpdateDeclination(lat, lon) {
-    const now = Date.now();
-    if (!lastDeclinationUpdatePos) return true;
-    if (now - lastDeclinationUpdateAt > DECLINATION_UPDATE_INTERVAL_MS) return true;
-    return getDistanceMeters(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon, lat, lon) > DECLINATION_UPDATE_DISTANCE_M;
-}
-
 async function updateDeclinationIfNeeded(lat, lon) {
     if (!shouldUpdateDeclination(lat, lon)) return;
     try {
@@ -75,42 +68,21 @@ async function updateDeclinationIfNeeded(lat, lon) {
     lastDeclinationUpdateAt = Date.now();
 }
 
-// --- GPS ---
-function startGeolocation() {
+// A. イベント配線の復活
+function startSensors() {
+    // --- GPS ---
     if (!navigator.geolocation) {
         if (!permissionLogged) console.warn('[PERM] Geolocation not supported');
         permissionLogged = true;
         dom.gpsStatus.textContent = "ブラウザが非対応です";
         dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
-        return;
+    } else {
+        navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, {
+            enableHighAccuracy: true, timeout: 10000, maximumAge: 0
+        });
     }
-    watchId = navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, {
-        enableHighAccuracy: true, timeout: 10000, maximumAge: 0
-    });
-}
 
-function handlePositionSuccess(position) {
-    updateDeclinationIfNeeded(position.coords.latitude, position.coords.longitude);
-    onPositionUpdate(position);
-    updateDebugPanel();
-}
-
-function handlePositionError(error) {
-    let msg = "測位エラー";
-    if (error.code === 1) {
-        msg = "アクセス拒否";
-        if (!permissionLogged) console.warn('[PERM] Geolocation permission denied');
-        permissionLogged = true;
-    }
-    if (error.code === 2) msg = "測位不可";
-    if (error.code === 3) msg = "タイムアウト";
-    dom.gpsStatus.textContent = msg;
-    dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
-    console.error(`GPS Error: ${msg}`, error);
-}
-
-// --- コンパス ---
-function startCompass() {
+    // --- Compass ---
     const addListeners = () => {
         const eventName = ('ondeviceorientationabsolute' in window) ? 'deviceorientationabsolute' : 'deviceorientation';
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -119,11 +91,11 @@ function startCompass() {
                     if (state === 'granted') {
                         window.addEventListener(eventName, onCompassUpdate, true);
                     } else {
-                        if (!permissionLogged) console.warn('[PERM] Compass permission denied');
+                        if (!permissionLogged) console.warn('[PERM] Compass permission denied → retry');
                         permissionLogged = true;
                     }
                 }).catch(err => {
-                    if (!permissionLogged) console.error('[PERM] Compass permission request error:', err);
+                    if (!permissionLogged) console.error('[PERM] Compass permission request error → retry', err);
                     permissionLogged = true;
                 });
         } else {
@@ -131,6 +103,29 @@ function startCompass() {
         }
     };
     document.body.addEventListener('click', addListeners, { once: true });
+}
+
+
+function handlePositionSuccess(position) {
+    updateDeclinationIfNeeded(position.coords.latitude, position.coords.longitude);
+    if (typeof onPositionUpdate === 'function') {
+        onPositionUpdate(position);
+    }
+    updateDebugPanel();
+}
+
+function handlePositionError(error) {
+    let msg = "測位エラー";
+    if (error.code === 1) {
+        msg = "アクセス拒否";
+        if (!permissionLogged) console.warn('[PERM] Geolocation permission denied → retry');
+        permissionLogged = true;
+    }
+    if (error.code === 2) msg = "測位不可";
+    if (error.code === 3) msg = "タイムアウト";
+    dom.gpsStatus.textContent = msg;
+    dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
+    console.error(`GPS Error: ${msg}`, error);
 }
 
 function onCompassUpdate(event) {
@@ -142,18 +137,17 @@ function onCompassUpdate(event) {
     }
 
     if (newRawHeading === null || isNaN(newRawHeading)) {
-        // B. ガード条件の緩和: 不正な値は警告を出してスキップ
-        console.warn(`[WARN-HEADING] Invalid raw heading received:`, event);
+        console.warn(`[WARN-HEADING] raw=${newRawHeading}, current=${currentHeading} → fallback target=0`);
         return;
     }
 
-    // B. ガード条件の緩和: 初回フレームはスパイク判定をしない
-    if (lastRawHeading !== null) {
+    // B. ガード緩和: 初期フレームはスパイク判定をしない
+    if (compassInitialized && lastRawHeading !== null) {
         let delta = newRawHeading - lastRawHeading;
         if (delta > 180) delta -= 360;
         if (delta < -180) delta += 360;
         if (Math.abs(delta) > HEADING_SPIKE_THRESHOLD) {
-            return; // rawHeadingのスパイクはここで除去
+            return; 
         }
     }
     lastRawHeading = newRawHeading;
@@ -168,13 +162,17 @@ function onCompassUpdate(event) {
     currentHeading = (lastCurrentHeading + delta * HEADING_FILTER_ALPHA + 360) % 360;
     lastCurrentHeading = currentHeading;
 
-    // A. イベント配線の確認: 初期化処理
+    // A. イベント配線の復活: 初期化処理
     if (!compassInitialized && typeof currentHeading === 'number' && !isNaN(currentHeading)) {
         compassInitialized = true;
-        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)}, current=${currentHeading.toFixed(1)} → apply`);
+        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)} current=${currentHeading.toFixed(1)} → apply`);
+        // A. 冗長でもよいので初回も確実に呼び出す
+        if (typeof updateMapRotation === 'function') {
+            updateMapRotation();
+        }
     }
     
-    // A. イベント配線の確認: センサー更新の都度、必ず描画関数を呼び出す
+    // A. onCompassUpdateは毎回updateMapRotationを呼ぶ
     if (typeof updateMapRotation === 'function') {
         updateMapRotation();
     }
