@@ -107,7 +107,6 @@ function toggleHeadingUp(on) {
     console.log(`[toggle] headingUp=${on}`);
     updateOrientationButtonState();
 
-    // ★★★ 修正箇所: モード切替時にlastDrawnMarkerAngleを強制同期 ★★★
     lastDrawnMarkerAngle = currentHeading;
     console.log(`[DEBUG-RM] Sync lastDrawnMarkerAngle to currentHeading (${currentHeading.toFixed(1)}°)`);
 
@@ -116,13 +115,9 @@ function toggleHeadingUp(on) {
             ? currentUserCourse
             : currentHeading;
 
-        // lastDrawnMarkerAngle と currentHeading を同期してジャンプを防ぐ
         lastDrawnMarkerAngle = targetHeading;
         currentHeading = targetHeading;
-
         console.log(`[Heading Snap] Synced all headings to ${targetHeading.toFixed(1)}°`);
-
-        // 2フレーム分スキップ
         skipRotationOnce = 2;
     }
 }
@@ -151,20 +146,15 @@ function updateMapRotation() {
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     
-    // --- 修正箇所: モードに応じて目標角度の計算方法を変更 ---
+    // ★★★ 修正箇所: ノースアップ/ヘディングアップの挙動を正しく定義 ★★★
     let targetAngle;
-    let relativeAngleForLog = null;
 
     if (!appState.headingUp) {
-        // ノースアップモード：マーカーは端末の絶対的な向きを示す
-        targetAngle = currentHeading;
+        // ノースアップモード：マーカーは常に北を向く (回転しない)
+        targetAngle = 0;
     } else {
-        // ヘディングアップモード：マーカーは地図に対する相対的な向きを示す
-        let relative = (lastRawHeading ?? currentHeading) - currentHeading;
-        if (relative > 180) relative -= 360;
-        if (relative < -180) relative += 360;
-        targetAngle = relative;
-        relativeAngleForLog = relative;
+        // ヘディングアップモード：マーカーは端末の絶対的な向きを示す
+        targetAngle = currentHeading;
     }
 
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
@@ -211,14 +201,14 @@ function updateMapRotation() {
         lastDrawnMarkerAngle = (lastDrawnMarkerAngle + limitedDiff + 360) % 360;
     }
 
-    // --- 修正箇所: 最終的な描画とログ出力 ---
+    // ★★★ 修正箇所: 最終的な描画とログ出力 ★★★
     const finalAngle = -lastDrawnMarkerAngle;
     rotator.style.transform = `rotate(${finalAngle}deg)`;
 
     if (!appState.headingUp) {
-        console.log(`[DEBUG-RM2] mode=NorthUp target=${targetAngle.toFixed(1)}° mapRotation=${mapRotationAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}°`);
+        console.log(`[DEBUG-RM2] mode=NorthUp target=${targetAngle.toFixed(1)}° finalAngle=${finalAngle.toFixed(1)}°`);
     } else {
-        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° mapRotation=${mapRotationAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}° relative=${relativeAngleForLog !== null ? relativeAngleForLog.toFixed(1) : '-'}`);
+        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° finalAngle=${finalAngle.toFixed(1)}° current=${currentHeading.toFixed(1)}°`);
     }
 }
 
