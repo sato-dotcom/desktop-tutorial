@@ -146,20 +146,15 @@ function updateMapRotation() {
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     
-    // ★★★ 修正箇所: ノースアップ/ヘディングアップの挙動を最終整理 ★★★
+    // ★★★ 修正箇所: ノースアップ/ヘディングアップの挙動を正しい仕様に修正 ★★★
     let targetAngle;
-    let relativeAngleForLog = null; // For logging purposes
 
     if (!appState.headingUp) {
-        // ノースアップモード：マーカーは端末の絶対的な向き (currentHeading) を表示
-        targetAngle = currentHeading;
+        // ノースアップモード：マーカーは固定（北を指す）
+        targetAngle = 0;
     } else {
-        // ヘディングアップモード：マーカーは地図に対する相対角度 (raw - current) を表示
-        let relative = (lastRawHeading ?? currentHeading) - currentHeading;
-        if (relative > 180) relative -= 360;
-        if (relative < -180) relative += 360;
-        targetAngle = relative;
-        relativeAngleForLog = relative;
+        // ヘディングアップモード：マーカーは端末の絶対的な向き (currentHeading) を表示
+        targetAngle = currentHeading;
     }
 
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
@@ -209,11 +204,11 @@ function updateMapRotation() {
     const finalAngle = -lastDrawnMarkerAngle;
     rotator.style.transform = `rotate(${finalAngle}deg)`;
 
-    // ★★★ 修正箇所: ログ出力を整理 ★★★
+    // ★★★ 修正箇所: ログ出力を仕様に合わせる ★★★
     if (!appState.headingUp) {
-        console.log(`[DEBUG-RM2] mode=NorthUp current=${currentHeading.toFixed(1)}°`);
+        console.log(`[DEBUG-RM2] mode=NorthUp fixed=0 raw=${(lastRawHeading ?? '-')}°`);
     } else {
-        console.log(`[DEBUG-RM2] mode=HeadingUp mapRotation=${mapRotationAngle.toFixed(1)}° raw=${(lastRawHeading ?? '-')}° relative=${relativeAngleForLog !== null ? relativeAngleForLog.toFixed(1) : '-'}`);
+        console.log(`[DEBUG-RM2] mode=HeadingUp current=${currentHeading.toFixed(1)}° raw=${(lastRawHeading ?? '-')}°`);
     }
 }
 
