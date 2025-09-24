@@ -193,7 +193,6 @@ function updateMapRotation() {
             lastSummaryTs = now;
         }
 
-        // ★★★ 修正箇所: 最大回転速度制限 ★★★
         const MAX_ROTATION_STEP = 15;
         limitedDiff = diff;
         if (limitedDiff > MAX_ROTATION_STEP) limitedDiff = MAX_ROTATION_STEP;
@@ -204,11 +203,11 @@ function updateMapRotation() {
 
     if (!appState.headingUp) {
         rotator.style.transform = 'rotate(0deg)';
-        console.log(`[DEBUG-RM2] mode=NorthUp fixedAngle=0 raw=${lastRawHeading ?? '-'}°`);
+        console.log(`[DEBUG-RM2] mode=NorthUp fixedAngle=0 raw=${lastRawHeading ?? '-'}° mapRotation=${mapRotationAngle.toFixed(1)}°`);
     } else {
         const invertedAngle = -lastDrawnMarkerAngle;
         rotator.style.transform = `rotate(${invertedAngle}deg)`;
-        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° diff=${diff.toFixed(1)}° limitedDiff=${limitedDiff.toFixed(1)}°`);
+        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° diff=${diff.toFixed(1)}° limitedDiff=${limitedDiff.toFixed(1)}° mapRotation=${mapRotationAngle.toFixed(1)}°`);
     }
 }
 
