@@ -128,28 +128,25 @@ function toggleFullscreen() {
  * マーカーの回転を滑らかに補間し、常に最短方向で回転
  */
 function updateMapRotation() {
-    if (!currentUserMarker?._icon) return;
+    if (!currentUserMarker?._icon || currentHeading === null || isNaN(currentHeading)) {
+        return; // マーカー未初期化、または有効な方角がない場合は何もしない
+    }
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     if (!rotator) return;
     
-    const heading = currentHeading ?? 0;
     let targetAngle;
 
-    // ★★★ 修正方針 3: 処理位置の整理 (マーカー回転専用) ★★★
-    if (!appState.headingUp) {
-        // ノースアップモード：マーカーは端末の絶対方位（真北基準）を表示
-        targetAngle = heading;
+    // ★★★ 修正方針 1: モード判定の修正 ★★★
+    if (appState.headingUp) {
+        // ヘディングアップモード：マーカーは端末の絶対方位（真北基準）を表示
+        targetAngle = currentHeading;
     } else {
-        // ヘディングアップモード：マーカーは相対角度を表示 (仕様通り)
-        // ここでの'raw'はコンパスの生値（磁北基準）を指す
-        const raw = lastRawHeading ?? heading;
-        let relative = raw - heading;
-        if (relative > 180) relative -= 360;
-        if (relative < -180) relative += 360;
-        targetAngle = relative;
+        // ノースアップモード：マーカーは回転せず、北を指す (0度)
+        targetAngle = 0;
     }
 
+    // ★★★ 修正方針 3: 初期化改善 (値チェック) ★★★
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
         lastDrawnMarkerAngle = targetAngle;
     }
@@ -164,8 +161,8 @@ function updateMapRotation() {
     // ★★★ 修正方針 4: デバッグログ強化 ★★★
     const mode = appState.headingUp ? 'HeadingUp' : 'NorthUp';
     const rawForLog = (lastRawHeading !== null) ? lastRawHeading.toFixed(1) : '---';
-    const currentForLog = (currentHeading !== null) ? currentHeading.toFixed(1) : '---';
-    const targetForLog = (targetAngle !== null) ? targetAngle.toFixed(1) : '---';
+    const currentForLog = currentHeading.toFixed(1);
+    const targetForLog = targetAngle.toFixed(1);
     console.log(`[DEBUG-RM2] mode=${mode} raw=${rawForLog} current=${currentForLog} target=${targetForLog}`);
 
     const finalAngle = -lastDrawnMarkerAngle;
@@ -209,3 +206,4 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
+

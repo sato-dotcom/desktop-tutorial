@@ -3,7 +3,7 @@
 const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
 const HEADING_FILTER_ALPHA = 0.3;
 const HEADING_UPDATE_THRESHOLD = 1;
-// ★★★ 修正方針 1: スパイク除去の閾値 (調整可能) ★★★
+// ★★★ 修正方針 2: スパイク除去の閾値 (調整可能) ★★★
 const HEADING_SPIKE_THRESHOLD = 45;
 
 const DECLINATION_UPDATE_DISTANCE_M = 1000; // m
@@ -37,7 +37,7 @@ let lastDeclinationUpdatePos = null;
 let lastDeclinationUpdateAt = 0;
 let lastCompassHeading = null;
 let lastCurrentHeading = null;
-// ★★★ 修正方針 2: 初期化フラグを追加 ★★★
+// ★★★ 修正方針 3: 初期化フラグ ★★★
 let compassInitialized = false;
 
 // --- ユーティリティ ---
@@ -164,24 +164,23 @@ function onCompassUpdate(event) {
     if (event.webkitCompassHeading !== undefined) {
         newRawHeading = event.webkitCompassHeading;
     } else if (event.alpha !== null) {
-        newRawHeading = event.absolute === true ? event.alpha : 360 - event.alpha;
+        newRawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
 
     if (newRawHeading === null || isNaN(newRawHeading)) return;
 
-    // ★★★ 修正方針 1: スパイク除去ロジック ★★★
     if (lastRawHeading !== null) {
         let delta = newRawHeading - lastRawHeading;
         if (delta > 180) delta -= 360;
         if (delta < -180) delta += 360;
 
+        // ★★★ 修正方針 2 & 4: スパイク除去 & ログ強化 ★★★
         if (Math.abs(delta) > HEADING_SPIKE_THRESHOLD) {
-            // ★★★ 修正方針 4: デバッグログ強化 ★★★
             console.log(`[DEBUG-RM2] Spike抑制 diff=${delta.toFixed(1)}`);
-            return; // スパイクを無視し、このフレームの更新をスキップ
+            return;
         }
     }
-    lastRawHeading = newRawHeading; // スパイクでない場合にのみ更新
+    lastRawHeading = newRawHeading;
 
     const trueHeading = toTrueNorth(lastRawHeading, currentDeclination);
     if (trueHeading === null) return;
@@ -193,21 +192,18 @@ function onCompassUpdate(event) {
     let delta = trueHeading - lastCurrentHeading;
     if (delta > 180) delta -= 360;
     if (delta < -180) delta += 360;
-
-    const newHeading = (lastCurrentHeading + (delta * HEADING_FILTER_ALPHA) + 360) % 360;
     
-    // 更新閾値を超えた場合、または未初期化の場合に更新
-    if (Math.abs(newHeading - lastCurrentHeading) > HEADING_UPDATE_THRESHOLD || !compassInitialized) {
-        currentHeading = newHeading;
-        lastCurrentHeading = newHeading;
+    currentHeading = (lastCurrentHeading + (delta * HEADING_FILTER_ALPHA) + 360) % 360;
+    lastCurrentHeading = currentHeading;
 
-        // ★★★ 修正方針 2: 初期化改善 ★★★
-        if (!compassInitialized) {
-            compassInitialized = true;
-            console.log("[DEBUG-INIT] 初期化イベント: updateMapRotation強制呼び出し");
-            if (typeof updateMapRotation === 'function') {
-                updateMapRotation();
-            }
+    // ★★★ 修正方針 3: 初期化改善 ★★★
+    if (!compassInitialized) {
+        compassInitialized = true;
+        // ★★★ 修正方針 4: デバッグログ強化 ★★★
+        console.log("[DEBUG-INIT] 初期化イベント: updateMapRotation強制呼び出し");
+        // この時点で`currentHeading`には有効な値が入っているため、直接呼び出す
+        if (typeof updateMapRotation === 'function') {
+            updateMapRotation();
         }
     }
     
@@ -272,3 +268,4 @@ function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
 window.addEventListener('load', () => {
     initDebugPanel();
 });
+
