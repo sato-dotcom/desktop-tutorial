@@ -1,12 +1,12 @@
 // gps.js
 
 const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
-// F. 調整可能パラメータ
+// G. 調整可能パラメータ
 const HEADING_FILTER_ALPHA = 0.3; // 平滑化フィルタ係数 (0.2-0.4推奨)
-const HEADING_SPIKE_THRESHOLD = 45; // スパイクとみなすrawHeadingの急変角度 (30-60°推奨)
+const HEARTBEAT_INTERVAL = 1000; // ハートビート間隔 (ms)
 
-const DECLINATION_UPDATE_DISTANCE_M = 1000; // m
-const DECLINATION_UPDATE_INTERVAL_MS = 3 * 60 * 60 * 1000; // 3時間
+const DECLINATION_UPDATE_DISTANCE_M = 1000;
+const DECLINATION_UPDATE_INTERVAL_MS = 3 * 60 * 60 * 1000;
 
 const JGD2011_ZONE_INFO = {
     1: { lon0: 129.5, declination: 7.0 }, 2: { lon0: 131.0, declination: 7.5 },
@@ -26,7 +26,9 @@ let lastDeclinationUpdatePos = null;
 let lastDeclinationUpdateAt = 0;
 let lastCurrentHeading = null;
 let compassInitialized = false;
-let permissionLogged = false;
+let permissionLogged = {};
+let lastCompassEventTimestamp = 0;
+
 
 // --- ユーティリティ ---
 function toTrueNorth(magneticHeading, declination) {
@@ -68,67 +70,84 @@ async function updateDeclinationIfNeeded(lat, lon) {
     lastDeclinationUpdateAt = Date.now();
 }
 
+function shouldUpdateDeclination(lat, lon) {
+    const now = Date.now();
+    if (!lastDeclinationUpdatePos || now - lastDeclinationUpdateAt > DECLINATION_UPDATE_INTERVAL_MS) return true;
+    return getDistanceMeters(lastDeclinationUpdatePos.lat, lastDeclinationUpdatePos.lon, lat, lon) > DECLINATION_UPDATE_DISTANCE_M;
+}
+
 // A. イベント配線の復活
 function startSensors() {
     // --- GPS ---
     if (!navigator.geolocation) {
-        if (!permissionLogged) console.warn('[PERM] Geolocation not supported');
-        permissionLogged = true;
-        dom.gpsStatus.textContent = "ブラウザが非対応です";
-        dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
+        if (!permissionLogged.gps) console.warn('[PERM] Geolocation not supported');
+        permissionLogged.gps = true;
     } else {
-        navigator.geolocation.watchPosition(handlePositionSuccess, handlePositionError, {
+        navigator.geolocation.watchPosition(onGpsUpdate, handlePositionError, {
             enableHighAccuracy: true, timeout: 10000, maximumAge: 0
         });
+        console.log('[DEBUG-EVT] gps=listening');
     }
 
     // --- Compass ---
-    const addListeners = () => {
+    const addCompassListeners = () => {
         const eventName = ('ondeviceorientationabsolute' in window) ? 'deviceorientationabsolute' : 'deviceorientation';
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-            DeviceOrientationEvent.requestPermission()
-                .then(state => {
-                    if (state === 'granted') {
-                        window.addEventListener(eventName, onCompassUpdate, true);
-                    } else {
-                        if (!permissionLogged) console.warn('[PERM] Compass permission denied → retry');
-                        permissionLogged = true;
-                    }
-                }).catch(err => {
-                    if (!permissionLogged) console.error('[PERM] Compass permission request error → retry', err);
-                    permissionLogged = true;
-                });
+            DeviceOrientationEvent.requestPermission().then(state => {
+                if (state === 'granted') {
+                    window.addEventListener(eventName, onCompassUpdate, true);
+                    console.log(`[DEBUG-EVT] compass=listening to ${eventName}`);
+                } else {
+                    if (!permissionLogged.compass) console.warn('[PERM] Compass permission denied → retry');
+                    permissionLogged.compass = true;
+                }
+            }).catch(err => {
+                if (!permissionLogged.compass) console.error('[PERM] Compass permission request error → retry', err);
+                permissionLogged.compass = true;
+            });
         } else {
             window.addEventListener(eventName, onCompassUpdate, true);
+            console.log(`[DEBUG-EVT] compass=listening to ${eventName}`);
         }
     };
-    document.body.addEventListener('click', addListeners, { once: true });
+    document.body.addEventListener('click', addCompassListeners, { once: true });
+
+    // C. ハートビートの導入
+    setInterval(() => {
+        if (lastCompassEventTimestamp > 0 && (Date.now() - lastCompassEventTimestamp > 10000)) {
+            console.warn('[WARN-HB] no compass events 10s');
+            lastCompassEventTimestamp = Date.now(); // 警告の繰り返しを防ぐ
+        }
+        if (compassInitialized) {
+            console.log(`[DEBUG-HB] tick raw=${(lastRawHeading||0).toFixed(1)} current=${(currentHeading||0).toFixed(1)}`);
+            updateMapRotation(lastRawHeading, currentHeading);
+        }
+    }, HEARTBEAT_INTERVAL);
 }
 
-
-function handlePositionSuccess(position) {
+function onGpsUpdate(position) {
+    console.log(`[DEBUG-EVT] onGpsUpdate lat=${position.coords.latitude.toFixed(4)}, lon=${position.coords.longitude.toFixed(4)}`);
     updateDeclinationIfNeeded(position.coords.latitude, position.coords.longitude);
     if (typeof onPositionUpdate === 'function') {
         onPositionUpdate(position);
     }
-    updateDebugPanel();
 }
 
 function handlePositionError(error) {
     let msg = "測位エラー";
-    if (error.code === 1) {
-        msg = "アクセス拒否";
-        if (!permissionLogged) console.warn('[PERM] Geolocation permission denied → retry');
-        permissionLogged = true;
-    }
+    if (error.code === 1) msg = "アクセス拒否";
     if (error.code === 2) msg = "測位不可";
     if (error.code === 3) msg = "タイムアウト";
+    if (error.code === 1 && !permissionLogged.gps) {
+        console.warn('[PERM] Geolocation permission denied → retry');
+        permissionLogged.gps = true;
+    }
     dom.gpsStatus.textContent = msg;
     dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
-    console.error(`GPS Error: ${msg}`, error);
 }
 
 function onCompassUpdate(event) {
+    lastCompassEventTimestamp = Date.now();
     let newRawHeading = null;
     if (event.webkitCompassHeading !== undefined) {
         newRawHeading = event.webkitCompassHeading;
@@ -136,22 +155,9 @@ function onCompassUpdate(event) {
         newRawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
 
-    if (newRawHeading === null || isNaN(newRawHeading)) {
-        console.warn(`[WARN-HEADING] raw=${newRawHeading}, current=${currentHeading} → fallback target=0`);
-        return;
-    }
-
-    // B. ガード緩和: 初期フレームはスパイク判定をしない
-    if (compassInitialized && lastRawHeading !== null) {
-        let delta = newRawHeading - lastRawHeading;
-        if (delta > 180) delta -= 360;
-        if (delta < -180) delta += 360;
-        if (Math.abs(delta) > HEADING_SPIKE_THRESHOLD) {
-            return; 
-        }
-    }
-    lastRawHeading = newRawHeading;
-
+    if (newRawHeading === null || isNaN(newRawHeading)) return;
+    
+    lastRawHeading = newRawHeading; // フィルタなしの生値として保持
     const trueHeading = toTrueNorth(lastRawHeading, currentDeclination);
     if (trueHeading === null) return;
     
@@ -161,47 +167,18 @@ function onCompassUpdate(event) {
     if (delta < -180) delta += 360;
     currentHeading = (lastCurrentHeading + delta * HEADING_FILTER_ALPHA + 360) % 360;
     lastCurrentHeading = currentHeading;
+    
+    console.log(`[DEBUG-EVT] onCompassUpdate raw=${lastRawHeading.toFixed(1)} current=${currentHeading.toFixed(1)}`);
 
-    // A. イベント配線の復活: 初期化処理
-    if (!compassInitialized && typeof currentHeading === 'number' && !isNaN(currentHeading)) {
+    // B. 初期値の強制適用
+    if (!compassInitialized && typeof lastRawHeading === 'number' && typeof currentHeading === 'number') {
         compassInitialized = true;
-        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)} current=${currentHeading.toFixed(1)} → apply`);
-        // A. 冗長でもよいので初回も確実に呼び出す
-        if (typeof updateMapRotation === 'function') {
-            updateMapRotation();
-        }
+        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)} current=${currentHeading.toFixed(1)} → applied`);
+        updateMapRotation(lastRawHeading, currentHeading); // 1回目
+        updateMapRotation(lastRawHeading, currentHeading); // 2回目（冗長呼び出しで保証）
     }
     
     // A. onCompassUpdateは毎回updateMapRotationを呼ぶ
-    if (typeof updateMapRotation === 'function') {
-        updateMapRotation();
-    }
-    
-    updateDebugPanel();
+    updateMapRotation(lastRawHeading, currentHeading);
 }
-
-
-// --- デバッグUI関連 ---
-let debugPanel = null;
-function initDebugPanel() {
-    if (!DEBUG) return;
-    debugPanel = document.createElement('div');
-    Object.assign(debugPanel.style, {
-        position: 'fixed', bottom: '10px', right: '10px',
-        background: 'rgba(0,0,0,0.6)', color: '#fff', fontSize: '12px',
-        fontFamily: 'monospace', padding: '6px 8px', borderRadius: '4px',
-        zIndex: '9999', pointerEvents: 'none'
-    });
-    document.body.appendChild(debugPanel);
-    updateDebugPanel();
-}
-
-function updateDebugPanel() {
-    if (!DEBUG || !debugPanel) return;
-    const headingTN = (typeof currentHeading === 'number') ? currentHeading.toFixed(1) : '-';
-    const raw = (lastRawHeading !== null && !isNaN(lastRawHeading)) ? lastRawHeading.toFixed(1) : '-';
-    debugPanel.innerHTML = `Heading(TN): ${headingTN}°<br>Raw: ${raw}°`;
-}
-
-window.addEventListener('load', initDebugPanel);
 
