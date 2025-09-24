@@ -152,8 +152,9 @@ function updateMapRotation() {
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     let targetAngle = 0;
 
+    // ヘディングアップモードの時のみ、目標角度をコンパスの値に設定
     if (appState.headingUp) {
-        targetAngle = currentHeading; // gps.jsで計算済みの真北基準値
+        targetAngle = currentHeading;
     }
 
     // 初回描画時または値が無効な場合
@@ -205,14 +206,16 @@ function updateMapRotation() {
     if (diff2 < -180) diff2 += 360;
     let finalAngle = (lastDrawnMarkerAngle + diff2 + 360) % 360;
 
-    // ★★★ 修正箇所: [DEBUG-RM2]ログの強化と暫定的な符号反転処理 ★★★
-    console.log(`[DEBUG-RM2] target=${targetAngle.toFixed(1)}° final=${finalAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}`);
-    
+    // ★★★ 修正箇所: ノースアップ/ヘディングアップの挙動を整理 ★★★
     if (!appState.headingUp) {
-        // ノースアップ時は符号を反転 (North-up mode: invert the sign)
-        rotator.style.transform = `rotate(${-finalAngle}deg)`;
+        // ノースアップモード：マーカー固定 (North-up mode: marker fixed)
+        rotator.style.transform = 'rotate(0deg)';
+        console.log(`[DEBUG-RM2] mode=NorthUp fixedAngle=0 raw=${lastRawHeading ?? '-'}°`);
     } else {
-        rotator.style.transform = `rotate(${finalAngle}deg)`;
+        // ヘディングアップモード：マーカー回転（符号反転）(Heading-up mode: marker rotates (sign inverted))
+        const invertedFinalAngle = -finalAngle;
+        rotator.style.transform = `rotate(${invertedFinalAngle}deg)`;
+        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° final=${(invertedFinalAngle).toFixed(1)}° raw=${lastRawHeading ?? '-'}°`);
     }
 }
 
