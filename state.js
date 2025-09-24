@@ -12,15 +12,12 @@ let currentMode = 'acquire'; // 'acquire' or 'navigate'
 let indexToDelete = null; // 削除対象のインデックスを保持
 let manualInputMode = 'latlon'; // 'latlon' or 'xy'
 
-// ★★★ 新規追加: アプリケーションの状態を一元管理 ★★★
+// アプリケーションの状態を一元管理
 const appState = {
-    followUser: true, // 現在地追従モードの状態
-    headingUp: false // ヘディングアップモードの状態
+    followUser: true, 
+    headingUp: false,
+    debugEnabled: true // デバッグパネルの表示状態
 };
-
-// --- 削除済: 古いグローバル変数 (appStateに移行) ---
-// window.isFollowingUser
-// let mapOrientationMode
 
 let isResizing = false;
 let currentHeading = 0; // デバイスの向き（コンパス）
@@ -29,9 +26,8 @@ let currentGnssStatus = '---'; // GNSSステータスを保持
 let isBearingInverted = false; // 船首方位の反転状態
 
 // --- デバッグ用グローバル変数 ---
-let lastDrawnMarkerAngle = null; // 最後にマーカー描画に使われた角度
-let mapRotationAngle = 0; // 地図の回転角 (現在は未使用)
-let lastRawHeading = null; // センサーから取得した生のコンパス値（磁北基準）
+let lastDrawnMarkerAngle = null; 
+let lastRawHeading = null; 
 
 // --- DOM要素 ---
 const dom = {
@@ -88,7 +84,7 @@ const dom = {
     deleteAllConfirmModal: document.getElementById('delete-all-confirm-modal'),
     cancelDeleteAllBtn: document.getElementById('cancel-delete-all-btn'),
     confirmDeleteAllBtn: document.getElementById('confirm-delete-all-btn'),
-    followUserBtn: null, // 後で設定
+    followUserBtn: null, 
     fullscreenInfoPanel: document.getElementById('fullscreen-info-panel'),
     fullscreenNavInfo: document.getElementById('fullscreen-nav-info'),
     fullscreenLat: document.getElementById('fullscreen-lat'),
@@ -98,7 +94,5 @@ const dom = {
     fullscreenDistance: document.getElementById('fullscreen-distance'),
     fullscreenBearingText: document.getElementById('fullscreen-bearing-text'),
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
+    debugPanel: null, // デバッグパネル用
 };
-
-
-

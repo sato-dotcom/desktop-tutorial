@@ -84,7 +84,7 @@ function initializeMap() {
     const userIconHTML = `<div id="userMarker" class="user-marker" data-role="user"><div class="user-location-marker-rotator"><svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg></div></div>`;
     const userIcon = L.divIcon({
         html: userIconHTML,
-        className: 'user-location-marker', // Leaflet用のクラスも維持
+        className: 'user-location-marker leaflet-marker-icon', // 両方のクラスを持たせる
         iconSize: [30, 30],
         iconAnchor: [15, 15]
     });

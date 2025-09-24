@@ -19,7 +19,6 @@ html, body {
   line-height: 34px;
 }
 
-/* 修正方針 2: CSSの優先度を上げるため、セレクタを詳細化 */
 .leaflet-bar a.leaflet-control-custom-btn.is-on,
 .leaflet-bar a.leaflet-control-custom-btn.is-on:hover {
   @apply bg-blue-500 text-white;
@@ -36,10 +35,11 @@ html, body {
 
 /* --- User Marker --- */
 .user-location-marker {
-    @apply transition-transform duration-300 ease-linear;
+    /* No transition on the container to prevent lat/lng update jitter */
 }
 .user-location-marker-rotator {
     @apply w-full h-full transition-transform duration-200 ease-linear; /* 回転を滑らかに */
+    transform-origin: center center; /* 回転の中心を保証 */
 }
 .user-location-marker svg {
     @apply w-full h-full fill-current text-blue-500;
@@ -95,3 +95,8 @@ body.fullscreen-active #fullscreen-info-panel {
   to { transform: rotate(360deg); }
 }
 
+/* --- Debug Panel --- */
+.debug-panel {
+    @apply fixed bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs font-mono p-2 rounded shadow-lg z-[10000] pointer-events-none;
+    white-space: pre; /* 改行とスペースを維持 */
+}
