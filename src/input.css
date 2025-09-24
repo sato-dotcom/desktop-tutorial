@@ -98,5 +98,8 @@ body.fullscreen-active #fullscreen-info-panel {
 /* --- Debug Panel --- */
 .debug-panel {
     @apply fixed bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs font-mono p-2 rounded shadow-lg z-[10000] pointer-events-none;
-    white-space: pre; /* 改行とスペースを維持 */
+    white-space: pre;
+    max-height: 40vh;
+    overflow-y: auto;
 }
+

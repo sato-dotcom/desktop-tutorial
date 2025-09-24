@@ -1,10 +1,7 @@
 // ui.js
 
-/**
- * UIの初期化とイベントリスナーの設定
- */
 function initializeUI() {
-    // 静的なイベントリスナー
+    // 静的イベントリスナー
     dom.modeAcquireTab.addEventListener('click', () => switchMode('acquire'));
     dom.modeNavigateTab.addEventListener('click', () => switchMode('navigate'));
     dom.recordPointBtn.addEventListener('click', handleRecordPoint);
@@ -44,7 +41,6 @@ function initializeUI() {
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
     
-    // UIの初期状態を設定
     updateFollowButtonState();
     updateOrientationButtonState();
 }
@@ -62,21 +58,22 @@ function updateDebugPanel(debugInfo) {
     if (!appState.debugEnabled || !dom.debugPanel) return;
 
     const content = `
-Mode: ${debugInfo.mode}
-raw: ${debugInfo.raw?.toFixed(1) ?? '-'}°
-current: ${debugInfo.current?.toFixed(1) ?? '-'}°
+Mode: ${debugInfo.mode || 'N/A'}
+raw/current: ${debugInfo.raw?.toFixed(1) ?? '-'}/${debugInfo.current?.toFixed(1) ?? '-'}°
+relative: ${debugInfo.relative?.toFixed(1) ?? '-'}°
 target: ${debugInfo.target?.toFixed(1) ?? '-'}°
-last/diff: ${(debugInfo.last||0).toFixed(1)}° / ${(debugInfo.diff||0).toFixed(1)}°
+last/diff: ${(debugInfo.last||0).toFixed(1)}°/${(debugInfo.diff||0).toFixed(1)}°
 selector: ${debugInfo.selector || '-'}
 init: ${compassInitialized} / HB: ${debugInfo.hbTicks}
 `.trim();
 
     dom.debugPanel.textContent = content;
+    // Scroll to bottom to show the latest log
+    dom.debugPanel.scrollTop = dom.debugPanel.scrollHeight;
 }
 
 
 function switchMode(mode) {
-    // ... (内容は変更なし) ...
     currentMode = mode;
     if (mode === 'acquire') {
         dom.modeAcquireTab.classList.add('text-blue-600', 'border-blue-600');
@@ -97,7 +94,6 @@ function switchMode(mode) {
 }
 
 function switchManualInput(mode) {
-    // ... (内容は変更なし) ...
     manualInputMode = mode;
     if (mode === 'latlon') {
         dom.manualInputLatLonPanel.classList.remove('hidden');
@@ -117,7 +113,6 @@ function switchManualInput(mode) {
 }
 
 function updatePointList() {
-    // ... (内容は変更なし) ...
     dom.pointList.innerHTML = '';
     if (recordedPoints.length === 0) {
         dom.pointList.innerHTML = '<p class="text-gray-500 text-sm">まだ記録はありません。</p>';
@@ -152,7 +147,6 @@ function updatePointList() {
 }
 
 function updateImportedPointList() {
-    // ... (内容は変更なし) ...
     dom.importedPointList.innerHTML = '';
     if (importedPoints.length === 0) {
         dom.importedPointList.innerHTML = '<p class="text-gray-500 text-sm">ファイルが読み込まれていません。</p>';
@@ -180,7 +174,6 @@ function updateImportedPointList() {
 }
 
 function handlePointListClick(e) {
-    // ... (内容は変更なし) ...
     const target = e.target.closest('button');
     if (!target) return;
 
@@ -193,7 +186,6 @@ function handlePointListClick(e) {
 }
 
 function handleImportedListClick(e) {
-    // ... (内容は変更なし) ...
     const target = e.target.closest('[data-action]');
     if (!target) return;
 
@@ -209,7 +201,6 @@ function handleImportedListClick(e) {
 }
 
 function showDeleteConfirmation(index) {
-    // ... (内容は変更なし) ...
     if (index < 0 || index >= recordedPoints.length) return;
     indexToDelete = index;
     const pointName = recordedPoints[index].name;
@@ -218,7 +209,6 @@ function showDeleteConfirmation(index) {
 }
 
 function updateCurrentXYDisplay() {
-    // ... (内容は変更なし) ...
     if (currentPosition) {
         const { latitude, longitude } = currentPosition.coords;
         const selectedZone = dom.currentCoordSystemSelect.value;
@@ -229,7 +219,6 @@ function updateCurrentXYDisplay() {
 }
 
 function updateGnssStatus(accuracy) {
-    // ... (内容は変更なし) ...
     let statusText = '---';
     if (accuracy <= 0.5) { statusText = 'FIX'; }
     else if (accuracy <= 2.0) { statusText = 'FLOAT'; }
@@ -245,8 +234,6 @@ function updateGnssStatus(accuracy) {
         else el.classList.add('text-gray-500');
     });
 }
-
-// --- 状態に依存するUI更新 ---
 
 function updateFollowButtonState() {
     if(!dom.followUserBtn) return;
@@ -270,3 +257,4 @@ function updateOrientationButtonState() {
         dom.orientationToggleBtn.title = 'マーカーは北を固定表示中 (端末の向き表示に切替)';
     }
 }
+
