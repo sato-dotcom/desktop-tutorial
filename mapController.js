@@ -1,13 +1,18 @@
 // mapController.js
 
 // ★★★ 調整可能なパラメータ ★★★
-const ROTATION_LERP_FACTOR = 0.3; // 補間率 (小さいほど滑らか, 0.2-0.4推奨)
+const ROTATION_LERP_FACTOR = 0.3; // 補間係数 (0.2-0.4推奨)
 const HEADING_SPIKE_THRESHOLD = 45; // スパイク検知の閾値 (30-60°推奨)
+const MAX_CONSECUTIVE_SKIPS = 3; // 連続スキップ上限
+const FAILSAFE_TIMEOUT_MS = 1000; // フェイルセーフ発火までの無更新時間
+
+// --- 状態変数 ---
+let consecutiveSpikes = 0;
+let failsafeTimeout = null;
+
 
 /**
  * 角度を-180度から+180度の範囲に正規化するヘルパー関数
- * @param {number} deg - 角度
- * @returns {number} 正規化された角度
  */
 function normalizeDeg(deg) {
     let normalized = deg % 360;
@@ -20,7 +25,6 @@ function normalizeDeg(deg) {
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
  */
 function stabilizeAfterFullScreen() {
-    console.log("--- 📺 Fullscreen Change Event Triggered ---");
     const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
     document.body.classList.toggle('fullscreen-active', isFullscreen);
 
@@ -29,7 +33,6 @@ function stabilizeAfterFullScreen() {
         const icon = btn.querySelector('i');
         icon.classList.toggle('fa-expand', !isFullscreen);
         icon.classList.toggle('fa-compress', isFullscreen);
-        btn.title = isFullscreen ? '通常表示に戻る' : '全画面表示';
     }
     
     map.invalidateSize({ animate: false });
@@ -42,49 +45,33 @@ function stabilizeAfterFullScreen() {
         if (currentPosition && appState.followUser) {
             recenterAbsolutely(currentPosition.coords);
         }
-        // D. イベント連携: 全画面切替後もマーカーの向きを即時反映
+        // A. イベント配線: 全画面切替後もマーカーの向きを即時反映
         updateMapRotation();
     }, 200);
 }
 
-/**
- * 画面中央にマーカーを絶対的に配置します。
- */
 function recenterAbsolutely(latlng) {
     if (!map || !latlng) return;
     map.setView([latlng.latitude, latlng.longitude], map.getZoom(), { animate: false, noMoveStart: true });
-
     requestAnimationFrame(() => {
         if (!currentPosition) return;
-        const mapSize = map.getSize();
-        const containerCenter = L.point(mapSize.x / 2, mapSize.y / 2);
-        const markerPoint = map.latLngToContainerPoint(L.latLng(latlng.latitude, latlng.longitude));
-        const offset = containerCenter.subtract(markerPoint);
+        const offset = map.latLngToContainerPoint(L.latLng(latlng.latitude, latlng.longitude)).subtract(map.getSize().divideBy(2));
         if (Math.abs(offset.x) > 1 || Math.abs(offset.y) > 1) {
-             map.panBy(offset, { animate: false, noMoveStart: true });
+             map.panBy(offset.multiplyBy(-1), { animate: false, noMoveStart: true });
         }
     });
 }
 
-/**
- * GPSの位置情報が更新されるたびに呼び出される中央処理関数。
- */
 function onPositionUpdate(position) {
     currentPosition = position;
-    const { latitude, longitude } = position.coords;
     currentUserCourse = (position.coords.heading !== null && !isNaN(position.coords.heading)) ? position.coords.heading : null;
-
-    updateUserMarkerOnly({ latitude, longitude });
+    updateUserMarkerOnly(position.coords);
     updateAllInfoPanels(position);
-
     if (appState.followUser) {
-        recenterAbsolutely({ latitude, longitude });
+        recenterAbsolutely(position.coords);
     }
 }
 
-/**
- * 追従モードのON/OFFを切り替える関数
- */
 function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
@@ -93,23 +80,15 @@ function toggleFollowUser(on) {
     }
 }
 
-/**
- * ヘディングアップモードのON/OFF切り替え
- */
 function toggleHeadingUp(on) {
     appState.headingUp = on;
-    // E. ログ仕様
     console.log(`[DEBUG-MODE] headingUp=${on} → immediate apply`);
     updateOrientationButtonState();
-    // モード切替時に角度をリセットし、滑らかに移行させる
     lastDrawnMarkerAngle = null; 
-    // D. イベント連携: モード変更を即時反映
+    // A. イベント配線: モード変更を即時反映
     updateMapRotation();
 }
 
-/**
- * フルスクリーンモードへの移行・解除を要求します。
- */
 function toggleFullscreen() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         document.documentElement.requestFullscreen().catch(err => console.error(`Fullscreen failed: ${err.message}`));
@@ -123,64 +102,74 @@ function toggleFullscreen() {
  * マーカーの回転処理。モードに応じて挙動を分離。
  */
 function updateMapRotation() {
-    if (!currentUserMarker?._icon || currentHeading === null || isNaN(currentHeading)) {
-        return; 
-    }
+    if (!currentUserMarker?._icon) return;
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     if (!rotator) return;
     
+    // D. フェイルセーフ: 無更新タイムアウトをリセット
+    clearTimeout(failsafeTimeout);
+    failsafeTimeout = setTimeout(() => {
+        console.warn(`[FAILSAFE] no-valid-update frames > ${FAILSAFE_TIMEOUT_MS}ms → set target=0`);
+        rotator.style.transform = `rotate(0deg)`;
+    }, FAILSAFE_TIMEOUT_MS);
+
     let goalAngle;
     const mode = appState.headingUp ? 'HeadingUp' : 'NorthUp';
 
-    // A. モード挙動の分離
+    // B. ガード条件の緩和: 不正な値は警告を出し、0度で一時反映
+    if (currentHeading === null || isNaN(currentHeading)) {
+        console.warn(`[WARN-HEADING] raw=${lastRawHeading}, current=${currentHeading} → fallback target=0`);
+        goalAngle = 0;
+    } else {
+        goalAngle = currentHeading;
+    }
+
+    // C. モード挙動の厳密分離
     if (!appState.headingUp) {
         // --- ノースアップモード ---
-        // 1. マーカーは常に北を向く (0度)
         goalAngle = 0;
-        lastDrawnMarkerAngle = 0; // スパイク/補間は不要なので直接設定
+        lastDrawnMarkerAngle = 0; 
     } else {
         // --- ヘディングアップモード ---
-        // 2. マーカーは端末の絶対方位(currentHeading)を指す
-        goalAngle = currentHeading;
-        
         if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
             lastDrawnMarkerAngle = goalAngle;
         }
 
-        // B. スパイク除去と補間 (ヘディングアップ時のみ)
         const diff = normalizeDeg(goalAngle - lastDrawnMarkerAngle);
 
-        if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD) {
-            // E. ログ仕様: スパイク検知
-            console.log(`[DEBUG-SPIKE] diff=${diff.toFixed(1)}° threshold=${HEADING_SPIKE_THRESHOLD}° → hold lastAngle=${lastDrawnMarkerAngle.toFixed(1)}°`);
-            // スパイクを無視し、前回の角度を維持する
+        // B. スパイク除去（連続スキップ制限付き）
+        if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
+            consecutiveSpikes++;
+            console.log(`[DEBUG-SPIKE] diff=${diff.toFixed(1)}° threshold=${HEADING_SPIKE_THRESHOLD}° → hold last=${lastDrawnMarkerAngle.toFixed(1)}° (skip: ${consecutiveSpikes})`);
         } else {
-            // LERP (線形補間) で滑らかに更新
+            if (consecutiveSpikes >= MAX_CONSECUTIVE_SKIPS) {
+                console.warn(`[DEBUG-SPIKE] Forced sync after ${consecutiveSpikes} skips.`);
+            }
+            consecutiveSpikes = 0;
+            // 補間
             lastDrawnMarkerAngle = (lastDrawnMarkerAngle + diff * ROTATION_LERP_FACTOR + 360) % 360;
         }
     }
     
-    // E. ログ仕様: 通常更新
+    // E. ログ仕様
     const rawForLog = (lastRawHeading !== null) ? lastRawHeading.toFixed(1) : '---';
-    const currentForLog = currentHeading.toFixed(1);
-    console.log(`[DEBUG-RM2] mode=${mode} raw=${rawForLog}° current=${currentForLog}° target=${goalAngle.toFixed(1)}°`);
+    const currentForLog = (currentHeading !== null) ? currentHeading.toFixed(1) : '---';
+    const lastForLog = (lastDrawnMarkerAngle !== null) ? lastDrawnMarkerAngle.toFixed(1) : '---';
+    const diffForLog = (lastDrawnMarkerAngle !== null && goalAngle !== null) ? normalizeDeg(goalAngle - lastDrawnMarkerAngle).toFixed(1) : '---';
+    
+    console.log(`[DEBUG-RM2] mode=${mode} raw=${rawForLog}° current=${currentForLog}° target=${goalAngle.toFixed(1)}° last=${lastForLog}° diff=${diffForLog}°`);
     
     // F. 二重適用の禁止: マーカーのスタイルのみ更新
-    const finalAngle = -lastDrawnMarkerAngle;
+    const finalAngle = appState.headingUp ? -lastDrawnMarkerAngle : 0;
     rotator.style.transform = `rotate(${finalAngle}deg)`;
 }
 
-/**
- * 毎フレーム描画を行うメインループです。
- */
 function renderLoop() {
-    // C. 初期化改善: センサーイベントを主軸とするため、ここでの呼び出しは削除
-    //    代わりにgps.jsから直接呼び出される
-    // updateMapRotation(); // 削除
+    // センサーイベント駆動に変更したため、ループ内での呼び出しは不要
     requestAnimationFrame(renderLoop);
 }
 
-// --- UI更新のヘルパー関数群 ---
+// --- UI更新ヘルパー ---
 function updateUserMarkerOnly(latlng) {
     if (!currentUserMarker || !latlng) return;
     currentUserMarker.setLatLng([latlng.latitude, latlng.longitude]);

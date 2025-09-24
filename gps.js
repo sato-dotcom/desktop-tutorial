@@ -3,7 +3,6 @@
 const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
 // ★★★ 調整可能なパラメータ ★★★
 const HEADING_FILTER_ALPHA = 0.3; // 平滑化フィルタ係数 (0.2-0.4推奨)
-const HEADING_UPDATE_THRESHOLD = 1; // 更新をトリガーする最小角度変化
 const HEADING_SPIKE_THRESHOLD = 45; // スパイクとみなすrawHeadingの急変角度 (30-60°推奨)
 
 const DECLINATION_UPDATE_DISTANCE_M = 1000; // m
@@ -26,8 +25,8 @@ let currentDeclination = 0;
 let lastDeclinationUpdatePos = null;
 let lastDeclinationUpdateAt = 0;
 let lastCurrentHeading = null;
-// C. 初期化の確実化: フラグを再実装
 let compassInitialized = false;
+let permissionLogged = false;
 
 // --- ユーティリティ ---
 function toTrueNorth(magneticHeading, declination) {
@@ -79,6 +78,8 @@ async function updateDeclinationIfNeeded(lat, lon) {
 // --- GPS ---
 function startGeolocation() {
     if (!navigator.geolocation) {
+        if (!permissionLogged) console.warn('[PERM] Geolocation not supported');
+        permissionLogged = true;
         dom.gpsStatus.textContent = "ブラウザが非対応です";
         dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
         return;
@@ -96,7 +97,11 @@ function handlePositionSuccess(position) {
 
 function handlePositionError(error) {
     let msg = "測位エラー";
-    if (error.code === 1) msg = "アクセス拒否";
+    if (error.code === 1) {
+        msg = "アクセス拒否";
+        if (!permissionLogged) console.warn('[PERM] Geolocation permission denied');
+        permissionLogged = true;
+    }
     if (error.code === 2) msg = "測位不可";
     if (error.code === 3) msg = "タイムアウト";
     dom.gpsStatus.textContent = msg;
@@ -111,8 +116,16 @@ function startCompass() {
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(state => {
-                    if (state === 'granted') window.addEventListener(eventName, onCompassUpdate, true);
-                }).catch(err => console.error('Compass permission request error:', err));
+                    if (state === 'granted') {
+                        window.addEventListener(eventName, onCompassUpdate, true);
+                    } else {
+                        if (!permissionLogged) console.warn('[PERM] Compass permission denied');
+                        permissionLogged = true;
+                    }
+                }).catch(err => {
+                    if (!permissionLogged) console.error('[PERM] Compass permission request error:', err);
+                    permissionLogged = true;
+                });
         } else {
             window.addEventListener(eventName, onCompassUpdate, true);
         }
@@ -127,8 +140,14 @@ function onCompassUpdate(event) {
     } else if (event.alpha !== null) {
         newRawHeading = event.absolute ? event.alpha : 360 - event.alpha;
     }
-    if (newRawHeading === null || isNaN(newRawHeading)) return;
 
+    if (newRawHeading === null || isNaN(newRawHeading)) {
+        // B. ガード条件の緩和: 不正な値は警告を出してスキップ
+        console.warn(`[WARN-HEADING] Invalid raw heading received:`, event);
+        return;
+    }
+
+    // B. ガード条件の緩和: 初回フレームはスパイク判定をしない
     if (lastRawHeading !== null) {
         let delta = newRawHeading - lastRawHeading;
         if (delta > 180) delta -= 360;
@@ -149,20 +168,20 @@ function onCompassUpdate(event) {
     currentHeading = (lastCurrentHeading + delta * HEADING_FILTER_ALPHA + 360) % 360;
     lastCurrentHeading = currentHeading;
 
-    // C. 初期化の確実化
+    // A. イベント配線の確認: 初期化処理
     if (!compassInitialized && typeof currentHeading === 'number' && !isNaN(currentHeading)) {
         compassInitialized = true;
-        // E. ログ仕様
-        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)}, current=${currentHeading.toFixed(1)} → updateMapRotation(force)`);
+        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)}, current=${currentHeading.toFixed(1)} → apply`);
     }
     
-    // D. センサー更新を主軸にマーカー描画を呼び出す
+    // A. イベント配線の確認: センサー更新の都度、必ず描画関数を呼び出す
     if (typeof updateMapRotation === 'function') {
         updateMapRotation();
     }
     
     updateDebugPanel();
 }
+
 
 // --- デバッグUI関連 ---
 let debugPanel = null;
