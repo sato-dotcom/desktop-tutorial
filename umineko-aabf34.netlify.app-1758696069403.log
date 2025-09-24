@@ -1,0 +1,42 @@
+gps.js:1 Uncaught SyntaxError: Identifier 'HEADING_SPIKE_THRESHOLD' has already been declared (at gps.js:1:1)
+main.js:8 --- 🚀 App Initializing ---
+main.js:9 Initial State: followUser=true, headingUp=false
+main.js:50 Uncaught ReferenceError: startGeolocation is not defined
+    at main.js:50:5
+/favicon.ico:1  Failed to load resource: the server responded with a status of 404 ()
+mapController.js:85 [DEBUG-MODE] headingUp=true → immediate apply
+mapController.js:117 [WARN-HEADING] raw=null, current=0 → fallback target=0
+updateMapRotation @ mapController.js:117
+toggleHeadingUp @ mapController.js:89
+（匿名） @ main.js:36
+mapController.js:156 [DEBUG-RM2] mode=HeadingUp raw=---° current=0.0° target=0.0° last=---° diff=---°
+mapController.js:85 [DEBUG-MODE] headingUp=false → immediate apply
+mapController.js:117 [WARN-HEADING] raw=null, current=0 → fallback target=0
+updateMapRotation @ mapController.js:117
+toggleHeadingUp @ mapController.js:89
+（匿名） @ main.js:36
+mapController.js:156 [DEBUG-RM2] mode=NorthUp raw=---° current=0.0° target=0.0° last=---° diff=---°
+mapController.js:85 [DEBUG-MODE] headingUp=true → immediate apply
+mapController.js:117 [WARN-HEADING] raw=null, current=0 → fallback target=0
+updateMapRotation @ mapController.js:117
+toggleHeadingUp @ mapController.js:89
+（匿名） @ main.js:36
+mapController.js:156 [DEBUG-RM2] mode=HeadingUp raw=---° current=0.0° target=0.0° last=---° diff=---°
+mapController.js:85 [DEBUG-MODE] headingUp=false → immediate apply
+mapController.js:117 [WARN-HEADING] raw=null, current=0 → fallback target=0
+updateMapRotation @ mapController.js:117
+toggleHeadingUp @ mapController.js:89
+（匿名） @ main.js:36
+mapController.js:156 [DEBUG-RM2] mode=NorthUp raw=---° current=0.0° target=0.0° last=---° diff=---°
+mapController.js:117 [WARN-HEADING] raw=null, current=0 → fallback target=0
+updateMapRotation @ mapController.js:117
+（匿名） @ mapController.js:49
+setTimeout
+stabilizeAfterFullScreen @ mapController.js:43
+mapController.js:156 [DEBUG-RM2] mode=NorthUp raw=---° current=0.0° target=0.0° last=---° diff=---°
+mapController.js:85 [DEBUG-MODE] headingUp=true → immediate apply
+mapController.js:117 [WARN-HEADING] raw=null, current=0 → fallback target=0
+updateMapRotation @ mapController.js:117
+toggleHeadingUp @ mapController.js:89
+（匿名） @ main.js:36
+mapController.js:156 [DEBUG-RM2] mode=HeadingUp raw=---° current=0.0° target=0.0° last=---° diff=---°
