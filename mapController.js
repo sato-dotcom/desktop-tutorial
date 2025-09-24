@@ -146,12 +146,20 @@ function updateMapRotation() {
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     
+    // ★★★ 修正箇所: ノースアップ/ヘディングアップの挙動を整理 ★★★
     let targetAngle;
+    let relativeAngleForLog = null; 
 
     if (!appState.headingUp) {
-        targetAngle = 0;
-    } else {
+        // ノースアップモード：マーカーは端末の絶対的な向き (currentHeading) を表示
         targetAngle = currentHeading;
+    } else {
+        // ヘディングアップモード：マーカーは地図に対する相対角度 (raw - current) を表示
+        let relative = (lastRawHeading ?? currentHeading) - currentHeading;
+        if (relative > 180) relative -= 360;
+        if (relative < -180) relative += 360;
+        targetAngle = relative;
+        relativeAngleForLog = relative;
     }
 
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
@@ -168,13 +176,10 @@ function updateMapRotation() {
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
 
-        // ★★★ 修正箇所: 大ジャンプ検知と強制同期 ★★★
         if (Math.abs(diff) > 90) {
-            // 大ジャンプは強制同期
             lastDrawnMarkerAngle = targetAngle;
             console.log(`[DEBUG-RM2] SYNC mode=${appState.headingUp ? 'HeadingUp' : 'NorthUp'} target=${targetAngle.toFixed(1)}° raw=${(lastRawHeading ?? '-')}°`);
         } else {
-            // 通常の補間処理
             const courseJump = (currentUserCourse !== null && lastCourse !== null)
                 ? (currentUserCourse - lastCourse).toFixed(1)
                 : '-';
@@ -201,11 +206,12 @@ function updateMapRotation() {
 
             lastDrawnMarkerAngle = (lastDrawnMarkerAngle + limitedDiff + 360) % 360;
             
-            // ログ出力を仕様に合わせる
-             if (!appState.headingUp) {
-                console.log(`[DEBUG-RM2] mode=NorthUp fixed=0 raw=${(lastRawHeading ?? '-')}°`);
+            // ★★★ 修正箇所: ログ出力を整理 ★★★
+            if (!appState.headingUp) {
+                console.log(`[DEBUG-RM2] mode=NorthUp current=${currentHeading.toFixed(1)}°`);
             } else {
-                console.log(`[DEBUG-RM2] mode=HeadingUp current=${currentHeading.toFixed(1)}° raw=${(lastRawHeading ?? '-')}°`);
+                const rawForLog = lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-';
+                console.log(`[DEBUG-RM2] mode=HeadingUp mapRotation=${mapRotationAngle.toFixed(1)}° raw=${rawForLog}° relative=${relativeAngleForLog.toFixed(1)}°`);
             }
         }
     }
