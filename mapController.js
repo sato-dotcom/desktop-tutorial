@@ -146,14 +146,11 @@ function updateMapRotation() {
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     
-    // ★★★ 修正箇所: ノースアップ/ヘディングアップの挙動を正しい仕様に修正 ★★★
     let targetAngle;
 
     if (!appState.headingUp) {
-        // ノースアップモード：マーカーは固定（北を指す）
         targetAngle = 0;
     } else {
-        // ヘディングアップモード：マーカーは端末の絶対的な向き (currentHeading) を表示
         targetAngle = currentHeading;
     }
 
@@ -161,55 +158,60 @@ function updateMapRotation() {
         lastDrawnMarkerAngle = targetAngle;
     }
 
-    let diff = 0;
-    let limitedDiff = 0;
-
     if (skipRotationOnce > 0) {
         lastDrawnMarkerAngle = targetAngle;
         skipRotationOnce--;
     } else {
         console.log(`[DEBUG-RM] target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}° current=${currentHeading.toFixed(1)}°`);
         
-        diff = targetAngle - lastDrawnMarkerAngle;
+        let diff = targetAngle - lastDrawnMarkerAngle;
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
 
-        const courseJump = (currentUserCourse !== null && lastCourse !== null)
-            ? (currentUserCourse - lastCourse).toFixed(1)
-            : '-';
-        lastCourse = currentUserCourse;
-
-        const absDiff = Math.abs(diff);
-
-        if (absDiff > 12) {
-            console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
+        // ★★★ 修正箇所: 大ジャンプ検知と強制同期 ★★★
+        if (Math.abs(diff) > 90) {
+            // 大ジャンプは強制同期
+            lastDrawnMarkerAngle = targetAngle;
+            console.log(`[DEBUG-RM2] SYNC mode=${appState.headingUp ? 'HeadingUp' : 'NorthUp'} target=${targetAngle.toFixed(1)}° raw=${(lastRawHeading ?? '-')}°`);
         } else {
-            console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
-        }
-        
-        const now = Date.now();
-        if (now - lastSummaryTs > 5000) {
-            console.log(`[DEBUG-SUM] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
-            lastSummaryTs = now;
-        }
+            // 通常の補間処理
+            const courseJump = (currentUserCourse !== null && lastCourse !== null)
+                ? (currentUserCourse - lastCourse).toFixed(1)
+                : '-';
+            lastCourse = currentUserCourse;
 
-        const MAX_ROTATION_STEP = 15;
-        limitedDiff = diff;
-        if (limitedDiff > MAX_ROTATION_STEP) limitedDiff = MAX_ROTATION_STEP;
-        if (limitedDiff < -MAX_ROTATION_STEP) limitedDiff = -MAX_ROTATION_STEP;
+            const absDiff = Math.abs(diff);
 
-        lastDrawnMarkerAngle = (lastDrawnMarkerAngle + limitedDiff + 360) % 360;
+            if (absDiff > 12) {
+                console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
+            } else {
+                console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
+            }
+            
+            const now = Date.now();
+            if (now - lastSummaryTs > 5000) {
+                console.log(`[DEBUG-SUM] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
+                lastSummaryTs = now;
+            }
+
+            const MAX_ROTATION_STEP = 15;
+            let limitedDiff = diff;
+            if (limitedDiff > MAX_ROTATION_STEP) limitedDiff = MAX_ROTATION_STEP;
+            if (limitedDiff < -MAX_ROTATION_STEP) limitedDiff = -MAX_ROTATION_STEP;
+
+            lastDrawnMarkerAngle = (lastDrawnMarkerAngle + limitedDiff + 360) % 360;
+            
+            // ログ出力を仕様に合わせる
+             if (!appState.headingUp) {
+                console.log(`[DEBUG-RM2] mode=NorthUp fixed=0 raw=${(lastRawHeading ?? '-')}°`);
+            } else {
+                console.log(`[DEBUG-RM2] mode=HeadingUp current=${currentHeading.toFixed(1)}° raw=${(lastRawHeading ?? '-')}°`);
+            }
+        }
     }
     
     const finalAngle = -lastDrawnMarkerAngle;
     rotator.style.transform = `rotate(${finalAngle}deg)`;
-
-    // ★★★ 修正箇所: ログ出力を仕様に合わせる ★★★
-    if (!appState.headingUp) {
-        console.log(`[DEBUG-RM2] mode=NorthUp fixed=0 raw=${(lastRawHeading ?? '-')}°`);
-    } else {
-        console.log(`[DEBUG-RM2] mode=HeadingUp current=${currentHeading.toFixed(1)}° raw=${(lastRawHeading ?? '-')}°`);
-    }
 }
 
 
