@@ -36,10 +36,7 @@ window.onload = () => {
             toggleHeadingUp(!appState.headingUp);
         });
     }
-    if (dom.fullscreenBtn) {
-        // イベント接続はmap.jsのコントロール定義内で行われているため、ここでは不要
-    }
-
+    
     // 全画面表示の変更を監視するイベントリスナー
     document.addEventListener('fullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('webkitfullscreenchange', stabilizeAfterFullScreen);
@@ -47,12 +44,18 @@ window.onload = () => {
     document.addEventListener('MSFullscreenChange', stabilizeAfterFullScreen);
 
     // GPSとコンパスを開始
-    startGeolocation();
-    startCompass();
+    startSensors();
     
+    // G. 強制ハードチェック（動作復旧テストモード）
+    setTimeout(() => {
+        if (!compassInitialized) {
+            console.log('[DEBUG-FORCE] no sensor → applied dummy raw=0 current=0');
+            updateMapRotation(0, 0);
+        }
+    }, 3000);
+
     // 保存されたデータを読み込み
     loadData();
 
-    // 描画ループを開始
-    renderLoop();
+    // 描画ループはハートビートに移行したため削除
 };

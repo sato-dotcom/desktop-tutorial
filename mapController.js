@@ -1,16 +1,14 @@
 // mapController.js
 
 // G. 調整可能パラメータ
-const ROTATION_LERP_FACTOR = 0.3; // LERP α (0.2-0.4推奨)
-const HEADING_SPIKE_THRESHOLD = 45; // スパイク検知の閾値 (30-60°推奨)
-const MAX_CONSECUTIVE_SKIPS = 3; // 連続スキップ上限
+const ROTATION_LERP_FACTOR = 0.3; 
+const HEADING_SPIKE_THRESHOLD = 45;
+const MAX_CONSECUTIVE_SKIPS = 3;
 
 // --- 状態変数 ---
 let consecutiveSpikes = 0;
+let markerEl = null; // マーカー要素への参照を保持
 
-/**
- * 角度を-180度から+180度の範囲に正規化するヘルパー関数
- */
 function normalizeDeg(deg) {
     let normalized = deg % 360;
     if (normalized > 180) normalized -= 360;
@@ -18,9 +16,6 @@ function normalizeDeg(deg) {
     return normalized;
 }
 
-/**
- * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
- */
 function stabilizeAfterFullScreen() {
     const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
     document.body.classList.toggle('fullscreen-active', isFullscreen);
@@ -42,7 +37,10 @@ function stabilizeAfterFullScreen() {
         if (currentPosition && appState.followUser) {
             recenterAbsolutely(currentPosition.coords);
         }
-        // F. UIイベント非依存の即時反映
+        // D. 全画面切替後にDOMを再取得
+        markerEl = document.getElementById('userMarker'); 
+        console.log('[DEBUG-DOM] rebind markerEl');
+        
         console.log('[DEBUG-FS] fullscreen toggled → applied');
         updateMapRotation(lastRawHeading, currentHeading);
     }, 200);
@@ -83,7 +81,6 @@ function toggleHeadingUp(on) {
     console.log(`[DEBUG-MODE] headingUp=${on} → immediate apply`);
     updateOrientationButtonState();
     lastDrawnMarkerAngle = null; 
-    // F. UIイベント非依存の即時反映
     updateMapRotation(lastRawHeading, currentHeading);
 }
 
@@ -96,52 +93,50 @@ function toggleFullscreen() {
     }
 }
 
-/**
- * マーカーの回転処理。モードに応じて挙動を分離。
- */
 function updateMapRotation(rawHeading, currentHeading) {
     try {
-        if (!currentUserMarker?._icon) return;
-        const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
+        // D. DOM適用の健全性チェック
+        if (!markerEl) {
+            markerEl = document.getElementById('userMarker');
+        }
+        if (!markerEl) {
+            console.error('[ERROR-DOM] markerEl not found → skip');
+            return;
+        } else {
+             // console.log('[DEBUG-DOM] markerEl found=true id=#userMarker'); // 毎フレーム出すと冗長なのでコメントアウト
+        }
+        const rotator = markerEl.querySelector('.user-location-marker-rotator');
         if (!rotator) return;
 
         let targetAngle;
         const mode = appState.headingUp ? 'HeadingUp' : 'NorthUp';
 
-        // D. 引数チェックとフェイルセーフ
         if (rawHeading === null || isNaN(rawHeading) || currentHeading === null || isNaN(currentHeading)) {
             console.warn(`[WARN-HEADING] raw=${rawHeading}, current=${currentHeading} → fallback target=0`);
             rotator.style.transform = `rotate(0deg)`;
             return;
         }
 
-        // D. モード挙動
         if (!appState.headingUp) {
-            // --- ノースアップモード ---
             targetAngle = 0;
             lastDrawnMarkerAngle = 0;
         } else {
-            // --- ヘディングアップモード ---
-            targetAngle = normalizeDeg(rawHeading - currentHeading); // 相対角度
+            targetAngle = normalizeDeg(rawHeading - currentHeading);
             
             if (lastDrawnMarkerAngle === null) {
-                lastDrawnMarkerAngle = targetAngle; // B. 初期フレーム
+                lastDrawnMarkerAngle = targetAngle;
             }
             
             const diff = normalizeDeg(targetAngle - lastDrawnMarkerAngle);
 
-            // E. スパイク除去
             if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
                 consecutiveSpikes++;
                 console.log(`[DEBUG-SPIKE] diff=${diff.toFixed(1)}° threshold=${HEADING_SPIKE_THRESHOLD}° → hold last=${lastDrawnMarkerAngle.toFixed(1)}°`);
-                // targetAngleは更新せず、lastDrawnMarkerAngleを維持
             } else {
                 if (consecutiveSpikes >= MAX_CONSECUTIVE_SKIPS) {
                     console.warn(`[DEBUG-SPIKE] force sync after ${consecutiveSpikes} skips.`);
-                    // 4フレーム目で強制同期
                     lastDrawnMarkerAngle = (lastDrawnMarkerAngle + diff * 0.5 + 360) % 360;
                 } else {
-                     // 通常の補間
                     lastDrawnMarkerAngle = (lastDrawnMarkerAngle + diff * ROTATION_LERP_FACTOR + 360) % 360;
                 }
                 consecutiveSpikes = 0;
@@ -150,7 +145,6 @@ function updateMapRotation(rawHeading, currentHeading) {
         
         const finalAngle = appState.headingUp ? -lastDrawnMarkerAngle : 0;
         
-        // D. ログ仕様
         console.log(`[DEBUG-RM2] mode=${mode} raw=${rawHeading.toFixed(1)}° current=${currentHeading.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${(lastDrawnMarkerAngle||0).toFixed(1)}° diff=${normalizeDeg(targetAngle - (lastDrawnMarkerAngle||0)).toFixed(1)}°`);
 
         rotator.style.transform = `rotate(${finalAngle}deg)`;
@@ -159,9 +153,6 @@ function updateMapRotation(rawHeading, currentHeading) {
         console.error('[ERROR-ROT] err=', err);
     }
 }
-
-// renderLoopはハートビートに役割を移譲したため、削除
-// function renderLoop() { ... }
 
 // --- UI更新ヘルパー ---
 function updateUserMarkerOnly(latlng) {

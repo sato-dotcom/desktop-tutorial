@@ -1,8 +1,8 @@
 // gps.js
 
-const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
+const DEBUG = true;
 // G. 調整可能パラメータ
-const HEADING_FILTER_ALPHA = 0.3; // 平滑化フィルタ係数 (0.2-0.4推奨)
+const HEADING_FILTER_ALPHA = 0.3;
 const HEARTBEAT_INTERVAL = 1000; // ハートビート間隔 (ms)
 
 const DECLINATION_UPDATE_DISTANCE_M = 1000;
@@ -30,7 +30,6 @@ let permissionLogged = {};
 let lastCompassEventTimestamp = 0;
 
 
-// --- ユーティリティ ---
 function toTrueNorth(magneticHeading, declination) {
     if (magneticHeading === null || isNaN(magneticHeading)) return null;
     return (magneticHeading + declination + 360) % 360;
@@ -157,7 +156,7 @@ function onCompassUpdate(event) {
 
     if (newRawHeading === null || isNaN(newRawHeading)) return;
     
-    lastRawHeading = newRawHeading; // フィルタなしの生値として保持
+    lastRawHeading = newRawHeading;
     const trueHeading = toTrueNorth(lastRawHeading, currentDeclination);
     if (trueHeading === null) return;
     
@@ -174,11 +173,10 @@ function onCompassUpdate(event) {
     if (!compassInitialized && typeof lastRawHeading === 'number' && typeof currentHeading === 'number') {
         compassInitialized = true;
         console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)} current=${currentHeading.toFixed(1)} → applied`);
-        updateMapRotation(lastRawHeading, currentHeading); // 1回目
-        updateMapRotation(lastRawHeading, currentHeading); // 2回目（冗長呼び出しで保証）
+        updateMapRotation(lastRawHeading, currentHeading);
+        updateMapRotation(lastRawHeading, currentHeading);
     }
     
-    // A. onCompassUpdateは毎回updateMapRotationを呼ぶ
     updateMapRotation(lastRawHeading, currentHeading);
 }
 

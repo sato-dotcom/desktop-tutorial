@@ -35,16 +35,12 @@ function initializeMap() {
 
     L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
     
+    // ... (NorthArrowControl, FollowControl, FullscreenControl, OrientationControlは変更なし) ...
     const NorthArrowControl = L.Control.extend({
         options: { position: 'topleft' },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-control-north-arrow');
-            container.innerHTML = `
-                <svg id="north-arrow-svg" width="30" height="40" viewBox="0 0 30 40">
-                    <path d="M 15 0 L 30 25 L 15 20 L 0 25 Z" fill="black"></path>
-                    <text x="9" y="18" font-size="16" font-weight="bold" fill="white">N</text>
-                </svg>
-            `;
+            container.innerHTML = `<svg id="north-arrow-svg" width="30" height="40" viewBox="0 0 30 40"><path d="M 15 0 L 30 25 L 15 20 L 0 25 Z" fill="black"></path><text x="9" y="18" font-size="16" font-weight="bold" fill="white">N</text></svg>`;
             return container;
         }
     });
@@ -79,19 +75,17 @@ function initializeMap() {
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
             container.innerHTML = `<a id="orientation-toggle-btn" href="#" title="北を上に固定中 (進行方向固定に切替)" class="leaflet-control-custom-btn"><i class="fas fa-compass"></i></a>`;
-            
-            // ★★★ 2) ヘディングアップボタンのイベント接続は main.js に移動 ★★★
             L.DomEvent.disableClickPropagation(container);
-            
             return container;
         }
     });
     map.addControl(new OrientationControl());
 
-    const userIconHTML = `<div class="user-location-marker-rotator"><svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg></div>`;
+    // D. DOM適用の健全性チェック: idを付与
+    const userIconHTML = `<div id="userMarker" class="user-location-marker"><div class="user-location-marker-rotator"><svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg></div></div>`;
     const userIcon = L.divIcon({
         html: userIconHTML,
-        className: 'user-location-marker',
+        className: '', // classNameはコンテナdivに直接書くので不要
         iconSize: [30, 30],
         iconAnchor: [15, 15]
     });
