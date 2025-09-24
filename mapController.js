@@ -146,16 +146,22 @@ function updateMapRotation() {
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
     
-    // ★★★ 修正箇所: モード処理逆転修正＋初期化改善 ★★★
+    // ★★★ 修正箇所: 大回転対策と初期化改善 ★★★
     const heading = currentHeading ?? 0;
+    const raw = lastRawHeading ?? heading;
     let targetAngle;
+    let relativeAngleForLog = null;
 
     if (!appState.headingUp) {
-        // ノースアップモード：マーカーは固定（北を指す）
-        targetAngle = 0;
-    } else {
-        // ヘディングアップモード：マーカーは端末の絶対的な向き (currentHeading) を表示
+        // ノースアップモード：マーカーは端末の絶対向きを表示
         targetAngle = heading;
+    } else {
+        // ヘディングアップモード：マーカーは相対角度を表示
+        let relative = raw - heading;
+        if (relative > 180) relative -= 360;
+        if (relative < -180) relative += 360;
+        targetAngle = relative;
+        relativeAngleForLog = relative;
     }
 
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
@@ -166,7 +172,6 @@ function updateMapRotation() {
         lastDrawnMarkerAngle = targetAngle;
         skipRotationOnce--;
     } else {
-        const raw = lastRawHeading ?? heading;
         console.log(`[DEBUG-RM] target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${raw.toFixed(1)}° current=${heading.toFixed(1)}°`);
         
         let diff = targetAngle - lastDrawnMarkerAngle;
@@ -177,9 +182,9 @@ function updateMapRotation() {
             lastDrawnMarkerAngle = targetAngle;
             const rawForLog = raw.toFixed(1);
             if (!appState.headingUp) {
-                 console.log(`[DEBUG-RM2] SYNC mode=NorthUp fixed=0 raw=${rawForLog}°`);
+                 console.log(`[DEBUG-RM2] SYNC mode=NorthUp current=${heading.toFixed(1)}° raw=${rawForLog}°`);
             } else {
-                 console.log(`[DEBUG-RM2] SYNC mode=HeadingUp current=${heading.toFixed(1)}° raw=${rawForLog}°`);
+                 console.log(`[DEBUG-RM2] SYNC mode=HeadingUp mapRotation=${heading.toFixed(1)}° raw=${rawForLog}° relative=${(relativeAngleForLog ?? 0).toFixed(1)}°`);
             }
         } else {
             const courseJump = (currentUserCourse !== null && lastCourse !== null)
@@ -210,9 +215,9 @@ function updateMapRotation() {
             
             const rawForLog = raw.toFixed(1);
             if (!appState.headingUp) {
-                console.log(`[DEBUG-RM2] mode=NorthUp fixed=0 raw=${rawForLog}°`);
+                console.log(`[DEBUG-RM2] mode=NorthUp current=${heading.toFixed(1)}°`);
             } else {
-                console.log(`[DEBUG-RM2] mode=HeadingUp current=${heading.toFixed(1)}° raw=${rawForLog}°`);
+                console.log(`[DEBUG-RM2] mode=HeadingUp mapRotation=${heading.toFixed(1)}° raw=${rawForLog}° relative=${(relativeAngleForLog ?? 0).toFixed(1)}°`);
             }
         }
     }
