@@ -35,7 +35,6 @@ function initializeMap() {
 
     L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
     
-    // ... (NorthArrowControl, FollowControl, FullscreenControl, OrientationControlは変更なし) ...
     const NorthArrowControl = L.Control.extend({
         options: { position: 'topleft' },
         onAdd: function (map) {
@@ -81,13 +80,14 @@ function initializeMap() {
     });
     map.addControl(new OrientationControl());
 
-    // D. DOM適用の健全性チェック: idを付与
-    const userIconHTML = `<div id="userMarker" class="user-location-marker"><div class="user-location-marker-rotator"><svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg></div></div>`;
+    // DOM適用のためのセレクタ情報を付与
+    const userIconHTML = `<div id="userMarker" class="user-marker" data-role="user"><div class="user-location-marker-rotator"><svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg></div></div>`;
     const userIcon = L.divIcon({
         html: userIconHTML,
-        className: '', // classNameはコンテナdivに直接書くので不要
+        className: 'user-location-marker', // Leaflet用のクラスも維持
         iconSize: [30, 30],
         iconAnchor: [15, 15]
     });
     currentUserMarker = L.marker([0, 0], { icon: userIcon, pane: 'markerPane' }).addTo(map);
 }
+

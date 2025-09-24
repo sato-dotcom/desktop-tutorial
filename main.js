@@ -14,7 +14,6 @@ window.onload = () => {
     initializeCoordSystemSelector();
 
     // --- DOM要素の取得とイベントリスナーの設定 ---
-    // LeafletコントロールがDOMに追加された後に要素を取得
     dom.followUserBtn = document.getElementById('follow-user-btn');
     dom.orientationToggleBtn = document.getElementById('orientation-toggle-btn');
     dom.fullscreenBtn = document.getElementById('fullscreen-btn');
@@ -50,12 +49,33 @@ window.onload = () => {
     setTimeout(() => {
         if (!compassInitialized) {
             console.log('[DEBUG-FORCE] no sensor → applied dummy raw=0 current=0');
-            updateMapRotation(0, 0);
+            updateMapRotation(0, 0); // 配線とDOM適用の生存確認
+            
+            // さらに5秒間のシーケンスで回転経路を強制検証
+            let step = 0;
+            const sequence = [0, 90, 180, 270, 360];
+            const sequenceInterval = setInterval(() => {
+                if (step >= sequence.length) {
+                    clearInterval(sequenceInterval);
+                    return;
+                }
+                if (compassInitialized) { // もし途中で本物のセンサーが来たらテストは中止
+                    console.log('[DEBUG-FORCE] Real sensor detected. Halting sequence.');
+                    clearInterval(sequenceInterval);
+                    return;
+                }
+                const target = sequence[step];
+                console.log(`[DEBUG-FORCE] sequence step ${step} target=${target}`);
+                // 擬似的にセンサー値を更新して通知
+                lastRawHeading = target;
+                currentHeading = target;
+                updateMapRotation(lastRawHeading, currentHeading);
+                step++;
+            }, 1000);
         }
     }, 3000);
 
     // 保存されたデータを読み込み
     loadData();
-
-    // 描画ループはハートビートに移行したため削除
 };
+
