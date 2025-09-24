@@ -200,21 +200,20 @@ function updateMapRotation() {
         lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360;
     }
 
-    // ★★★ 修正箇所: Leaflet呼び出し直前の最終補正とデバッグログ ★★★
     let diff2 = targetAngle - lastDrawnMarkerAngle;
     if (diff2 > 180) diff2 -= 360;
     if (diff2 < -180) diff2 += 360;
-    // Note: この補正は補間を部分的に上書きしますが、デバッグ目的で一時的に追加します。
-    // 最終的に描画される角度を、補間後の角度からターゲットへの最短経路で再計算します。
     let finalAngle = (lastDrawnMarkerAngle + diff2 + 360) % 360;
 
-    console.log(`[DEBUG-RM2] target=${targetAngle.toFixed(1)}° last(interp)=${lastDrawnMarkerAngle.toFixed(1)}° diff2=${diff2.toFixed(1)}° final=${finalAngle.toFixed(1)}°`);
+    // ★★★ 修正箇所: [DEBUG-RM2]ログの強化と暫定的な符号反転処理 ★★★
+    console.log(`[DEBUG-RM2] target=${targetAngle.toFixed(1)}° final=${finalAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}`);
     
-    // 実際に描画に使用する角度は `finalAngle` としますが、
-    // 次のフレームの計算の基準となる `lastDrawnMarkerAngle` は補間された値を維持します。
-    // これにより、補間計算の連続性を保ちつつ、描画のみを最終補正します。
-
-    rotator.style.transform = `rotate(${finalAngle}deg)`;
+    if (!appState.headingUp) {
+        // ノースアップ時は符号を反転 (North-up mode: invert the sign)
+        rotator.style.transform = `rotate(${-finalAngle}deg)`;
+    } else {
+        rotator.style.transform = `rotate(${finalAngle}deg)`;
+    }
 }
 
 
