@@ -3,6 +3,7 @@
 const DEBUG = true; // デバッグモードを有効にする場合はtrueに設定
 const HEADING_FILTER_ALPHA = 0.3;
 const HEADING_UPDATE_THRESHOLD = 1;
+// ★★★ 修正方針 1: スパイク除去の閾値 (調整可能) ★★★
 const HEADING_SPIKE_THRESHOLD = 45;
 
 const DECLINATION_UPDATE_DISTANCE_M = 1000; // m
@@ -35,7 +36,9 @@ let currentDeclination = 0;
 let lastDeclinationUpdatePos = null;
 let lastDeclinationUpdateAt = 0;
 let lastCompassHeading = null;
-let lastCurrentHeading = null; // ★★★ 追加: 前回のcurrentHeadingを保持
+let lastCurrentHeading = null;
+// ★★★ 修正方針 2: 初期化フラグを追加 ★★★
+let compassInitialized = false;
 
 // --- ユーティリティ ---
 function toTrueNorth(magneticHeading, declination) {
@@ -161,62 +164,58 @@ function onCompassUpdate(event) {
     if (event.webkitCompassHeading !== undefined) {
         newRawHeading = event.webkitCompassHeading;
     } else if (event.alpha !== null) {
-        newRawHeading = event.absolute ? event.alpha : 360 - event.alpha;
+        newRawHeading = event.absolute === true ? event.alpha : 360 - event.alpha;
     }
 
     if (newRawHeading === null || isNaN(newRawHeading)) return;
 
-    let correctedRawHeading = newRawHeading;
-    if (lastRawHeading !== null && !isNaN(lastRawHeading)) {
+    // ★★★ 修正方針 1: スパイク除去ロジック ★★★
+    if (lastRawHeading !== null) {
         let delta = newRawHeading - lastRawHeading;
         if (delta > 180) delta -= 360;
         if (delta < -180) delta += 360;
+
         if (Math.abs(delta) > HEADING_SPIKE_THRESHOLD) {
-            if (DEBUG) console.log(`[DEBUG-FILTER] Spike ignored: delta=${delta.toFixed(1)}° raw=${newRawHeading.toFixed(1)}° last=${lastRawHeading.toFixed(1)}°`);
-            updateDebugPanel(lastRawHeading, lastDrawnMarkerAngle);
-            return; 
+            // ★★★ 修正方針 4: デバッグログ強化 ★★★
+            console.log(`[DEBUG-RM2] Spike抑制 diff=${delta.toFixed(1)}`);
+            return; // スパイクを無視し、このフレームの更新をスキップ
         }
-        correctedRawHeading = (lastRawHeading + delta + 360) % 360;
     }
-    lastRawHeading = correctedRawHeading;
-    
-    const trueHeading = toTrueNorth(correctedRawHeading, currentDeclination);
+    lastRawHeading = newRawHeading; // スパイクでない場合にのみ更新
+
+    const trueHeading = toTrueNorth(lastRawHeading, currentDeclination);
     if (trueHeading === null) return;
-
-    // --- ★★★ 修正箇所: currentHeadingの計算ロジックを境界補正を含む新方式に置き換え ★★★ ---
-    let finalHeading = trueHeading;
-    let deltaForLog = null;
     
-    if (lastCurrentHeading !== null && !isNaN(lastCurrentHeading)) {
-        let delta = trueHeading - lastCurrentHeading;
-        if (delta > 180) delta -= 360;
-        if (delta < -180) delta += 360;
-        deltaForLog = delta;
+    // 平滑化フィルタ (Low-pass filter)
+    if (lastCurrentHeading === null) {
+        lastCurrentHeading = trueHeading;
+    }
+    let delta = trueHeading - lastCurrentHeading;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
 
-        // 平滑化フィルタを適用
-        const smoothedDelta = delta * HEADING_FILTER_ALPHA;
-        finalHeading = (lastCurrentHeading + smoothedDelta + 360) % 360;
-        
-        if (DEBUG) {
-            console.log(`[DEBUG-CH] before=${trueHeading.toFixed(1)}° after=${finalHeading.toFixed(1)}° delta=${delta.toFixed(1)}°`);
+    const newHeading = (lastCurrentHeading + (delta * HEADING_FILTER_ALPHA) + 360) % 360;
+    
+    // 更新閾値を超えた場合、または未初期化の場合に更新
+    if (Math.abs(newHeading - lastCurrentHeading) > HEADING_UPDATE_THRESHOLD || !compassInitialized) {
+        currentHeading = newHeading;
+        lastCurrentHeading = newHeading;
+
+        // ★★★ 修正方針 2: 初期化改善 ★★★
+        if (!compassInitialized) {
+            compassInitialized = true;
+            console.log("[DEBUG-INIT] 初期化イベント: updateMapRotation強制呼び出し");
+            if (typeof updateMapRotation === 'function') {
+                updateMapRotation();
+            }
         }
-    } else {
-        // 初回は平滑化しない
-        finalHeading = trueHeading;
     }
     
-    // HEADING_UPDATE_THRESHOLD に基づく更新判定は継続
-    if (lastCurrentHeading === null || Math.abs(finalHeading - lastCurrentHeading) > HEADING_UPDATE_THRESHOLD || deltaForLog === null || Math.abs(deltaForLog) > 180) {
-        currentHeading = finalHeading;
-        lastCurrentHeading = finalHeading;
-    }
-    // --- 修正箇所ここまで ---
-    
-    updateDebugPanel(correctedRawHeading, lastDrawnMarkerAngle);
+    updateDebugPanel(lastRawHeading, lastDrawnMarkerAngle);
 }
 
 
-// --- デバッグUI関連（DrawnAngle対応版） ---
+// --- デバッグUI関連 ---
 let debugPanel = null;
 
 function initDebugPanel() {
@@ -273,4 +272,3 @@ function updateDebugPanel(rawHeadingVal = null, drawnAngle = null) {
 window.addEventListener('load', () => {
     initDebugPanel();
 });
-

@@ -1,10 +1,7 @@
 // mapController.js
 
 // 回転アニメーション用の状態変数
-let skipRotationOnce = 0; // スキップする残りフレーム数（0なら通常処理）
 const ROTATION_LERP_FACTOR = 0.3; // 補間率 (小さいほど滑らか)
-let lastSummaryTs = 0; // 最後のサマリログ出力タイムスタンプ
-let lastCourse = null; // GPS進行方向の前回値を保持
 
 /**
  * フルスクリーン状態の変更を検知し、UIと地図の表示を安定させます。
@@ -106,20 +103,9 @@ function toggleHeadingUp(on) {
     appState.headingUp = on;
     console.log(`[toggle] headingUp=${on}`);
     updateOrientationButtonState();
-
-    lastDrawnMarkerAngle = currentHeading;
-    console.log(`[DEBUG-RM] Sync lastDrawnMarkerAngle to currentHeading (${(currentHeading ?? 0).toFixed(1)}°)`);
-
-    if (on) {
-        const targetHeading = (currentUserCourse !== null && !isNaN(currentUserCourse))
-            ? currentUserCourse
-            : (currentHeading ?? 0);
-
-        lastDrawnMarkerAngle = targetHeading;
-        currentHeading = targetHeading;
-        console.log(`[Heading Snap] Synced all headings to ${targetHeading.toFixed(1)}°`);
-        skipRotationOnce = 2;
-    }
+    
+    // モード切替時に角度をリセットして急な回転を防ぐ
+    lastDrawnMarkerAngle = null; 
 }
 
 
@@ -145,83 +131,43 @@ function updateMapRotation() {
     if (!currentUserMarker?._icon) return;
 
     const rotator = currentUserMarker._icon.querySelector('.user-location-marker-rotator');
+    if (!rotator) return;
     
-    // ★★★ 修正箇所: 大回転対策と初期化改善 ★★★
     const heading = currentHeading ?? 0;
-    const raw = lastRawHeading ?? heading;
     let targetAngle;
-    let relativeAngleForLog = null;
 
+    // ★★★ 修正方針 3: 処理位置の整理 (マーカー回転専用) ★★★
     if (!appState.headingUp) {
-        // ノースアップモード：マーカーは端末の絶対向きを表示
+        // ノースアップモード：マーカーは端末の絶対方位（真北基準）を表示
         targetAngle = heading;
     } else {
-        // ヘディングアップモード：マーカーは相対角度を表示
+        // ヘディングアップモード：マーカーは相対角度を表示 (仕様通り)
+        // ここでの'raw'はコンパスの生値（磁北基準）を指す
+        const raw = lastRawHeading ?? heading;
         let relative = raw - heading;
         if (relative > 180) relative -= 360;
         if (relative < -180) relative += 360;
         targetAngle = relative;
-        relativeAngleForLog = relative;
     }
 
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
         lastDrawnMarkerAngle = targetAngle;
     }
 
-    if (skipRotationOnce > 0) {
-        lastDrawnMarkerAngle = targetAngle;
-        skipRotationOnce--;
-    } else {
-        console.log(`[DEBUG-RM] target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${raw.toFixed(1)}° current=${heading.toFixed(1)}°`);
-        
-        let diff = targetAngle - lastDrawnMarkerAngle;
-        if (diff > 180) diff -= 360;
-        if (diff < -180) diff += 360;
+    // LERP (線形補間) で滑らかな回転を実装
+    let diff = targetAngle - lastDrawnMarkerAngle;
+    if (diff > 180) diff -= 360;
+    if (diff < -180) diff += 360;
 
-        if (Math.abs(diff) > 90) {
-            lastDrawnMarkerAngle = targetAngle;
-            const rawForLog = raw.toFixed(1);
-            if (!appState.headingUp) {
-                 console.log(`[DEBUG-RM2] SYNC mode=NorthUp current=${heading.toFixed(1)}° raw=${rawForLog}°`);
-            } else {
-                 console.log(`[DEBUG-RM2] SYNC mode=HeadingUp mapRotation=${heading.toFixed(1)}° raw=${rawForLog}° relative=${(relativeAngleForLog ?? 0).toFixed(1)}°`);
-            }
-        } else {
-            const courseJump = (currentUserCourse !== null && lastCourse !== null)
-                ? (currentUserCourse - lastCourse).toFixed(1)
-                : '-';
-            lastCourse = currentUserCourse;
+    lastDrawnMarkerAngle = (lastDrawnMarkerAngle + (diff * ROTATION_LERP_FACTOR) + 360) % 360;
 
-            const absDiff = Math.abs(diff);
+    // ★★★ 修正方針 4: デバッグログ強化 ★★★
+    const mode = appState.headingUp ? 'HeadingUp' : 'NorthUp';
+    const rawForLog = (lastRawHeading !== null) ? lastRawHeading.toFixed(1) : '---';
+    const currentForLog = (currentHeading !== null) ? currentHeading.toFixed(1) : '---';
+    const targetForLog = (targetAngle !== null) ? targetAngle.toFixed(1) : '---';
+    console.log(`[DEBUG-RM2] mode=${mode} raw=${rawForLog} current=${currentForLog} target=${targetForLog}`);
 
-            if (absDiff > 12) {
-                console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${raw.toFixed(1)}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
-            } else {
-                console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
-            }
-            
-            const now = Date.now();
-            if (now - lastSummaryTs > 5000) {
-                console.log(`[DEBUG-SUM] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${raw.toFixed(1)}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
-                lastSummaryTs = now;
-            }
-
-            const MAX_ROTATION_STEP = 15;
-            let limitedDiff = diff;
-            if (limitedDiff > MAX_ROTATION_STEP) limitedDiff = MAX_ROTATION_STEP;
-            if (limitedDiff < -MAX_ROTATION_STEP) limitedDiff = -MAX_ROTATION_STEP;
-
-            lastDrawnMarkerAngle = (lastDrawnMarkerAngle + limitedDiff + 360) % 360;
-            
-            const rawForLog = raw.toFixed(1);
-            if (!appState.headingUp) {
-                console.log(`[DEBUG-RM2] mode=NorthUp current=${heading.toFixed(1)}°`);
-            } else {
-                console.log(`[DEBUG-RM2] mode=HeadingUp mapRotation=${heading.toFixed(1)}° raw=${rawForLog}° relative=${(relativeAngleForLog ?? 0).toFixed(1)}°`);
-            }
-        }
-    }
-    
     const finalAngle = -lastDrawnMarkerAngle;
     rotator.style.transform = `rotate(${finalAngle}deg)`;
 }
@@ -263,4 +209,3 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
-
