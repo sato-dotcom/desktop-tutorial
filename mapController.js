@@ -166,10 +166,8 @@ function updateMapRotation() {
         lastDrawnMarkerAngle = targetAngle;
         skipRotationOnce--;
     } else {
-        // ★★★ 修正箇所: デバッグログ追加 ★★★
         console.log(`[DEBUG-RM] target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}° current=${currentHeading.toFixed(1)}°`);
         
-        // 最短距離での回転差分を計算
         let diff = targetAngle - lastDrawnMarkerAngle;
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
@@ -181,7 +179,7 @@ function updateMapRotation() {
 
         const absDiff = Math.abs(diff);
 
-        if (absDiff > 12) { // 閾値を12°に下げる
+        if (absDiff > 12) {
             console.log(`[DEBUG-THRESH] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading !== null ? lastRawHeading.toFixed(1) : '-'}° course=${currentUserCourse !== null ? currentUserCourse.toFixed(1) : '-'}° courseJump=${courseJump}°`);
         } else {
             console.log(`[DEBUG] diff=${diff.toFixed(1)}° target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}°`);
@@ -193,19 +191,30 @@ function updateMapRotation() {
             lastSummaryTs = now;
         }
 
-        // 急な回転を抑制する
         if (Math.abs(diff) > 90) {
             console.log(`[Rotation Spike] diff=${diff.toFixed(1)}° → 補間制限`);
             diff = diff > 0 ? 90 : -90;
         }
         
-        // 補間処理
         lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
         lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360;
     }
 
-    mapRotationAngle = 0; // 地図は回転しない
-    rotator.style.transform = `rotate(${lastDrawnMarkerAngle}deg)`;
+    // ★★★ 修正箇所: Leaflet呼び出し直前の最終補正とデバッグログ ★★★
+    let diff2 = targetAngle - lastDrawnMarkerAngle;
+    if (diff2 > 180) diff2 -= 360;
+    if (diff2 < -180) diff2 += 360;
+    // Note: この補正は補間を部分的に上書きしますが、デバッグ目的で一時的に追加します。
+    // 最終的に描画される角度を、補間後の角度からターゲットへの最短経路で再計算します。
+    let finalAngle = (lastDrawnMarkerAngle + diff2 + 360) % 360;
+
+    console.log(`[DEBUG-RM2] target=${targetAngle.toFixed(1)}° last(interp)=${lastDrawnMarkerAngle.toFixed(1)}° diff2=${diff2.toFixed(1)}° final=${finalAngle.toFixed(1)}°`);
+    
+    // 実際に描画に使用する角度は `finalAngle` としますが、
+    // 次のフレームの計算の基準となる `lastDrawnMarkerAngle` は補間された値を維持します。
+    // これにより、補間計算の連続性を保ちつつ、描画のみを最終補正します。
+
+    rotator.style.transform = `rotate(${finalAngle}deg)`;
 }
 
 
