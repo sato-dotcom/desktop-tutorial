@@ -157,19 +157,20 @@ function updateMapRotation() {
         targetAngle = currentHeading;
     }
 
-    // 初回描画時または値が無効な場合
     if (lastDrawnMarkerAngle === null || isNaN(lastDrawnMarkerAngle)) {
         lastDrawnMarkerAngle = targetAngle;
     }
 
-    // スキップフレーム処理
+    let diff = 0;
+    let limitedDiff = 0;
+
     if (skipRotationOnce > 0) {
         lastDrawnMarkerAngle = targetAngle;
         skipRotationOnce--;
     } else {
         console.log(`[DEBUG-RM] target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° raw=${lastRawHeading ?? '-'}° current=${currentHeading.toFixed(1)}°`);
         
-        let diff = targetAngle - lastDrawnMarkerAngle;
+        diff = targetAngle - lastDrawnMarkerAngle;
         if (diff > 180) diff -= 360;
         if (diff < -180) diff += 360;
 
@@ -192,30 +193,22 @@ function updateMapRotation() {
             lastSummaryTs = now;
         }
 
-        if (Math.abs(diff) > 90) {
-            console.log(`[Rotation Spike] diff=${diff.toFixed(1)}° → 補間制限`);
-            diff = diff > 0 ? 90 : -90;
-        }
-        
-        lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
-        lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360;
+        // ★★★ 修正箇所: 最大回転速度制限 ★★★
+        const MAX_ROTATION_STEP = 15;
+        limitedDiff = diff;
+        if (limitedDiff > MAX_ROTATION_STEP) limitedDiff = MAX_ROTATION_STEP;
+        if (limitedDiff < -MAX_ROTATION_STEP) limitedDiff = -MAX_ROTATION_STEP;
+
+        lastDrawnMarkerAngle = (lastDrawnMarkerAngle + limitedDiff + 360) % 360;
     }
 
-    let diff2 = targetAngle - lastDrawnMarkerAngle;
-    if (diff2 > 180) diff2 -= 360;
-    if (diff2 < -180) diff2 += 360;
-    let finalAngle = (lastDrawnMarkerAngle + diff2 + 360) % 360;
-
-    // ★★★ 修正箇所: ノースアップ/ヘディングアップの挙動を整理 ★★★
     if (!appState.headingUp) {
-        // ノースアップモード：マーカー固定 (North-up mode: marker fixed)
         rotator.style.transform = 'rotate(0deg)';
         console.log(`[DEBUG-RM2] mode=NorthUp fixedAngle=0 raw=${lastRawHeading ?? '-'}°`);
     } else {
-        // ヘディングアップモード：マーカー回転（符号反転）(Heading-up mode: marker rotates (sign inverted))
-        const invertedFinalAngle = -finalAngle;
-        rotator.style.transform = `rotate(${invertedFinalAngle}deg)`;
-        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° final=${(invertedFinalAngle).toFixed(1)}° raw=${lastRawHeading ?? '-'}°`);
+        const invertedAngle = -lastDrawnMarkerAngle;
+        rotator.style.transform = `rotate(${invertedAngle}deg)`;
+        console.log(`[DEBUG-RM2] mode=HeadingUp target=${targetAngle.toFixed(1)}° last=${lastDrawnMarkerAngle.toFixed(1)}° diff=${diff.toFixed(1)}° limitedDiff=${limitedDiff.toFixed(1)}°`);
     }
 }
 
