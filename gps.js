@@ -95,10 +95,6 @@ function attachCompassListener() {
 
 // --- イベントハンドラ ---
 
-/**
- * GPSから位置情報が更新されたときに呼ばれる
- * @param {GeolocationPosition} position 
- */
 function onGpsUpdate(position) {
     // ★★★ 修正: イベント発火を明確にログ出力 ★★★
     console.log(`[DEBUG-EVT] onGpsUpdate fired. lat=${position.coords.latitude.toFixed(4)}, lon=${position.coords.longitude.toFixed(4)}`);
@@ -106,14 +102,31 @@ function onGpsUpdate(position) {
     onPositionUpdate(position); // mapControllerへ通知
 }
 
-/**
- * GPSエラーハンドラ
- * @param {GeolocationPositionError} error 
- */
-/**
- * コンパスの方位が更新されたときに呼ばれる
- * @param {DeviceOrientationEvent} event 
- */
+function handlePositionError(error) {
+    let userMessage = "測位エラー";
+    let errorCode = "UNKNOWN_ERROR";
+
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            userMessage = "位置情報の許可が必要です";
+            errorCode = "PERMISSION_DENIED";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            userMessage = "位置情報を取得できません";
+            errorCode = "POSITION_UNAVAILABLE";
+            break;
+        case error.TIMEOUT:
+            userMessage = "測位がタイムアウトしました";
+            errorCode = "TIMEOUT";
+            break;
+    }
+    
+    // ★★★ 修正: 詳細なエラーログとUI表示 ★★★
+    console.error(`[DEBUG-ERR] Geolocation error: ${errorCode} - ${error.message}`);
+    dom.gpsStatus.textContent = userMessage;
+    dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
+}
+
 function onCompassUpdate(event) {
     // ★★★ 修正: イベント発火を明確にログ出力 ★★★
     console.log(`[DEBUG-EVT] onCompassUpdate fired.`);
@@ -203,4 +216,5 @@ function stopHeartbeat() {
         heartbeatIntervalId = null;
     }
 }
+
 
