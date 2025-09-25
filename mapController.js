@@ -4,7 +4,7 @@
 const ROTATION_LERP_FACTOR = 0.3;       // 回転の補間係数 (小さいほど滑らか)
 const HEADING_SPIKE_THRESHOLD = 45;     // スパイクとみなす角度変化の閾値 (度)
 const MAX_CONSECUTIVE_SKIPS = 3;        // スパイク除去で連続スキップする最大フレーム数
-const ROTATION_OFFSET = 0;              // ★★★ マーカー画像の向き補正 (0 or 180) ★★★
+const ROTATION_OFFSET = 0;              // マーカー画像の向き補正 (0 or 180)
 
 // --- 状態変数 ---
 let consecutiveSpikes = 0;
@@ -118,15 +118,18 @@ function updateMapRotation(rawHeading, currentHeading) {
     if (!rotator) return;
 
     let targetAngle = 0;
+    let relativeAngle = 0;
     let diff = 0;
-    let relativeAngle = 0; 
 
-    if (appState.headingUp && typeof currentHeading === 'number') {
-        // ★★★ 修正: CSSのrotate()と方向を合わせるため、値を反転させる ★★★
-        targetAngle = -currentHeading;
+    if (appState.headingUp && typeof currentHeading === 'number' && typeof rawHeading === 'number') {
+        // ★★★ 修正: rawとcurrentから相対角度を計算し、それを目標角度とする ★★★
+        relativeAngle = normalizeDeg(currentHeading - rawHeading);
+        targetAngle = relativeAngle;
+    } else {
+        // North-up mode
+        targetAngle = 0;
+        relativeAngle = 0;
     }
-    
-    relativeAngle = targetAngle; 
 
     if (lastDrawnMarkerAngle === null) {
         lastDrawnMarkerAngle = targetAngle;
@@ -141,10 +144,11 @@ function updateMapRotation(rawHeading, currentHeading) {
         consecutiveSpikes = 0;
     }
     
-    // ★★★ 修正: ROTATION_OFFSET を加算して最終的な角度を決定 ★★★
     const finalAngle = lastDrawnMarkerAngle + ROTATION_OFFSET;
     const transformValue = `rotate(${finalAngle.toFixed(1)}deg)`;
-
+    
+    // ★★★ 修正: [DEBUG-DOM] ログの追加 ★★★
+    console.log(`[DEBUG-DOM] selector: ${lastAppliedSelector}, transform: ${transformValue}`);
     rotator.style.transform = transformValue;
 
     const log = {
@@ -160,7 +164,7 @@ function updateMapRotation(rawHeading, currentHeading) {
     };
     
     // ★★★ 修正: [DEBUG-RM2] ログの拡充 ★★★
-    console.log(`[DEBUG-RM2] raw=${log.raw?.toFixed(1)}° curr=${log.current?.toFixed(1)}° rel=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}°`);
+    console.log(`[DEBUG-RM2] relative=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}°`);
     
     updateDebugPanel(log);
 }

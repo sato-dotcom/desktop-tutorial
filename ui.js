@@ -79,6 +79,7 @@ function updateDebugPanel(debugInfo) {
     const content = `
 Mode      : ${debugInfo.mode}
 raw/curr  : ${debugInfo.raw?.toFixed(1) ?? '--'}° / ${debugInfo.current?.toFixed(1) ?? '--'}°
+relative  : ${debugInfo.relative?.toFixed(1) ?? '--'}°
 target    : ${debugInfo.target?.toFixed(1) ?? '--'}° (Offset: ${ROTATION_OFFSET})
 lastDrawn : ${(debugInfo.last || 0).toFixed(1)}°
 diff      : ${(debugInfo.diff || 0).toFixed(1)}°
