@@ -1,14 +1,14 @@
 // mapController.js
 
 // --- 調整可能パラメータ ---
-const ROTATION_LERP_FACTOR = 0.3; // 回転の補間係数 (小さいほど滑らか)
-const HEADING_SPIKE_THRESHOLD = 45; // スパイクとみなす角度変化の閾値 (度)
-const MAX_CONSECUTIVE_SKIPS = 3; // スパイク除去で連続スキップする最大フレーム数
+const ROTATION_LERP_FACTOR = 0.3;       // 回転の補間係数 (小さいほど滑らか)
+const HEADING_SPIKE_THRESHOLD = 45;     // スパイクとみなす角度変化の閾値 (度)
+const MAX_CONSECUTIVE_SKIPS = 3;        // スパイク除去で連続スキップする最大フレーム数
+const ROTATION_OFFSET = 0;              // ★★★ マーカー画像の向き補正 (0 or 180) ★★★
 
 // --- 状態変数 ---
 let consecutiveSpikes = 0;
 let lastAppliedSelector = '';
-// lastDrawnMarkerAngle は state.js に移動しました
 
 /**
  * 角度を-180度から+180度の範囲に正規化する
@@ -40,7 +40,6 @@ function getMarkerRotatorElement() {
             return el;
         }
     }
-    // console.error(`[ERROR-DOM] markerEl not found (tried: ${MARKER_ROTATOR_SELECTORS.join(', ')})`);
     lastAppliedSelector = 'not found';
     return null;
 }
@@ -56,18 +55,17 @@ function stabilizeAfterFullScreen() {
         icon.classList.toggle('fa-expand', !isFullscreen);
         icon.classList.toggle('fa-compress', isFullscreen);
     }
-
+    
     map.invalidateSize({ animate: false });
     if (currentPosition && appState.followUser) {
         recenterAbsolutely(currentPosition.coords);
     }
-
+    
     setTimeout(() => {
         map.invalidateSize({ animate: false });
         if (currentPosition && appState.followUser) {
             recenterAbsolutely(currentPosition.coords);
         }
-        // console.log('[DEBUG-DOM] rebind markerEl after fullscreen');
         updateMapRotation(lastRawHeading, currentHeading);
     }, 200);
 }
@@ -95,7 +93,6 @@ function toggleFollowUser(on) {
 
 function toggleHeadingUp(on) {
     appState.headingUp = on;
-    // console.log(`[DEBUG-MODE] headingUp=${on} → immediate apply`);
     updateOrientationButtonState();
     lastDrawnMarkerAngle = null;
     consecutiveSpikes = 0;
@@ -122,47 +119,53 @@ function updateMapRotation(rawHeading, currentHeading) {
 
     let targetAngle = 0;
     let diff = 0;
+    let relativeAngle = 0; // デバッグログ用
 
     if (appState.headingUp && typeof currentHeading === 'number') {
-        targetAngle = -currentHeading;
+        // ★★★ 修正: 進行方向を正しく反映するため、-currentHeading から currentHeading に変更 ★★★
+        targetAngle = currentHeading;
     }
+    
+    relativeAngle = targetAngle; // デバッグ用: ヘディングアップ時の目標角をrelativeAngleとして記録
 
     if (lastDrawnMarkerAngle === null) {
         lastDrawnMarkerAngle = targetAngle;
     }
 
-    // -180°〜+180°の範囲で最短角度差を計算
     diff = normalizeDeg(targetAngle - lastDrawnMarkerAngle);
 
-    // スパイク除去ロジックはheadingUpモードの時のみ適用
     if (appState.headingUp && Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
         consecutiveSpikes++;
-        // 角度は更新せず、前回の値を維持
     } else {
-        // 常に補間処理を適用して滑らかな動きにする
         lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
-        consecutiveSpikes = 0; // スパイクでなければリセット
+        lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360;
+        consecutiveSpikes = 0;
     }
+    
+    const finalAngle = lastDrawnMarkerAngle + ROTATION_OFFSET;
+    const transformValue = `rotate(${finalAngle.toFixed(1)}deg)`;
 
-    // 最終的な角度を適用
-    rotator.style.transform = `rotate(${lastDrawnMarkerAngle.toFixed(1)}deg)`;
+    // ★★★ 修正: DOM適用直前のログを追加 ★★★
+    console.log(`[DEBUG-DOM] Applying to selector: '${lastAppliedSelector}', transform: '${transformValue}'`);
+    rotator.style.transform = transformValue;
 
-    // --- デバッグログ出力 ---
     const log = {
         mode: appState.headingUp ? 'HeadingUp' : 'NorthUp',
         raw: rawHeading,
         current: currentHeading,
+        relative: relativeAngle,
         target: targetAngle,
         last: lastDrawnMarkerAngle,
         diff: diff,
         selector: lastAppliedSelector,
         hbTicks: heartbeatTicks,
     };
-
-    // ui.jsのデバッグパネル更新を呼び出し
+    
+    // ★★★ 修正: [DEBUG-RM2] ログの拡充 ★★★
+    console.log(`[DEBUG-RM2] mode=${log.mode} raw=${log.raw?.toFixed(1)}° current=${log.current?.toFixed(1)}° relative=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}° last=${log.last?.toFixed(1)}° diff=${log.diff?.toFixed(1)}°`);
+    
     updateDebugPanel(log);
 }
-
 
 // --- UI更新ヘルパー ---
 function updateUserMarkerOnly(latlng) {
@@ -172,21 +175,20 @@ function updateUserMarkerOnly(latlng) {
 
 function updateAllInfoPanels(position) {
     const { latitude, longitude, accuracy } = position.coords;
-
+    
     dom.currentLat.textContent = latitude.toFixed(7);
     dom.currentLon.textContent = longitude.toFixed(7);
     dom.currentAcc.textContent = accuracy.toFixed(1);
-
-    // 初回測位時に「測位中...」から「GPS受信中」に変更
+    
     if (dom.gpsStatus.textContent.includes("測位中")) {
         dom.gpsStatus.textContent = "GPS受信中";
         dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
     }
-
+    
     dom.fullscreenLat.textContent = latitude.toFixed(7);
     dom.fullscreenLon.textContent = longitude.toFixed(7);
     dom.fullscreenAcc.textContent = accuracy.toFixed(1);
-
+    
     updateGnssStatus(accuracy);
     updateCurrentXYDisplay();
 
@@ -194,3 +196,4 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
+

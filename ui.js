@@ -2,7 +2,6 @@
 
 // --- 内部状態変数 ---
 let lastDebugUpdateTime = 0;
-// ★★★ 修正依頼: 更新頻度を 500ms (2Hz) に変更 ★★★
 const LOG_THROTTLE_MS = 500; // デバッグUIの更新頻度（ミリ秒）
 
 /**
@@ -81,10 +80,10 @@ function updateDebugPanel(debugInfo) {
     const content = `
 Mode      : ${debugInfo.mode}
 raw/curr  : ${debugInfo.raw?.toFixed(1) ?? '--'}° / ${debugInfo.current?.toFixed(1) ?? '--'}°
+relative  : ${debugInfo.relative?.toFixed(1) ?? '--'}°
 target    : ${debugInfo.target?.toFixed(1) ?? '--'}°
 lastDrawn : ${(debugInfo.last || 0).toFixed(1)}°
 diff      : ${(debugInfo.diff || 0).toFixed(1)}°
-selector  : ${debugInfo.selector || '--'}
 init/HB   : ${compassInitialized} / ${debugInfo.hbTicks}
 `.trim();
 
@@ -279,3 +278,4 @@ function updateOrientationButtonState() {
         dom.orientationToggleBtn.title = 'マーカーは北を固定表示中 (端末の向き表示に切替)';
     }
 }
+
