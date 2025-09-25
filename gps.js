@@ -1,172 +1,105 @@
 // gps.js
 
 // --- 調整可能パラメータ ---
-const HEADING_SPIKE_THRESHOLD_GPS = 45; // 角度の急な変化（スパイク）と見なす閾値（度）
-const LOG_THROTTLE_MS = 500; // デバッグUIの更新頻度（ミリ秒）
+const HEADING_FILTER_ALPHA = 0.3;       // 平滑化フィルタの係数 (小さいほど滑らか)
+const HEADING_UPDATE_THRESHOLD = 1.0;   // 更新とみなす最小角度変化 (度)
+const HEARTBEAT_INTERVAL_MS = 1000;     // ハートビート間隔 (ms)
+const COMPASS_TIMEOUT_MS = 10000;       // コンパスイベントのタイムアウト (ms)
 
-// --- 内部状態変数 ---
-let lastCompassEventTime = 0;
+// --- 内部変数 ---
+let magneticDeclination = 0; // 磁気偏角
+let compassUpdateTimer = null;
+let heartbeatIntervalId = null;
 
-
-// --- センサーとイベントの初期化 ---
+// --- センサー起動と権限管理 ---
 
 /**
- * センサー（GPSとコンパス）の権限要求とイベントリスナーを開始する
- * @returns {Promise<void>}
+ * センサー (GPSとコンパス) の起動を試みる
  */
-async function startSensors() {
-    console.log("[DEBUG-WIRE] startSensors called");
+function startSensors() {
+    console.log('[DEBUG-WIRE] startSensors called');
     
-    // イベントリスナーを一度クリアして多重登録を防ぐ
-    stopSensors();
-    
-    try {
-        // 1. コンパス権限要求とリスナー登録
-        await setupCompassListener();
-        console.log("[DEBUG-WIRE] compass listener attached");
-
-        // 2. GPSリスナー登録
-        setupGpsListener();
-        console.log("[DEBUG-WIRE] gps listener attached");
-
-        // 3. ハートビート開始
-        setupHeartbeat();
-        
-    } catch (err) {
-        console.error("[PERM] Sensor permission or setup failed:", err);
-        alert("センサーの権限が拒否されたか、利用できません。設定を確認してください。");
-        // 権限がなくても、後で許可される可能性を考慮し、処理は続行
-    }
-}
-
-/**
- * 既存のセンサーリスナーとインターバルを停止する
- */
-function stopSensors() {
-    window.removeEventListener('deviceorientationabsolute', onCompassUpdate, true);
-    window.removeEventListener('deviceorientation', onCompassUpdate, true);
-    if (watchId) navigator.geolocation.clearWatch(watchId);
-    if (heartbeatInterval) clearInterval(heartbeatInterval);
-    watchId = null;
-    heartbeatInterval = null;
-}
-
-
-/**
- * コンパスの権限を要求し、イベントリスナーを設定する
- * @returns {Promise<void>}
- */
-async function setupCompassListener() {
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        const state = await DeviceOrientationEvent.requestPermission();
-        if (state === 'granted') {
-            window.addEventListener('deviceorientation', onCompassUpdate, true);
-        } else {
-            throw new Error('Compass permission denied');
-        }
+    // GPSの起動
+    if (navigator.geolocation) {
+        watchId = navigator.geolocation.watchPosition(onGpsUpdate, handlePositionError, {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        });
+        console.log('[DEBUG-WIRE] gps listener attached');
     } else {
-        const eventName = 'ondeviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation';
-        window.addEventListener(eventName, onCompassUpdate, true);
-    }
-}
-
-/**
- * GPSのイベントリスナーを設定する
- */
-function setupGpsListener() {
-    if (!navigator.geolocation) {
-        dom.gpsStatus.textContent = "ブラウザが非対応です";
+        console.error("[PERM] Geolocation is not supported by this browser.");
+        dom.gpsStatus.textContent = "ブラウザ非対応";
         dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
-        throw new Error("Geolocation not supported");
     }
-    watchId = navigator.geolocation.watchPosition(onGpsUpdate, handlePositionError, {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
-    });
+
+    // コンパスの起動
+    // iOS 13+ はユーザージェスチャ内の権限リクエストが必須
+    // Androidは通常リクエスト不要
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        // iOS 13+ の処理は `startSensorsBtn` のクリックイベントハンドラで行う
+         console.log('[DEBUG-WIRE] iOS device detected. Waiting for user gesture.');
+    } else {
+        // Android やその他のデバイス
+        attachCompassListener();
+    }
+
+    // ハートビートを開始
+    startHeartbeat();
+
+    // ページ表示状態の変更を監視
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pageshow', handlePageShow);
 }
 
 /**
- * ハートビート（定期実行）を設定する
+ * コンパスイベントリスナーをアタッチする
  */
-function setupHeartbeat() {
-    if (heartbeatInterval) clearInterval(heartbeatInterval);
-    heartbeatInterval = setInterval(() => {
-        heartbeatTicks++;
-        console.log(`[DEBUG-HB] tick raw=${lastRawHeading?.toFixed(1)} current=${currentHeading?.toFixed(1)}`);
-        
-        // センサーイベントが10秒間なければ警告
-        if (Date.now() - lastCompassEventTime > 10000) {
-            console.warn(`[WARN-HB] no compass events 10s`);
+function attachCompassListener() {
+    console.log('[DEBUG-WIRE] Attempting to attach compass listener...');
+    
+    const options = { absolute: true };
+    
+    if ('AbsoluteOrientationSensor' in window) {
+        try {
+            const sensor = new AbsoluteOrientationSensor({ frequency: 60, referenceFrame: 'device' });
+            sensor.addEventListener('reading', () => {
+                // webkitCompassHeading と同じ0=北, 90=東になるように変換
+                const heading = 360 - sensor.quaternion[2] * 180 / Math.PI;
+                onCompassUpdate({ alpha: heading, absolute: true });
+            });
+            sensor.addEventListener('error', (event) => {
+                 console.error('[PERM] AbsoluteOrientationSensor error:', event.error.name, event.error.message);
+                 // フォールバック
+                 window.addEventListener('deviceorientationabsolute', (e) => onCompassUpdate(e), true);
+            });
+            sensor.start();
+            console.log('[DEBUG-WIRE] AbsoluteOrientationSensor attached');
+        } catch(e) {
+            console.error('[PERM] AbsoluteOrientationSensor construction failed:', e);
+            window.addEventListener('deviceorientationabsolute', (e) => onCompassUpdate(e), true);
         }
-        
-        // ハートビートでも回転更新を呼び出し、無反応を防ぐ
-        updateMapRotation(lastRawHeading, currentHeading);
 
-    }, 1000); // 1秒ごとに実行
+    } else if ('ondeviceorientationabsolute' in window) {
+        window.addEventListener('deviceorientationabsolute', (e) => onCompassUpdate(e), true);
+        console.log('[DEBUG-WIRE] deviceorientationabsolute listener attached');
+    } else if ('ondeviceorientation' in window) {
+        window.addEventListener('deviceorientation', (e) => onCompassUpdate(e), true);
+        console.log('[DEBUG-WIRE] deviceorientation listener attached');
+    } else {
+        console.error("[PERM] Compass API not supported.");
+    }
 }
+
 
 // --- イベントハンドラ ---
 
-/**
- * コンパスセンサーの値が更新されたときに呼ばれる
- * @param {DeviceOrientationEvent} event
- */
-function onCompassUpdate(event) {
-    lastCompassEventTime = Date.now();
-    let rawHeading = null;
-    if (event.webkitCompassHeading !== undefined) { // iOS
-        rawHeading = event.webkitCompassHeading;
-    } else if (event.alpha !== null) { // Android
-        rawHeading = (event.absolute === true) ? event.alpha : 360 - event.alpha;
-    }
-
-    if (rawHeading === null) return;
-    
-    // 磁北から真北への補正（磁気偏角）
-    // Note: このデモでは簡単のため磁気偏角を0と仮定。実際にはAPI等で取得する。
-    const trueHeading = rawHeading; 
-    
-    console.log(`[DEBUG-EVT] onCompassUpdate raw=${rawHeading.toFixed(1)} current=${trueHeading.toFixed(1)}`);
-    
-    // グローバル変数を更新
-    lastRawHeading = rawHeading;
-    currentHeading = trueHeading;
-    
-    // 初回有効値の検出と強制適用
-    if (!compassInitialized && typeof rawHeading === 'number' && typeof trueHeading === 'number') {
-        compassInitialized = true;
-        console.log(`[DEBUG-INIT] first raw=${rawHeading.toFixed(1)} current=${trueHeading.toFixed(1)} → applied`);
-        updateMapRotation(rawHeading, trueHeading);
-        updateMapRotation(rawHeading, trueHeading); // 冗長呼び出しで確実化
-    }
-    
-    // 通常の回転更新
-    updateMapRotation(rawHeading, trueHeading);
-}
-
-
-/**
- * GPSの位置情報が更新されたときに呼ばれる
- * @param {GeolocationPosition} position
- */
 function onGpsUpdate(position) {
-    const { latitude, longitude } = position.coords;
-    console.log(`[DEBUG-EVT] onGpsUpdate lat=${latitude.toFixed(4)}, lon=${longitude.toFixed(4)}`);
-    
-    // 測位ステータスを「GPS受信中」に更新
-    if (dom.gpsStatus.textContent !== "GPS受信中") {
-        dom.gpsStatus.textContent = "GPS受信中";
-        dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
-    }
-
-    onPositionUpdate(position); // mapControllerへ処理を委譲
+    console.log(`[DEBUG-EVT] onGpsUpdate lat=${position.coords.latitude.toFixed(4)}, lon=${position.coords.longitude.toFixed(4)}`);
+    currentPosition = position;
+    onPositionUpdate(position); // mapControllerへ通知
 }
 
-/**
- * GPSのエラーハンドラ
- * @param {GeolocationPositionError} error
- */
 function handlePositionError(error) {
     let msg = "測位エラー";
     if (error.code === 1) msg = "アクセス拒否";
@@ -175,5 +108,85 @@ function handlePositionError(error) {
     dom.gpsStatus.textContent = msg;
     dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
     console.error(`[PERM] GPS Error: ${msg}`, error);
+}
+
+function onCompassUpdate(event) {
+    let rawHeading = null;
+    
+    if (event.webkitCompassHeading !== undefined) { // Safari
+        rawHeading = event.webkitCompassHeading;
+    } else if (event.alpha !== null) { // その他
+        rawHeading = event.absolute ? event.alpha : 360 - event.alpha;
+    }
+
+    if (rawHeading === null) return;
+    
+    lastCompassEventTime = Date.now();
+    
+    const trueHeading = (rawHeading + magneticDeclination + 360) % 360;
+
+    if (lastRawHeading !== null) {
+        let diff = trueHeading - lastCurrentHeading;
+        if (diff > 180) diff -= 360;
+        if (diff < -180) diff += 360;
+        currentHeading = (lastCurrentHeading + diff * HEADING_FILTER_ALPHA + 360) % 360;
+    } else {
+        currentHeading = trueHeading;
+    }
+
+    console.log(`[DEBUG-EVT] onCompassUpdate raw=${rawHeading.toFixed(1)} current=${currentHeading.toFixed(1)}`);
+    
+    lastRawHeading = rawHeading;
+    lastCurrentHeading = currentHeading;
+
+    if (!compassInitialized && typeof lastRawHeading === 'number' && typeof currentHeading === 'number') {
+        compassInitialized = true;
+        console.log(`[DEBUG-INIT] first raw=${lastRawHeading.toFixed(1)} current=${currentHeading.toFixed(1)} → applied`);
+        updateMapRotation(lastRawHeading, currentHeading);
+        updateMapRotation(lastRawHeading, currentHeading); // 冗長呼び出し
+    }
+
+    updateMapRotation(lastRawHeading, currentHeading);
+}
+
+function handleVisibilityChange() {
+    if (document.visibilityState === 'visible') {
+        console.log('[DEBUG-WIRE] page visible → reattach listeners');
+        // 必要に応じてリスナーを再アタッチ
+        startHeartbeat(); // ハートビートを再開
+    } else {
+        stopHeartbeat(); // バックグラウンドでは停止
+    }
+}
+
+function handlePageShow(event) {
+    if (event.persisted) {
+        console.log('[DEBUG-WIRE] page show from bfcache → reattach listeners');
+        startHeartbeat();
+    }
+}
+
+
+// --- ハートビート ---
+
+function startHeartbeat() {
+    if (heartbeatIntervalId) clearInterval(heartbeatIntervalId);
+    heartbeatIntervalId = setInterval(() => {
+        heartbeatTicks++;
+        if (typeof lastRawHeading === 'number' && typeof currentHeading === 'number') {
+             console.log(`[DEBUG-HB] tick raw=${lastRawHeading.toFixed(1)} current=${currentHeading.toFixed(1)}`);
+             updateMapRotation(lastRawHeading, currentHeading);
+        }
+        if (Date.now() - lastCompassEventTime > COMPASS_TIMEOUT_MS) {
+            console.warn(`[WARN-HB] no compass events ${COMPASS_TIMEOUT_MS/1000}s`);
+        }
+    }, HEARTBEAT_INTERVAL_MS);
+}
+
+function stopHeartbeat() {
+    if (heartbeatIntervalId) {
+        clearInterval(heartbeatIntervalId);
+        heartbeatIntervalId = null;
+    }
 }
 

@@ -12,7 +12,7 @@ let currentMode = 'acquire'; // 'acquire' or 'navigate'
 let indexToDelete = null; 
 let manualInputMode = 'latlon'; 
 
-// ★★★ 変更点: debugEnabledを追加 ★★★
+// アプリケーションの状態を一元管理
 const appState = {
     followUser: true, 
     headingUp: false,
@@ -20,19 +20,17 @@ const appState = {
 };
 
 let isResizing = false;
-let currentHeading = null; // ★★★ 変更点: 初期値をnullに ★★★
+let currentHeading = null; 
 let currentUserCourse = null; 
 let currentGnssStatus = '---';
 let isBearingInverted = false;
 
 // --- デバッグ用グローバル変数 ---
 let lastDrawnMarkerAngle = null;
-let lastRawHeading = null; // ★★★ 変更点: 初期値をnullに ★★★
-let lastDebugUpdateTime = 0; // for throttling debug UI updates
-let heartbeatTicks = 0;
+let lastRawHeading = null; 
 let compassInitialized = false;
-let heartbeatInterval = null;
-
+let heartbeatTicks = 0;
+let lastCompassEventTime = 0;
 
 // --- DOM要素 ---
 const dom = {
@@ -101,9 +99,6 @@ const dom = {
     fullscreenDistance: document.getElementById('fullscreen-distance'),
     fullscreenBearingText: document.getElementById('fullscreen-bearing-text'),
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
-    // ★★★ 新規追加 ★★★
-    sensorPermissionOverlay: document.getElementById('sensor-permission-overlay'),
-    startSensorsBtn: document.getElementById('start-sensors-btn'),
-    debugPanel: document.getElementById('debug-panel'),
+    debugPanel: null,
 };
 

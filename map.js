@@ -85,30 +85,20 @@ function initializeMap() {
     });
     map.addControl(new OrientationControl());
 
-    // --- 現在地マーカーのDOM構造を修正 ---
+    // ★★★ 修正箇所: id="userMarker" を持つdivで全体をラップ ★★★
     const userIconHTML = `
-        <div class="user-location-marker-rotator" style="transform-origin: center center; will-change: transform;">
-            <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-        </div>
-    `;
+        <div id="userMarker" class="user-marker" data-role="user">
+            <div class="user-location-marker-rotator">
+                <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+            </div>
+        </div>`;
+        
     const userIcon = L.divIcon({
         html: userIconHTML,
-        className: 'user-marker', // ★★★ 変更: CSSで識別しやすいようにクラス名変更
+        className: 'user-location-marker',
         iconSize: [30, 30],
         iconAnchor: [15, 15]
     });
-
-    // ★★★ 変更: マーカーにIDとカスタム属性を付与 ★★★
-    currentUserMarker = L.marker([0, 0], { 
-        icon: userIcon, 
-        pane: 'markerPane' 
-    }).addTo(map);
-
-    // LeafletがDOMを生成した後にIDと属性を設定
-    currentUserMarker.on('add', function() {
-        this.getElement().id = 'userMarker';
-        this.getElement().setAttribute('data-role', 'user');
-        console.log('[DEBUG-DOM] userMarker added to map');
-    });
+    currentUserMarker = L.marker([0, 0], { icon: userIcon, pane: 'markerPane' }).addTo(map);
 }
 

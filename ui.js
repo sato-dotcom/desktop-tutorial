@@ -1,9 +1,14 @@
 // ui.js
 
-// 調整可能パラメータ
-const DEBUG_UI_THROTTLE_MS = 500; // 2Hz
+// --- 内部状態変数 ---
+let lastDebugUpdateTime = 0;
+const LOG_THROTTLE_MS = 500; // デバッグUIの更新頻度（ミリ秒）
 
+/**
+ * UIの初期化とイベントリスナーの設定
+ */
 function initializeUI() {
+    // 静的なイベントリスナー
     dom.modeAcquireTab.addEventListener('click', () => switchMode('acquire'));
     dom.modeNavigateTab.addEventListener('click', () => switchMode('navigate'));
     dom.recordPointBtn.addEventListener('click', handleRecordPoint);
@@ -42,11 +47,15 @@ function initializeUI() {
     });
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
-    
+
+    // UIの初期状態を設定
     updateFollowButtonState();
     updateOrientationButtonState();
 }
 
+/**
+ * デバッグパネルの表示を初期化/更新する
+ */
 function initializeDebugPanel() {
     dom.debugPanel = document.getElementById('debug-panel');
     if (appState.debugEnabled && dom.debugPanel) {
@@ -56,26 +65,29 @@ function initializeDebugPanel() {
     }
 }
 
+/**
+ * デバッグパネルの内容を更新する（スロットル制御付き）
+ * @param {object} debugInfo - 表示するデバッグ情報
+ */
 function updateDebugPanel(debugInfo) {
     if (!appState.debugEnabled || !dom.debugPanel) return;
 
     const now = Date.now();
-    if (now - lastDebugUpdateTime < DEBUG_UI_THROTTLE_MS) {
-        return; // スロットリング
-    }
+    if (now - lastDebugUpdateTime < LOG_THROTTLE_MS) return;
     lastDebugUpdateTime = now;
 
     const content = `
-Mode: ${debugInfo.mode || 'N/A'}
-raw/current: ${debugInfo.raw?.toFixed(1) ?? '-'}/${debugInfo.current?.toFixed(1) ?? '-'}°
+Mode: ${debugInfo.mode}
+raw/current: ${debugInfo.raw?.toFixed(1) ?? '-'}° / ${debugInfo.current?.toFixed(1) ?? '-'}°
 relative: ${debugInfo.relative?.toFixed(1) ?? '-'}°
 target: ${debugInfo.target?.toFixed(1) ?? '-'}°
-last/diff: ${(debugInfo.last||0).toFixed(1)}°/${(debugInfo.diff||0).toFixed(1)}°
+last/diff: ${(debugInfo.last || 0).toFixed(1)}° / ${(debugInfo.diff || 0).toFixed(1)}°
 selector: ${debugInfo.selector || '-'}
-init: ${compassInitialized} / HB: ${heartbeatTicks}
-`.trim().replace(/^\s+/gm, '');
+init: ${compassInitialized} / HB: ${debugInfo.hbTicks}
+`.trim();
 
     dom.debugPanel.textContent = content;
+    // 自動で一番下にスクロール
     dom.debugPanel.scrollTop = dom.debugPanel.scrollHeight;
 }
 
@@ -124,7 +136,7 @@ function updatePointList() {
     if (recordedPoints.length === 0) {
         dom.pointList.innerHTML = '<p class="text-gray-500 text-sm">まだ記録はありません。</p>';
     }
-    
+
     dom.exportCsvBtn.disabled = recordedPoints.length === 0;
     dom.deleteAllBtn.disabled = recordedPoints.length === 0 && importedPoints.length === 0;
 
@@ -133,7 +145,7 @@ function updatePointList() {
         const visibilityClass = p.isVisible ? '' : 'opacity-50';
         const iconClass = p.isVisible ? 'fa-eye' : 'fa-eye-slash';
         const iconColor = p.isVisible ? 'text-gray-500' : 'text-gray-300';
-        
+
         item.className = `p-2 border-b flex justify-between items-center ${visibilityClass}`;
         item.innerHTML = `
             <div>
@@ -233,8 +245,9 @@ function updateGnssStatus(accuracy) {
     currentGnssStatus = statusText;
 
     [dom.gnssStatus, dom.fullscreenGnssStatus].forEach(el => {
+        if (!el) return;
         el.textContent = statusText;
-        el.className = 'font-mono text-xs'; // Reset classes
+        el.className = 'font-mono text-xs';
         if (statusText === 'FIX') el.classList.add('text-green-600', 'font-bold');
         else if (statusText === 'FLOAT') el.classList.add('text-blue-600', 'font-bold');
         else if (statusText === 'SINGLE') el.classList.add('text-orange-600', 'font-bold');
@@ -242,17 +255,19 @@ function updateGnssStatus(accuracy) {
     });
 }
 
+// --- 状態に依存するUI更新 ---
+
 function updateFollowButtonState() {
-    if(!dom.followUserBtn) return;
+    if (!dom.followUserBtn) return;
     dom.followUserBtn.classList.toggle('is-on', appState.followUser);
     dom.followUserBtn.classList.toggle('is-off', !appState.followUser);
     dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
 }
 
 function updateOrientationButtonState() {
-    if(!dom.orientationToggleBtn) return;
+    if (!dom.orientationToggleBtn) return;
     const icon = dom.orientationToggleBtn.querySelector('i');
-    
+
     dom.orientationToggleBtn.classList.toggle('is-on', appState.headingUp);
     dom.orientationToggleBtn.classList.toggle('is-off', !appState.headingUp);
 
