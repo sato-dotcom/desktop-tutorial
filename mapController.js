@@ -5,7 +5,7 @@ const ROTATION_OFFSET = 0;              // マーカー画像の向き補正 (0 
 
 // --- 状態変数 ---
 let lastAppliedSelector = '';
-let lastDrawnMarkerAngle = null; // 補間用に最終描画角度を保持
+// let lastDrawnMarkerAngle = null; // 補間用に最終描画角度を保持 ← state.jsで宣言済みのため削除
 
 /**
  * 角度を-180度から+180度の範囲に正規化する
@@ -194,4 +194,5 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
+
 
