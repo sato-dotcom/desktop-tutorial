@@ -119,14 +119,14 @@ function updateMapRotation(rawHeading, currentHeading) {
 
     let targetAngle = 0;
     let diff = 0;
-    let relativeAngle = 0; // デバッグログ用
+    let relativeAngle = 0; 
 
     if (appState.headingUp && typeof currentHeading === 'number') {
-        // ★★★ 修正: 進行方向を正しく反映するため、-currentHeading から currentHeading に変更 ★★★
-        targetAngle = currentHeading;
+        // ★★★ 修正: CSSのrotate()と方向を合わせるため、値を反転させる ★★★
+        targetAngle = -currentHeading;
     }
     
-    relativeAngle = targetAngle; // デバッグ用: ヘディングアップ時の目標角をrelativeAngleとして記録
+    relativeAngle = targetAngle; 
 
     if (lastDrawnMarkerAngle === null) {
         lastDrawnMarkerAngle = targetAngle;
@@ -138,15 +138,13 @@ function updateMapRotation(rawHeading, currentHeading) {
         consecutiveSpikes++;
     } else {
         lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
-        lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360;
         consecutiveSpikes = 0;
     }
     
+    // ★★★ 修正: ROTATION_OFFSET を加算して最終的な角度を決定 ★★★
     const finalAngle = lastDrawnMarkerAngle + ROTATION_OFFSET;
     const transformValue = `rotate(${finalAngle.toFixed(1)}deg)`;
 
-    // ★★★ 修正: DOM適用直前のログを追加 ★★★
-    console.log(`[DEBUG-DOM] Applying to selector: '${lastAppliedSelector}', transform: '${transformValue}'`);
     rotator.style.transform = transformValue;
 
     const log = {
@@ -162,7 +160,7 @@ function updateMapRotation(rawHeading, currentHeading) {
     };
     
     // ★★★ 修正: [DEBUG-RM2] ログの拡充 ★★★
-    console.log(`[DEBUG-RM2] mode=${log.mode} raw=${log.raw?.toFixed(1)}° current=${log.current?.toFixed(1)}° relative=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}° last=${log.last?.toFixed(1)}° diff=${log.diff?.toFixed(1)}°`);
+    console.log(`[DEBUG-RM2] raw=${log.raw?.toFixed(1)}° curr=${log.current?.toFixed(1)}° rel=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}°`);
     
     updateDebugPanel(log);
 }

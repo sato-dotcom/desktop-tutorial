@@ -76,12 +76,10 @@ function updateDebugPanel(debugInfo) {
     if (now - lastDebugUpdateTime < LOG_THROTTLE_MS) return;
     lastDebugUpdateTime = now;
     
-    // ★★★ 修正依頼: 表示内容を拡充 ★★★
     const content = `
 Mode      : ${debugInfo.mode}
 raw/curr  : ${debugInfo.raw?.toFixed(1) ?? '--'}° / ${debugInfo.current?.toFixed(1) ?? '--'}°
-relative  : ${debugInfo.relative?.toFixed(1) ?? '--'}°
-target    : ${debugInfo.target?.toFixed(1) ?? '--'}°
+target    : ${debugInfo.target?.toFixed(1) ?? '--'}° (Offset: ${ROTATION_OFFSET})
 lastDrawn : ${(debugInfo.last || 0).toFixed(1)}°
 diff      : ${(debugInfo.diff || 0).toFixed(1)}°
 init/HB   : ${compassInitialized} / ${debugInfo.hbTicks}
