@@ -95,24 +95,29 @@ function attachCompassListener() {
 
 // --- イベントハンドラ ---
 
+/**
+ * GPSから位置情報が更新されたときに呼ばれる
+ * @param {GeolocationPosition} position 
+ */
 function onGpsUpdate(position) {
-    // console.log(`[DEBUG-EVT] onGpsUpdate lat=${position.coords.latitude.toFixed(4)}, lon=${position.coords.longitude.toFixed(4)}`);
+    // ★★★ 修正: イベント発火を明確にログ出力 ★★★
+    console.log(`[DEBUG-EVT] onGpsUpdate fired. lat=${position.coords.latitude.toFixed(4)}, lon=${position.coords.longitude.toFixed(4)}`);
     currentPosition = position;
     onPositionUpdate(position); // mapControllerへ通知
 }
 
-function handlePositionError(error) {
-    let msg = "測位エラー";
-    if (error.code === 1) msg = "アクセス拒否";
-    if (error.code === 2) msg = "測位不可";
-    if (error.code === 3) msg = "タイムアウト";
-    dom.gpsStatus.textContent = msg;
-    dom.gpsStatus.className = 'bg-red-100 text-red-800 px-2 py-1 rounded-full font-mono text-xs';
-    console.error(`[PERM] GPS Error: ${msg}`, error);
-}
-
+/**
+ * GPSエラーハンドラ
+ * @param {GeolocationPositionError} error 
+ */
+/**
+ * コンパスの方位が更新されたときに呼ばれる
+ * @param {DeviceOrientationEvent} event 
+ */
 function onCompassUpdate(event) {
-    let rawHeadingValue = null;
+    // ★★★ 修正: イベント発火を明確にログ出力 ★★★
+    console.log(`[DEBUG-EVT] onCompassUpdate fired.`);
+    let rawHeading = null;
     
     if (event.webkitCompassHeading !== undefined) { // Safari
         rawHeadingValue = event.webkitCompassHeading;
@@ -121,7 +126,7 @@ function onCompassUpdate(event) {
         rawHeadingValue = event.absolute ? event.alpha : 360 - event.alpha;
     }
 
-    if (rawHeadingValue === null) return;
+    if (rawHeading === null) return;
     
     lastCompassEventTime = Date.now();
     
@@ -198,3 +203,4 @@ function stopHeartbeat() {
         heartbeatIntervalId = null;
     }
 }
+
