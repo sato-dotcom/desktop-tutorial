@@ -14,6 +14,17 @@
 </head>
 <body class="bg-gray-200 font-sans">
 
+    <!-- ★★★ 変更点: センサー権限取得用のオーバーレイを追加 ★★★ -->
+    <div id="sensorPermissionOverlay" class="sensor-overlay">
+        <div class="sensor-overlay-content">
+            <h2 class="text-xl font-bold mb-4">センサー利用の許可</h2>
+            <p class="mb-6">現在地と端末の向きを取得するために、センサーへのアクセス許可が必要です。「開始」ボタンを押して許可してください。</p>
+            <button id="startSensorsBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 shadow-md">
+                <i class="fas fa-play mr-2"></i>開始
+            </button>
+        </div>
+    </div>
+
     <!-- アプリのHTML構造 -->
     <div class="w-full h-full flex flex-col">
         <main>
@@ -175,7 +186,7 @@
     </div>
     
     <!-- デバッグUI用のコンテナを追加 -->
-    <div id="debug-panel" class="debug-panel"></div>
+    <pre id="debug-panel" class="debug-panel"></pre>
 
     <!-- 外部ライブラリ -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

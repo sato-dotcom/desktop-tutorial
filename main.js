@@ -1,71 +1,75 @@
 // main.js
 
-/**
- * アプリケーションの初期化処理
- */
 window.onload = () => {
     console.log("--- 🚀 App Initializing ---");
 
-    // 各種初期化
     initializeCoordSystemDefinitions();
     initializeMap(); 
     initializeCoordSystemSelector();
-
-    // LeafletコントロールがDOMに追加された後に要素を取得
+    initializeUI();
+    initializeDebugPanel();
+    
     dom.followUserBtn = document.getElementById('follow-user-btn');
     dom.orientationToggleBtn = document.getElementById('orientation-toggle-btn');
     dom.fullscreenBtn = document.getElementById('fullscreen-btn');
-    
-    initializeUI();
-    initializeDebugPanel(); // デバッグパネルを初期化
 
-    // 状態に依存する動的なイベントリスナー
-    if (dom.followUserBtn) {
-        dom.followUserBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleFollowUser(!appState.followUser);
-        });
-    }
-    if (dom.orientationToggleBtn) {
-        dom.orientationToggleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleHeadingUp(!appState.headingUp);
-        });
-    }
+    // ★★★ 変更点: 権限取得フローを開始 ★★★
+    setupSensorPermissionFlow();
 
-    // 全画面表示の変更を監視
     document.addEventListener('fullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('webkitfullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('mozfullscreenchange', stabilizeAfterFullScreen);
     document.addEventListener('MSFullscreenChange', stabilizeAfterFullScreen);
-
-    // GPSとコンパスを開始
-    startSensors();
     
-    // 保存されたデータを読み込み
-    loadData();
+    // ページ復帰時のリスナー再アタッチ
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pagehide', () => clearInterval(heartbeatInterval));
+    window.addEventListener('pageshow', handleVisibilityChange);
 
-    // 強制動作検証（テストモード）
+    loadData();
+};
+
+/**
+ * ★★★ 新規追加: センサー権限取得のフローを管理 ★★★
+ */
+function setupSensorPermissionFlow() {
+    const startSensorsHandler = () => {
+        // Remove listeners to avoid multiple triggers
+        dom.startSensorsBtn.removeEventListener('click', startSensorsHandler);
+        dom.startSensorsBtn.removeEventListener('touchstart', startSensorsHandler);
+
+        startSensors().then(() => {
+            dom.sensorPermissionOverlay.classList.add('hidden');
+        }).catch(err => {
+            console.error("Sensor initialization failed:", err);
+            alert("センサーの初期化に失敗しました。ページを再読み込みして再度お試しください。");
+        });
+    };
+
+    dom.startSensorsBtn.addEventListener('click', startSensorsHandler);
+    dom.startSensorsBtn.addEventListener('touchstart', startSensorsHandler);
+
+    // 3秒後にユーザー操作がなければオーバーレイを強制表示
     setTimeout(() => {
         if (!compassInitialized) {
-            console.log('[DEBUG-FORCE] no sensor → applied dummy raw=0 current=0');
-            updateMapRotation(0, 0);
-
-            const sequence = [90, 180, 270, 0];
-            let step = 0;
-            const sequenceInterval = setInterval(() => {
-                if (compassInitialized || step >= sequence.length) {
-                    clearInterval(sequenceInterval);
-                    return;
-                }
-                const target = sequence[step];
-                console.log(`[DEBUG-FORCE] sequence step ${step} target=${target}`);
-                updateMapRotation(target, target);
-                step++;
-            }, 1000);
+            console.log("[DEBUG-FORCE] no user gesture → prompt");
+            dom.sensorPermissionOverlay.classList.remove('hidden');
         }
     }, 3000);
-};
+}
+
+/**
+ * ★★★ 新規追加: ページ表示状態の変更をハンドル ★★★
+ */
+function handleVisibilityChange() {
+    if (document.visibilityState === 'visible') {
+        console.log("[DEBUG-WIRE] page show → reattach listeners");
+        if (compassInitialized) { // 既に一度開始されている場合のみ
+            startSensors().catch(err => console.error("Re-attaching sensors failed:", err));
+        }
+    } else {
+        clearInterval(heartbeatInterval);
+        heartbeatInterval = null;
+    }
+}
 

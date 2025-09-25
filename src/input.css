@@ -13,6 +13,19 @@ html, body {
   height: 100dvh;
 }
 
+/* --- ★★★ 新規追加: Sensor Permission Overlay ★★★ --- */
+.sensor-overlay {
+    @apply fixed inset-0 z-[10001] bg-black bg-opacity-60 flex items-center justify-center p-4 transition-opacity duration-300;
+    backdrop-filter: blur(5px);
+}
+.sensor-overlay-content {
+    @apply bg-white p-6 rounded-lg shadow-xl w-full max-w-sm text-center;
+}
+.sensor-overlay.hidden {
+    @apply opacity-0 pointer-events-none;
+}
+
+
 /* --- Custom Leaflet Controls --- */
 .leaflet-control-custom-btn {
   @apply w-[34px] h-[34px] flex items-center justify-center text-lg cursor-pointer transition-colors duration-200;
@@ -38,8 +51,10 @@ html, body {
     /* No transition on the container to prevent lat/lng update jitter */
 }
 .user-location-marker-rotator {
-    @apply w-full h-full transition-transform duration-200 ease-linear; /* 回転を滑らかに */
-    transform-origin: center center; /* 回転の中心を保証 */
+    @apply w-full h-full;
+    transform-origin: center center;
+    will-change: transform;
+    /* transition-transformをmapController側で制御するため削除 */
 }
 .user-location-marker svg {
     @apply w-full h-full fill-current text-blue-500;
@@ -95,11 +110,14 @@ body.fullscreen-active #fullscreen-info-panel {
   to { transform: rotate(360deg); }
 }
 
-/* --- Debug Panel --- */
+/* --- ★★★ 変更点: Debug Panel Styles 拡張 ★★★ --- */
 .debug-panel {
-    @apply fixed bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs font-mono p-2 rounded shadow-lg z-[10000] pointer-events-none;
-    white-space: pre;
+    @apply fixed bottom-2 right-2 z-[10000] bg-black bg-opacity-70 text-white font-mono text-xs p-2 rounded shadow-lg pointer-events-auto;
+    white-space: pre-wrap;
+    word-break: break-all;
     max-height: 40vh;
+    width: 280px;
     overflow-y: auto;
+    display: none; /* 初期状態は非表示 */
 }
 

@@ -1,7 +1,9 @@
 // ui.js
 
+// 調整可能パラメータ
+const DEBUG_UI_THROTTLE_MS = 500; // 2Hz
+
 function initializeUI() {
-    // 静的イベントリスナー
     dom.modeAcquireTab.addEventListener('click', () => switchMode('acquire'));
     dom.modeNavigateTab.addEventListener('click', () => switchMode('navigate'));
     dom.recordPointBtn.addEventListener('click', handleRecordPoint);
@@ -57,6 +59,12 @@ function initializeDebugPanel() {
 function updateDebugPanel(debugInfo) {
     if (!appState.debugEnabled || !dom.debugPanel) return;
 
+    const now = Date.now();
+    if (now - lastDebugUpdateTime < DEBUG_UI_THROTTLE_MS) {
+        return; // スロットリング
+    }
+    lastDebugUpdateTime = now;
+
     const content = `
 Mode: ${debugInfo.mode || 'N/A'}
 raw/current: ${debugInfo.raw?.toFixed(1) ?? '-'}/${debugInfo.current?.toFixed(1) ?? '-'}°
@@ -64,11 +72,10 @@ relative: ${debugInfo.relative?.toFixed(1) ?? '-'}°
 target: ${debugInfo.target?.toFixed(1) ?? '-'}°
 last/diff: ${(debugInfo.last||0).toFixed(1)}°/${(debugInfo.diff||0).toFixed(1)}°
 selector: ${debugInfo.selector || '-'}
-init: ${compassInitialized} / HB: ${debugInfo.hbTicks}
-`.trim();
+init: ${compassInitialized} / HB: ${heartbeatTicks}
+`.trim().replace(/^\s+/gm, '');
 
     dom.debugPanel.textContent = content;
-    // Scroll to bottom to show the latest log
     dom.debugPanel.scrollTop = dom.debugPanel.scrollHeight;
 }
 

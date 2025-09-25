@@ -9,25 +9,30 @@ let recordedPoints = [];
 let importedPoints = [];
 let tempCoordsForModal = null;
 let currentMode = 'acquire'; // 'acquire' or 'navigate'
-let indexToDelete = null; // 削除対象のインデックスを保持
-let manualInputMode = 'latlon'; // 'latlon' or 'xy'
+let indexToDelete = null; 
+let manualInputMode = 'latlon'; 
 
-// アプリケーションの状態を一元管理
+// ★★★ 変更点: debugEnabledを追加 ★★★
 const appState = {
     followUser: true, 
     headingUp: false,
-    debugEnabled: true // デバッグパネルの表示状態
+    debugEnabled: true // デバッグパネルの表示を制御
 };
 
 let isResizing = false;
-let currentHeading = 0; // デバイスの向き（コンパス）
-let currentUserCourse = null; // GPSによる進行方向
-let currentGnssStatus = '---'; // GNSSステータスを保持
-let isBearingInverted = false; // 船首方位の反転状態
+let currentHeading = null; // ★★★ 変更点: 初期値をnullに ★★★
+let currentUserCourse = null; 
+let currentGnssStatus = '---';
+let isBearingInverted = false;
 
 // --- デバッグ用グローバル変数 ---
-let lastDrawnMarkerAngle = null; 
-let lastRawHeading = null; 
+let lastDrawnMarkerAngle = null;
+let lastRawHeading = null; // ★★★ 変更点: 初期値をnullに ★★★
+let lastDebugUpdateTime = 0; // for throttling debug UI updates
+let heartbeatTicks = 0;
+let compassInitialized = false;
+let heartbeatInterval = null;
+
 
 // --- DOM要素 ---
 const dom = {
@@ -84,7 +89,9 @@ const dom = {
     deleteAllConfirmModal: document.getElementById('delete-all-confirm-modal'),
     cancelDeleteAllBtn: document.getElementById('cancel-delete-all-btn'),
     confirmDeleteAllBtn: document.getElementById('confirm-delete-all-btn'),
-    followUserBtn: null, 
+    followUserBtn: null,
+    orientationToggleBtn: null,
+    fullscreenBtn: null,
     fullscreenInfoPanel: document.getElementById('fullscreen-info-panel'),
     fullscreenNavInfo: document.getElementById('fullscreen-nav-info'),
     fullscreenLat: document.getElementById('fullscreen-lat'),
@@ -94,5 +101,9 @@ const dom = {
     fullscreenDistance: document.getElementById('fullscreen-distance'),
     fullscreenBearingText: document.getElementById('fullscreen-bearing-text'),
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
-    debugPanel: null, // デバッグパネル用
+    // ★★★ 新規追加 ★★★
+    sensorPermissionOverlay: document.getElementById('sensor-permission-overlay'),
+    startSensorsBtn: document.getElementById('start-sensors-btn'),
+    debugPanel: document.getElementById('debug-panel'),
 };
+
