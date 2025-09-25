@@ -1,14 +1,11 @@
 // mapController.js
 
 // --- 調整可能パラメータ ---
-const ROTATION_LERP_FACTOR = 0.3;       // 回転の補間係数 (小さいほど滑らか)
-const HEADING_SPIKE_THRESHOLD = 45;     // スパイクとみなす角度変化の閾値 (度)
-const MAX_CONSECUTIVE_SKIPS = 3;        // スパイク除去で連続スキップする最大フレーム数
 const ROTATION_OFFSET = 0;              // マーカー画像の向き補正 (0 or 180)
 
 // --- 状態変数 ---
-let consecutiveSpikes = 0;
 let lastAppliedSelector = '';
+let lastDrawnMarkerAngle = null; // 補間用に最終描画角度を保持
 
 /**
  * 角度を-180度から+180度の範囲に正規化する
@@ -95,7 +92,6 @@ function toggleHeadingUp(on) {
     appState.headingUp = on;
     updateOrientationButtonState();
     lastDrawnMarkerAngle = null;
-    consecutiveSpikes = 0;
     updateMapRotation(lastRawHeading, currentHeading);
 }
 
@@ -119,37 +115,24 @@ function updateMapRotation(rawHeading, currentHeading) {
 
     let targetAngle = 0;
     let relativeAngle = 0;
-    let diff = 0;
 
+    // ★★★ 修正: HeadingUpモードの時だけ相対角度を計算し、それ以外は0にする ★★★
     if (appState.headingUp && typeof currentHeading === 'number' && typeof rawHeading === 'number') {
-        // ★★★ 修正: rawとcurrentから相対角度を計算し、それを目標角度とする ★★★
+        // HeadingUp mode
         relativeAngle = normalizeDeg(currentHeading - rawHeading);
         targetAngle = relativeAngle;
     } else {
         // North-up mode
-        targetAngle = 0;
         relativeAngle = 0;
-    }
-
-    if (lastDrawnMarkerAngle === null) {
-        lastDrawnMarkerAngle = targetAngle;
-    }
-
-    diff = normalizeDeg(targetAngle - lastDrawnMarkerAngle);
-
-    if (appState.headingUp && Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
-        consecutiveSpikes++;
-    } else {
-        lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
-        consecutiveSpikes = 0;
+        targetAngle = 0;
     }
     
-    const finalAngle = lastDrawnMarkerAngle + ROTATION_OFFSET;
+    const finalAngle = targetAngle + ROTATION_OFFSET;
     const transformValue = `rotate(${finalAngle.toFixed(1)}deg)`;
-    
-    // ★★★ 修正: [DEBUG-DOM] ログの追加 ★★★
-    console.log(`[DEBUG-DOM] selector: ${lastAppliedSelector}, transform: ${transformValue}`);
+
+    // DOM適用
     rotator.style.transform = transformValue;
+    lastDrawnMarkerAngle = finalAngle; // 描画した角度を保存
 
     const log = {
         mode: appState.headingUp ? 'HeadingUp' : 'NorthUp',
@@ -158,13 +141,12 @@ function updateMapRotation(rawHeading, currentHeading) {
         relative: relativeAngle,
         target: targetAngle,
         last: lastDrawnMarkerAngle,
-        diff: diff,
         selector: lastAppliedSelector,
         hbTicks: heartbeatTicks,
     };
     
     // ★★★ 修正: [DEBUG-RM2] ログの拡充 ★★★
-    console.log(`[DEBUG-RM2] relative=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}°`);
+    console.log(`[DEBUG-RM2] mode=${log.mode} relative=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}°`);
     
     updateDebugPanel(log);
 }

@@ -76,13 +76,12 @@ function updateDebugPanel(debugInfo) {
     if (now - lastDebugUpdateTime < LOG_THROTTLE_MS) return;
     lastDebugUpdateTime = now;
     
+    // ★★★ 修正: 補間処理がなくなったため、lastDrawn と diff を削除 ★★★
     const content = `
 Mode      : ${debugInfo.mode}
 raw/curr  : ${debugInfo.raw?.toFixed(1) ?? '--'}° / ${debugInfo.current?.toFixed(1) ?? '--'}°
 relative  : ${debugInfo.relative?.toFixed(1) ?? '--'}°
 target    : ${debugInfo.target?.toFixed(1) ?? '--'}° (Offset: ${ROTATION_OFFSET})
-lastDrawn : ${(debugInfo.last || 0).toFixed(1)}°
-diff      : ${(debugInfo.diff || 0).toFixed(1)}°
 init/HB   : ${compassInitialized} / ${debugInfo.hbTicks}
 `.trim();
 
