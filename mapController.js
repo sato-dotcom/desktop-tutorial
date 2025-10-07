@@ -52,12 +52,12 @@ function updateHeading(headingState) {
     const rotator = getMarkerRotatorElement();
     if (!rotator) return;
 
-    // ヘディングアップモードでない、または有効な方位角がない場合は北向き(0度)に固定
-    if (!appState.headingUp || headingState.value === null) {
+    // "north-up"モードでない、または有効な方位角がない場合は北向き(0度)に固定
+    if (appState.mode !== 'north-up' || headingState.value === null) {
         if (headingState.value === null) {
             logJSON('mapController.js', 'skip_rotation', {
                 reason: headingState.reason,
-                mode: appState.headingUp ? 'HeadingUp' : 'NorthUp'
+                mode: appState.mode
             });
         }
         rotator.style.transform = 'rotate(0deg)';
@@ -90,7 +90,7 @@ function updateHeading(headingState) {
     logJSON('mapController.js', 'apply_heading', {
         heading: newHeading.toFixed(1),   // センサーから取得した生の値
         rotation: newRotation.toFixed(1), // 補正後の実際に適用された回転角度
-        mode: 'HeadingUp'
+        mode: appState.mode
     });
 }
 
@@ -152,12 +152,6 @@ function toggleFollowUser(on) {
     }
 }
 
-function toggleHeadingUp(on) {
-    appState.headingUp = on;
-    updateOrientationButtonState();
-    updateHeading(appState.heading);
-}
-
 function toggleFullscreen() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         document.documentElement.requestFullscreen().catch(err => console.error(`Fullscreen failed: ${err.message}`));
@@ -166,4 +160,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-

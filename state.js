@@ -22,7 +22,7 @@ let manualInputMode = 'latlon';
 const appState = {
     position: null, // 現在の位置情報 (GeolocationPosition object)
     followUser: true,
-    headingUp: false,
+    mode: 'north-up', // 'north-up' or 'heading-up'
     debugEnabled: true,
     // 方位情報をオブジェクトで管理
     heading: {
@@ -92,6 +92,23 @@ function setHeading(newValue, reason) {
     updateHeading(appState.heading);
 }
 
+/**
+ * 表示モード（North-Up/Heading-Up）を変更する
+ * @param {string} newMode - 'north-up' または 'heading-up'
+ */
+function setMode(newMode) {
+    const oldMode = appState.mode;
+    if (oldMode === newMode) return;
+
+    appState.mode = newMode;
+    logJSON('state.js', 'mode_changed', { from: oldMode, to: newMode });
+    
+    updateModeUI();
+    // 新しいモードに基づいてマーカーの回転を再評価
+    updateHeading(appState.heading); 
+}
+
+
 // --- DOM要素 ---
 const dom = {
     map: document.getElementById('map'),
@@ -148,7 +165,6 @@ const dom = {
     cancelDeleteAllBtn: document.getElementById('cancel-delete-all-btn'),
     confirmDeleteAllBtn: document.getElementById('confirm-delete-all-btn'),
     followUserBtn: null,
-    orientationToggleBtn: null,
     fullscreenBtn: null,
     fullscreenInfoPanel: document.getElementById('fullscreen-info-panel'),
     fullscreenNavInfo: document.getElementById('fullscreen-nav-info'),
@@ -160,4 +176,6 @@ const dom = {
     fullscreenBearingText: document.getElementById('fullscreen-bearing-text'),
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
     debugPanel: null,
+    modeDisplay: document.getElementById('mode-display'),
+    modeSelector: null, // main.jsで設定
 };

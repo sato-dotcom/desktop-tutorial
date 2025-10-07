@@ -74,16 +74,24 @@ function initializeMap() {
     });
     map.addControl(new FullscreenControl());
     
-    const OrientationControl = L.Control.extend({
+    const ModeControl = L.Control.extend({
         options: { position: 'topleft' },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
-            container.innerHTML = `<a id="orientation-toggle-btn" href="#" title="北を上に固定中 (進行方向固定に切替)" class="leaflet-control-custom-btn"><i class="fas fa-compass"></i></a>`;
+            container.style.backgroundColor = 'white'; // leaflet-bar styles can make this transparent
+            container.innerHTML = `
+                <div class="leaflet-control-mode">
+                    <select id="mode-selector" title="表示モード切替">
+                        <option value="north-up" selected>North-Up</option>
+                        <option value="heading-up" disabled>Heading-Up (未実装)</option>
+                    </select>
+                </div>
+            `;
             L.DomEvent.disableClickPropagation(container);
             return container;
         }
     });
-    map.addControl(new OrientationControl());
+    map.addControl(new ModeControl());
 
     // 現在地マーカーは初回測位時にmapControllerで動的に生成するため、ここでの初期化は不要
 }

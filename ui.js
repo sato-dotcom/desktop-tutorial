@@ -50,7 +50,7 @@ function initializeUI() {
 
     // UIの初期状態を設定
     updateFollowButtonState();
-    updateOrientationButtonState();
+    updateModeUI();
 }
 
 /**
@@ -124,6 +124,19 @@ Heartbeat: ${debugInfo.hbTicks || '-'}
 
     dom.debugPanel.textContent = content;
 }
+
+/**
+ * 現在の表示モードをUIに反映させる
+ */
+function updateModeUI() {
+    if (dom.modeDisplay) {
+        dom.modeDisplay.textContent = appState.mode === 'north-up' ? 'North-Up' : 'Heading-Up';
+    }
+    if (dom.modeSelector) {
+        dom.modeSelector.value = appState.mode;
+    }
+}
+
 
 // -------------------------------------------------------------
 // 以下、既存のUI操作関数（変更なし）
@@ -297,20 +310,4 @@ function updateFollowButtonState() {
     dom.followUserBtn.classList.toggle('is-on', appState.followUser);
     dom.followUserBtn.classList.toggle('is-off', !appState.followUser);
     dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
-}
-
-function updateOrientationButtonState() {
-    if (!dom.orientationToggleBtn) return;
-    const icon = dom.orientationToggleBtn.querySelector('i');
-
-    dom.orientationToggleBtn.classList.toggle('is-on', appState.headingUp);
-    dom.orientationToggleBtn.classList.toggle('is-off', !appState.headingUp);
-
-    if (appState.headingUp) {
-        icon.className = 'fas fa-location-arrow';
-        dom.orientationToggleBtn.title = 'マーカーが端末の向きを表示中 (北固定に切替)';
-    } else {
-        icon.className = 'fas fa-compass';
-        dom.orientationToggleBtn.title = 'マーカーは北を固定表示中 (端末の向き表示に切替)';
-    }
 }

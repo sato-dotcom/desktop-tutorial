@@ -5,7 +5,7 @@
  */
 window.onload = () => {
     console.log("--- 🚀 App Initializing ---");
-    console.log(`Initial State: followUser=${appState.followUser}, headingUp=${appState.headingUp}, debug=${appState.debugEnabled}`);
+    console.log(`Initial State: followUser=${appState.followUser}, mode=${appState.mode}, debug=${appState.debugEnabled}`);
 
     // 各種初期化
     initializeCoordSystemDefinitions();
@@ -16,8 +16,8 @@ window.onload = () => {
     
     // --- DOM要素の取得とイベントリスナーの設定 ---
     dom.followUserBtn = document.getElementById('follow-user-btn');
-    dom.orientationToggleBtn = document.getElementById('orientation-toggle-btn');
     dom.fullscreenBtn = document.getElementById('fullscreen-btn');
+    dom.modeSelector = document.getElementById('mode-selector');
 
     if (dom.followUserBtn) {
         dom.followUserBtn.addEventListener('click', (e) => {
@@ -26,11 +26,9 @@ window.onload = () => {
             toggleFollowUser(!appState.followUser);
         });
     }
-    if (dom.orientationToggleBtn) {
-        dom.orientationToggleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleHeadingUp(!appState.headingUp);
+    if (dom.modeSelector) {
+        dom.modeSelector.addEventListener('change', (e) => {
+            setMode(e.target.value);
         });
     }
 
@@ -45,4 +43,3 @@ window.onload = () => {
     // 保存されたデータを読み込み
     loadData();
 };
-
