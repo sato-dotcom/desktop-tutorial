@@ -1,3 +1,8 @@
+/**
+ * state.js
+ * アプリケーションの全体状態を管理し、状態変更のログを一元的に出力する。
+ */
+
 // --- グローバル変数 ---
 let map, watchId;
 let currentPosition = null;
@@ -8,29 +13,63 @@ let navLine = null;
 let recordedPoints = [];
 let importedPoints = [];
 let tempCoordsForModal = null;
-let currentMode = 'acquire'; // 'acquire' or 'navigate'
-let indexToDelete = null; 
-let manualInputMode = 'latlon'; 
+let currentMode = 'acquire';
+let indexToDelete = null;
+let manualInputMode = 'latlon';
 
-// アプリケーションの状態を一元管理
+// --- アプリケーションの状態を一元管理 ---
 const appState = {
-    followUser: true, 
+    followUser: true,
     headingUp: false,
-    debugEnabled: true // デバッグパネルの表示を制御
+    debugEnabled: true,
+    // 方位情報をオブジェクトで管理
+    heading: {
+        value: null, // 現在の方位角 (0-360)
+        reason: 'unsupported' // nullの場合の理由
+    }
 };
 
 let isResizing = false;
-let currentHeading = null; 
-let currentUserCourse = null; 
+let currentUserCourse = null;
 let currentGnssStatus = '---';
 let isBearingInverted = false;
-
-// --- デバッグ用グローバル変数 ---
 let lastDrawnMarkerAngle = null;
-let lastRawHeading = null; 
+let lastRawHeading = null;
 let compassInitialized = false;
 let heartbeatTicks = 0;
-let lastCompassEventTime = 0;
+
+/**
+ * ログをJSON形式でコンソールに出力する共通関数
+ * @param {string} module - ログ出力元のモジュール名
+ * @param {string} event - イベント名
+ * @param {object} data - 詳細データ
+ */
+function logJSON(module, event, data) {
+    const logEntry = {
+        ts: Date.now(),
+        module: module,
+        event: event,
+        data: data
+    };
+    console.log(JSON.stringify(logEntry, null, 2));
+}
+
+/**
+ * 方位情報の状態を更新し、ログを出力する
+ * @param {number | null} newValue - 新しい方位角
+ * @param {string | null} reason - valueがnullの場合の理由
+ */
+function updateHeadingState(newValue, reason) {
+    appState.heading.value = newValue;
+    appState.heading.reason = reason;
+
+    const eventName = newValue !== null ? 'heading_update' : 'heading_null';
+    logJSON('state.js', eventName, appState.heading);
+    
+    // mapControllerに状態を渡して地図（マーカー）の更新を依頼
+    updateMapRotation(appState.heading);
+}
+
 
 // --- DOM要素 ---
 const dom = {
@@ -101,4 +140,3 @@ const dom = {
     fullscreenRelativeBearing: document.getElementById('fullscreen-relative-bearing'),
     debugPanel: null,
 };
-

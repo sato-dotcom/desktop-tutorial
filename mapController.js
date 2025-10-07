@@ -1,19 +1,47 @@
-// mapController.js
+/**
+ * mapController.js
+ * state.jsから渡された状態に基づき、地図やマーカーの表示を更新する。
+ */
 
-// --- 調整可能パラメータ ---
-const ROTATION_LERP_FACTOR = 0.25;      // 回転の補間係数 (小さいほど滑らか)
-const HEADING_SPIKE_THRESHOLD = 45;     // スパイクとみなす角度変化の閾値 (度)
-const MAX_CONSECUTIVE_SKIPS = 3;        // スパイク除去で連続スキップする最大フレーム数
+/**
+ * マーカーの回転を更新する
+ * @param {{value: number|null, reason: string|null}} headingState - 現在の方位情報
+ */
+function updateMapRotation(headingState) {
+    const rotator = getMarkerRotatorElement();
+    if (!rotator) return;
 
-// --- 状態変数 ---
+    // ヘディングアップモードでない、または有効な方位角がない場合は北向きに固定
+    if (!appState.headingUp || headingState.value === null) {
+        if (headingState.value === null) {
+            logJSON('mapController.js', 'skip_rotation', {
+                reason: headingState.reason,
+                mode: appState.headingUp ? 'HeadingUp' : 'NorthUp'
+            });
+        }
+        rotator.style.transform = 'rotate(0deg)';
+        return;
+    }
+
+    // 有効な方位角がある場合のみ、マーカーを回転
+    const finalAngle = headingState.value;
+    rotator.style.transform = `rotate(${finalAngle.toFixed(1)}deg)`;
+
+    logJSON('mapController.js', 'apply_heading', {
+        angle: finalAngle,
+        mode: 'HeadingUp'
+    });
+}
+
+
+// -------------------------------------------------------------
+// 以下の機能は今回のログ検証では直接使用しませんが、
+// アプリ全体の動作のために残しています。
+// -------------------------------------------------------------
+
 let consecutiveSpikes = 0;
 let lastAppliedSelector = '';
 
-/**
- * 角度を-180度から+180度の範囲に正規化する
- * @param {number} deg - 角度
- * @returns {number} 正規化された角度
- */
 function normalizeDeg(deg) {
     let normalized = deg % 360;
     if (normalized > 180) normalized -= 360;
@@ -21,16 +49,11 @@ function normalizeDeg(deg) {
     return normalized;
 }
 
-// DOM適用のためのセレクタ優先順位
 const MARKER_ROTATOR_SELECTORS = [
     '#userMarker .user-location-marker-rotator',
     '.leaflet-marker-icon.user-marker .user-location-marker-rotator'
 ];
 
-/**
- * マーカーの回転用DOM要素を取得する
- * @returns {HTMLElement|null} 回転させる要素
- */
 function getMarkerRotatorElement() {
     for (const selector of MARKER_ROTATOR_SELECTORS) {
         const el = document.querySelector(selector);
@@ -43,8 +66,6 @@ function getMarkerRotatorElement() {
     lastAppliedSelector = 'not found';
     return null;
 }
-
-// --- 地図操作 ---
 
 function stabilizeAfterFullScreen() {
     const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
@@ -66,8 +87,7 @@ function stabilizeAfterFullScreen() {
         if (currentPosition && appState.followUser) {
             recenterAbsolutely(currentPosition.coords);
         }
-        console.log('[DEBUG-DOM] rebind markerEl after fullscreen');
-        updateMapRotation(lastRawHeading);
+        updateMapRotation(appState.heading);
     }, 200);
 }
 
@@ -95,9 +115,7 @@ function toggleFollowUser(on) {
 function toggleHeadingUp(on) {
     appState.headingUp = on;
     updateOrientationButtonState();
-    lastDrawnMarkerAngle = null; 
-    consecutiveSpikes = 0;
-    updateMapRotation(lastRawHeading);
+    updateMapRotation(appState.heading);
 }
 
 function toggleFullscreen() {
@@ -109,72 +127,6 @@ function toggleFullscreen() {
     }
 }
 
-/**
- * マーカーの回転を更新する
- * @param {number|null} newHeading - センサーから取得した最新の向き (真北基準)
- */
-function updateMapRotation(newHeading) {
-    try {
-        const rotator = getMarkerRotatorElement();
-        if (!rotator) return;
-
-        let targetAngle, diff = null;
-
-        if (!appState.headingUp) {
-            // ノースアップモード：常に0度を向く
-            targetAngle = 0;
-            lastDrawnMarkerAngle = 0; 
-        } else {
-            // ヘディングアップモード
-            if (typeof newHeading !== 'number') {
-                // 有効な角度が得られない場合は何もしない
-                return;
-            }
-            targetAngle = newHeading;
-            
-            if (lastDrawnMarkerAngle === null) {
-                lastDrawnMarkerAngle = targetAngle;
-            }
-
-            // -180°〜+180°の最短角度差を計算
-            diff = normalizeDeg(targetAngle - lastDrawnMarkerAngle);
-
-            // スパイク検出ロジックは維持
-            if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
-                consecutiveSpikes++;
-                // 角度は更新せず、前回の値を維持
-            } else {
-                consecutiveSpikes = 0;
-                // LERP (線形補間) で滑らかに角度を更新
-                lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
-                lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360; // 0-360度に正規化
-            }
-        }
-        
-        const finalAngle = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : 0;
-        rotator.style.transform = `rotate(${finalAngle.toFixed(1)}deg)`;
-
-        // --- デバッグ出力 ---
-        const log = {
-            mode: appState.headingUp ? 'HeadingUp' : 'NorthUp',
-            raw: lastRawHeading,      // from gps.js
-            current: newHeading,
-            target: targetAngle,
-            last: lastDrawnMarkerAngle,
-            diff: diff,
-            selector: lastAppliedSelector,
-            hbTicks: heartbeatTicks,  // from gps.js
-        };
-        updateDebugPanel(log); 
-        console.log(`[DEBUG-RM2] mode=${log.mode} raw=${log.raw?.toFixed(1)}° current=${log.current?.toFixed(1)}° target=${log.target?.toFixed(1)}° last=${log.last?.toFixed(1)}° diff=${log.diff?.toFixed(1)}°`);
-
-
-    } catch (err) {
-        console.error('[ERROR-ROT] err=', err);
-    }
-}
-
-// --- UI更新ヘルパー ---
 function updateUserMarkerOnly(latlng) {
     if (!currentUserMarker || !latlng) return;
     currentUserMarker.setLatLng([latlng.latitude, latlng.longitude]);
@@ -203,3 +155,4 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
+
