@@ -13,6 +13,12 @@ html, body {
   height: 100dvh;
 }
 
+/* Add this for performance */
+.leaflet-map-pane {
+    will-change: transform;
+}
+
+
 /* --- Custom Leaflet Controls --- */
 .leaflet-control-custom-btn {
   @apply w-[34px] h-[34px] flex items-center justify-center text-lg cursor-pointer transition-colors duration-200;

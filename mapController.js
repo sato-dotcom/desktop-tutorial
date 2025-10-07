@@ -45,55 +45,82 @@ function updatePosition(position) {
 }
 
 /**
- * 方位情報に基づいてマーカーの回転を更新する
+ * 方位情報に基づいてマーカーと地図の回転を更新する
  * @param {{value: number|null, reason: string|null}} headingState - 現在の方位情報
  */
 function updateHeading(headingState) {
     const rotator = getMarkerRotatorElement();
-    if (!rotator) return;
-
-    // "north-up"モードでない、または有効な方位角がない場合は北向き(0度)に固定
-    if (appState.mode !== 'north-up' || headingState.value === null) {
-        if (headingState.value === null) {
-            logJSON('mapController.js', 'skip_rotation', {
-                reason: headingState.reason,
-                mode: appState.mode
-            });
-        }
-        rotator.style.transform = 'rotate(0deg)';
-        lastDrawnMarkerAngle = 0; // 北向き固定時に角度をリセット
-        return;
-    }
+    const mapPane = map.getPane('mapPane');
+    if (!rotator || !mapPane) return;
 
     const newHeading = headingState.value;
 
-    // lastDrawnMarkerAngleがnullの場合（初回）は現在のheading値から開始
-    const currentRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
-    
-    // 最短回転の差分を計算
-    let diff = newHeading - (currentRotation % 360);
-    if (diff > 180) {
-        diff -= 360;
-    } else if (diff < -180) {
-        diff += 360;
+    // --- 方位情報がない場合は、すべての回転をリセットして終了 ---
+    if (newHeading === null) {
+        mapPane.style.transform = '';
+        rotator.style.transform = 'rotate(0deg)';
+        lastDrawnMarkerAngle = 0;
+        logJSON('mapController.js', 'reset_rotation', {
+            reason: headingState.reason,
+            mode: appState.mode
+        });
+        return;
     }
 
-    // 補正後の新しい回転角度（累積値）
-    const newRotation = currentRotation + diff;
-    
-    // マーカーを回転
-    rotator.style.transform = `rotate(${newRotation.toFixed(1)}deg)`;
-    
-    // 今回の回転角度を保存
-    lastDrawnMarkerAngle = newRotation;
+    // --- Heading-Up モードの処理 ---
+    if (appState.mode === 'heading-up') {
+        const mapRotation = -newHeading;
+        const markerRotation = newHeading; // マーカーは地図の回転を打ち消して常に上を向く
 
-    logJSON('mapController.js', 'apply_heading', {
-        heading: newHeading.toFixed(1),   // センサーから取得した生の値
-        rotation: newRotation.toFixed(1), // 補正後の実際に適用された回転角度
-        mode: appState.mode
-    });
+        // stateに基づいて回転の中心点を設定
+        // TODO: 'bottom-quarter' の場合、setViewの中心もオフセットさせるとより自然になる
+        let origin = '50% 50%';
+        if (appState.markerAnchor === 'bottom-quarter') {
+            origin = '50% 75%';
+        }
+        mapPane.style.transformOrigin = origin;
+
+        // 地図とマーカーに回転を適用
+        mapPane.style.transform = `rotate(${mapRotation.toFixed(1)}deg)`;
+        rotator.style.transform = `rotate(${markerRotation.toFixed(1)}deg)`;
+        
+        // ログ出力
+        logJSON('mapController.js', 'apply_heading', {
+            mode: appState.mode,
+            heading: newHeading.toFixed(1),
+            map_rotation: mapRotation.toFixed(1),
+            marker_rotation: markerRotation.toFixed(1),
+            markerAnchor: appState.markerAnchor
+        });
+
+    // --- North-Up モードの処理 ---
+    } else {
+        // 地図の回転はリセット
+        mapPane.style.transform = '';
+        mapPane.style.transformOrigin = '50% 50%';
+        
+        // マーカーのみを滑らかに回転させる（既存ロジック）
+        const currentRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
+        
+        let diff = newHeading - (currentRotation % 360);
+        if (diff > 180) {
+            diff -= 360;
+        } else if (diff < -180) {
+            diff += 360;
+        }
+
+        const newRotation = currentRotation + diff;
+        rotator.style.transform = `rotate(${newRotation.toFixed(1)}deg)`;
+        lastDrawnMarkerAngle = newRotation;
+
+        // ログ出力
+        logJSON('mapController.js', 'apply_heading', {
+            mode: appState.mode,
+            heading: newHeading.toFixed(1),
+            rotation: newRotation.toFixed(1), // 適用されたマーカーの累積角度
+        });
+    }
 }
-
 
 // -------------------------------------------------------------
 // 以下の機能は今回の修正では直接変更しませんが、

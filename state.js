@@ -23,6 +23,7 @@ const appState = {
     position: null, // 現在の位置情報 (GeolocationPosition object)
     followUser: true,
     mode: 'north-up', // 'north-up' or 'heading-up'
+    markerAnchor: 'center', // 'center' or 'bottom-quarter' (回転の中心)
     debugEnabled: true,
     // 方位情報をオブジェクトで管理
     heading: {

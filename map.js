@@ -83,7 +83,7 @@ function initializeMap() {
                 <div class="leaflet-control-mode">
                     <select id="mode-selector" title="表示モード切替">
                         <option value="north-up" selected>North-Up</option>
-                        <option value="heading-up" disabled>Heading-Up (未実装)</option>
+                        <option value="heading-up">Heading-Up</option>
                     </select>
                 </div>
             `;
