@@ -61,18 +61,39 @@ function updateHeading(headingState) {
             });
         }
         rotator.style.transform = 'rotate(0deg)';
+        lastDrawnMarkerAngle = 0; // 北向き固定時に角度をリセット
         return;
     }
 
-    // 有効な方位角がある場合のみ、マーカーを回転
-    const finalAngle = headingState.value;
-    rotator.style.transform = `rotate(${finalAngle.toFixed(1)}deg)`;
+    const newHeading = headingState.value;
+
+    // lastDrawnMarkerAngleがnullの場合（初回）は現在のheading値から開始
+    const currentRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
+    
+    // 最短回転の差分を計算
+    let diff = newHeading - (currentRotation % 360);
+    if (diff > 180) {
+        diff -= 360;
+    } else if (diff < -180) {
+        diff += 360;
+    }
+
+    // 補正後の新しい回転角度（累積値）
+    const newRotation = currentRotation + diff;
+    
+    // マーカーを回転
+    rotator.style.transform = `rotate(${newRotation.toFixed(1)}deg)`;
+    
+    // 今回の回転角度を保存
+    lastDrawnMarkerAngle = newRotation;
 
     logJSON('mapController.js', 'apply_heading', {
-        angle: finalAngle,
+        heading: newHeading.toFixed(1),   // センサーから取得した生の値
+        rotation: newRotation.toFixed(1), // 補正後の実際に適用された回転角度
         mode: 'HeadingUp'
     });
 }
+
 
 // -------------------------------------------------------------
 // 以下の機能は今回の修正では直接変更しませんが、
@@ -145,3 +166,4 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
+
