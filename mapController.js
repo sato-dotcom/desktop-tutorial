@@ -1,11 +1,13 @@
 // mapController.js
 
 // --- 調整可能パラメータ ---
-const ROTATION_OFFSET = 0;              // マーカー画像の向き補正 (0 or 180)
+const ROTATION_LERP_FACTOR = 0.25;      // 回転の補間係数 (小さいほど滑らか)
+const HEADING_SPIKE_THRESHOLD = 45;     // スパイクとみなす角度変化の閾値 (度)
+const MAX_CONSECUTIVE_SKIPS = 3;        // スパイク除去で連続スキップする最大フレーム数
 
 // --- 状態変数 ---
+let consecutiveSpikes = 0;
 let lastAppliedSelector = '';
-// let lastDrawnMarkerAngle = null; // 補間用に最終描画角度を保持 ← state.jsで宣言済みのため削除
 
 /**
  * 角度を-180度から+180度の範囲に正規化する
@@ -64,9 +66,8 @@ function stabilizeAfterFullScreen() {
         if (currentPosition && appState.followUser) {
             recenterAbsolutely(currentPosition.coords);
         }
-        // ★★★ 修正: ログを明確化 ★★★
-        console.log('[DEBUG-DOM] Re-applying rotation after fullscreen.');
-        updateMapRotation(lastRawHeading, currentHeading);
+        console.log('[DEBUG-DOM] rebind markerEl after fullscreen');
+        updateMapRotation(lastRawHeading);
     }, 200);
 }
 
@@ -76,8 +77,6 @@ function recenterAbsolutely(latlng) {
 }
 
 function onPositionUpdate(position) {
-    // ★★★ 修正: イベント連携を明確にログ出力 ★★★
-    console.log("[DEBUG-EVT] onPositionUpdate called from gps.js");
     updateUserMarkerOnly(position.coords);
     updateAllInfoPanels(position);
     if (appState.followUser) {
@@ -95,10 +94,10 @@ function toggleFollowUser(on) {
 
 function toggleHeadingUp(on) {
     appState.headingUp = on;
-    console.log(`[DEBUG-MODE] headingUp=${on} → immediate apply`);
     updateOrientationButtonState();
-    lastDrawnMarkerAngle = null;
-    updateMapRotation(lastRawHeading, currentHeading);
+    lastDrawnMarkerAngle = null; 
+    consecutiveSpikes = 0;
+    updateMapRotation(lastRawHeading);
 }
 
 function toggleFullscreen() {
@@ -112,56 +111,67 @@ function toggleFullscreen() {
 
 /**
  * マーカーの回転を更新する
- * @param {number|null} rawHeading - センサーから取得した生の向き (磁北基準)
- * @param {number|null} currentHeading - 平滑化・真北補正された向き
+ * @param {number|null} newHeading - センサーから取得した最新の向き (真北基準)
  */
-function updateMapRotation(rawHeading, currentHeading) {
-    // ★★★ 修正: 関数呼び出しを明確にログ出力 ★★★
-    console.log("[DEBUG-RM2] updateMapRotation called.");
-    const rotator = getMarkerRotatorElement();
-    if (!rotator) {
-        console.warn("[DEBUG-RM2] Rotator element not found, skipping rotation.");
-        return;
+function updateMapRotation(newHeading) {
+    try {
+        const rotator = getMarkerRotatorElement();
+        if (!rotator) return;
+
+        let targetAngle, diff = null;
+
+        if (!appState.headingUp) {
+            // ノースアップモード：常に0度を向く
+            targetAngle = 0;
+            lastDrawnMarkerAngle = 0; 
+        } else {
+            // ヘディングアップモード
+            if (typeof newHeading !== 'number') {
+                // 有効な角度が得られない場合は何もしない
+                return;
+            }
+            targetAngle = newHeading;
+            
+            if (lastDrawnMarkerAngle === null) {
+                lastDrawnMarkerAngle = targetAngle;
+            }
+
+            // -180°〜+180°の最短角度差を計算
+            diff = normalizeDeg(targetAngle - lastDrawnMarkerAngle);
+
+            // スパイク検出ロジックは維持
+            if (Math.abs(diff) > HEADING_SPIKE_THRESHOLD && consecutiveSpikes < MAX_CONSECUTIVE_SKIPS) {
+                consecutiveSpikes++;
+                // 角度は更新せず、前回の値を維持
+            } else {
+                consecutiveSpikes = 0;
+                // LERP (線形補間) で滑らかに角度を更新
+                lastDrawnMarkerAngle += diff * ROTATION_LERP_FACTOR;
+                lastDrawnMarkerAngle = (lastDrawnMarkerAngle + 360) % 360; // 0-360度に正規化
+            }
+        }
+        
+        const finalAngle = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : 0;
+        rotator.style.transform = `rotate(${finalAngle.toFixed(1)}deg)`;
+
+        // --- デバッグ出力 ---
+        const log = {
+            mode: appState.headingUp ? 'HeadingUp' : 'NorthUp',
+            raw: lastRawHeading,      // from gps.js
+            current: newHeading,
+            target: targetAngle,
+            last: lastDrawnMarkerAngle,
+            diff: diff,
+            selector: lastAppliedSelector,
+            hbTicks: heartbeatTicks,  // from gps.js
+        };
+        updateDebugPanel(log); 
+        console.log(`[DEBUG-RM2] mode=${log.mode} raw=${log.raw?.toFixed(1)}° current=${log.current?.toFixed(1)}° target=${log.target?.toFixed(1)}° last=${log.last?.toFixed(1)}° diff=${log.diff?.toFixed(1)}°`);
+
+
+    } catch (err) {
+        console.error('[ERROR-ROT] err=', err);
     }
-
-    let targetAngle = 0;
-    let relativeAngle = 0;
-    
-    if (appState.headingUp && typeof currentHeading === 'number' && typeof rawHeading === 'number') {
-        relativeAngle = normalizeDeg(currentHeading - rawHeading);
-        targetAngle = relativeAngle;
-    } 
-    // NorthUp時は targetAngle = 0 のまま
-
-    let finalAngle = targetAngle + ROTATION_OFFSET;
-
-    // ★★★ 修正: NaNガードを追加し、計算エラーで停止するのを防ぐ ★★★
-    if (isNaN(finalAngle)) {
-        console.warn(`[WARN-ROT] Calculated angle is NaN. Fallback to 0. (target: ${targetAngle})`);
-        finalAngle = 0;
-    }
-
-    const transformValue = `rotate(${finalAngle.toFixed(1)}deg)`;
-    
-    // ★★★ 修正: DOM適用直前のログを追加 ★★★
-    console.log(`[DEBUG-DOM] Applying transform: "${transformValue}"`);
-    rotator.style.transform = transformValue;
-    lastDrawnMarkerAngle = finalAngle;
-
-    const log = {
-        mode: appState.headingUp ? 'HeadingUp' : 'NorthUp',
-        raw: rawHeading,
-        current: currentHeading,
-        relative: relativeAngle,
-        target: targetAngle,
-        last: lastDrawnMarkerAngle,
-        selector: lastAppliedSelector,
-        hbTicks: heartbeatTicks,
-    };
-    
-    console.log(`[DEBUG-RM2] mode=${log.mode} relative=${log.relative?.toFixed(1)}° target=${log.target?.toFixed(1)}°`);
-    
-    updateDebugPanel(log);
 }
 
 // --- UI更新ヘルパー ---
@@ -177,7 +187,6 @@ function updateAllInfoPanels(position) {
     dom.currentLon.textContent = longitude.toFixed(7);
     dom.currentAcc.textContent = accuracy.toFixed(1);
     
-    // 初回測位時に「測位中...」から「GPS受信中」に変更
     if (dom.gpsStatus.textContent.includes("測位中")) {
         dom.gpsStatus.textContent = "GPS受信中";
         dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
@@ -194,5 +203,3 @@ function updateAllInfoPanels(position) {
         updateNavigationInfo();
     }
 }
-
-

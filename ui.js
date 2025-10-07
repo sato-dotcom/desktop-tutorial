@@ -2,7 +2,7 @@
 
 // --- 内部状態変数 ---
 let lastDebugUpdateTime = 0;
-const LOG_THROTTLE_MS = 500; // デバッグUIの更新頻度（ミリ秒）
+const LOG_THROTTLE_MS = 500; // デバッグUIの更新頻度（ミリ秒）-> 2Hz
 
 /**
  * UIの初期化とイベントリスナーの設定
@@ -75,14 +75,17 @@ function updateDebugPanel(debugInfo) {
     const now = Date.now();
     if (now - lastDebugUpdateTime < LOG_THROTTLE_MS) return;
     lastDebugUpdateTime = now;
-    
-    // ★★★ 修正: 補間処理がなくなったため、lastDrawn と diff を削除 ★★★
+
     const content = `
-Mode      : ${debugInfo.mode}
-raw/curr  : ${debugInfo.raw?.toFixed(1) ?? '--'}° / ${debugInfo.current?.toFixed(1) ?? '--'}°
-relative  : ${debugInfo.relative?.toFixed(1) ?? '--'}°
-target    : ${debugInfo.target?.toFixed(1) ?? '--'}° (Offset: ${ROTATION_OFFSET})
-init/HB   : ${compassInitialized} / ${debugInfo.hbTicks}
+Mode: ${debugInfo.mode || '-'}
+Raw Head: ${debugInfo.raw?.toFixed(1) ?? '-'}°
+Curr Head: ${debugInfo.current?.toFixed(1) ?? '-'}°
+Target Angle: ${debugInfo.target?.toFixed(1) ?? '-'}°
+Last Drawn: ${debugInfo.last?.toFixed(1) ?? '-'}°
+Diff: ${debugInfo.diff?.toFixed(1) ?? '-'}°
+Selector: ${debugInfo.selector || '-'}
+Compass Init: ${compassInitialized}
+Heartbeat: ${debugInfo.hbTicks || '-'}
 `.trim();
 
     dom.debugPanel.textContent = content;
@@ -276,4 +279,3 @@ function updateOrientationButtonState() {
         dom.orientationToggleBtn.title = 'マーカーは北を固定表示中 (端末の向き表示に切替)';
     }
 }
-
