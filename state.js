@@ -1,12 +1,13 @@
 /**
  * state.js
  * アプリケーションの全体状態を管理し、状態変更のログを一元的に出力する。
+ * 各モジュール間の処理のハブとなる。
  */
 
 // --- グローバル変数 ---
 let map, watchId;
-let currentPosition = null;
-let currentUserMarker = null;
+// currentPositionはappStateで管理するように変更
+let currentUserMarker = null; // マーカー実体は初回測位時にmapControllerで生成
 let targetMarker = null;
 let targetCircle = null;
 let navLine = null;
@@ -19,6 +20,7 @@ let manualInputMode = 'latlon';
 
 // --- アプリケーションの状態を一元管理 ---
 const appState = {
+    position: null, // 現在の位置情報 (GeolocationPosition object)
     followUser: true,
     headingUp: false,
     debugEnabled: true,
@@ -55,21 +57,40 @@ function logJSON(module, event, data) {
 }
 
 /**
- * 方位情報の状態を更新し、ログを出力する
+ * 位置情報の状態を更新し、ログを出力し、mapControllerに処理を依頼する
+ * @param {GeolocationPosition} newPosition - Geolocation APIから取得した新しい位置情報
+ */
+function setPosition(newPosition) {
+    appState.position = newPosition;
+    
+    logJSON('state.js', 'position_set', {
+        lat: newPosition.coords.latitude,
+        lon: newPosition.coords.longitude,
+        acc: newPosition.coords.accuracy
+    });
+    
+    // mapControllerに状態を渡して地図（マーカー）の更新を依頼
+    updatePosition(newPosition);
+}
+
+/**
+ * 方位情報の状態を更新し、ログを出力し、mapControllerに処理を依頼する
  * @param {number | null} newValue - 新しい方位角
  * @param {string | null} reason - valueがnullの場合の理由
  */
-function updateHeadingState(newValue, reason) {
+function setHeading(newValue, reason) {
+    const isChanged = appState.heading.value !== newValue || appState.heading.reason !== reason;
+    if (!isChanged) return; // 状態が同じなら何もしない
+
     appState.heading.value = newValue;
     appState.heading.reason = reason;
 
-    const eventName = newValue !== null ? 'heading_update' : 'heading_null';
-    logJSON('state.js', eventName, appState.heading);
+    const eventName = newValue !== null ? 'heading_set' : 'heading_null';
+    logJSON('state.js', eventName, { value: appState.heading.value, reason: appState.heading.reason });
     
     // mapControllerに状態を渡して地図（マーカー）の更新を依頼
-    updateMapRotation(appState.heading);
+    updateHeading(appState.heading);
 }
-
 
 // --- DOM要素 ---
 const dom = {

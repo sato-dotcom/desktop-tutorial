@@ -85,20 +85,5 @@ function initializeMap() {
     });
     map.addControl(new OrientationControl());
 
-    // ★★★ 修正箇所: id="userMarker" を持つdivで全体をラップ ★★★
-    const userIconHTML = `
-        <div id="userMarker" class="user-marker" data-role="user">
-            <div class="user-location-marker-rotator">
-                <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-            </div>
-        </div>`;
-        
-    const userIcon = L.divIcon({
-        html: userIconHTML,
-        className: 'user-location-marker',
-        iconSize: [30, 30],
-        iconAnchor: [15, 15]
-    });
-    currentUserMarker = L.marker([0, 0], { icon: userIcon, pane: 'markerPane' }).addTo(map);
+    // 現在地マーカーは初回測位時にmapControllerで動的に生成するため、ここでの初期化は不要
 }
-

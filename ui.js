@@ -54,6 +54,40 @@ function initializeUI() {
 }
 
 /**
+ * すべての情報パネル（メイン、全画面）を最新の位置情報で更新する
+ * @param {GeolocationPosition} position - GPSから取得した位置情報
+ */
+function updateAllInfoPanels(position) {
+    const { latitude, longitude, accuracy } = position.coords;
+    
+    // メインパネルの表示更新
+    dom.currentLat.textContent = latitude.toFixed(7);
+    dom.currentLon.textContent = longitude.toFixed(7);
+    dom.currentAcc.textContent = accuracy.toFixed(1);
+    
+    // 「測位中...」の表示を解除（初回のみ）
+    if (dom.gpsStatus.textContent.includes("測位中")) {
+        dom.gpsStatus.textContent = "GPS受信中";
+        dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
+        logJSON('ui.js', 'gps_status_updated', { status: 'GPS受信中' });
+    }
+    
+    // 全画面用パネルの表示更新
+    dom.fullscreenLat.textContent = latitude.toFixed(7);
+    dom.fullscreenLon.textContent = longitude.toFixed(7);
+    dom.fullscreenAcc.textContent = accuracy.toFixed(1);
+    
+    // その他情報の更新
+    updateGnssStatus(accuracy);
+    updateCurrentXYDisplay();
+
+    if (currentMode === 'navigate' && targetMarker) {
+        updateNavigationInfo();
+    }
+}
+
+
+/**
  * デバッグパネルの表示を初期化/更新する
  */
 function initializeDebugPanel() {
@@ -91,6 +125,9 @@ Heartbeat: ${debugInfo.hbTicks || '-'}
     dom.debugPanel.textContent = content;
 }
 
+// -------------------------------------------------------------
+// 以下、既存のUI操作関数（変更なし）
+// -------------------------------------------------------------
 
 function switchMode(mode) {
     currentMode = mode;
@@ -228,8 +265,8 @@ function showDeleteConfirmation(index) {
 }
 
 function updateCurrentXYDisplay() {
-    if (currentPosition) {
-        const { latitude, longitude } = currentPosition.coords;
+    if (appState.position) {
+        const { latitude, longitude } = appState.position.coords;
         const selectedZone = dom.currentCoordSystemSelect.value;
         const xy = convertToXY(latitude, longitude, selectedZone);
         dom.currentX.textContent = xy.x.toFixed(3);
@@ -254,8 +291,6 @@ function updateGnssStatus(accuracy) {
         else el.classList.add('text-gray-500');
     });
 }
-
-// --- 状態に依存するUI更新 ---
 
 function updateFollowButtonState() {
     if (!dom.followUserBtn) return;

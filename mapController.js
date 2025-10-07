@@ -4,14 +4,55 @@
  */
 
 /**
- * マーカーの回転を更新する
+ * 位置情報に基づいて現在地マーカーを生成・更新する
+ * @param {GeolocationPosition} position - GPSから取得した位置情報
+ */
+function updatePosition(position) {
+    const latlng = [position.coords.latitude, position.coords.longitude];
+
+    if (currentUserMarker === null) {
+        // --- 初回: マーカーを生成 ---
+        const userIconHTML = `
+            <div id="userMarker" class="user-marker" data-role="user">
+                <div class="user-location-marker-rotator">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                </div>
+            </div>`;
+        
+        const userIcon = L.divIcon({
+            html: userIconHTML,
+            className: 'user-location-marker',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+        
+        currentUserMarker = L.marker(latlng, { icon: userIcon, pane: 'markerPane' }).addTo(map);
+        
+        logJSON('mapController.js', 'marker_created', { lat: latlng[0], lon: latlng[1] });
+    } else {
+        // --- 2回目以降: マーカー位置を更新 ---
+        currentUserMarker.setLatLng(latlng);
+        logJSON('mapController.js', 'marker_updated', { lat: latlng[0], lon: latlng[1] });
+    }
+    
+    // UIパネルの情報もすべて更新
+    updateAllInfoPanels(position);
+
+    // 追従モードがONなら地図の中心を現在地に移動
+    if (appState.followUser) {
+        recenterAbsolutely(position.coords);
+    }
+}
+
+/**
+ * 方位情報に基づいてマーカーの回転を更新する
  * @param {{value: number|null, reason: string|null}} headingState - 現在の方位情報
  */
-function updateMapRotation(headingState) {
+function updateHeading(headingState) {
     const rotator = getMarkerRotatorElement();
     if (!rotator) return;
 
-    // ヘディングアップモードでない、または有効な方位角がない場合は北向きに固定
+    // ヘディングアップモードでない、または有効な方位角がない場合は北向き(0度)に固定
     if (!appState.headingUp || headingState.value === null) {
         if (headingState.value === null) {
             logJSON('mapController.js', 'skip_rotation', {
@@ -33,38 +74,24 @@ function updateMapRotation(headingState) {
     });
 }
 
-
 // -------------------------------------------------------------
-// 以下の機能は今回のログ検証では直接使用しませんが、
+// 以下の機能は今回の修正では直接変更しませんが、
 // アプリ全体の動作のために残しています。
 // -------------------------------------------------------------
 
-let consecutiveSpikes = 0;
 let lastAppliedSelector = '';
 
-function normalizeDeg(deg) {
-    let normalized = deg % 360;
-    if (normalized > 180) normalized -= 360;
-    if (normalized < -180) normalized += 360;
-    return normalized;
-}
-
-const MARKER_ROTATOR_SELECTORS = [
-    '#userMarker .user-location-marker-rotator',
-    '.leaflet-marker-icon.user-marker .user-location-marker-rotator'
-];
-
 function getMarkerRotatorElement() {
-    for (const selector of MARKER_ROTATOR_SELECTORS) {
-        const el = document.querySelector(selector);
-        if (el) {
-            lastAppliedSelector = selector;
-            return el;
-        }
+    // マーカーが動的に生成されるため、都度要素を取得する
+    const selector = '#userMarker .user-location-marker-rotator';
+    const el = document.querySelector(selector);
+    if (!el && lastAppliedSelector !== 'not found') {
+        console.error(`[ERROR-DOM] marker rotator element not found (selector: ${selector})`);
+        lastAppliedSelector = 'not found';
+    } else if (el) {
+        lastAppliedSelector = selector;
     }
-    console.error(`[ERROR-DOM] markerEl not found (tried: ${MARKER_ROTATOR_SELECTORS.join(', ')})`);
-    lastAppliedSelector = 'not found';
-    return null;
+    return el;
 }
 
 function stabilizeAfterFullScreen() {
@@ -78,44 +105,36 @@ function stabilizeAfterFullScreen() {
     }
     
     map.invalidateSize({ animate: false });
-    if (currentPosition && appState.followUser) {
-        recenterAbsolutely(currentPosition.coords);
+    if (appState.position && appState.followUser) {
+        recenterAbsolutely(appState.position.coords);
     }
     
     setTimeout(() => {
         map.invalidateSize({ animate: false });
-        if (currentPosition && appState.followUser) {
-            recenterAbsolutely(currentPosition.coords);
+        if (appState.position && appState.followUser) {
+            recenterAbsolutely(appState.position.coords);
         }
-        updateMapRotation(appState.heading);
+        updateHeading(appState.heading);
     }, 200);
 }
 
-function recenterAbsolutely(latlng) {
-    if (!map || !latlng) return;
-    map.setView([latlng.latitude, latlng.longitude], map.getZoom(), { animate: false, noMoveStart: true });
-}
-
-function onPositionUpdate(position) {
-    updateUserMarkerOnly(position.coords);
-    updateAllInfoPanels(position);
-    if (appState.followUser) {
-        recenterAbsolutely(position.coords);
-    }
+function recenterAbsolutely(coords) {
+    if (!map || !coords) return;
+    map.setView([coords.latitude, coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
 }
 
 function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
-    if (on && currentPosition) {
-        recenterAbsolutely(currentPosition.coords);
+    if (on && appState.position) {
+        recenterAbsolutely(appState.position.coords);
     }
 }
 
 function toggleHeadingUp(on) {
     appState.headingUp = on;
     updateOrientationButtonState();
-    updateMapRotation(appState.heading);
+    updateHeading(appState.heading);
 }
 
 function toggleFullscreen() {
@@ -126,33 +145,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-
-function updateUserMarkerOnly(latlng) {
-    if (!currentUserMarker || !latlng) return;
-    currentUserMarker.setLatLng([latlng.latitude, latlng.longitude]);
-}
-
-function updateAllInfoPanels(position) {
-    const { latitude, longitude, accuracy } = position.coords;
-    
-    dom.currentLat.textContent = latitude.toFixed(7);
-    dom.currentLon.textContent = longitude.toFixed(7);
-    dom.currentAcc.textContent = accuracy.toFixed(1);
-    
-    if (dom.gpsStatus.textContent.includes("測位中")) {
-        dom.gpsStatus.textContent = "GPS受信中";
-        dom.gpsStatus.className = 'bg-green-100 text-green-800 px-2 py-1 rounded-full font-mono text-xs';
-    }
-    
-    dom.fullscreenLat.textContent = latitude.toFixed(7);
-    dom.fullscreenLon.textContent = longitude.toFixed(7);
-    dom.fullscreenAcc.textContent = accuracy.toFixed(1);
-    
-    updateGnssStatus(accuracy);
-    updateCurrentXYDisplay();
-
-    if (currentMode === 'navigate' && targetMarker) {
-        updateNavigationInfo();
-    }
-}
-
