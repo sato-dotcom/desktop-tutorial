@@ -195,14 +195,15 @@ function updateTransformOrigin(reason = 'unknown') {
         originLog = { x: '50%', y: '50%' };
     }
 
+    // [修正] イベント発生を確実に追跡するため、条件の有無に関わらず常にログを出力する
+    logJSON('mapController.js', 'rotation_origin_updated', {
+        x: originLog.x,
+        y: originLog.y,
+        reason: reason
+    });
+
     if (mapPane.style.transformOrigin !== originString) {
         mapPane.style.transformOrigin = originString;
-        // [確認] ログにreasonを含める要件を満たしていることを確認
-        logJSON('mapController.js', 'rotation_origin_updated', {
-            x: originLog.x,
-            y: originLog.y,
-            reason: reason
-        });
     }
 }
 
@@ -237,7 +238,7 @@ function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
     if (on && appState.position) {
-        // [確認] 追従モードON時に recenterAbsolutely → updateTransformOrigin の順で呼び出し、要件を満たしていることを確認
+        // [修正] 追従モードON時に必ず中央配置と基点更新を実行
         recenterAbsolutely(appState.position.coords);
         updateTransformOrigin('follow_on');
     }
@@ -251,3 +252,4 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
+

@@ -21,12 +21,10 @@ function initializeMap() {
     
     map = L.map(dom.map, { zoomControl: false, layers: [gsiReliefLayer] }).setView([36.2, 133.1], 12);
     
-    // Heading-upモードの安定化のため、地図の再描画完了時に回転基点を更新するリスナーを追加
+    // [修正] Heading-upモード安定化のため、地図操作後の回転基点更新イベントを明示的に登録
     map.on('viewreset', () => updateTransformOrigin('viewreset'));
     map.on('moveend', () => updateTransformOrigin('moveend'));
-    // [修正] zoomendイベントを追加し、ズーム後も回転基点を再計算
     map.on('zoomend', () => updateTransformOrigin('zoomend'));
-
 
     customBathymetryLayer.addTo(map);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -103,3 +101,4 @@ function initializeMap() {
 
     // 現在地マーカーは初回測位時にmapControllerで動的に生成するため、ここでの初期化は不要
 }
+
