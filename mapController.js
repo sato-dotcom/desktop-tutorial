@@ -71,8 +71,13 @@ function updateHeading(headingState) {
 
     // --- Heading-Up モードの処理 ---
     if (appState.mode === 'heading-up') {
+        // [修正] ヘディングアップモードでは常にマーカーを中央に強制配置
+        if (appState.position) {
+            map.setView([appState.position.coords.latitude, appState.position.coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
+        }
+        
         // 1. 回転基準点を動的に設定
-        updateTransformOrigin('heading_update');
+        updateTransformOrigin('heading-up-center');
 
         // 2. 地図の最短回転補正の計算
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
@@ -195,11 +200,12 @@ function updateTransformOrigin(reason = 'unknown') {
         originLog = { x: '50%', y: '50%' };
     }
 
-    // [修正] イベント発生を確実に追跡するため、条件の有無に関わらず常にログを出力する
+    // [修正] イベント発生を確実に追跡するため、ログにmarkerAnchorを追加し、常にログを出力する
     logJSON('mapController.js', 'rotation_origin_updated', {
         x: originLog.x,
         y: originLog.y,
-        reason: reason
+        reason: reason,
+        markerAnchor: appState.markerAnchor
     });
 
     if (mapPane.style.transformOrigin !== originString) {
