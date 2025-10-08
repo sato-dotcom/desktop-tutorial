@@ -44,8 +44,12 @@ function updatePosition(position) {
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
         map.once('moveend', () => updateTransformOrigin('after_setView'));
     } else if (appState.followUser) {
-        // North-upモードでは追従状態に従う
-        recenterAbsolutely(position.coords);
+        // North-upモードでは追従状態に従い、常に中央に配置
+        map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+        logJSON('mapController.js', 'recenter', {
+            reason: 'north-up-follow',
+            markerAnchor: 'center'
+        });
     }
 }
 
@@ -202,7 +206,7 @@ function updateTransformOrigin(reason = 'unknown') {
         originLog = { x: '50%', y: '50%' };
     }
 
-    // [修正] ログに markerAnchor を追加
+    // ログに markerAnchor を追加
     logJSON('mapController.js', 'rotation_origin_updated', {
         x: originLog.x,
         y: originLog.y,
@@ -237,7 +241,11 @@ function stabilizeAfterFullScreen() {
             map.once('moveend', () => updateTransformOrigin('heading-up-fullscreen'));
         } else if (appState.followUser) {
             map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
-            map.once('moveend', () => updateTransformOrigin('fullscreen_recenter'));
+            // North-upモードでは基点更新は不要、ログのみ記録
+            logJSON('mapController.js', 'recenter', {
+                reason: 'north-up-fullscreen',
+                markerAnchor: 'center'
+            });
         }
     }
 }
@@ -251,13 +259,22 @@ function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
     if (on && appState.position) {
-        // [修正] 追従モードON時に中央配置し、移動完了後に基点更新を実行
+        // 追従モードON時に中央配置
         const coords = appState.position.coords;
         const latlng = [coords.latitude, coords.longitude];
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
         
-        const reason = appState.mode === 'heading-up' ? 'heading-up-follow-on' : 'follow_on';
-        map.once('moveend', () => updateTransformOrigin(reason));
+        // モードに応じて後処理を分岐
+        if (appState.mode === 'heading-up') {
+            // Heading-upでは移動完了後に基点を更新
+            map.once('moveend', () => updateTransformOrigin('heading-up-follow-on'));
+        } else {
+            // North-upではログのみ記録
+             logJSON('mapController.js', 'recenter', {
+                reason: 'north-up-follow-on',
+                markerAnchor: 'center'
+            });
+        }
     }
 }
 
