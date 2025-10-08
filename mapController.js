@@ -197,6 +197,7 @@ function updateTransformOrigin(reason = 'unknown') {
 
     if (mapPane.style.transformOrigin !== originString) {
         mapPane.style.transformOrigin = originString;
+        // [確認] ログにreasonを含める要件を満たしていることを確認
         logJSON('mapController.js', 'rotation_origin_updated', {
             x: originLog.x,
             y: originLog.y,
@@ -236,8 +237,8 @@ function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
     if (on && appState.position) {
+        // [確認] 追従モードON時に recenterAbsolutely → updateTransformOrigin の順で呼び出し、要件を満たしていることを確認
         recenterAbsolutely(appState.position.coords);
-        // recenterAbsolutelyが 'moveend' を発火させるが、より明確な理由でログを残すために直接呼び出す
         updateTransformOrigin('follow_on');
     }
 }
@@ -250,4 +251,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-

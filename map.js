@@ -24,6 +24,9 @@ function initializeMap() {
     // Heading-upモードの安定化のため、地図の再描画完了時に回転基点を更新するリスナーを追加
     map.on('viewreset', () => updateTransformOrigin('viewreset'));
     map.on('moveend', () => updateTransformOrigin('moveend'));
+    // [修正] zoomendイベントを追加し、ズーム後も回転基点を再計算
+    map.on('zoomend', () => updateTransformOrigin('zoomend'));
+
 
     customBathymetryLayer.addTo(map);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
