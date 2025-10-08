@@ -40,9 +40,9 @@ function updatePosition(position) {
 
     // [修正] モードに応じた地図中心の更新
     if (appState.mode === 'heading-up') {
-        // Heading-upモードでは常に中央に強制配置し、回転基点を再計算する
+        // Heading-upモードでは常に中央に強制配置し、移動完了後に回転基点を再計算する
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
-        updateTransformOrigin('heading-up-center');
+        map.once('moveend', () => updateTransformOrigin('after_setView'));
     } else if (appState.followUser) {
         // North-upモードでは追従状態に従う
         recenterAbsolutely(position.coords);
@@ -228,13 +228,16 @@ function stabilizeAfterFullScreen() {
     
     map.invalidateSize({ animate: false });
     
-    // [修正] 全画面切替後も、モードに応じて中央配置を強制する
+    // 全画面切替後も、モードに応じて中央配置を強制する
     if (appState.position) {
+        const coords = appState.position.coords;
+        const latlng = [coords.latitude, coords.longitude];
         if (appState.mode === 'heading-up') {
-            map.setView([appState.position.coords.latitude, appState.position.coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
-            updateTransformOrigin('heading-up-fullscreen');
+            map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+            map.once('moveend', () => updateTransformOrigin('heading-up-fullscreen'));
         } else if (appState.followUser) {
-            recenterAbsolutely(appState.position.coords);
+            map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+            map.once('moveend', () => updateTransformOrigin('fullscreen_recenter'));
         }
     }
 }
@@ -248,15 +251,13 @@ function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
     if (on && appState.position) {
-        // [修正] 追従モードON時に必ず中央配置と基点更新を実行
-        recenterAbsolutely(appState.position.coords);
+        // [修正] 追従モードON時に中央配置し、移動完了後に基点更新を実行
+        const coords = appState.position.coords;
+        const latlng = [coords.latitude, coords.longitude];
+        map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
         
-        // [修正] モードに応じた理由で基点を更新
-        if (appState.mode === 'heading-up') {
-            updateTransformOrigin('heading-up-follow-on');
-        } else {
-            updateTransformOrigin('follow_on');
-        }
+        const reason = appState.mode === 'heading-up' ? 'heading-up-follow-on' : 'follow_on';
+        map.once('moveend', () => updateTransformOrigin(reason));
     }
 }
 
@@ -268,3 +269,4 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
+
