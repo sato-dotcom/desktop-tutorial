@@ -92,36 +92,44 @@ function updateHeading(headingState) {
         mapPane.style.transformOrigin = originString;
 
 
-        // 2. 最短回転補正の計算
+        // 2. 地図の最短回転補正の計算
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
-        let diff = newHeading - currentMapHeading;
+        let mapDiff = newHeading - currentMapHeading;
         
-        if (diff > 180) {
-            diff -= 360;
-        } else if (diff < -180) {
-            diff += 360;
+        if (mapDiff > 180) {
+            mapDiff -= 360;
+        } else if (mapDiff < -180) {
+            mapDiff += 360;
         }
         
         // 地図の回転は方位と逆方向。差分を累積角度から引く。
-        const newMapRotation = (lastDrawnMapAngle !== null ? lastDrawnMapAngle : 0) - diff;
+        const newMapRotation = (lastDrawnMapAngle !== null ? lastDrawnMapAngle : 0) - mapDiff;
         
-        // 状態の更新
+        // 地図の回転状態を更新
         lastDrawnMapAngle = newMapRotation;
         lastMapHeading = newHeading;
         
-        // マーカーは地図の回転を打ち消して常に上を向く
-        const markerRotation = newHeading; 
+        // 3. マーカーの逆回転にも最短回転補正を適用
+        const currentMarkerRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
+        let markerDiff = newHeading - (currentMarkerRotation % 360);
+        if (markerDiff > 180) {
+            markerDiff -= 360;
+        } else if (markerDiff < -180) {
+            markerDiff += 360;
+        }
+        const newMarkerRotation = currentMarkerRotation + markerDiff;
+        lastDrawnMarkerAngle = newMarkerRotation;
 
         // 地図とマーカーに回転を適用
         mapPane.style.transform = `rotate(${newMapRotation.toFixed(1)}deg)`;
-        rotator.style.transform = `rotate(${markerRotation.toFixed(1)}deg)`;
+        rotator.style.transform = `rotate(${newMarkerRotation.toFixed(1)}deg)`;
         
-        // 3. ログ出力の拡張
+        // 4. ログ出力の拡張
         logJSON('mapController.js', 'apply_heading', {
             mode: appState.mode,
             heading: newHeading.toFixed(1),
             map_rotation: newMapRotation.toFixed(1),
-            marker_rotation: markerRotation.toFixed(1),
+            marker_rotation: newMarkerRotation.toFixed(1),
             rotation_origin: originLog,
             markerAnchor: appState.markerAnchor
         });
