@@ -20,6 +20,11 @@ function initializeMap() {
     });
     
     map = L.map(dom.map, { zoomControl: false, layers: [gsiReliefLayer] }).setView([36.2, 133.1], 12);
+    
+    // Heading-upモードの安定化のため、地図の再描画完了時に回転基点を更新するリスナーを追加
+    map.on('viewreset', () => updateTransformOrigin('viewreset'));
+    map.on('moveend', () => updateTransformOrigin('moveend'));
+
     customBathymetryLayer.addTo(map);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     

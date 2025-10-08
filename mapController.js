@@ -216,24 +216,15 @@ function stabilizeAfterFullScreen() {
         icon.classList.toggle('fa-compress', isFullscreen);
     }
     
+    // invalidateSizeは 'viewreset' イベントを発火させ、
+    // 新しく追加したリスナーが transform-origin を更新する
     map.invalidateSize({ animate: false });
-    if (appState.mode === 'heading-up') {
-        updateTransformOrigin('resize');
-    }
+    
+    // 追従モードがONの場合、地図を中央に再配置する
+    // これにより 'moveend' イベントが発火し、transform-origin が再度更新される
     if (appState.position && appState.followUser) {
         recenterAbsolutely(appState.position.coords);
     }
-    
-    setTimeout(() => {
-        map.invalidateSize({ animate: false });
-        if (appState.mode === 'heading-up') {
-            updateTransformOrigin('resize_delayed');
-        }
-        if (appState.position && appState.followUser) {
-            recenterAbsolutely(appState.position.coords);
-        }
-        updateHeading(appState.heading);
-    }, 200);
 }
 
 function recenterAbsolutely(coords) {
@@ -246,6 +237,8 @@ function toggleFollowUser(on) {
     updateFollowButtonState();
     if (on && appState.position) {
         recenterAbsolutely(appState.position.coords);
+        // recenterAbsolutelyが 'moveend' を発火させるが、より明確な理由でログを残すために直接呼び出す
+        updateTransformOrigin('follow_on');
     }
 }
 
