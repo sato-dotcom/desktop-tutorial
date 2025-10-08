@@ -71,12 +71,26 @@ function updateHeading(headingState) {
 
     // --- Heading-Up モードの処理 ---
     if (appState.mode === 'heading-up') {
-        // 1. 回転基準点の決定
-        let origin = '50% 50%'; // default to center
-        if (appState.markerAnchor === 'bottom-quarter') {
-            origin = '50% 75%';
+        // 1. 回転基準点を動的に設定
+        let originString;
+        let originLog;
+
+        if (appState.position && map) {
+            const latlng = [appState.position.coords.latitude, appState.position.coords.longitude];
+            let containerPoint = map.latLngToContainerPoint(latlng);
+            
+            // 将来的に 'bottom-quarter' の場合、ここでY座標を調整する
+            // 例: const mapSize = map.getSize(); containerPoint.y = mapSize.y * 0.75;
+            
+            originString = `${containerPoint.x}px ${containerPoint.y}px`;
+            originLog = { x: Math.round(containerPoint.x), y: Math.round(containerPoint.y) };
+        } else {
+            // 現在地が取得できていない場合のフォールバック
+            originString = '50% 50%';
+            originLog = { x: '50%', y: '50%' };
         }
-        mapPane.style.transformOrigin = origin;
+        mapPane.style.transformOrigin = originString;
+
 
         // 2. 最短回転補正の計算
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
@@ -108,7 +122,7 @@ function updateHeading(headingState) {
             heading: newHeading.toFixed(1),
             map_rotation: newMapRotation.toFixed(1),
             marker_rotation: markerRotation.toFixed(1),
-            rotation_origin: origin.replace(' ', '_'), // for cleaner logs
+            rotation_origin: originLog,
             markerAnchor: appState.markerAnchor
         });
 
@@ -209,3 +223,4 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
+
