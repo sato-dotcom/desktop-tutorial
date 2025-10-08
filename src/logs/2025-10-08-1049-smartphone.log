@@ -1,0 +1,6641 @@
+/favicon.ico:1  Failed to load resource: the server responded with a status of 404 ()
+ {
+  "ts": 1759887939993,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 255.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887939994,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "255.4",
+    "rotation": "-104.6"
+  }
+}
+ {
+  "ts": 1759887940006,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 255,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "255.0",
+    "rotation": "-105.0"
+  }
+}
+ {
+  "ts": 1759887940023,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 256,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940023,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "256.0",
+    "rotation": "-104.0"
+  }
+}
+ {
+  "ts": 1759887940040,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 259.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940040,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "259.5",
+    "rotation": "-100.5"
+  }
+}
+ {
+  "ts": 1759887940072,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 268.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940073,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "268.9",
+    "rotation": "-91.1"
+  }
+}
+ {
+  "ts": 1759887940089,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 292.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940089,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "292.2",
+    "rotation": "-67.8"
+  }
+}
+ {
+  "ts": 1759887940106,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 150,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940106,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "150.0",
+    "rotation": "-210.0"
+  }
+}
+ {
+  "ts": 1759887940122,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 165.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940123,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "165.5",
+    "rotation": "-194.5"
+  }
+}
+ {
+  "ts": 1759887940139,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 182.79999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940140,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "182.8",
+    "rotation": "-177.2"
+  }
+}
+ {
+  "ts": 1759887940172,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 190.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940172,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "190.5",
+    "rotation": "-169.5"
+  }
+}
+ {
+  "ts": 1759887940191,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 192.29999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940191,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "192.3",
+    "rotation": "-167.7"
+  }
+}
+ {
+  "ts": 1759887940206,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 190.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940206,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "190.1",
+    "rotation": "-169.9"
+  }
+}
+ {
+  "ts": 1759887940223,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 187.29999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940223,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "187.3",
+    "rotation": "-172.7"
+  }
+}
+ {
+  "ts": 1759887940239,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 187.79999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940239,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "187.8",
+    "rotation": "-172.2"
+  }
+}
+ {
+  "ts": 1759887940272,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 192.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940273,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "192.6",
+    "rotation": "-167.4"
+  }
+}
+ {
+  "ts": 1759887940289,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 199.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940289,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "199.7",
+    "rotation": "-160.3"
+  }
+}
+ {
+  "ts": 1759887940306,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 206.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940306,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "206.6",
+    "rotation": "-153.4"
+  }
+}
+ {
+  "ts": 1759887940322,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 33.099999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940323,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "33.1",
+    "rotation": "-326.9"
+  }
+}
+ {
+  "ts": 1759887940339,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 39.69999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940339,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "39.7",
+    "rotation": "-320.3"
+  }
+}
+ {
+  "ts": 1759887940372,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 46.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940373,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "46.6",
+    "rotation": "-313.4"
+  }
+}
+ {
+  "ts": 1759887940389,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 52.89999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940389,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "52.9",
+    "rotation": "-307.1"
+  }
+}
+ {
+  "ts": 1759887940406,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 57.69999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940406,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "57.7",
+    "rotation": "-302.3"
+  }
+}
+ {
+  "ts": 1759887940422,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 61.19999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940423,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "61.2",
+    "rotation": "-298.8"
+  }
+}
+ {
+  "ts": 1759887940456,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 64.80000000000001,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940456,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "64.8",
+    "rotation": "-295.2"
+  }
+}
+ {
+  "ts": 1759887940473,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 65.59999999999997,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940473,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "65.6",
+    "rotation": "-294.4"
+  }
+}
+ {
+  "ts": 1759887940489,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 65.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940489,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "65.4",
+    "rotation": "-294.6"
+  }
+}
+ {
+  "ts": 1759887940506,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 64.59999999999997,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940506,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "64.6",
+    "rotation": "-295.4"
+  }
+}
+ {
+  "ts": 1759887940524,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 62.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940524,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "62.6",
+    "rotation": "-297.4"
+  }
+}
+ {
+  "ts": 1759887940540,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 58.69999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940540,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "58.7",
+    "rotation": "-301.3"
+  }
+}
+ {
+  "ts": 1759887940572,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 53.30000000000001,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940573,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "53.3",
+    "rotation": "-306.7"
+  }
+}
+ {
+  "ts": 1759887940589,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 47.099999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940590,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "47.1",
+    "rotation": "-312.9"
+  }
+}
+ {
+  "ts": 1759887940606,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 39.89999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940606,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "39.9",
+    "rotation": "-320.1"
+  }
+}
+ {
+  "ts": 1759887940623,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 32.299999999999955,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940623,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "32.3",
+    "rotation": "-327.7"
+  }
+}
+ {
+  "ts": 1759887940640,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 25.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940640,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "25.6",
+    "rotation": "-334.4"
+  }
+}
+ {
+  "ts": 1759887940672,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 22.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940673,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "22.5",
+    "rotation": "-337.5"
+  }
+}
+ {
+  "ts": 1759887940689,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 16.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940690,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "16.6",
+    "rotation": "-343.4"
+  }
+}
+ {
+  "ts": 1759887940706,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 10.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940706,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "10.5",
+    "rotation": "-349.5"
+  }
+}
+ {
+  "ts": 1759887940723,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 4.099999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940723,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "4.1",
+    "rotation": "-355.9"
+  }
+}
+ {
+  "ts": 1759887940739,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 359,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940740,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "359.0",
+    "rotation": "-1.0"
+  }
+}
+ {
+  "ts": 1759887940773,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 355.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940773,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "355.9",
+    "rotation": "-4.1"
+  }
+}
+ {
+  "ts": 1759887940789,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 353,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940790,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "353.0",
+    "rotation": "-7.0"
+  }
+}
+ {
+  "ts": 1759887940806,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940806,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.9",
+    "rotation": "-12.1"
+  }
+}
+ {
+  "ts": 1759887940823,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 339.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940823,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "339.5",
+    "rotation": "-20.5"
+  }
+}
+ {
+  "ts": 1759887940839,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 329.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940839,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "329.4",
+    "rotation": "-30.6"
+  }
+}
+ {
+  "ts": 1759887940872,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 317.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940872,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "317.8",
+    "rotation": "-42.2"
+  }
+}
+ {
+  "ts": 1759887940889,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 306.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940889,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "306.6",
+    "rotation": "-53.4"
+  }
+}
+ {
+  "ts": 1759887940906,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 297.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940906,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "297.3",
+    "rotation": "-62.7"
+  }
+}
+ {
+  "ts": 1759887940923,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 290,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940923,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "290.0",
+    "rotation": "-70.0"
+  }
+}
+ {
+  "ts": 1759887940939,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 283,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940940,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "283.0",
+    "rotation": "-77.0"
+  }
+}
+ {
+  "ts": 1759887940973,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 275.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940974,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "275.5",
+    "rotation": "-84.5"
+  }
+}
+ {
+  "ts": 1759887940985,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0193256,
+    "lon": 131.8361981,
+    "acc": 7.142000198364258
+  }
+}
+ {
+  "ts": 1759887940985,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0193256,
+    "lon": 131.8361981
+  }
+}
+ {
+  "ts": 1759887940998,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 268.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887940998,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "268.1",
+    "rotation": "-91.9"
+  }
+}
+ {
+  "ts": 1759887941006,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 261.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "261.7",
+    "rotation": "-98.3"
+  }
+}
+ {
+  "ts": 1759887941022,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 257.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941022,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "257.3",
+    "rotation": "-102.7"
+  }
+}
+ {
+  "ts": 1759887941039,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 254.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941039,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "254.4",
+    "rotation": "-105.6"
+  }
+}
+ {
+  "ts": 1759887941072,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 253.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941073,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "253.4",
+    "rotation": "-106.6"
+  }
+}
+ {
+  "ts": 1759887941089,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 255.89999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941089,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "255.9",
+    "rotation": "-104.1"
+  }
+}
+ {
+  "ts": 1759887941106,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 270.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941106,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "270.2",
+    "rotation": "-89.8"
+  }
+}
+ {
+  "ts": 1759887941124,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 313.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941124,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "313.6",
+    "rotation": "-46.4"
+  }
+}
+ {
+  "ts": 1759887941140,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 165.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941140,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "165.4",
+    "rotation": "-194.6"
+  }
+}
+ {
+  "ts": 1759887941172,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 172.79999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941173,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "172.8",
+    "rotation": "-187.2"
+  }
+}
+ {
+  "ts": 1759887941189,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 174,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941189,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "174.0",
+    "rotation": "-186.0"
+  }
+}
+ {
+  "ts": 1759887941206,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 174.29999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941206,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "174.3",
+    "rotation": "-185.7"
+  }
+}
+ {
+  "ts": 1759887941222,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 173.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941223,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "173.1",
+    "rotation": "-186.9"
+  }
+}
+ {
+  "ts": 1759887941239,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 175.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941240,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "175.2",
+    "rotation": "-184.8"
+  }
+}
+ {
+  "ts": 1759887941274,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 189.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941274,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "189.2",
+    "rotation": "-170.8"
+  }
+}
+ {
+  "ts": 1759887941289,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 18.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941289,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "18.6",
+    "rotation": "-341.4"
+  }
+}
+ {
+  "ts": 1759887941306,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 28.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941306,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "28.5",
+    "rotation": "-331.5"
+  }
+}
+ {
+  "ts": 1759887941322,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 37.299999999999955,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941322,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "37.3",
+    "rotation": "-322.7"
+  }
+}
+ {
+  "ts": 1759887941339,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 43,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941339,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "43.0",
+    "rotation": "-317.0"
+  }
+}
+ {
+  "ts": 1759887941372,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 45.19999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941373,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "45.2",
+    "rotation": "-314.8"
+  }
+}
+ {
+  "ts": 1759887941389,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 45.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941389,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "45.4",
+    "rotation": "-314.6"
+  }
+}
+ {
+  "ts": 1759887941406,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 42.89999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941406,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "42.9",
+    "rotation": "-317.1"
+  }
+}
+ {
+  "ts": 1759887941422,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 38.69999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941422,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "38.7",
+    "rotation": "-321.3"
+  }
+}
+ {
+  "ts": 1759887941439,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 33.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941439,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "33.4",
+    "rotation": "-326.6"
+  }
+}
+ {
+  "ts": 1759887941472,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 27.19999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941473,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "27.2",
+    "rotation": "-332.8"
+  }
+}
+ {
+  "ts": 1759887941489,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 19.299999999999955,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941489,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "19.3",
+    "rotation": "-340.7"
+  }
+}
+ {
+  "ts": 1759887941506,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 11,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941506,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "11.0",
+    "rotation": "-349.0"
+  }
+}
+ {
+  "ts": 1759887941522,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 2.6999999999999886,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941522,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "2.7",
+    "rotation": "-357.3"
+  }
+}
+ {
+  "ts": 1759887941539,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 354.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941539,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "354.1",
+    "rotation": "-5.9"
+  }
+}
+ {
+  "ts": 1759887941572,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941574,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.6",
+    "rotation": "-14.4"
+  }
+}
+ {
+  "ts": 1759887941589,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 338.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941589,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "338.3",
+    "rotation": "-21.7"
+  }
+}
+ {
+  "ts": 1759887941606,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 331.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941606,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "331.1",
+    "rotation": "-28.9"
+  }
+}
+ {
+  "ts": 1759887941622,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 323.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941623,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "323.5",
+    "rotation": "-36.5"
+  }
+}
+ {
+  "ts": 1759887941639,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 315.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941639,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "315.6",
+    "rotation": "-44.4"
+  }
+}
+ {
+  "ts": 1759887941672,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 307.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941673,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "307.6",
+    "rotation": "-52.4"
+  }
+}
+ {
+  "ts": 1759887941689,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 300.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941689,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "300.2",
+    "rotation": "-59.8"
+  }
+}
+ {
+  "ts": 1759887941706,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 294,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941706,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "294.0",
+    "rotation": "-66.0"
+  }
+}
+ {
+  "ts": 1759887941722,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 291.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941722,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "291.2",
+    "rotation": "-68.8"
+  }
+}
+ {
+  "ts": 1759887941739,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 285.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941739,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "285.7",
+    "rotation": "-74.3"
+  }
+}
+ {
+  "ts": 1759887941772,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 281.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941773,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "281.2",
+    "rotation": "-78.8"
+  }
+}
+ {
+  "ts": 1759887941789,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 278.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941789,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "278.1",
+    "rotation": "-81.9"
+  }
+}
+ {
+  "ts": 1759887941806,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 278,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941806,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "278.0",
+    "rotation": "-82.0"
+  }
+}
+ {
+  "ts": 1759887941822,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 283.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941822,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "283.2",
+    "rotation": "-76.8"
+  }
+}
+ {
+  "ts": 1759887941839,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 300,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941839,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "300.0",
+    "rotation": "-60.0"
+  }
+}
+ {
+  "ts": 1759887941872,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 327,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941873,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "327.0",
+    "rotation": "-33.0"
+  }
+}
+ {
+  "ts": 1759887941889,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 163.89999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941889,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "163.9",
+    "rotation": "-196.1"
+  }
+}
+ {
+  "ts": 1759887941906,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 169,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941906,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "169.0",
+    "rotation": "-191.0"
+  }
+}
+ {
+  "ts": 1759887941922,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 168.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941923,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "168.4",
+    "rotation": "-191.6"
+  }
+}
+ {
+  "ts": 1759887941939,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 166.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941939,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "166.1",
+    "rotation": "-193.9"
+  }
+}
+ {
+  "ts": 1759887941978,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 166.29999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941978,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "166.3",
+    "rotation": "-193.7"
+  }
+}
+ {
+  "ts": 1759887941989,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0193247,
+    "lon": 131.836199,
+    "acc": 7.181000232696533
+  }
+}
+ {
+  "ts": 1759887941990,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0193247,
+    "lon": 131.836199
+  }
+}
+ {
+  "ts": 1759887941991,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 172,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887941991,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "172.0",
+    "rotation": "-188.0"
+  }
+}
+ {
+  "ts": 1759887942005,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 0.5999999999999659,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "0.6",
+    "rotation": "-359.4"
+  }
+}
+ {
+  "ts": 1759887942022,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 10.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942022,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "10.6",
+    "rotation": "-349.4"
+  }
+}
+ {
+  "ts": 1759887942039,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 21.19999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942039,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "21.2",
+    "rotation": "-338.8"
+  }
+}
+ {
+  "ts": 1759887942072,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 30.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942073,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "30.6",
+    "rotation": "-329.4"
+  }
+}
+ {
+  "ts": 1759887942089,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 37.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942089,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "37.5",
+    "rotation": "-322.5"
+  }
+}
+ {
+  "ts": 1759887942106,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 44.69999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942106,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "44.7",
+    "rotation": "-315.3"
+  }
+}
+ {
+  "ts": 1759887942122,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 46,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942122,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "46.0",
+    "rotation": "-314.0"
+  }
+}
+ {
+  "ts": 1759887942139,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 46.099999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942139,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "46.1",
+    "rotation": "-313.9"
+  }
+}
+ {
+  "ts": 1759887942172,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 44.19999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942172,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "44.2",
+    "rotation": "-315.8"
+  }
+}
+ {
+  "ts": 1759887942189,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 40.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942189,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "40.5",
+    "rotation": "-319.5"
+  }
+}
+ {
+  "ts": 1759887942206,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 34.39999999999998,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942206,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "34.4",
+    "rotation": "-325.6"
+  }
+}
+ {
+  "ts": 1759887942222,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 26.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942222,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "26.6",
+    "rotation": "-333.4"
+  }
+}
+ {
+  "ts": 1759887942239,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 22.299999999999955,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942239,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "22.3",
+    "rotation": "-337.7"
+  }
+}
+ {
+  "ts": 1759887942272,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 13.399999999999977,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942272,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "13.4",
+    "rotation": "-346.6"
+  }
+}
+ {
+  "ts": 1759887942289,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 4.399999999999977,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942289,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "4.4",
+    "rotation": "-355.6"
+  }
+}
+ {
+  "ts": 1759887942306,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 355.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942306,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "355.1",
+    "rotation": "-4.9"
+  }
+}
+ {
+  "ts": 1759887942322,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942322,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.5",
+    "rotation": "-14.5"
+  }
+}
+ {
+  "ts": 1759887942339,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 336.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942339,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "336.4",
+    "rotation": "-23.6"
+  }
+}
+ {
+  "ts": 1759887942372,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 327.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942372,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "327.6",
+    "rotation": "-32.4"
+  }
+}
+ {
+  "ts": 1759887942389,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 318.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942389,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "318.4",
+    "rotation": "-41.6"
+  }
+}
+ {
+  "ts": 1759887942406,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 308.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942406,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "308.7",
+    "rotation": "-51.3"
+  }
+}
+ {
+  "ts": 1759887942422,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 299.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942422,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "299.5",
+    "rotation": "-60.5"
+  }
+}
+ {
+  "ts": 1759887942439,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 291.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942439,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "291.7",
+    "rotation": "-68.3"
+  }
+}
+ {
+  "ts": 1759887942472,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 285.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942472,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "285.6",
+    "rotation": "-74.4"
+  }
+}
+ {
+  "ts": 1759887942489,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 282.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942489,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "282.1",
+    "rotation": "-77.9"
+  }
+}
+ {
+  "ts": 1759887942506,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 285.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942506,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "285.2",
+    "rotation": "-74.8"
+  }
+}
+ {
+  "ts": 1759887942522,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 308.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942522,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "308.6",
+    "rotation": "-51.4"
+  }
+}
+ {
+  "ts": 1759887942539,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 168.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942539,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "168.2",
+    "rotation": "-191.8"
+  }
+}
+ {
+  "ts": 1759887942572,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 173.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942572,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "173.5",
+    "rotation": "-186.5"
+  }
+}
+ {
+  "ts": 1759887942589,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 168.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942589,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "168.6",
+    "rotation": "-191.4"
+  }
+}
+ {
+  "ts": 1759887942606,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 162.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942606,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "162.6",
+    "rotation": "-197.4"
+  }
+}
+ {
+  "ts": 1759887942622,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 337.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942622,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "337.8",
+    "rotation": "-22.2"
+  }
+}
+ {
+  "ts": 1759887942639,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 337.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942639,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "337.3",
+    "rotation": "-22.7"
+  }
+}
+ {
+  "ts": 1759887942672,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 341.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942672,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "341.6",
+    "rotation": "-18.4"
+  }
+}
+ {
+  "ts": 1759887942689,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942689,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.2",
+    "rotation": "-10.8"
+  }
+}
+ {
+  "ts": 1759887942706,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 358.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942706,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "358.9",
+    "rotation": "-1.1"
+  }
+}
+ {
+  "ts": 1759887942722,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 10.099999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942722,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "10.1",
+    "rotation": "10.1"
+  }
+}
+ {
+  "ts": 1759887942739,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 21.19999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942739,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "21.2",
+    "rotation": "21.2"
+  }
+}
+ {
+  "ts": 1759887942772,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 28.799999999999955,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942772,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "28.8",
+    "rotation": "28.8"
+  }
+}
+ {
+  "ts": 1759887942789,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 31.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942789,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "31.5",
+    "rotation": "31.5"
+  }
+}
+ {
+  "ts": 1759887942806,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 32.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942806,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "32.6",
+    "rotation": "32.6"
+  }
+}
+ {
+  "ts": 1759887942822,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 31.899999999999977,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942822,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "31.9",
+    "rotation": "31.9"
+  }
+}
+ {
+  "ts": 1759887942839,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 31.69999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942839,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "31.7",
+    "rotation": "31.7"
+  }
+}
+ {
+  "ts": 1759887942872,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 32.099999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942872,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "32.1",
+    "rotation": "32.1"
+  }
+}
+ {
+  "ts": 1759887942889,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 31.599999999999966,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942889,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "31.6",
+    "rotation": "31.6"
+  }
+}
+ {
+  "ts": 1759887942906,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 28.69999999999999,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942906,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "28.7",
+    "rotation": "28.7"
+  }
+}
+ {
+  "ts": 1759887942922,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 24.399999999999977,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942922,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "24.4",
+    "rotation": "24.4"
+  }
+}
+ {
+  "ts": 1759887942939,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 10.399999999999977,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942939,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "10.4",
+    "rotation": "10.4"
+  }
+}
+ {
+  "ts": 1759887942981,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0193252,
+    "lon": 131.8361981,
+    "acc": 7.300000190734863
+  }
+}
+ {
+  "ts": 1759887942981,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0193252,
+    "lon": 131.8361981
+  }
+}
+ {
+  "ts": 1759887942989,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 355.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887942989,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "355.2",
+    "rotation": "-4.8"
+  }
+}
+ {
+  "ts": 1759887943006,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.6",
+    "rotation": "-8.4"
+  }
+}
+ {
+  "ts": 1759887943022,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943022,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.5",
+    "rotation": "-10.5"
+  }
+}
+ {
+  "ts": 1759887943039,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943039,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.3",
+    "rotation": "-11.7"
+  }
+}
+ {
+  "ts": 1759887943072,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943073,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.0",
+    "rotation": "-12.0"
+  }
+}
+ {
+  "ts": 1759887943106,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943106,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.9",
+    "rotation": "-12.1"
+  }
+}
+ {
+  "ts": 1759887943122,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943122,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.4",
+    "rotation": "-12.6"
+  }
+}
+ {
+  "ts": 1759887943139,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943139,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.6",
+    "rotation": "-13.4"
+  }
+}
+ {
+  "ts": 1759887943172,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943172,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.2",
+    "rotation": "-13.8"
+  }
+}
+ {
+  "ts": 1759887943189,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943189,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.4",
+    "rotation": "-13.6"
+  }
+}
+ {
+  "ts": 1759887943206,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943206,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.0",
+    "rotation": "-13.0"
+  }
+}
+ {
+  "ts": 1759887943222,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943222,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.6",
+    "rotation": "-12.4"
+  }
+}
+ {
+  "ts": 1759887943239,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943239,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.0",
+    "rotation": "-12.0"
+  }
+}
+ {
+  "ts": 1759887943272,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943272,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.2",
+    "rotation": "-11.8"
+  }
+}
+ {
+  "ts": 1759887943289,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943289,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.3",
+    "rotation": "-11.7"
+  }
+}
+ {
+  "ts": 1759887943306,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943306,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.4",
+    "rotation": "-11.6"
+  }
+}
+ {
+  "ts": 1759887943322,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943322,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.7",
+    "rotation": "-11.3"
+  }
+}
+ {
+  "ts": 1759887943339,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943339,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.2",
+    "rotation": "-10.8"
+  }
+}
+ {
+  "ts": 1759887943372,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943372,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.6",
+    "rotation": "-10.4"
+  }
+}
+ {
+  "ts": 1759887943389,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943389,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.9",
+    "rotation": "-10.1"
+  }
+}
+ {
+  "ts": 1759887943422,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 350.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943422,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "350.1",
+    "rotation": "-9.9"
+  }
+}
+ {
+  "ts": 1759887943439,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 350.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943439,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "350.3",
+    "rotation": "-9.7"
+  }
+}
+ {
+  "ts": 1759887943472,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 350.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943472,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "350.5",
+    "rotation": "-9.5"
+  }
+}
+ {
+  "ts": 1759887943489,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 350.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943489,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "350.8",
+    "rotation": "-9.2"
+  }
+}
+ {
+  "ts": 1759887943505,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943506,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.3",
+    "rotation": "-8.7"
+  }
+}
+ {
+  "ts": 1759887943522,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943522,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.7",
+    "rotation": "-8.3"
+  }
+}
+ {
+  "ts": 1759887943539,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943539,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.8",
+    "rotation": "-8.2"
+  }
+}
+ {
+  "ts": 1759887943572,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943572,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.7",
+    "rotation": "-8.3"
+  }
+}
+ {
+  "ts": 1759887943589,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943589,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.6",
+    "rotation": "-8.4"
+  }
+}
+ {
+  "ts": 1759887943606,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943606,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.4",
+    "rotation": "-8.6"
+  }
+}
+ {
+  "ts": 1759887943622,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943622,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.3",
+    "rotation": "-8.7"
+  }
+}
+ {
+  "ts": 1759887943639,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 351.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943639,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "351.1",
+    "rotation": "-8.9"
+  }
+}
+ {
+  "ts": 1759887943672,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 350.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943672,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "350.8",
+    "rotation": "-9.2"
+  }
+}
+ {
+  "ts": 1759887943689,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 350.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943689,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "350.1",
+    "rotation": "-9.9"
+  }
+}
+ {
+  "ts": 1759887943706,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943706,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.7",
+    "rotation": "-10.3"
+  }
+}
+ {
+  "ts": 1759887943722,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943722,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.4",
+    "rotation": "-10.6"
+  }
+}
+ {
+  "ts": 1759887943772,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943772,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.5",
+    "rotation": "-10.5"
+  }
+}
+ {
+  "ts": 1759887943806,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943806,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.4",
+    "rotation": "-10.6"
+  }
+}
+ {
+  "ts": 1759887943839,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943839,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.5",
+    "rotation": "-10.5"
+  }
+}
+ {
+  "ts": 1759887943872,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943872,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.6",
+    "rotation": "-10.4"
+  }
+}
+ {
+  "ts": 1759887943889,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943889,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.4",
+    "rotation": "-10.6"
+  }
+}
+ {
+  "ts": 1759887943905,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 349,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943906,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "349.0",
+    "rotation": "-11.0"
+  }
+}
+ {
+  "ts": 1759887943922,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943922,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.6",
+    "rotation": "-11.4"
+  }
+}
+ {
+  "ts": 1759887943939,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943939,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.3",
+    "rotation": "-11.7"
+  }
+}
+ {
+  "ts": 1759887943972,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943973,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.1",
+    "rotation": "-11.9"
+  }
+}
+ {
+  "ts": 1759887943982,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0193239,
+    "lon": 131.836198,
+    "acc": 7.631999969482422
+  }
+}
+ {
+  "ts": 1759887943982,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0193239,
+    "lon": 131.836198
+  }
+}
+ {
+  "ts": 1759887943989,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887943989,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.0",
+    "rotation": "-12.0"
+  }
+}
+ {
+  "ts": 1759887944005,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.6",
+    "rotation": "-12.4"
+  }
+}
+ {
+  "ts": 1759887944022,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944022,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.1",
+    "rotation": "-12.9"
+  }
+}
+ {
+  "ts": 1759887944039,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944039,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.6",
+    "rotation": "-13.4"
+  }
+}
+ {
+  "ts": 1759887944072,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944072,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.3",
+    "rotation": "-13.7"
+  }
+}
+ {
+  "ts": 1759887944089,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944089,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.0",
+    "rotation": "-14.0"
+  }
+}
+ {
+  "ts": 1759887944106,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944106,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.7",
+    "rotation": "-14.3"
+  }
+}
+ {
+  "ts": 1759887944122,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944122,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.5",
+    "rotation": "-14.5"
+  }
+}
+ {
+  "ts": 1759887944139,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944139,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.6",
+    "rotation": "-14.4"
+  }
+}
+ {
+  "ts": 1759887944172,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944173,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.9",
+    "rotation": "-14.1"
+  }
+}
+ {
+  "ts": 1759887944189,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944189,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.2",
+    "rotation": "-13.8"
+  }
+}
+ {
+  "ts": 1759887944205,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944206,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.3",
+    "rotation": "-13.7"
+  }
+}
+ {
+  "ts": 1759887944222,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944222,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.4",
+    "rotation": "-13.6"
+  }
+}
+ {
+  "ts": 1759887944272,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944272,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.5",
+    "rotation": "-13.5"
+  }
+}
+ {
+  "ts": 1759887944289,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944289,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.8",
+    "rotation": "-13.2"
+  }
+}
+ {
+  "ts": 1759887944306,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944306,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.1",
+    "rotation": "-12.9"
+  }
+}
+ {
+  "ts": 1759887944339,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944339,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.2",
+    "rotation": "-12.8"
+  }
+}
+ {
+  "ts": 1759887944372,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944372,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.0",
+    "rotation": "-13.0"
+  }
+}
+ {
+  "ts": 1759887944389,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944389,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.9",
+    "rotation": "-13.1"
+  }
+}
+ {
+  "ts": 1759887944422,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944422,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.0",
+    "rotation": "-13.0"
+  }
+}
+ {
+  "ts": 1759887944439,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944439,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.1",
+    "rotation": "-12.9"
+  }
+}
+ {
+  "ts": 1759887944472,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944472,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.4",
+    "rotation": "-12.6"
+  }
+}
+ {
+  "ts": 1759887944489,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944489,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.6",
+    "rotation": "-12.4"
+  }
+}
+ {
+  "ts": 1759887944505,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944506,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.9",
+    "rotation": "-12.1"
+  }
+}
+ {
+  "ts": 1759887944522,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944522,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.1",
+    "rotation": "-11.9"
+  }
+}
+ {
+  "ts": 1759887944539,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944539,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.2",
+    "rotation": "-11.8"
+  }
+}
+ {
+  "ts": 1759887944572,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 348,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944572,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "348.0",
+    "rotation": "-12.0"
+  }
+}
+ {
+  "ts": 1759887944589,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944589,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.8",
+    "rotation": "-12.2"
+  }
+}
+ {
+  "ts": 1759887944605,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944606,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.5",
+    "rotation": "-12.5"
+  }
+}
+ {
+  "ts": 1759887944622,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944622,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.3",
+    "rotation": "-12.7"
+  }
+}
+ {
+  "ts": 1759887944639,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944639,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.5",
+    "rotation": "-12.5"
+  }
+}
+ {
+  "ts": 1759887944672,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944672,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.6",
+    "rotation": "-12.4"
+  }
+}
+ {
+  "ts": 1759887944689,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944689,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.5",
+    "rotation": "-12.5"
+  }
+}
+ {
+  "ts": 1759887944705,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944706,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.3",
+    "rotation": "-12.7"
+  }
+}
+ {
+  "ts": 1759887944722,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944722,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.2",
+    "rotation": "-12.8"
+  }
+}
+ {
+  "ts": 1759887944789,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944789,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.4",
+    "rotation": "-12.6"
+  }
+}
+ {
+  "ts": 1759887944822,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944822,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.3",
+    "rotation": "-12.7"
+  }
+}
+ {
+  "ts": 1759887944839,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 347.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944839,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "347.1",
+    "rotation": "-12.9"
+  }
+}
+ {
+  "ts": 1759887944872,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944872,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.9",
+    "rotation": "-13.1"
+  }
+}
+ {
+  "ts": 1759887944889,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944889,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.7",
+    "rotation": "-13.3"
+  }
+}
+ {
+  "ts": 1759887944905,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944906,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.5",
+    "rotation": "-13.5"
+  }
+}
+ {
+  "ts": 1759887944922,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944922,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.4",
+    "rotation": "-13.6"
+  }
+}
+ {
+  "ts": 1759887944939,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944939,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.2",
+    "rotation": "-13.8"
+  }
+}
+ {
+  "ts": 1759887944979,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0193248,
+    "lon": 131.8361984,
+    "acc": 8.192999839782715
+  }
+}
+ {
+  "ts": 1759887944979,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0193248,
+    "lon": 131.8361984
+  }
+}
+ {
+  "ts": 1759887944989,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887944989,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.3",
+    "rotation": "-13.7"
+  }
+}
+ {
+  "ts": 1759887945005,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.4",
+    "rotation": "-13.6"
+  }
+}
+ {
+  "ts": 1759887945022,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945022,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.2",
+    "rotation": "-13.8"
+  }
+}
+ {
+  "ts": 1759887945039,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 346,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945039,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "346.0",
+    "rotation": "-14.0"
+  }
+}
+ {
+  "ts": 1759887945072,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945072,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.8",
+    "rotation": "-14.2"
+  }
+}
+ {
+  "ts": 1759887945089,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945089,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.7",
+    "rotation": "-14.3"
+  }
+}
+ {
+  "ts": 1759887945122,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945122,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.8",
+    "rotation": "-14.2"
+  }
+}
+ {
+  "ts": 1759887945172,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945173,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.7",
+    "rotation": "-14.3"
+  }
+}
+ {
+  "ts": 1759887945189,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945189,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.6",
+    "rotation": "-14.4"
+  }
+}
+ {
+  "ts": 1759887945205,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945206,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.4",
+    "rotation": "-14.6"
+  }
+}
+ {
+  "ts": 1759887945222,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945222,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.3",
+    "rotation": "-14.7"
+  }
+}
+ {
+  "ts": 1759887945239,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 345.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945239,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "345.1",
+    "rotation": "-14.9"
+  }
+}
+ {
+  "ts": 1759887945272,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 344.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945272,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "344.8",
+    "rotation": "-15.2"
+  }
+}
+ {
+  "ts": 1759887945289,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 344.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945289,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "344.4",
+    "rotation": "-15.6"
+  }
+}
+ {
+  "ts": 1759887945305,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 344.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945306,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "344.2",
+    "rotation": "-15.8"
+  }
+}
+ {
+  "ts": 1759887945322,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 344.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945322,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "344.1",
+    "rotation": "-15.9"
+  }
+}
+ {
+  "ts": 1759887945339,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 344.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945340,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "344.2",
+    "rotation": "-15.8"
+  }
+}
+ {
+  "ts": 1759887945422,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 344,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945422,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "344.0",
+    "rotation": "-16.0"
+  }
+}
+ {
+  "ts": 1759887945439,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 343.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945439,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "343.9",
+    "rotation": "-16.1"
+  }
+}
+ {
+  "ts": 1759887945472,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 343.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945472,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "343.7",
+    "rotation": "-16.3"
+  }
+}
+ {
+  "ts": 1759887945489,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 343.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945489,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "343.6",
+    "rotation": "-16.4"
+  }
+}
+ {
+  "ts": 1759887945505,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 343.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945506,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "343.5",
+    "rotation": "-16.5"
+  }
+}
+ {
+  "ts": 1759887945522,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 343,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945522,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "343.0",
+    "rotation": "-17.0"
+  }
+}
+ {
+  "ts": 1759887945539,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945539,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.8",
+    "rotation": "-17.2"
+  }
+}
+ {
+  "ts": 1759887945572,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945572,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.7",
+    "rotation": "-17.3"
+  }
+}
+ {
+  "ts": 1759887945589,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945589,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.8",
+    "rotation": "-17.2"
+  }
+}
+ {
+  "ts": 1759887945605,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945606,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.9",
+    "rotation": "-17.1"
+  }
+}
+ {
+  "ts": 1759887945656,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945656,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.7",
+    "rotation": "-17.3"
+  }
+}
+ {
+  "ts": 1759887945672,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945672,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.3",
+    "rotation": "-17.7"
+  }
+}
+ {
+  "ts": 1759887945689,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945689,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.0",
+    "rotation": "-18.0"
+  }
+}
+ {
+  "ts": 1759887945705,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 341.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945706,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "341.7",
+    "rotation": "-18.3"
+  }
+}
+ {
+  "ts": 1759887945722,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 341.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945722,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "341.5",
+    "rotation": "-18.5"
+  }
+}
+ {
+  "ts": 1759887945739,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 341.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945739,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "341.2",
+    "rotation": "-18.8"
+  }
+}
+ {
+  "ts": 1759887945772,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 340.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945772,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "340.9",
+    "rotation": "-19.1"
+  }
+}
+ {
+  "ts": 1759887945793,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 340.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945794,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "340.6",
+    "rotation": "-19.4"
+  }
+}
+ {
+  "ts": 1759887945805,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 340.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945806,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "340.4",
+    "rotation": "-19.6"
+  }
+}
+ {
+  "ts": 1759887945822,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 340.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945822,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "340.1",
+    "rotation": "-19.9"
+  }
+}
+ {
+  "ts": 1759887945840,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 339.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945841,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "339.8",
+    "rotation": "-20.2"
+  }
+}
+ {
+  "ts": 1759887945872,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 339.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945872,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "339.4",
+    "rotation": "-20.6"
+  }
+}
+ {
+  "ts": 1759887945889,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 339,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945890,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "339.0",
+    "rotation": "-21.0"
+  }
+}
+ {
+  "ts": 1759887945905,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 338.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945906,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "338.6",
+    "rotation": "-21.4"
+  }
+}
+ {
+  "ts": 1759887945922,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 338.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945923,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "338.1",
+    "rotation": "-21.9"
+  }
+}
+ {
+  "ts": 1759887945939,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 337.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945941,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "337.6",
+    "rotation": "-22.4"
+  }
+}
+ {
+  "ts": 1759887945972,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 337.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945978,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "337.3",
+    "rotation": "-22.7"
+  }
+}
+ {
+  "ts": 1759887945984,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0193237,
+    "lon": 131.8361965,
+    "acc": 8.532999992370605
+  }
+}
+ {
+  "ts": 1759887945984,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0193237,
+    "lon": 131.8361965
+  }
+}
+ {
+  "ts": 1759887945989,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 336.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887945989,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "336.7",
+    "rotation": "-23.3"
+  }
+}
+ {
+  "ts": 1759887946005,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 335.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "335.9",
+    "rotation": "-24.1"
+  }
+}
+ {
+  "ts": 1759887946022,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 335.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946023,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "335.1",
+    "rotation": "-24.9"
+  }
+}
+ {
+  "ts": 1759887946055,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 334.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946056,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "334.2",
+    "rotation": "-25.8"
+  }
+}
+ {
+  "ts": 1759887946074,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 333.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946075,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "333.4",
+    "rotation": "-26.6"
+  }
+}
+ {
+  "ts": 1759887946089,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 332.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946090,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "332.5",
+    "rotation": "-27.5"
+  }
+}
+ {
+  "ts": 1759887946108,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 331.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946110,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "331.5",
+    "rotation": "-28.5"
+  }
+}
+ {
+  "ts": 1759887946125,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 330.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946125,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "330.5",
+    "rotation": "-29.5"
+  }
+}
+ {
+  "ts": 1759887946139,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 329.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946142,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "329.4",
+    "rotation": "-30.6"
+  }
+}
+ {
+  "ts": 1759887946173,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 328.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946173,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "328.4",
+    "rotation": "-31.6"
+  }
+}
+ {
+  "ts": 1759887946192,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 327.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946193,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "327.5",
+    "rotation": "-32.5"
+  }
+}
+ {
+  "ts": 1759887946211,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 326.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946211,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "326.6",
+    "rotation": "-33.4"
+  }
+}
+ {
+  "ts": 1759887946225,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 325.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946226,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "325.7",
+    "rotation": "-34.3"
+  }
+}
+ {
+  "ts": 1759887946240,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 325.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946241,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "325.1",
+    "rotation": "-34.9"
+  }
+}
+ {
+  "ts": 1759887946272,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 324.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946273,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "324.4",
+    "rotation": "-35.6"
+  }
+}
+ {
+  "ts": 1759887946291,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 323.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946292,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "323.6",
+    "rotation": "-36.4"
+  }
+}
+ {
+  "ts": 1759887946306,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 322.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946306,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "322.2",
+    "rotation": "-37.8"
+  }
+}
+ {
+  "ts": 1759887946324,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 321.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946325,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "321.7",
+    "rotation": "-38.3"
+  }
+}
+ {
+  "ts": 1759887946356,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 321.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946360,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "321.2",
+    "rotation": "-38.8"
+  }
+}
+ {
+  "ts": 1759887946375,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 320.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946375,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "320.9",
+    "rotation": "-39.1"
+  }
+}
+ {
+  "ts": 1759887946392,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 320.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946392,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "320.5",
+    "rotation": "-39.5"
+  }
+}
+ {
+  "ts": 1759887946409,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 320,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946410,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "320.0",
+    "rotation": "-40.0"
+  }
+}
+ {
+  "ts": 1759887946426,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 319.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946426,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "319.5",
+    "rotation": "-40.5"
+  }
+}
+ {
+  "ts": 1759887946443,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 319.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946444,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "319.1",
+    "rotation": "-40.9"
+  }
+}
+ {
+  "ts": 1759887946474,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 318.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946474,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "318.9",
+    "rotation": "-41.1"
+  }
+}
+ {
+  "ts": 1759887946492,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 318.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946492,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "318.7",
+    "rotation": "-41.3"
+  }
+}
+ {
+  "ts": 1759887946510,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 318.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946510,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "318.2",
+    "rotation": "-41.8"
+  }
+}
+ {
+  "ts": 1759887946525,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 317.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946525,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "317.5",
+    "rotation": "-42.5"
+  }
+}
+ {
+  "ts": 1759887946543,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 316.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946543,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "316.6",
+    "rotation": "-43.4"
+  }
+}
+ {
+  "ts": 1759887946573,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 315.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946574,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "315.7",
+    "rotation": "-44.3"
+  }
+}
+ {
+  "ts": 1759887946593,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 315.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946593,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "315.1",
+    "rotation": "-44.9"
+  }
+}
+ {
+  "ts": 1759887946608,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 314.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946609,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "314.6",
+    "rotation": "-45.4"
+  }
+}
+ {
+  "ts": 1759887946625,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 314.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946625,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "314.2",
+    "rotation": "-45.8"
+  }
+}
+ {
+  "ts": 1759887946639,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 314.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946640,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "314.3",
+    "rotation": "-45.7"
+  }
+}
+ {
+  "ts": 1759887946672,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 314.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946673,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "314.5",
+    "rotation": "-45.5"
+  }
+}
+ {
+  "ts": 1759887946693,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 314.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946693,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "314.8",
+    "rotation": "-45.2"
+  }
+}
+ {
+  "ts": 1759887946708,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 315.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946708,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "315.3",
+    "rotation": "-44.7"
+  }
+}
+ {
+  "ts": 1759887946724,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 315.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946725,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "315.7",
+    "rotation": "-44.3"
+  }
+}
+ {
+  "ts": 1759887946742,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 316.3,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946742,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "316.3",
+    "rotation": "-43.7"
+  }
+}
+ {
+  "ts": 1759887946775,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 317,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946775,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "317.0",
+    "rotation": "-43.0"
+  }
+}
+ {
+  "ts": 1759887946791,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 317.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946792,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "317.9",
+    "rotation": "-42.1"
+  }
+}
+ {
+  "ts": 1759887946806,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 319.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946807,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "319.2",
+    "rotation": "-40.8"
+  }
+}
+ {
+  "ts": 1759887946824,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 320.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946825,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "320.8",
+    "rotation": "-39.2"
+  }
+}
+ {
+  "ts": 1759887946842,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 322.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946843,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "322.1",
+    "rotation": "-37.9"
+  }
+}
+ {
+  "ts": 1759887946873,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 323.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946875,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "323.1",
+    "rotation": "-36.9"
+  }
+}
+ {
+  "ts": 1759887946892,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 324.2,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946893,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "324.2",
+    "rotation": "-35.8"
+  }
+}
+ {
+  "ts": 1759887946907,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 325.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946907,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "325.4",
+    "rotation": "-34.6"
+  }
+}
+ {
+  "ts": 1759887946925,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 326.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946925,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "326.8",
+    "rotation": "-33.2"
+  }
+}
+ {
+  "ts": 1759887946944,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 328.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946944,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "328.6",
+    "rotation": "-31.4"
+  }
+}
+ {
+  "ts": 1759887946973,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 330.5,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946974,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "330.5",
+    "rotation": "-29.5"
+  }
+}
+ {
+  "ts": 1759887946987,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0193239,
+    "lon": 131.836192,
+    "acc": 8.616999626159668
+  }
+}
+ {
+  "ts": 1759887946987,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0193239,
+    "lon": 131.836192
+  }
+}
+ {
+  "ts": 1759887946993,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 332.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887946993,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "332.1",
+    "rotation": "-27.9"
+  }
+}
+ {
+  "ts": 1759887947006,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 333.6,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947006,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "333.6",
+    "rotation": "-26.4"
+  }
+}
+ {
+  "ts": 1759887947029,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 334.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947030,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "334.8",
+    "rotation": "-25.2"
+  }
+}
+ {
+  "ts": 1759887947041,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 335.4,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947041,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "335.4",
+    "rotation": "-24.6"
+  }
+}
+ {
+  "ts": 1759887947073,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 336.7,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947073,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "336.7",
+    "rotation": "-23.3"
+  }
+}
+ {
+  "ts": 1759887947091,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 337.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947091,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "337.9",
+    "rotation": "-22.1"
+  }
+}
+ {
+  "ts": 1759887947107,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 338.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947108,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "338.9",
+    "rotation": "-21.1"
+  }
+}
+ {
+  "ts": 1759887947123,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 340.9,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947124,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "340.9",
+    "rotation": "-19.1"
+  }
+}
+ {
+  "ts": 1759887947142,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 342,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947143,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "342.0",
+    "rotation": "-18.0"
+  }
+}
+ {
+  "ts": 1759887947172,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 343.1,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947173,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "343.1",
+    "rotation": "-16.9"
+  }
+}
+ {
+  "ts": 1759887947192,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 343.8,
+    "reason": null
+  }
+}
+ {
+  "ts": 1759887947192,
+  "module": "mapController.js",
+  "event": "apply_heading",
+  "data": {
+    "mode": "north-up",
+    "heading": "343.8",
+    "rotation": "-16.2"
+  }
+}
+ {
+  "ts": 1759887947207,
+  "module": "state.js",
+  "event": "heading_set",
+  "data": {
+    "value": 344.4,
+    "reason": null
+  }
+}
