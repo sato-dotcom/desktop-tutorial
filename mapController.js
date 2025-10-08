@@ -72,25 +72,7 @@ function updateHeading(headingState) {
     // --- Heading-Up モードの処理 ---
     if (appState.mode === 'heading-up') {
         // 1. 回転基準点を動的に設定
-        let originString;
-        let originLog;
-
-        if (appState.position && map) {
-            const latlng = [appState.position.coords.latitude, appState.position.coords.longitude];
-            let containerPoint = map.latLngToContainerPoint(latlng);
-            
-            // 将来的に 'bottom-quarter' の場合、ここでY座標を調整する
-            // 例: const mapSize = map.getSize(); containerPoint.y = mapSize.y * 0.75;
-            
-            originString = `${containerPoint.x}px ${containerPoint.y}px`;
-            originLog = { x: Math.round(containerPoint.x), y: Math.round(containerPoint.y) };
-        } else {
-            // 現在地が取得できていない場合のフォールバック
-            originString = '50% 50%';
-            originLog = { x: '50%', y: '50%' };
-        }
-        mapPane.style.transformOrigin = originString;
-
+        updateTransformOrigin('heading_update');
 
         // 2. 地図の最短回転補正の計算
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
@@ -130,7 +112,6 @@ function updateHeading(headingState) {
             heading: newHeading.toFixed(1),
             map_rotation: newMapRotation.toFixed(1),
             marker_rotation: newMarkerRotation.toFixed(1),
-            rotation_origin: originLog,
             markerAnchor: appState.markerAnchor
         });
 
@@ -186,6 +167,45 @@ function getMarkerRotatorElement() {
     return el;
 }
 
+/**
+ * 地図の回転基点を現在地マーカーの画面座標に更新する
+ * @param {string} reason - 更新のトリガーとなった理由（ログ用）
+ */
+function updateTransformOrigin(reason = 'unknown') {
+    if (appState.mode !== 'heading-up' || !map) return;
+
+    const mapPane = map.getPane('mapPane');
+    if (!mapPane) return;
+
+    let originString;
+    let originLog;
+
+    if (appState.position) {
+        const latlng = [appState.position.coords.latitude, appState.position.coords.longitude];
+        const containerPoint = map.latLngToContainerPoint(latlng);
+        
+        // 将来的に 'bottom-quarter' の場合、ここでY座標を調整する
+        // if (appState.markerAnchor === 'bottom-quarter') { ... }
+
+        originString = `${containerPoint.x}px ${containerPoint.y}px`;
+        originLog = { x: Math.round(containerPoint.x), y: Math.round(containerPoint.y) };
+    } else {
+        // 現在地が取得できていない場合のフォールバック
+        originString = '50% 50%';
+        originLog = { x: '50%', y: '50%' };
+    }
+
+    if (mapPane.style.transformOrigin !== originString) {
+        mapPane.style.transformOrigin = originString;
+        logJSON('mapController.js', 'rotation_origin_updated', {
+            x: originLog.x,
+            y: originLog.y,
+            reason: reason
+        });
+    }
+}
+
+
 function stabilizeAfterFullScreen() {
     const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
     document.body.classList.toggle('fullscreen-active', isFullscreen);
@@ -197,12 +217,18 @@ function stabilizeAfterFullScreen() {
     }
     
     map.invalidateSize({ animate: false });
+    if (appState.mode === 'heading-up') {
+        updateTransformOrigin('resize');
+    }
     if (appState.position && appState.followUser) {
         recenterAbsolutely(appState.position.coords);
     }
     
     setTimeout(() => {
         map.invalidateSize({ animate: false });
+        if (appState.mode === 'heading-up') {
+            updateTransformOrigin('resize_delayed');
+        }
         if (appState.position && appState.followUser) {
             recenterAbsolutely(appState.position.coords);
         }
