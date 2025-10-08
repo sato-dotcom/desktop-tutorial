@@ -1,0 +1,1488 @@
+ Current URL: https://umineko-aabf34.netlify.app/
+ Protocol: https:
+ Hostname: umineko-aabf34.netlify.app
+ Is excluded: false
+ Found code blocks: 1
+ Block 0: Single line, skipping
+ --- 🚀 App Initializing ---
+ Initial State: followUser=true, mode=north-up, debug=true
+ Current URL: https://umineko-aabf34.netlify.app/
+ Protocol: https:
+ Hostname: umineko-aabf34.netlify.app
+ Is excluded: false
+ Found code blocks: 1
+ Block 0: Single line, skipping
+ {
+  "ts": 1759883599143,
+  "module": "state.js",
+  "event": "heading_null",
+  "data": {
+    "value": null,
+    "reason": "low_accuracy"
+  }
+}
+ [ERROR-DOM] marker rotator element not found (selector: #userMarker .user-location-marker-rotator)
+getMarkerRotatorElement @ mapController.js:159
+ {
+  "ts": 1759883599854,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.01902593016313,
+    "lon": 131.8361755772606,
+    "acc": 55
+  }
+}
+ {
+  "ts": 1759883599855,
+  "module": "mapController.js",
+  "event": "marker_created",
+  "data": {
+    "lat": 34.01902593016313,
+    "lon": 131.8361755772606
+  }
+}
+ {
+  "ts": 1759883599855,
+  "module": "ui.js",
+  "event": "gps_status_updated",
+  "data": {
+    "status": "GPS受信中"
+  }
+}
+ Current URL: https://umineko-aabf34.netlify.app/
+ Protocol: https:
+ Hostname: umineko-aabf34.netlify.app
+ Is excluded: false
+ Found code blocks: 1
+ Block 0: Single line, skipping
+ Current URL: https://umineko-aabf34.netlify.app/
+ Protocol: https:
+ Hostname: umineko-aabf34.netlify.app
+ Is excluded: false
+ Found code blocks: 1
+ Block 0: Single line, skipping
+ Current URL: https://umineko-aabf34.netlify.app/
+ Protocol: https:
+ Hostname: umineko-aabf34.netlify.app
+ Is excluded: false
+ Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883610197,
+  "module": "state.js",
+  "event": "mode_changed",
+  "data": {
+    "from": "north-up",
+    "to": "heading-up"
+  }
+}
+state.js:59 {
+  "ts": 1759883610197,
+  "module": "mapController.js",
+  "event": "reset_rotation",
+  "data": {
+    "reason": "low_accuracy",
+    "mode": "heading-up"
+  }
+}
+ Current URL: https://umineko-aabf34.netlify.app/
+ Protocol: https:
+ Hostname: umineko-aabf34.netlify.app
+ Is excluded: false
+ Found code blocks: 1
+ Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883610883,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.0190123045773,
+    "lon": 131.83619535689218,
+    "acc": 55
+  }
+}
+state.js:59 {
+  "ts": 1759883610883,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.0190123045773,
+    "lon": 131.83619535689218
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883613358,
+  "module": "mapController.js",
+  "event": "reset_rotation",
+  "data": {
+    "reason": "low_accuracy",
+    "mode": "heading-up"
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883634699,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.01900604570064,
+    "lon": 131.83620161576886,
+    "acc": 55
+  }
+}
+state.js:59 {
+  "ts": 1759883634699,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.01900604570064,
+    "lon": 131.83620161576886
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883645392,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.01901568759696,
+    "lon": 131.83619522816883,
+    "acc": 55
+  }
+}
+state.js:59 {
+  "ts": 1759883645392,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.01901568759696,
+    "lon": 131.83619522816883
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883653592,
+  "module": "mapController.js",
+  "event": "reset_rotation",
+  "data": {
+    "reason": "low_accuracy",
+    "mode": "heading-up"
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883655506,
+  "module": "mapController.js",
+  "event": "reset_rotation",
+  "data": {
+    "reason": "low_accuracy",
+    "mode": "heading-up"
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883656419,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.01900719187933,
+    "lon": 131.83620116205472,
+    "acc": 55
+  }
+}
+state.js:59 {
+  "ts": 1759883656419,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.01900719187933,
+    "lon": 131.83620116205472
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
+state.js:59 {
+  "ts": 1759883680346,
+  "module": "state.js",
+  "event": "position_set",
+  "data": {
+    "lat": 34.01899986085928,
+    "lon": 131.83619788092105,
+    "acc": 55
+  }
+}
+state.js:59 {
+  "ts": 1759883680346,
+  "module": "mapController.js",
+  "event": "marker_updated",
+  "data": {
+    "lat": 34.01899986085928,
+    "lon": 131.83619788092105
+  }
+}
+content.js:28 Current URL: https://umineko-aabf34.netlify.app/
+content.js:29 Protocol: https:
+content.js:30 Hostname: umineko-aabf34.netlify.app
+content.js:31 Is excluded: false
+content.js:46 Found code blocks: 1
+content.js:57 Block 0: Single line, skipping
