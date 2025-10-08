@@ -27,7 +27,6 @@ function updatePosition(position) {
         });
         
         currentUserMarker = L.marker(latlng, { icon: userIcon, pane: 'markerPane' }).addTo(map);
-        
         logJSON('mapController.js', 'marker_created', { lat: latlng[0], lon: latlng[1] });
     } else {
         // --- 2回目以降: マーカー位置を更新 ---
@@ -35,21 +34,33 @@ function updatePosition(position) {
         logJSON('mapController.js', 'marker_updated', { lat: latlng[0], lon: latlng[1] });
     }
     
-    // UIパネルの情報もすべて更新
+    // UIパネルの情報は常に更新
     updateAllInfoPanels(position);
 
-    // [修正] モードに応じた地図中心の更新
-    if (appState.mode === 'heading-up') {
-        // Heading-upモードでは常に中央に強制配置し、移動完了後に回転基点を再計算する
+    // --- 【要件4】 North-Upモードで追従オフの場合は、地図を動かさずに処理を終了 ---
+    if (appState.mode === 'north-up' && !appState.followUser) {
+        logJSON('mapController.js', 'follow_guard_active', { reason: 'north-up' });
+        return; 
+    }
+
+    // --- 地図の中心を更新 ---
+    if (appState.mode === 'north-up') {
+        // --- 【要件1】 North-Up時は純粋な中央固定 ---
+        map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+        map.once('moveend', () => {
+            logJSON('mapController.js', 'recenter', {
+                reason: 'north-up-follow',
+                markerAnchor: 'center'
+            });
+            // --- 【要件5】 検証ログの追加 ---
+            logJSON('mapController.js', 'center_check', {
+                data: { center: map.getCenter(), zoom: map.getZoom() }
+            });
+        });
+    } else if (appState.mode === 'heading-up') {
+        // Heading-upモードでは常に中央に強制配置し、移動完了後に回転基点を再計算
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
         map.once('moveend', () => updateTransformOrigin('after_setView'));
-    } else if (appState.followUser) {
-        // North-upモードでは追従状態に従い、常に中央に配置
-        map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
-        logJSON('mapController.js', 'recenter', {
-            reason: 'north-up-follow',
-            markerAnchor: 'center'
-        });
     }
 }
 
@@ -69,8 +80,8 @@ function updateHeading(headingState) {
         mapPane.style.transform = '';
         rotator.style.transform = 'rotate(0deg)';
         lastDrawnMarkerAngle = 0;
-        lastDrawnMapAngle = 0; // Reset map angle state
-        lastMapHeading = null;   // Reset last heading state
+        lastDrawnMapAngle = 0;
+        lastMapHeading = null;
         logJSON('mapController.js', 'reset_rotation', {
             reason: headingState.reason,
             mode: appState.mode
@@ -80,42 +91,26 @@ function updateHeading(headingState) {
 
     // --- Heading-Up モードの処理 ---
     if (appState.mode === 'heading-up') {
-        // 1. 回転基準点を動的に設定
         updateTransformOrigin('heading_update');
-
-        // 2. 地図の最短回転補正の計算
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
         let mapDiff = newHeading - currentMapHeading;
+        if (mapDiff > 180) mapDiff -= 360;
+        else if (mapDiff < -180) mapDiff += 360;
         
-        if (mapDiff > 180) {
-            mapDiff -= 360;
-        } else if (mapDiff < -180) {
-            mapDiff += 360;
-        }
-        
-        // 地図の回転は方位と逆方向。差分を累積角度から引く。
         const newMapRotation = (lastDrawnMapAngle !== null ? lastDrawnMapAngle : 0) - mapDiff;
-        
-        // 地図の回転状態を更新
         lastDrawnMapAngle = newMapRotation;
         lastMapHeading = newHeading;
         
-        // 3. マーカーの逆回転にも最短回転補正を適用
         const currentMarkerRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
         let markerDiff = newHeading - (currentMarkerRotation % 360);
-        if (markerDiff > 180) {
-            markerDiff -= 360;
-        } else if (markerDiff < -180) {
-            markerDiff += 360;
-        }
+        if (markerDiff > 180) markerDiff -= 360;
+        else if (markerDiff < -180) markerDiff += 360;
         const newMarkerRotation = currentMarkerRotation + markerDiff;
         lastDrawnMarkerAngle = newMarkerRotation;
 
-        // 地図とマーカーに回転を適用
         mapPane.style.transform = `rotate(${newMapRotation.toFixed(1)}deg)`;
         rotator.style.transform = `rotate(${newMarkerRotation.toFixed(1)}deg)`;
         
-        // 4. ログ出力の拡張
         logJSON('mapController.js', 'apply_heading', {
             mode: appState.mode,
             heading: newHeading.toFixed(1),
@@ -126,45 +121,33 @@ function updateHeading(headingState) {
 
     // --- North-Up モードの処理 ---
     } else {
-        // 地図の回転はリセット
+        // --- 【要件2】 North-Up時は地図の回転とオフセットを完全にリセット ---
         mapPane.style.transform = '';
         mapPane.style.transformOrigin = '50% 50%';
-        // Heading-up用の状態もリセット
         lastDrawnMapAngle = null;
         lastMapHeading = null;
         
-        // マーカーのみを滑らかに回転させる（既存ロジック）
         const currentRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
         
         let diff = newHeading - (currentRotation % 360);
-        if (diff > 180) {
-            diff -= 360;
-        } else if (diff < -180) {
-            diff += 360;
-        }
+        if (diff > 180) diff -= 360;
+        else if (diff < -180) diff += 360;
 
         const newRotation = currentRotation + diff;
         rotator.style.transform = `rotate(${newRotation.toFixed(1)}deg)`;
         lastDrawnMarkerAngle = newRotation;
 
-        // ログ出力
         logJSON('mapController.js', 'apply_heading', {
             mode: appState.mode,
             heading: newHeading.toFixed(1),
-            rotation: newRotation.toFixed(1), // 適用されたマーカーの累積角度
+            rotation: newRotation.toFixed(1),
         });
     }
 }
 
-// -------------------------------------------------------------
-// 以下の機能は今回の修正では直接変更しませんが、
-// アプリ全体の動作のために残しています。
-// -------------------------------------------------------------
-
 let lastAppliedSelector = '';
 
 function getMarkerRotatorElement() {
-    // マーカーが動的に生成されるため、都度要素を取得する
     const selector = '#userMarker .user-location-marker-rotator';
     const el = document.querySelector(selector);
     if (!el && lastAppliedSelector !== 'not found') {
@@ -176,10 +159,6 @@ function getMarkerRotatorElement() {
     return el;
 }
 
-/**
- * 地図の回転基点を現在地マーカーの画面座標に更新する
- * @param {string} reason - 更新のトリガーとなった理由（ログ用）
- */
 function updateTransformOrigin(reason = 'unknown') {
     if (appState.mode !== 'heading-up' || !map) return;
 
@@ -193,20 +172,13 @@ function updateTransformOrigin(reason = 'unknown') {
         const latlng = [appState.position.coords.latitude, appState.position.coords.longitude];
         const containerPoint = map.latLngToContainerPoint(latlng);
         
-        // In the future, adjust the Y coordinate here for 'bottom-quarter' anchor.
-        if (appState.markerAnchor === 'bottom-quarter') {
-            // Future logic can be added here.
-        }
-
         originString = `${containerPoint.x}px ${containerPoint.y}px`;
         originLog = { x: Math.round(containerPoint.x), y: Math.round(containerPoint.y) };
     } else {
-        // Fallback if position is not available
         originString = '50% 50%';
         originLog = { x: '50%', y: '50%' };
     }
 
-    // ログに markerAnchor を追加
     logJSON('mapController.js', 'rotation_origin_updated', {
         x: originLog.x,
         y: originLog.y,
@@ -232,24 +204,33 @@ function stabilizeAfterFullScreen() {
     
     map.invalidateSize({ animate: false });
     
-    // 全画面切替後も、モードに応じて中央配置を強制する
+    // --- 【要件3】 全画面切替後の中央固定処理 ---
     if (appState.position) {
         const coords = appState.position.coords;
         const latlng = [coords.latitude, coords.longitude];
-        if (appState.mode === 'heading-up') {
+        
+        if (appState.mode === 'north-up' && appState.followUser) {
+            map.once('viewreset', () => { // invalidateSizeの完了を待つ
+                map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+                map.once('moveend', () => {
+                    logJSON('mapController.js', 'recenter', {
+                        reason: 'north-up-fullscreen',
+                        markerAnchor: 'center'
+                    });
+                    // --- 【要件5】 検証ログの追加 ---
+                    logJSON('mapController.js', 'center_check', {
+                       data: { center: map.getCenter(), zoom: map.getZoom() }
+                    });
+                });
+            });
+        } else if (appState.mode === 'heading-up') {
             map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
             map.once('moveend', () => updateTransformOrigin('heading-up-fullscreen'));
-        } else if (appState.followUser) {
-            map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
-            // North-upモードでは基点更新は不要、ログのみ記録
-            logJSON('mapController.js', 'recenter', {
-                reason: 'north-up-fullscreen',
-                markerAnchor: 'center'
-            });
         }
     }
 }
 
+// この関数は現在直接使用されていませんが、他の機能で必要になる可能性があるため残します。
 function recenterAbsolutely(coords) {
     if (!map || !coords) return;
     map.setView([coords.latitude, coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
@@ -258,23 +239,11 @@ function recenterAbsolutely(coords) {
 function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
+    
+    // --- 【要件4の改善】 追従ON時に即時中央揃えを実行 ---
+    // 追従ONにした場合、次のGPS更新を待たずに即座に中央へ移動を開始する
     if (on && appState.position) {
-        // 追従モードON時に中央配置
-        const coords = appState.position.coords;
-        const latlng = [coords.latitude, coords.longitude];
-        map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
-        
-        // モードに応じて後処理を分岐
-        if (appState.mode === 'heading-up') {
-            // Heading-upでは移動完了後に基点を更新
-            map.once('moveend', () => updateTransformOrigin('heading-up-follow-on'));
-        } else {
-            // North-upではログのみ記録
-             logJSON('mapController.js', 'recenter', {
-                reason: 'north-up-follow-on',
-                markerAnchor: 'center'
-            });
-        }
+        updatePosition(appState.position);
     }
 }
 
@@ -286,4 +255,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-
