@@ -60,6 +60,8 @@ function updateHeading(headingState) {
         mapPane.style.transform = '';
         rotator.style.transform = 'rotate(0deg)';
         lastDrawnMarkerAngle = 0;
+        lastDrawnMapAngle = 0; // Reset map angle state
+        lastMapHeading = null;   // Reset last heading state
         logJSON('mapController.js', 'reset_rotation', {
             reason: headingState.reason,
             mode: appState.mode
@@ -69,27 +71,44 @@ function updateHeading(headingState) {
 
     // --- Heading-Up モードの処理 ---
     if (appState.mode === 'heading-up') {
-        const mapRotation = -newHeading;
-        const markerRotation = newHeading; // マーカーは地図の回転を打ち消して常に上を向く
-
-        // stateに基づいて回転の中心点を設定
-        // TODO: 'bottom-quarter' の場合、setViewの中心もオフセットさせるとより自然になる
-        let origin = '50% 50%';
+        // 1. 回転基準点の決定
+        let origin = '50% 50%'; // default to center
         if (appState.markerAnchor === 'bottom-quarter') {
             origin = '50% 75%';
         }
         mapPane.style.transformOrigin = origin;
 
+        // 2. 最短回転補正の計算
+        const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
+        let diff = newHeading - currentMapHeading;
+        
+        if (diff > 180) {
+            diff -= 360;
+        } else if (diff < -180) {
+            diff += 360;
+        }
+        
+        // 地図の回転は方位と逆方向。差分を累積角度から引く。
+        const newMapRotation = (lastDrawnMapAngle !== null ? lastDrawnMapAngle : 0) - diff;
+        
+        // 状態の更新
+        lastDrawnMapAngle = newMapRotation;
+        lastMapHeading = newHeading;
+        
+        // マーカーは地図の回転を打ち消して常に上を向く
+        const markerRotation = newHeading; 
+
         // 地図とマーカーに回転を適用
-        mapPane.style.transform = `rotate(${mapRotation.toFixed(1)}deg)`;
+        mapPane.style.transform = `rotate(${newMapRotation.toFixed(1)}deg)`;
         rotator.style.transform = `rotate(${markerRotation.toFixed(1)}deg)`;
         
-        // ログ出力
+        // 3. ログ出力の拡張
         logJSON('mapController.js', 'apply_heading', {
             mode: appState.mode,
             heading: newHeading.toFixed(1),
-            map_rotation: mapRotation.toFixed(1),
+            map_rotation: newMapRotation.toFixed(1),
             marker_rotation: markerRotation.toFixed(1),
+            rotation_origin: origin.replace(' ', '_'), // for cleaner logs
             markerAnchor: appState.markerAnchor
         });
 
@@ -98,6 +117,9 @@ function updateHeading(headingState) {
         // 地図の回転はリセット
         mapPane.style.transform = '';
         mapPane.style.transformOrigin = '50% 50%';
+        // Heading-up用の状態もリセット
+        lastDrawnMapAngle = null;
+        lastMapHeading = null;
         
         // マーカーのみを滑らかに回転させる（既存ロジック）
         const currentRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
