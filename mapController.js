@@ -38,8 +38,13 @@ function updatePosition(position) {
     // UIパネルの情報もすべて更新
     updateAllInfoPanels(position);
 
-    // 追従モードがONなら地図の中心を現在地に移動
-    if (appState.followUser) {
+    // [修正] モードに応じた地図中心の更新
+    if (appState.mode === 'heading-up') {
+        // Heading-upモードでは常に中央に強制配置し、回転基点を再計算する
+        map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+        updateTransformOrigin('heading-up-center');
+    } else if (appState.followUser) {
+        // North-upモードでは追従状態に従う
         recenterAbsolutely(position.coords);
     }
 }
@@ -71,13 +76,8 @@ function updateHeading(headingState) {
 
     // --- Heading-Up モードの処理 ---
     if (appState.mode === 'heading-up') {
-        // [修正] ヘディングアップモードでは常にマーカーを中央に強制配置
-        if (appState.position) {
-            map.setView([appState.position.coords.latitude, appState.position.coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
-        }
-        
         // 1. 回転基準点を動的に設定
-        updateTransformOrigin('heading-up-center');
+        updateTransformOrigin('heading_update');
 
         // 2. 地図の最短回転補正の計算
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
@@ -189,18 +189,20 @@ function updateTransformOrigin(reason = 'unknown') {
         const latlng = [appState.position.coords.latitude, appState.position.coords.longitude];
         const containerPoint = map.latLngToContainerPoint(latlng);
         
-        // 将来的に 'bottom-quarter' の場合、ここでY座標を調整する
-        // if (appState.markerAnchor === 'bottom-quarter') { ... }
+        // In the future, adjust the Y coordinate here for 'bottom-quarter' anchor.
+        if (appState.markerAnchor === 'bottom-quarter') {
+            // Future logic can be added here.
+        }
 
         originString = `${containerPoint.x}px ${containerPoint.y}px`;
         originLog = { x: Math.round(containerPoint.x), y: Math.round(containerPoint.y) };
     } else {
-        // 現在地が取得できていない場合のフォールバック
+        // Fallback if position is not available
         originString = '50% 50%';
         originLog = { x: '50%', y: '50%' };
     }
 
-    // [修正] イベント発生を確実に追跡するため、ログにmarkerAnchorを追加し、常にログを出力する
+    // [修正] ログに markerAnchor を追加
     logJSON('mapController.js', 'rotation_origin_updated', {
         x: originLog.x,
         y: originLog.y,
@@ -224,14 +226,16 @@ function stabilizeAfterFullScreen() {
         icon.classList.toggle('fa-compress', isFullscreen);
     }
     
-    // invalidateSizeは 'viewreset' イベントを発火させ、
-    // 新しく追加したリスナーが transform-origin を更新する
     map.invalidateSize({ animate: false });
     
-    // 追従モードがONの場合、地図を中央に再配置する
-    // これにより 'moveend' イベントが発火し、transform-origin が再度更新される
-    if (appState.position && appState.followUser) {
-        recenterAbsolutely(appState.position.coords);
+    // [修正] 全画面切替後も、モードに応じて中央配置を強制する
+    if (appState.position) {
+        if (appState.mode === 'heading-up') {
+            map.setView([appState.position.coords.latitude, appState.position.coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
+            updateTransformOrigin('heading-up-fullscreen');
+        } else if (appState.followUser) {
+            recenterAbsolutely(appState.position.coords);
+        }
     }
 }
 
@@ -246,7 +250,13 @@ function toggleFollowUser(on) {
     if (on && appState.position) {
         // [修正] 追従モードON時に必ず中央配置と基点更新を実行
         recenterAbsolutely(appState.position.coords);
-        updateTransformOrigin('follow_on');
+        
+        // [修正] モードに応じた理由で基点を更新
+        if (appState.mode === 'heading-up') {
+            updateTransformOrigin('heading-up-follow-on');
+        } else {
+            updateTransformOrigin('follow_on');
+        }
     }
 }
 
@@ -258,4 +268,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-
