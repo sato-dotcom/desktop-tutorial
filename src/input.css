@@ -1,5 +1,3 @@
-path: src/input.css
-content:
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,41 +41,35 @@ html, body {
 
 /* --- User Marker --- */
 
-/* Leaflet が生成するマーカー要素のデフォルトをリセット */
-.leaflet-div-icon,
-.leaflet-marker-icon {
-  line-height: normal !important;
-  vertical-align: middle !important;
-}
-
-/* 特定のユーザーマーカーに対してスタイルを厳密に適用 */
-.leaflet-marker-icon.user-marker,
-.leaflet-div-icon.user-marker {
-  line-height: 30px !important;     /* アイコンサイズに合わせる */
-  vertical-align: middle !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+/* outer (Leaflet が生成する div) の baseline をリセット */
+.leaflet-div-icon.user-marker,
+.leaflet-marker-icon.user-marker {
   width: 30px !important;
   height: 30px !important;
+  line-height: 30px !important;
+  vertical-align: middle !important;
 }
 
-/* 内部の SVG に対しても縦揃えを明示 */
-.leaflet-marker-icon.user-marker svg,
-.leaflet-div-icon.user-marker svg {
-    @apply w-full h-full fill-current text-blue-500;
-    filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
-    vertical-align: middle !important;
-    display: block; /* 余計なベースライン影響を除去 */
-}
-
+/* rotator に flex 中央揃えを適用 */
 .user-location-marker-rotator {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    @apply w-full h-full;
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 30px !important;  /* アイコンサイズに合わせる */
+    vertical-align: middle !important;
     transform-origin: center center;
     will-change: transform;
+}
+
+/* svg の余計な line-height をリセット */
+.user-location-marker-rotator svg {
+    @apply w-full h-full fill-current text-blue-500;
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+    display: block !important;
+    line-height: normal !important;
+    vertical-align: middle !important;
 }
 
 
