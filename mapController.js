@@ -145,14 +145,28 @@ function updateHeading(headingState) {
         });
         
         // 【ご要望のDOMサイズ確認ログを追加】
-        const markerEl = document.getElementById('userMarker');
-        if (markerEl) {
-          const rect = markerEl.getBoundingClientRect();
+        const markerEl_dom = document.getElementById('userMarker');
+        if (markerEl_dom) {
+          const rect = markerEl_dom.getBoundingClientRect();
           logJSON('mapController.js', 'north_up_dom_check', {
             width: rect.width,
             height: rect.height,
-            offsetTop: markerEl.offsetTop,
-            offsetLeft: markerEl.offsetLeft
+            offsetTop: markerEl_dom.offsetTop,
+            offsetLeft: markerEl_dom.offsetLeft
+          });
+        }
+        
+        // 【ご要望のCSSスタイル確認ログを追加】
+        const markerEl_style = document.getElementById('userMarker');
+        if (markerEl_style) {
+          const style = window.getComputedStyle(markerEl_style);
+          logJSON('mapController.js', 'north_up_style_check', {
+            display: style.display,
+            position: style.position,
+            marginTop: style.marginTop,
+            marginBottom: style.marginBottom,
+            lineHeight: style.lineHeight,
+            verticalAlign: style.verticalAlign
           });
         }
 
