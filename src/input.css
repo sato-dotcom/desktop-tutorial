@@ -41,7 +41,12 @@ html, body {
 
 /* --- User Marker --- */
 .user-marker {
-    @apply w-[30px] h-[30px] flex items-center justify-center leading-[30px];
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 30px !important;
 }
 
 .user-marker svg {
@@ -49,7 +54,10 @@ html, body {
     filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
 }
 .user-location-marker-rotator {
-    @apply w-full h-full flex items-center justify-center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    @apply w-full h-full;
     transform-origin: center center;
     will-change: transform;
 }
@@ -125,3 +133,4 @@ body.fullscreen-active #fullscreen-info-panel {
     overflow-y: auto;
     white-space: pre;
 }
+
