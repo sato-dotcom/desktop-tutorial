@@ -143,6 +143,18 @@ function updateHeading(headingState) {
             rotatorTransform: rotator.style.transform,
             rotatorOrigin: rotator.style.transformOrigin
         });
+        
+        // 【ご要望のDOMサイズ確認ログを追加】
+        const markerEl = document.getElementById('userMarker');
+        if (markerEl) {
+          const rect = markerEl.getBoundingClientRect();
+          logJSON('mapController.js', 'north_up_dom_check', {
+            width: rect.width,
+            height: rect.height,
+            offsetTop: markerEl.offsetTop,
+            offsetLeft: markerEl.offsetLeft
+          });
+        }
 
         // 状態変数をリセット
         lastDrawnMarkerAngle = 0;
@@ -278,3 +290,4 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
+
