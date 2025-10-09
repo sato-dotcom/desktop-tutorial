@@ -23,7 +23,8 @@ function updatePosition(position) {
             html: userIconHTML,
             className: 'user-location-marker',
             iconSize: [30, 30],
-            iconAnchor: [15, 15]
+            // 【要件1】 iconAnchorは[15, 15]で中央基準に固定
+            iconAnchor: [15, 15] 
         });
         
         currentUserMarker = L.marker(latlng, { icon: userIcon, pane: 'markerPane' }).addTo(map);
@@ -37,7 +38,7 @@ function updatePosition(position) {
     // UIパネルの情報は常に更新
     updateAllInfoPanels(position);
 
-    // --- 【要件4】 North-Upモードで追従オフの場合は、地図を動かさずに処理を終了 ---
+    // --- North-Upモードで追従オフの場合は、地図を動かさずに処理を終了 ---
     if (appState.mode === 'north-up' && !appState.followUser) {
         logJSON('mapController.js', 'follow_guard_active', { reason: 'north-up' });
         return; 
@@ -45,7 +46,7 @@ function updatePosition(position) {
 
     // --- 地図の中心を更新 ---
     if (appState.mode === 'north-up' && appState.followUser) {
-        // --- 【要件2】 North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
+        // --- North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
         map.setView(latlng, map.getZoom(), { animate: false });
         logJSON('mapController.js', 'recenter', {
             reason: 'north-up-follow',
@@ -113,10 +114,11 @@ function updateHeading(headingState) {
         });
 
     } else {
-        // --- 【要件1】 North-Up時は地図の回転とオフセットを完全にリセットし、マーカーも北向きに固定 ---
-        mapPane.style.transform = ''; // ヘディングアップ用のオフセットを解除
-        mapPane.style.transformOrigin = ''; // 基点もリセット
-        rotator.style.transform = 'rotate(0deg)'; // マーカーを北向き固定
+        // --- 【要件2】 North-Up時は地図とマーカーのCSS transformを完全にリセット ---
+        mapPane.style.transform = '';
+        mapPane.style.transformOrigin = '';
+        rotator.style.transform = 'rotate(0deg)';
+        rotator.style.transformOrigin = ''; // マーカーの基点もリセット
 
         // 状態変数をリセット
         lastDrawnMarkerAngle = 0;
@@ -146,7 +148,7 @@ function getMarkerRotatorElement() {
 }
 
 function updateTransformOrigin(reason = 'unknown') {
-    // 【要件2】 この関数はHeading-Upモード専用であり、North-Upモードでは実行されない
+    // この関数はHeading-Upモード専用であり、North-Upモードでは実行されない
     if (appState.mode !== 'heading-up' || !map) return;
 
     const mapPane = map.getPane('mapPane');
@@ -195,12 +197,12 @@ function stabilizeAfterFullScreen() {
         const latlng = [coords.latitude, coords.longitude];
         
         if (appState.mode === 'north-up' && appState.followUser) {
-            // --- 【要件3】 全画面切替後の中央固定処理 ---
+            // --- 全画面切替後の中央固定処理 ---
             map.once('viewreset', () => { 
-                // 【要件4】 追従オフへの変更を検知するためのガード
+                // 追従オフへの変更を検知するためのガード
                 if (appState.mode !== 'north-up' || !appState.followUser) return;
                 
-                // 【要件5】 setViewで中央固定し、指定されたログを出力
+                // setViewで中央固定し、指定されたログを出力
                 map.setView(latlng, map.getZoom(), { animate: false });
                  logJSON('mapController.js', 'recenter', {
                     reason: 'north-up-fullscreen',
@@ -208,10 +210,10 @@ function stabilizeAfterFullScreen() {
                 });
 
                 map.once('moveend', () => {
-                    // 【要件4】 追従オフへの変更を検知するためのガード
+                    // 追従オフへの変更を検知するためのガード
                     if (appState.mode !== 'north-up' || !appState.followUser) return;
                     
-                    // 【要件3, 5】 moveendでは確認ログのみ出力し、位置変更は行わない
+                    // moveendでは確認ログのみ出力し、位置変更は行わない
                     logJSON('mapController.js', 'center_check', {
                        data: { center: map.getCenter(), zoom: map.getZoom() }
                     });
@@ -224,7 +226,7 @@ function stabilizeAfterFullScreen() {
     }
 }
 
-// 【要件2】 この関数はNorth-Upモードでは使用されない
+// この関数はNorth-Upモードでは使用されない
 function recenterAbsolutely(coords) {
     if (!map || !coords) return;
     map.setView([coords.latitude, coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
@@ -236,6 +238,11 @@ function toggleFollowUser(on) {
     
     if (on && appState.position) {
         updatePosition(appState.position);
+    } else if (!on) {
+        // --- 【要件3】 追従オフ時に予約済みのリスナーを全て解除 ---
+        map.off('moveend');
+        map.off('viewreset');
+        logJSON('mapController.js', 'listeners_cleared', { reason: 'follow_off' });
     }
 }
 
