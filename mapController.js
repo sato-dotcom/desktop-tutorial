@@ -154,7 +154,6 @@ function updateHeading(headingState) {
             });
         }
 
-        // ---【ここから修正】---
         const markerEl = document.getElementById('userMarker');
         if (markerEl) {
           const styleOuter = window.getComputedStyle(markerEl);
@@ -180,8 +179,13 @@ function updateHeading(headingState) {
               verticalAlign: styleSvg.verticalAlign
             }
           });
+
+          // ---【ここから修正】---
+          logJSON('mapController.js', 'north_up_dom_structure', {
+            outerHTML: markerEl.outerHTML
+          });
+          // ---【ここまで修正】---
         }
-        // ---【ここまで修正】---
         
         // 状態変数をリセット
         lastDrawnMarkerAngle = 0;
@@ -317,3 +321,4 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
+
