@@ -154,18 +154,34 @@ function updateHeading(headingState) {
             });
         }
 
-        const markerEl_style = document.getElementById('userMarker');
-        if (markerEl_style) {
-            const style = window.getComputedStyle(markerEl_style);
-            logJSON('mapController.js', 'north_up_style_check', {
-                display: style.display,
-                position: style.position,
-                marginTop: style.marginTop,
-                marginBottom: style.marginBottom,
-                lineHeight: style.lineHeight,
-                verticalAlign: style.verticalAlign
-            });
+        // ---【ここから修正】---
+        const markerEl = document.getElementById('userMarker');
+        if (markerEl) {
+          const styleOuter = window.getComputedStyle(markerEl);
+          const rotatorEl = markerEl.querySelector('.user-location-marker-rotator');
+          const styleRotator = rotatorEl ? window.getComputedStyle(rotatorEl) : {};
+          const svgEl = markerEl.querySelector('svg');
+          const styleSvg = svgEl ? window.getComputedStyle(svgEl) : {};
+    
+          logJSON('mapController.js', 'north_up_style_deepcheck', {
+            outer: {
+              display: styleOuter.display,
+              lineHeight: styleOuter.lineHeight,
+              verticalAlign: styleOuter.verticalAlign
+            },
+            rotator: {
+              display: styleRotator.display,
+              lineHeight: styleRotator.lineHeight,
+              verticalAlign: styleRotator.verticalAlign
+            },
+            svg: {
+              display: styleSvg.display,
+              lineHeight: styleSvg.lineHeight,
+              verticalAlign: styleSvg.verticalAlign
+            }
+          });
         }
+        // ---【ここまで修正】---
         
         // 状態変数をリセット
         lastDrawnMarkerAngle = 0;
@@ -301,4 +317,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-
