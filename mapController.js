@@ -41,6 +41,14 @@ function updatePosition(position) {
         // --- 2回目以降: マーカー位置を更新 ---
         currentUserMarker.setLatLng(latlng);
         logJSON('mapController.js', 'marker_updated', { lat: latlng[0], lon: latlng[1] });
+
+        // ★追加：更新時にも anchor を確認
+        logJSON('mapController.js', 'marker_anchor_check_update', {
+         iconAnchor: currentUserMarker.options.icon.options.iconAnchor,
+         iconSize: currentUserMarker.options.icon.options.iconSize,
+         lat: latlng[0],
+         lon: latlng[1]
+        });
     }
     
     // UIパネルの情報は常に更新
