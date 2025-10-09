@@ -40,12 +40,16 @@ html, body {
 
 
 /* --- User Marker --- */
+.user-marker {
+    @apply w-[30px] h-[30px] flex items-center justify-center leading-[30px];
+}
+
 .user-marker svg {
     @apply w-full h-full fill-current text-blue-500;
     filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
 }
 .user-location-marker-rotator {
-    @apply w-full h-full;
+    @apply w-full h-full flex items-center justify-center;
     transform-origin: center center;
     will-change: transform;
 }
