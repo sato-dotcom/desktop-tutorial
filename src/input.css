@@ -40,7 +40,7 @@ html, body {
 
 
 /* --- User Marker --- */
-.user-marker {
+.leaflet-marker-icon.user-marker {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -49,10 +49,12 @@ html, body {
     line-height: 30px !important;
 }
 
-.user-marker svg {
+.leaflet-marker-icon.user-marker svg {
     @apply w-full h-full fill-current text-blue-500;
     filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+    vertical-align: middle !important;
 }
+
 .user-location-marker-rotator {
     display: flex !important;
     align-items: center !important;

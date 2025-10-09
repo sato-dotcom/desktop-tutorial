@@ -6,10 +6,12 @@
     <title>うみねこ (海洋版測量支援アプリ)</title>
     
     <!-- 外部ライブラリ -->
+    <!-- 1. LeafletのCSSを先に読み込む -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
     
+    <!-- 2. アプリ独自のCSSを後に読み込む (読み込み順はこれで正しいです) -->
     <link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="bg-gray-200 font-sans">

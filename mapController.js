@@ -21,7 +21,7 @@ function updatePosition(position) {
         
         const userIcon = L.divIcon({
             html: userIconHTML,
-            className: 'user-location-marker',
+            className: 'user-marker',
             iconSize: [30, 30],
             // 【要件1】 iconAnchorは[15, 15]で中央基準に固定
             iconAnchor: [15, 15] 
@@ -136,40 +136,37 @@ function updateHeading(headingState) {
         rotator.style.transform = 'rotate(0deg)';
         rotator.style.transformOrigin = ''; // マーカーの基点もリセット
 
-        // 【ご要望のデバッグログを追加】
         logJSON('mapController.js', 'north_up_transform_check', {
             mapPaneTransform: mapPane.style.transform,
             mapPaneOrigin: mapPane.style.transformOrigin,
             rotatorTransform: rotator.style.transform,
             rotatorOrigin: rotator.style.transformOrigin
         });
-        
-        // 【ご要望のDOMサイズ確認ログを追加】
+
         const markerEl_dom = document.getElementById('userMarker');
         if (markerEl_dom) {
-          const rect = markerEl_dom.getBoundingClientRect();
-          logJSON('mapController.js', 'north_up_dom_check', {
-            width: rect.width,
-            height: rect.height,
-            offsetTop: markerEl_dom.offsetTop,
-            offsetLeft: markerEl_dom.offsetLeft
-          });
-        }
-        
-        // 【ご要望のCSSスタイル確認ログを追加】
-        const markerEl_style = document.getElementById('userMarker');
-        if (markerEl_style) {
-          const style = window.getComputedStyle(markerEl_style);
-          logJSON('mapController.js', 'north_up_style_check', {
-            display: style.display,
-            position: style.position,
-            marginTop: style.marginTop,
-            marginBottom: style.marginBottom,
-            lineHeight: style.lineHeight,
-            verticalAlign: style.verticalAlign
-          });
+            const rect = markerEl_dom.getBoundingClientRect();
+            logJSON('mapController.js', 'north_up_dom_check', {
+                width: rect.width,
+                height: rect.height,
+                offsetTop: markerEl_dom.offsetTop,
+                offsetLeft: markerEl_dom.offsetLeft
+            });
         }
 
+        const markerEl_style = document.getElementById('userMarker');
+        if (markerEl_style) {
+            const style = window.getComputedStyle(markerEl_style);
+            logJSON('mapController.js', 'north_up_style_check', {
+                display: style.display,
+                position: style.position,
+                marginTop: style.marginTop,
+                marginBottom: style.marginBottom,
+                lineHeight: style.lineHeight,
+                verticalAlign: style.verticalAlign
+            });
+        }
+        
         // 状態変数をリセット
         lastDrawnMarkerAngle = 0;
         lastDrawnMapAngle = null;
