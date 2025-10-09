@@ -37,29 +37,19 @@ function updatePosition(position) {
     // UIパネルの情報は常に更新
     updateAllInfoPanels(position);
 
-    // --- 【要件4】 North-Upモードで追従オフの場合は、地図を動かさずに処理を終了 ---
+    // --- 【要件3】 North-Upモードで追従オフの場合は、地図を動かさずに処理を終了 ---
     if (appState.mode === 'north-up' && !appState.followUser) {
         logJSON('mapController.js', 'follow_guard_active', { reason: 'north-up' });
         return; 
     }
 
     // --- 地図の中心を更新 ---
-    if (appState.mode === 'north-up') {
-        // --- 【要件1 & 5】 North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
-        map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+    if (appState.mode === 'north-up' && appState.followUser) {
+        // --- 【要件2】 North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
+        map.setView(latlng, map.getZoom(), { animate: false });
         logJSON('mapController.js', 'recenter', {
             reason: 'north-up-follow',
             markerAnchor: 'center'
-        });
-
-        map.once('moveend', () => {
-            // 【要件4】 予約済みコールバックのガード（追従オフへの変更を検知）
-            if (appState.mode !== 'north-up' || !appState.followUser) return;
-            
-            // --- 【要件5】 moveendでは確認ログのみを出力し、再中心化は行わない ---
-            logJSON('mapController.js', 'center_check', {
-                data: { center: map.getCenter(), zoom: map.getZoom() }
-            });
         });
     } else if (appState.mode === 'heading-up') {
         // Heading-upモードでは常に中央に強制配置し、移動完了後に回転基点を再計算
@@ -93,6 +83,7 @@ function updateHeading(headingState) {
     }
 
     if (appState.mode === 'heading-up') {
+        // (この部分は今回の修正対象外)
         updateTransformOrigin('heading_update');
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
         let mapDiff = newHeading - currentMapHeading;
@@ -122,26 +113,20 @@ function updateHeading(headingState) {
         });
 
     } else {
-        // --- 【要件2】 North-Up時は地図の回転とオフセットを完全にリセット ---
+        // --- 【要件1】 North-Up時は地図の回転とオフセットを完全にリセットし、マーカーも北向きに固定 ---
         mapPane.style.transform = '';
-        mapPane.style.transformOrigin = '50% 50%';
+        mapPane.style.transformOrigin = ''; // 基点もリセット
+        rotator.style.transform = 'rotate(0deg)'; // マーカーを北向き固定
+
+        // 状態変数をリセット
+        lastDrawnMarkerAngle = 0;
         lastDrawnMapAngle = null;
         lastMapHeading = null;
-        
-        const currentRotation = lastDrawnMarkerAngle !== null ? lastDrawnMarkerAngle : newHeading;
-        
-        let diff = newHeading - (currentRotation % 360);
-        if (diff > 180) diff -= 360;
-        else if (diff < -180) diff += 360;
 
-        const newRotation = currentRotation + diff;
-        rotator.style.transform = `rotate(${newRotation.toFixed(1)}deg)`;
-        lastDrawnMarkerAngle = newRotation;
-
-        logJSON('mapController.js', 'apply_heading', {
+        logJSON('mapController.js', 'apply_heading_north_up_fixed', {
             mode: appState.mode,
-            heading: newHeading.toFixed(1),
-            rotation: newRotation.toFixed(1),
+            map_rotation: '0 (fixed)',
+            marker_rotation: '0 (fixed)',
         });
     }
 }
@@ -161,7 +146,6 @@ function getMarkerRotatorElement() {
 }
 
 function updateTransformOrigin(reason = 'unknown') {
-    // --- 【要件2 & 3】 Heading-Upモード以外では実行しない ---
     if (appState.mode !== 'heading-up' || !map) return;
 
     const mapPane = map.getPane('mapPane');
@@ -209,23 +193,22 @@ function stabilizeAfterFullScreen() {
         const coords = appState.position.coords;
         const latlng = [coords.latitude, coords.longitude];
         
-        // --- 【要件3】 全画面切替後の中央固定処理（順序固定） ---
+        // --- 【要件4】 全画面切替後の中央固定処理 ---
         if (appState.mode === 'north-up' && appState.followUser) {
             map.once('viewreset', () => { // invalidateSizeの完了を待つ
-                // 【要件4】 予約済みコールバックのガード
+                // 予約済みコールバックのガード
                 if (appState.mode !== 'north-up' || !appState.followUser) return;
                 
-                // --- 【要件1 & 5】 setViewで中央固定し、直後にログ出力 ---
-                map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+                map.setView(latlng, map.getZoom(), { animate: false });
                  logJSON('mapController.js', 'recenter', {
                     reason: 'north-up-fullscreen',
                     markerAnchor: 'center'
                 });
 
                 map.once('moveend', () => {
-                    // 【要件4】 予約済みコールバックのガード
+                    // 予約済みコールバックのガード
                     if (appState.mode !== 'north-up' || !appState.followUser) return;
-                    // --- 【要件5】 moveendでは確認ログのみ ---
+                    // moveendでは確認ログのみ
                     logJSON('mapController.js', 'center_check', {
                        data: { center: map.getCenter(), zoom: map.getZoom() }
                     });
@@ -238,7 +221,6 @@ function stabilizeAfterFullScreen() {
     }
 }
 
-// 【要件1】 この関数はNorth-Upモードでは使用されない
 function recenterAbsolutely(coords) {
     if (!map || !coords) return;
     map.setView([coords.latitude, coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
@@ -261,4 +243,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-
