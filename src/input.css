@@ -1,3 +1,5 @@
+path: src/input.css
+content:
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,19 +42,33 @@ html, body {
 
 
 /* --- User Marker --- */
-.leaflet-marker-icon.user-marker {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 30px !important;
-    height: 30px !important;
-    line-height: 30px !important;
+
+/* Leaflet が生成するマーカー要素のデフォルトをリセット */
+.leaflet-div-icon,
+.leaflet-marker-icon {
+  line-height: normal !important;
+  vertical-align: middle !important;
 }
 
-.leaflet-marker-icon.user-marker svg {
+/* 特定のユーザーマーカーに対してスタイルを厳密に適用 */
+.leaflet-marker-icon.user-marker,
+.leaflet-div-icon.user-marker {
+  line-height: 30px !important;     /* アイコンサイズに合わせる */
+  vertical-align: middle !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* 内部の SVG に対しても縦揃えを明示 */
+.leaflet-marker-icon.user-marker svg,
+.leaflet-div-icon.user-marker svg {
     @apply w-full h-full fill-current text-blue-500;
     filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
     vertical-align: middle !important;
+    display: block; /* 余計なベースライン影響を除去 */
 }
 
 .user-location-marker-rotator {
@@ -135,4 +151,3 @@ body.fullscreen-active #fullscreen-info-panel {
     overflow-y: auto;
     white-space: pre;
 }
-
