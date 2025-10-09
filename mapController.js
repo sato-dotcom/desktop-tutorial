@@ -136,6 +136,14 @@ function updateHeading(headingState) {
         rotator.style.transform = 'rotate(0deg)';
         rotator.style.transformOrigin = ''; // マーカーの基点もリセット
 
+        // 【ご要望のデバッグログを追加】
+        logJSON('mapController.js', 'north_up_transform_check', {
+            mapPaneTransform: mapPane.style.transform,
+            mapPaneOrigin: mapPane.style.transformOrigin,
+            rotatorTransform: rotator.style.transform,
+            rotatorOrigin: rotator.style.transformOrigin
+        });
+
         // 状態変数をリセット
         lastDrawnMarkerAngle = 0;
         lastDrawnMapAngle = null;
@@ -270,4 +278,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-
