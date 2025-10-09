@@ -29,6 +29,14 @@ function updatePosition(position) {
         
         currentUserMarker = L.marker(latlng, { icon: userIcon, pane: 'markerPane' }).addTo(map);
         logJSON('mapController.js', 'marker_created', { lat: latlng[0], lon: latlng[1] });
+
+        logJSON('mapController.js', 'marker_anchor_check', {
+         iconAnchor: currentUserMarker.options.icon.options.iconAnchor,
+         iconSize: currentUserMarker.options.icon.options.iconSize,
+         lat: latlng[0],
+         lon: latlng[1]
+        });
+
     } else {
         // --- 2回目以降: マーカー位置を更新 ---
         currentUserMarker.setLatLng(latlng);
