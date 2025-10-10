@@ -41,35 +41,44 @@ html, body {
 
 /* --- User Marker --- */
 
-/* outer (Leaflet が生成する div) の baseline をリセット */
-.leaflet-div-icon.user-marker,
-.leaflet-marker-icon.user-marker {
+/* [修正] Leafletが生成するマーカーのコンテナ(#userMarker)に対して、
+  flexboxを用いて内部要素を完全に中央揃えにするスタイルを適用。
+  セレクタを実際のDOM構造に合わせ、!importantでLeafletのスタイルを上書きます。
+*/
+#userMarker.user-marker {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 30px !important;
   height: 30px !important;
   line-height: 30px !important;
   vertical-align: middle !important;
 }
 
-/* rotator に flex 中央揃えを適用 */
-.user-location-marker-rotator {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 30px !important;
-    height: 30px !important;
-    line-height: 30px !important;  /* アイコンサイズに合わせる */
-    vertical-align: middle !important;
-    transform-origin: center center;
-    will-change: transform;
+/* [修正] マーカーの回転を担当する内部コンテナ(.user-location-marker-rotator)にも
+  同様のスタイルを適用し、transformの基点と描画最適化を追加します。
+*/
+#userMarker .user-location-marker-rotator {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  line-height: 30px !important;
+  vertical-align: middle !important;
+  transform-origin: center center;
+  will-change: transform;
 }
 
-/* svg の余計な line-height をリセット */
-.user-location-marker-rotator svg {
-    @apply w-full h-full fill-current text-blue-500;
-    filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
-    display: block !important;
-    line-height: normal !important;
-    vertical-align: middle !important;
+/* [修正] SVGアイコン自体のスタイルをリセットし、Tailwindのスタイルを適用。
+  これにより、意図しない余白やズレを防ぎます。
+*/
+#userMarker .user-location-marker-rotator svg {
+  @apply w-full h-full fill-current text-blue-500;
+  filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+  display: block !important;
+  line-height: normal !important;
+  vertical-align: middle !important;
 }
 
 
