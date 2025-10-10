@@ -225,6 +225,15 @@ function updateHeading(headingState) {
           // ---【ここまで修正】---
         }
         
+        // ---【ここから修正】---
+        if (map && currentUserMarker) {
+           logJSON('mapController.js', 'marker_vs_map_center', {
+             mapCenter: map.getCenter(),
+             markerPos: currentUserMarker.getLatLng()
+           });
+        }
+        // ---【ここまで修正】---
+        
         // 状態変数をリセット
         lastDrawnMarkerAngle = 0;
         lastDrawnMapAngle = null;
@@ -359,4 +368,3 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
-
