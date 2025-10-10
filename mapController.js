@@ -10,20 +10,21 @@
 function updatePosition(position) {
     const latlng = [position.coords.latitude, position.coords.longitude];
 
+    // ---【★修正】アイコンのHTMLを共通化 ---
+    const userIconHTML = `
+        <div id="userMarker" class="user-marker" data-role="user">
+            <div class="user-location-marker-rotator">
+                <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+            </div>
+        </div>`;
+
     if (currentUserMarker === null) {
         // --- 初回: マーカーを生成 ---
-        const userIconHTML = `
-            <div id="userMarker" class="user-marker" data-role="user">
-                <div class="user-location-marker-rotator">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-                </div>
-            </div>`;
-        
         const userIcon = L.divIcon({
             html: userIconHTML,
             className: 'user-marker',
             iconSize: [30, 30],
-            // 【要件1】 iconAnchorは[15, 15]で中央基準に固定
+            // 【★修正】 iconAnchorは[15, 15]で中央基準に固定
             iconAnchor: [15, 15] 
         });
         
@@ -40,6 +41,17 @@ function updatePosition(position) {
     } else {
         // --- 2回目以降: マーカー位置を更新 ---
         currentUserMarker.setLatLng(latlng);
+
+        // ---【★修正】iconAnchorが確実に適用されるよう、setIconでアイコンを再設定 ---
+        currentUserMarker.setIcon(
+            L.divIcon({
+                html: userIconHTML,
+                className: 'user-marker',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15] // アイコン中央を基準にする
+            })
+        );
+
         logJSON('mapController.js', 'marker_updated', { lat: latlng[0], lon: latlng[1] });
 
         // ★追加：更新時にも anchor を確認
@@ -375,3 +387,4 @@ function toggleFullscreen() {
         map.invalidateSize();
     }, 100); 
 }
+
