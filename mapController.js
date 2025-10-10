@@ -184,7 +184,6 @@ function updateHeading(headingState) {
             outerHTML: markerEl.outerHTML
           });
 
-          // ---【ここから修正】---
           // 強制的に inline style を付与
           markerEl.style.display = 'flex';
           markerEl.style.alignItems = 'center';
@@ -202,6 +201,27 @@ function updateHeading(headingState) {
             width: styleCheck.width,
             height: styleCheck.height
           });
+          
+          // ---【ここから修正】---
+          const rotator_test = markerEl.querySelector('.user-location-marker-rotator');
+          if (rotator_test) {
+            rotator_test.style.display = 'flex';
+            rotator_test.style.alignItems = 'center';
+            rotator_test.style.justifyContent = 'center';
+            rotator_test.style.width = '30px';
+            rotator_test.style.height = '30px';
+            rotator_test.style.lineHeight = '30px';
+            rotator_test.style.verticalAlign = 'middle';
+
+            const styleRotator_test = window.getComputedStyle(rotator_test);
+            logJSON('mapController.js', 'north_up_inline_rotator_check', {
+              display: styleRotator_test.display,
+              lineHeight: styleRotator_test.lineHeight,
+              verticalAlign: styleRotator_test.verticalAlign,
+              width: styleRotator_test.width,
+              height: styleRotator_test.height
+            });
+          }
           // ---【ここまで修正】---
         }
         
@@ -339,3 +359,4 @@ function toggleFullscreen() {
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
 }
+
