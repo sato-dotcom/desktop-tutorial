@@ -367,4 +367,11 @@ function toggleFullscreen() {
         if (document.exitFullscreen) document.exitFullscreen();
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
+
+    // --- 【★修正】 全画面切り替えボタン押下時にもサイズ再計算を明示的に呼び出す ---
+    // 注: stabilizeAfterFullScreenでも呼び出されるが、確実性を高めるためにここでも実行
+    // DOMの変更が反映されるのを待つために短い遅延を入れる
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 100); 
 }

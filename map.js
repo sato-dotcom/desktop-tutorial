@@ -26,6 +26,11 @@ function initializeMap() {
     map.on('moveend', () => updateTransformOrigin('moveend'));
     map.on('zoomend', () => updateTransformOrigin('zoomend'));
 
+    // --- 【★修正】 全画面表示やウィンドウリサイズ時に地図サイズを再計算 ---
+    map.on('resize', () => {
+        map.invalidateSize();
+    });
+
     customBathymetryLayer.addTo(map);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     
@@ -101,4 +106,3 @@ function initializeMap() {
 
     // 現在地マーカーは初回測位時にmapControllerで動的に生成するため、ここでの初期化は不要
 }
-
