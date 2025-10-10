@@ -75,6 +75,11 @@ function updatePosition(position) {
     // --- 地図の中心を更新 ---
     if (appState.mode === 'north-up' && appState.followUser) {
         // --- North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
+        logJSON('mapController.js', 'setView_called', {
+            followUser: appState.followUser,
+            reason: 'updatePosition (north-up)',
+            target: latlng
+        });
         map.setView(latlng, map.getZoom(), { animate: false });
         logJSON('mapController.js', 'recenter', {
             reason: 'north-up-follow',
@@ -82,6 +87,11 @@ function updatePosition(position) {
         });
     } else if (appState.mode === 'heading-up') {
         // Heading-upモードでは常に中央に強制配置し、移動完了後に回転基点を再計算
+        logJSON('mapController.js', 'setView_called', {
+            followUser: appState.followUser,
+            reason: 'updatePosition (heading-up)',
+            target: latlng
+        });
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
         map.once('moveend', () => updateTransformOrigin('after_setView'));
     }
@@ -329,6 +339,11 @@ function stabilizeAfterFullScreen() {
                 if (appState.mode !== 'north-up' || !appState.followUser) return;
                 
                 // setViewで中央固定し、指定されたログを出力
+                logJSON('mapController.js', 'setView_called', {
+                    followUser: appState.followUser,
+                    reason: 'stabilizeAfterFullScreen (north-up)',
+                    target: latlng
+                });
                 map.setView(latlng, map.getZoom(), { animate: false });
                  logJSON('mapController.js', 'recenter', {
                     reason: 'north-up-fullscreen',
@@ -346,6 +361,11 @@ function stabilizeAfterFullScreen() {
                 });
             });
         } else if (appState.mode === 'heading-up') {
+            logJSON('mapController.js', 'setView_called', {
+                followUser: appState.followUser,
+                reason: 'stabilizeAfterFullScreen (heading-up)',
+                target: latlng
+            });
             map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
             map.once('moveend', () => updateTransformOrigin('heading-up-fullscreen'));
         }
@@ -355,7 +375,13 @@ function stabilizeAfterFullScreen() {
 // この関数はNorth-Upモードでは使用されない
 function recenterAbsolutely(coords) {
     if (!map || !coords) return;
-    map.setView([coords.latitude, coords.longitude], map.getZoom(), { animate: false, noMoveStart: true });
+    const latlng = [coords.latitude, coords.longitude];
+    logJSON('mapController.js', 'setView_called', {
+        followUser: appState.followUser,
+        reason: 'recenterAbsolutely',
+        target: latlng
+    });
+    map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
 }
 
 function toggleFollowUser(on) {
@@ -365,7 +391,7 @@ function toggleFollowUser(on) {
     if (on && appState.position) {
         updatePosition(appState.position);
     } else if (!on) {
-        // --- 【要件3】 追従オフ時に予約済みのリスナーを全て解除 ---
+        // --- 【要件3】 追従オフ時に予約済みのリスナーを全て解除 ---\
         map.off('moveend');
         map.off('viewreset');
         logJSON('mapController.js', 'listeners_cleared', { reason: 'follow_off' });
@@ -387,4 +413,3 @@ function toggleFullscreen() {
         map.invalidateSize();
     }, 100); 
 }
-
