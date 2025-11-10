@@ -3,6 +3,8 @@
  * state.jsから渡された状態に基づき、地図やマーカーの表示を更新する。
  */
 
+let rotationCenterMarker = null; // 回転中心マーカーのインスタンスを保持
+
 /**
  * 位置情報に基づいて現在地マーカーを生成・更新する
  * @param {GeolocationPosition} position - GPSから取得した位置情報
@@ -29,6 +31,9 @@ function updatePosition(position) {
         });
         
         currentUserMarker = L.marker(latlng, { icon: userIcon, pane: 'markerPane' }).addTo(map);
+        // 【修正】現在地マーカーを最前面に表示
+        currentUserMarker.setZIndexOffset(1000);
+
         logJSON('mapController.js', 'marker_created', { lat: latlng[0], lon: latlng[1] });
 
         logJSON('mapController.js', 'marker_anchor_check', {
@@ -51,6 +56,8 @@ function updatePosition(position) {
                 iconAnchor: [15, 15] // アイコン中央を基準にする
             })
         );
+        // 【修正】アイコン再設定時もZ-Indexを維持
+        currentUserMarker.setZIndexOffset(1000);
 
         logJSON('mapController.js', 'marker_updated', { lat: latlng[0], lon: latlng[1] });
 
@@ -122,6 +129,11 @@ function updateHeading(headingState) {
             reason: headingState.reason,
             mode: appState.mode
         });
+        // 回転中心マーカーを削除
+        if (rotationCenterMarker) {
+            map.removeLayer(rotationCenterMarker);
+            rotationCenterMarker = null;
+        }
         return;
     }
 
@@ -161,6 +173,12 @@ function updateHeading(headingState) {
         mapPane.style.transformOrigin = '';
         rotator.style.transform = 'rotate(0deg)';
         rotator.style.transformOrigin = ''; // マーカーの基点もリセット
+
+        // 回転中心マーカーを削除
+        if (rotationCenterMarker) {
+            map.removeLayer(rotationCenterMarker);
+            rotationCenterMarker = null;
+        }
 
         logJSON('mapController.js', 'north_up_transform_check', {
             mapPaneTransform: mapPane.style.transform,
@@ -319,6 +337,33 @@ function updateTransformOrigin(reason = 'unknown') {
     if (mapPane.style.transformOrigin !== originString) {
         mapPane.style.transformOrigin = originString;
     }
+
+    // --- 【修正】回転中心点マーカーの更新 ---
+    const currentCenter = map.getCenter();
+
+    if (!rotationCenterMarker) {
+        const rotationCenterIcon = L.divIcon({
+            className: 'rotation-center-icon',
+            html: '<div style="font-size:20px; color:red; line-height: 1; text-align: center;">+</div>',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10] // 中央を基準に
+        });
+
+        rotationCenterMarker = L.marker(currentCenter, {
+            icon: rotationCenterIcon,
+            interactive: false,
+            pane: 'markerPane' // 同じペインに配置
+        }).addTo(map);
+        
+        // 現在地アイコンより背面に配置
+        rotationCenterMarker.setZIndexOffset(500);
+    } else {
+        rotationCenterMarker.setLatLng(currentCenter);
+    }
+
+    logJSON('mapController.js', 'rotation_center_icon_update', {
+        center: currentCenter
+    });
 }
 
 function stabilizeAfterFullScreen() {
