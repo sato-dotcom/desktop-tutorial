@@ -339,7 +339,16 @@ function updateTransformOrigin(reason = 'unknown') {
     }
 
     // --- 【修正】回転中心点マーカーの更新 ---
-    const currentCenter = map.getCenter();
+    // 1. mapPane の実際に適用されている transform-origin を取得
+    const style = window.getComputedStyle(mapPane);
+    // transform-origin は "xpx ypx" の形式で返ってくることを想定し、パースする
+    const origin = style.transformOrigin.split(' ');
+    const originX = parseFloat(origin[0]) || 0;
+    const originY = parseFloat(origin[1]) || 0;
+
+    // 2. ピクセル座標を地理座標に変換
+    // mapPaneのtransform-originはコンテナ基準の座標系とみなして変換
+    const originLatLng = map.containerPointToLatLng([originX, originY]);
 
     if (!rotationCenterMarker) {
         const rotationCenterIcon = L.divIcon({
@@ -349,20 +358,22 @@ function updateTransformOrigin(reason = 'unknown') {
             iconAnchor: [10, 10] // 中央を基準に
         });
 
-        rotationCenterMarker = L.marker(currentCenter, {
+        rotationCenterMarker = L.marker(originLatLng, {
             icon: rotationCenterIcon,
             interactive: false,
             pane: 'markerPane' // 同じペインに配置
         }).addTo(map);
         
-        // 現在地アイコンより背面に配置
+        // 現在地アイコン(zIndexOffset: 1000)より背面に配置
         rotationCenterMarker.setZIndexOffset(500);
     } else {
-        rotationCenterMarker.setLatLng(currentCenter);
+        rotationCenterMarker.setLatLng(originLatLng);
     }
 
     logJSON('mapController.js', 'rotation_center_icon_update', {
-        center: currentCenter
+        transformOrigin: style.transformOrigin,
+        containerPoint: { x: originX, y: originY },
+        latlng: { lat: originLatLng.lat, lon: originLatLng.lng }
     });
 }
 
