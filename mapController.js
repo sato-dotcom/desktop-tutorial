@@ -339,48 +339,49 @@ function updateTransformOrigin(reason = 'unknown') {
     }
 
     // --- 【★再修正】回転中心点マーカーの更新 ---
-    
-    // (A) 回転中心は CSS transformOrigin の設定元である appState.position (現在地) に設定する
-    if (appState.position) {
-        const originLatLng = L.latLng(appState.position.coords.latitude, appState.position.coords.longitude);
+    // 1. mapPane の実際に適用されている transform-origin を取得
+    const style = window.getComputedStyle(mapPane);
+    const origin = style.transformOrigin.split(' ');
+    const originX = parseFloat(origin[0]) || 0;
+    const originY = parseFloat(origin[1]) || 0;
 
-        if (!rotationCenterMarker) {
-            const rotationCenterIcon = L.divIcon({
-                className: 'rotation-center-icon',
-                html: '<div style="font-size:20px; color:red; line-height: 1; text-align: center;">+</div>',
-                iconSize: [20, 20],
-                iconAnchor: [10, 10] // 中央を基準に
-            });
+    // 2. ピクセル座標を地理座標に変換 (mapPane基準)
+    const originLatLng = map.containerPointToLatLng([originX, originY]);
 
-            rotationCenterMarker = L.marker(originLatLng, {
-                icon: rotationCenterIcon,
-                interactive: false,
-                pane: 'markerPane' // 同じペインに配置
-            }).addTo(map);
-            
-            // 現在地アイコン(zIndexOffset: 1000)より背面に配置
-            rotationCenterMarker.setZIndexOffset(500);
-        } else {
-            rotationCenterMarker.setLatLng(originLatLng);
-        }
-
-        // (B) ログには、実際に適用されたCSSの値と、設定に使った地理座標の両方を出力する
-        const style = window.getComputedStyle(mapPane);
-        logJSON('mapController.js', 'rotation_center_icon_update', {
-            transformOrigin: style.transformOrigin, // 実際のCSS値
-            latlng: { lat: originLatLng.lat, lon: originLatLng.lng } // 設定した地理座標
+    if (!rotationCenterMarker) {
+        // 【修正】アイコンサイズを拡大し、中央揃えにする
+        const rotationCenterIcon = L.divIcon({
+            className: 'rotation-center-icon',
+            html: '<div style="font-size:28px; color:red; line-height: 50px; text-align: center;">+</div>',
+            iconSize: [50, 50],
+            iconAnchor: [25, 25] // 中央を基準に
         });
 
+        rotationCenterMarker = L.marker(originLatLng, {
+            icon: rotationCenterIcon,
+            interactive: false,
+            pane: 'markerPane'
+        }).addTo(map);
+        
+        // 【修正】現在地アイコン(zIndexOffset: 1000)より背面に配置
+        rotationCenterMarker.setZIndexOffset(500);
     } else {
-        // appState.position がない場合 (フォールバック)
-        if (rotationCenterMarker) {
-            map.removeLayer(rotationCenterMarker);
-            rotationCenterMarker = null;
-        }
-        logJSON('mapController.js', 'rotation_center_icon_update_skipped', {
-            reason: 'appState.position is null'
+        rotationCenterMarker.setLatLng(originLatLng);
+    }
+
+    // 【追加】回転中心座標と現在地座標を比較するログを出力
+    if (appState.position) {
+        logJSON('mapController.js', 'rotation_center_vs_user', {
+            rotationCenter: { lat: originLatLng.lat, lon: originLatLng.lng },
+            userPosition: { lat: appState.position.coords.latitude, lon: appState.position.coords.longitude }
         });
     }
+
+    logJSON('mapController.js', 'rotation_center_icon_update', {
+        transformOrigin: style.transformOrigin,
+        containerPoint: { x: originX, y: originY },
+        latlng: { lat: originLatLng.lat, lon: originLatLng.lng }
+    });
 }
 
 function stabilizeAfterFullScreen() {
