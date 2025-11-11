@@ -21,6 +21,7 @@ let manualInputMode = 'latlon';
 // --- アプリケーションの状態を一元管理 ---
 const appState = {
     position: null, // 現在の位置情報 (GeolocationPosition object)
+    // 【★修正】初期値を true に設定し、UIの初期状態と一致させる
     followUser: true,
     mode: 'north-up', // 'north-up' or 'heading-up'
     markerAnchor: 'center', // 'center' or 'bottom-quarter' (回転の中心)
@@ -110,7 +111,6 @@ function setMode(newMode) {
     // 新しいモードに基づいてマーカーの回転を再評価
     updateHeading(appState.heading); 
 }
-
 
 // --- DOM要素 ---
 const dom = {

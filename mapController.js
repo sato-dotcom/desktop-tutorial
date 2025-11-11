@@ -74,11 +74,13 @@ function updatePosition(position) {
     updateAllInfoPanels(position);
 
     // --- 【要件1・3・4】追従モードがオンの場合のみ、地図の中心を更新 (setViewを実行) ---
+    // 【★修正】モードに関わらず、まず appState.followUser をチェックする
     if (appState.followUser) {
         if (appState.mode === 'north-up') {
             // --- North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
+            // 【★修正】ログ出力の理由を明確化
             logJSON('mapController.js', 'setView_called', {
-                followUser: appState.followUser,
+                followUser: true,
                 reason: 'updatePosition (north-up)',
                 target: latlng
             });
@@ -90,7 +92,7 @@ function updatePosition(position) {
         } else if (appState.mode === 'heading-up') {
             // Heading-upモードでは常に中央に強制配置し、移動完了後に回転基点を再計算
             logJSON('mapController.js', 'setView_called', {
-                followUser: appState.followUser,
+                followUser: true,
                 reason: 'updatePosition (heading-up)',
                 target: latlng
             });
@@ -406,7 +408,7 @@ function stabilizeAfterFullScreen() {
                 if (appState.followUser) {
                     // setViewで中央固定し、指定されたログを出力
                     logJSON('mapController.js', 'setView_called', {
-                        followUser: appState.followUser,
+                        followUser: true,
                         reason: 'stabilizeAfterFullScreen (north-up)',
                         target: latlng
                     });
@@ -428,7 +430,7 @@ function stabilizeAfterFullScreen() {
             // Heading-upも同様に追従オン時のみ実行
              if (appState.followUser) {
                 logJSON('mapController.js', 'setView_called', {
-                    followUser: appState.followUser,
+                    followUser: true,
                     reason: 'stabilizeAfterFullScreen (heading-up)',
                     target: latlng
                 });
@@ -460,6 +462,11 @@ function recenterAbsolutely(coords) {
 function toggleFollowUser(on) {
     appState.followUser = on;
     updateFollowButtonState();
+
+    // 【★新規】状態変更ログを出力
+    logJSON('mapController.js', 'followUser_state_change', {
+        value: appState.followUser
+    });
     
     if (on && appState.position) {
         updatePosition(appState.position);
