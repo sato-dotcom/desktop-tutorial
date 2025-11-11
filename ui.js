@@ -40,11 +40,15 @@ function initializeUI() {
     dom.confirmDeleteAllBtn.addEventListener('click', deleteAllData);
     dom.pointList.addEventListener('click', handlePointListClick);
     dom.importedPointList.addEventListener('click', handleImportedListClick);
+    
+    // 【★修正】 dragstart イベントで追従を強制的にオフにする
     map.on('dragstart', () => {
+        // 追従がオンの場合のみ、強制オフ (false) を呼び出す
         if (appState.followUser) {
             toggleFollowUser(false);
         }
     });
+
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
 

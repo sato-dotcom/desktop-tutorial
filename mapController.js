@@ -459,13 +459,27 @@ function recenterAbsolutely(coords) {
     }
 }
 
-// 【★修正】要求3, 4 に基づき、関数定義を変更
-function toggleFollowUser() { // 引数 (on) を削除
-    const newState = !appState.followUser; // 内部で状態を反転
+/**
+ * 【★修正】追従状態を切り替える (引数対応)
+ * @param {boolean | undefined} forceState 
+ * - boolean (true/false): 状態を強制的に設定 (dragstart時は false が入る)
+ * - undefined: 現在の状態を反転させる (ボタンクリック時)
+ */
+function toggleFollowUser(forceState) {
+    // forceState が boolean であればその値を、undefined であれば現在の状態を反転させた値を使用
+    const newState = (typeof forceState === 'boolean') ? forceState : !appState.followUser;
+
+    // 既にその状態なら何もしない (dragstart で何度も false が呼ばれるのを防ぐ)
+    if (newState === appState.followUser) return;
+
     appState.followUser = newState;
 
-    // ログイベント名を 'followUser_toggled' に変更し、新しい状態を記録
-    logJSON('mapController.js', 'followUser_toggled', {
+    // ログイベント名を決定 (要求仕様に基づき、dragstart時は 'followUser_auto_off' を使用)
+    const eventName = (typeof forceState === 'boolean' && forceState === false) 
+                        ? 'followUser_auto_off' // 強制オフ (dragstart)
+                        : 'followUser_toggled'; // それ以外 (ボタンクリック)
+
+    logJSON('mapController.js', eventName, {
         value: newState
     });
 
