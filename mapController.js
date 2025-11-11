@@ -127,10 +127,18 @@ function updatePosition(position) {
             reason: 'lastSetViewLatLng is null, skipping threshold check',
             mode: appState.mode
         });
+        // 【★修正】 閾値チェックをスキップする場合でも、最初のsetViewは実行する必要があるため
+        // lastSetViewLatLng をここで更新し、以降のsetView処理に進む
+        appState.lastSetViewLatLng = currentLatLng;
+        logJSON('mapController.js', 'lastSetViewLatLng_updated_on_skip', {
+            lat: appState.lastSetViewLatLng.lat,
+            lon: appState.lastSetViewLatLng.lng
+        });
     }
     
-    // --- 【★追加】閾値を超えた場合 (または初回)、setViewするので現在地を「最後にsetViewした位置」として更新
-    appState.lastSetViewLatLng = currentLatLng;
+    // --- 【★修正】 閾値を超えた場合 (または初回) のみ setView を実行するため、
+    // lastSetViewLatLng の更新は setView の *直後* に移動する
+    // appState.lastSetViewLatLng = currentLatLng; // ← この行を削除
 
     // --- 追従モードがオン (かつ閾値を超えた) の場合のみ、地図の中心を更新 (setViewを実行) ---
     // 【★修正】 要件4: setView_called ログの出力位置を setView の直前に統一
@@ -140,9 +148,19 @@ function updatePosition(position) {
             followUser: true,
             reason: 'updatePosition (north-up)',
             target: latlng,
-            mode: appState.mode
+            mode: appState.mode,
+            // 【★修正】 要件2: ログに lastSetViewLatLng (更新前の値) を追加
+            lastSetViewLatLng: appState.lastSetViewLatLng ? { lat: appState.lastSetViewLatLng.lat, lon: appState.lastSetViewLatLng.lng } : null
         });
         map.setView(latlng, map.getZoom(), { animate: false });
+        
+        // 【★修正】 要件1: setView の直後に lastSetViewLatLng を更新
+        appState.lastSetViewLatLng = currentLatLng; 
+        logJSON('mapController.js', 'lastSetViewLatLng_updated', {
+            lat: appState.lastSetViewLatLng.lat,
+            lon: appState.lastSetViewLatLng.lng
+        });
+        
         logJSON('mapController.js', 'recenter', {
             reason: 'north-up-follow',
             markerAnchor: 'center'
@@ -153,9 +171,19 @@ function updatePosition(position) {
             followUser: true,
             reason: 'updatePosition (heading-up)',
             target: latlng,
-            mode: appState.mode
+            mode: appState.mode,
+            // 【★修正】 要件2: ログに lastSetViewLatLng (更新前の値) を追加
+            lastSetViewLatLng: appState.lastSetViewLatLng ? { lat: appState.lastSetViewLatLng.lat, lon: appState.lastSetViewLatLng.lng } : null
         });
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+
+        // 【★修正】 要件1: setView の直後に lastSetViewLatLng を更新
+        appState.lastSetViewLatLng = currentLatLng; 
+        logJSON('mapController.js', 'lastSetViewLatLng_updated', {
+            lat: appState.lastSetViewLatLng.lat,
+            lon: appState.lastSetViewLatLng.lng
+        });
+
         map.once('moveend', () => updateTransformOrigin('after_setView'));
     }
 }
