@@ -23,7 +23,8 @@ window.onload = () => {
         dom.followUserBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            // 【★修正】要求3に基づき、引数なしで toggleFollowUser() を呼び出す
+            // 【★修正】引数なしで toggleFollowUser() を呼び出し、
+            // 状態管理を mapController.js 側に一任する
             toggleFollowUser();
         });
     }

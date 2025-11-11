@@ -73,11 +73,12 @@ function updatePosition(position) {
     // UIパネルの情報は常に更新
     updateAllInfoPanels(position);
 
-    // --- 【★確認】要求2: 追従モードがオンの場合のみ、地図の中心を更新 (setViewを実行) ---
-    // （このロジックは既に要求を満たしているため変更なし）
+    // --- 【要件1・3・4】追従モードがオンの場合のみ、地図の中心を更新 (setViewを実行) ---
+    // 【★修正】モードに関わらず、まず appState.followUser をチェックする
     if (appState.followUser) {
         if (appState.mode === 'north-up') {
             // --- North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
+            // 【★修正】ログ出力の理由を明確化
             logJSON('mapController.js', 'setView_called', {
                 followUser: true,
                 reason: 'updatePosition (north-up)',
