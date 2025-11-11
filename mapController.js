@@ -73,12 +73,11 @@ function updatePosition(position) {
     // UIパネルの情報は常に更新
     updateAllInfoPanels(position);
 
-    // --- 【要件1・3・4】追従モードがオンの場合のみ、地図の中心を更新 (setViewを実行) ---
-    // 【★修正】モードに関わらず、まず appState.followUser をチェックする
+    // --- 【★確認】要求2: 追従モードがオンの場合のみ、地図の中心を更新 (setViewを実行) ---
+    // （このロジックは既に要求を満たしているため変更なし）
     if (appState.followUser) {
         if (appState.mode === 'north-up') {
             // --- North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
-            // 【★修正】ログ出力の理由を明確化
             logJSON('mapController.js', 'setView_called', {
                 followUser: true,
                 reason: 'updatePosition (north-up)',
@@ -459,19 +458,22 @@ function recenterAbsolutely(coords) {
     }
 }
 
-function toggleFollowUser(on) {
-    appState.followUser = on;
-    updateFollowButtonState();
+// 【★修正】要求3, 4 に基づき、関数定義を変更
+function toggleFollowUser() { // 引数 (on) を削除
+    const newState = !appState.followUser; // 内部で状態を反転
+    appState.followUser = newState;
 
-    // 【★新規】状態変更ログを出力
-    logJSON('mapController.js', 'followUser_state_change', {
-        value: appState.followUser
+    // ログイベント名を 'followUser_toggled' に変更し、新しい状態を記録
+    logJSON('mapController.js', 'followUser_toggled', {
+        value: newState
     });
+
+    updateFollowButtonState(); // ui.js の関数を呼び出し (appState.followUser を参照)
     
-    if (on && appState.position) {
+    if (newState && appState.position) { // 新しい状態 (true) の場合
         updatePosition(appState.position);
-    } else if (!on) {
-        // --- 【要件3】 追従オフ時に予約済みのリスナーを全て解除 ---
+    } else if (!newState) { // 新しい状態 (false) の場合
+        // --- 追従オフ時に予約済みのリスナーを全て解除 ---
         map.off('moveend');
         map.off('viewreset');
         logJSON('mapController.js', 'listeners_cleared', { reason: 'follow_off' });

@@ -23,7 +23,8 @@ window.onload = () => {
         dom.followUserBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            toggleFollowUser(!appState.followUser);
+            // 【★修正】要求3に基づき、引数なしで toggleFollowUser() を呼び出す
+            toggleFollowUser();
         });
     }
     if (dom.modeSelector) {
