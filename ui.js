@@ -307,7 +307,18 @@ function updateGnssStatus(accuracy) {
 
 function updateFollowButtonState() {
     if (!dom.followUserBtn) return;
+    
+    // ---【★修正】追従状態に応じてクラスを切り替え、モードに関係なく確実に反映 ---
     dom.followUserBtn.classList.toggle('is-on', appState.followUser);
     dom.followUserBtn.classList.toggle('is-off', !appState.followUser);
+    
+    // ツールチップのテキストも更新
     dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
+
+    // ---【★要件3】状態変更をログに出力 ---
+    logJSON('ui.js', 'follow_icon_update', {
+        followUser: appState.followUser,
+        mode: appState.mode,
+        classList: dom.followUserBtn.className
+    });
 }
