@@ -25,17 +25,23 @@ html, body {
   line-height: 34px;
 }
 
-.leaflet-bar a.leaflet-control-custom-btn.is-on,
-.leaflet-bar a.leaflet-control-custom-btn.is-on:hover {
-  @apply bg-blue-500 text-white;
+/* --- 【★修正】 追従ボタンの状態に応じたスタイル --- */
+/* aタグへの限定を外し、直接クラスに適用して優先度を上げる */
+
+/* 追従オン (is-on): 青背景 + 白文字 */
+.leaflet-control-custom-btn.is-on {
+  @apply bg-blue-500 text-white !important;
+}
+.leaflet-control-custom-btn.is-on:hover {
+  @apply bg-blue-600 text-white !important;
 }
 
-.leaflet-bar a.leaflet-control-custom-btn.is-off,
-.leaflet-bar a.leaflet-control-custom-btn.is-off:hover {
-  @apply bg-white text-gray-800;
+/* 追従オフ (is-off): 白背景 + 黒文字 */
+.leaflet-control-custom-btn.is-off {
+  @apply bg-white text-gray-800 !important;
 }
-.leaflet-bar a.leaflet-control-custom-btn.is-off:hover {
-  @apply bg-gray-100;
+.leaflet-control-custom-btn.is-off:hover {
+  @apply bg-gray-100 text-gray-800 !important;
 }
 
 
