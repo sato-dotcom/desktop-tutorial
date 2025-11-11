@@ -315,6 +315,16 @@ function updateFollowButtonState() {
     // ツールチップのテキストも更新
     dom.followUserBtn.title = appState.followUser ? '現在地に追従中 (クリックで解除)' : '現在地への追従を再開';
 
+    // --- 【★新規】フォールバック: 直接スタイルを設定して色を強制する ---
+    // CSSが効かない環境でもJSで色を上書きする
+    if (appState.followUser) {
+        dom.followUserBtn.style.backgroundColor = '#3b82f6'; // Tailwind blue-500
+        dom.followUserBtn.style.color = '#ffffff';           // Tailwind white
+    } else {
+        dom.followUserBtn.style.backgroundColor = '#ffffff'; // Tailwind white
+        dom.followUserBtn.style.color = '#1f2937';           // Tailwind gray-800
+    }
+
     // ---【★要件3】状態変更をログに出力 ---
     logJSON('ui.js', 'follow_icon_update', {
         followUser: appState.followUser,
