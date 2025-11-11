@@ -90,13 +90,19 @@ function initializeMap() {
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
             container.style.backgroundColor = 'white'; // leaflet-bar styles can make this transparent
+            // 【★修正】 2つのセレクタを格納するために <form> でラップ (CSS適用のため)
             container.innerHTML = `
-                <div class="leaflet-control-mode">
+                <form class="leaflet-control-mode">
                     <select id="mode-selector" title="表示モード切替">
                         <option value="north-up" selected>North-Up</option>
                         <option value="heading-up">Heading-Up</option>
                     </select>
-                </div>
+                    <!-- 【★追加】 測量モード（閾値）セレクタ -->
+                    <select id="survey-mode-selector" title="測位モード切替">
+                        <option value="normal" selected>通常 (15m)</option>
+                        <option value="survey">測量 (1m)</option>
+                    </select>
+                </form>
             `;
             L.DomEvent.disableClickPropagation(container);
             return container;

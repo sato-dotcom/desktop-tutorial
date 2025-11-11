@@ -121,6 +121,14 @@ body.fullscreen-active #fullscreen-info-panel {
     @apply text-xs border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500;
 }
 
+/* 【★追加】 モードセレクタが2つ並んでも改行されないように調整 */
+.leaflet-control-mode form {
+    @apply flex flex-col gap-1; /* 縦に並べる */
+}
+.leaflet-control-mode form select {
+    @apply w-full; /* 幅を親要素に合わせる */
+}
+
 
 /* --- Modals --- */
 .modal {

@@ -11,6 +11,7 @@ let rotationCenterMarker = null; // 回転中心マーカーのインスタン�
  */
 function updatePosition(position) {
     const latlng = [position.coords.latitude, position.coords.longitude];
+    const currentLatLng = L.latLng(latlng[0], latlng[1]); // 【★追加】Leaflet用の緯度経度オブジェクト
 
     // ---【★修正】アイコンのHTMLを共通化 ---
     const userIconHTML = `
@@ -43,6 +44,9 @@ function updatePosition(position) {
          lon: latlng[1]
         });
 
+        // 【★追加】初回描画時は、この位置を「最後にsetViewした位置」として記録
+        appState.lastSetViewLatLng = currentLatLng;
+
     } else {
         // --- 2回目以降: マーカー位置を更新 ---
         currentUserMarker.setLatLng(latlng);
@@ -74,18 +78,38 @@ function updatePosition(position) {
     updateAllInfoPanels(position);
 
     // --- 【★修正】 追従オフ時はここで処理を終了し、setView を実行しない ---
-    // (要件1: dragstart 後に setView_called が呼ばれるのを防ぐ)
+    // (要件1: 追従オフ時は setView しない)
     if (!appState.followUser) {
-        // 追従オフ時はログを出力して何もしない
         logJSON('mapController.js', 'setView_skipped', {
-            reason: 'followUser is false (updatePosition)',
+            reason: 'followUser is false',
             mode: appState.mode
         });
         return; // これ以降の setView 処理を実行しない
     }
 
-    // --- 追従モードがオンの場合のみ、地図の中心を更新 (setViewを実行) ---
-    // (appState.followUser が true の場合のみここに来る)
+    // --- 【★追加】追従モードONの時、移動距離が閾値未満なら地図を動かさない ---
+    // (要件2: 閾値チェック)
+    if (appState.lastSetViewLatLng) {
+        const distance = currentLatLng.distanceTo(appState.lastSetViewLatLng);
+        const threshold = RECENTER_THRESHOLDS[appState.surveyMode] || 1; // 閾値を取得 (デフォルト1m)
+
+        if (distance < threshold) {
+            // (要件4: 閾値未満のログ)
+            logJSON('mapController.js', 'setView_skipped', {
+                reason: 'below threshold',
+                mode: appState.mode,
+                surveyMode: appState.surveyMode,
+                distance: distance.toFixed(2),
+                threshold: threshold
+            });
+            return; // 閾値未満なら地図を動かさず終了
+        }
+    }
+    
+    // --- 【★追加】閾値を超えた場合、setViewするので現在地を「最後にsetViewした位置」として更新
+    appState.lastSetViewLatLng = currentLatLng;
+
+    // --- 追従モードがオン (かつ閾値を超えた) の場合のみ、地図の中心を更新 (setViewを実行) ---
     if (appState.mode === 'north-up') {
         // --- North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
         // 【★修正】ログ出力の理由を明確化
@@ -488,7 +512,8 @@ function toggleFollowUser(forceState) {
 
     updateFollowButtonState(); // ui.js の関数を呼び出し (appState.followUser を参照)
     
-    if (newState && appState.position) { // 新しい状態 (true) の場合
+    // 【★修正】追従ONにした場合、現在地が取得済みなら即座に (閾値チェック付きの) updatePosition を呼ぶ
+    if (newState && appState.position) {
         updatePosition(appState.position);
     } else if (!newState) { // 新しい状態 (false) の場合
         // --- 追従オフ時に予約済みのリスナーを全て解除 ---

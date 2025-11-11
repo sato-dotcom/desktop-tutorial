@@ -18,12 +18,20 @@ let currentMode = 'acquire';
 let indexToDelete = null;
 let manualInputMode = 'latlon';
 
+// 【★追加】追従モードの閾値（メートル）
+const RECENTER_THRESHOLDS = {
+    normal: 15, // 通常モード (スマホGPS)
+    survey: 1   // 測量モード (高精度GNSS)
+};
+
 // --- アプリケーションの状態を一元管理 ---
 const appState = {
     position: null, // 現在の位置情報 (GeolocationPosition object)
     // 【★修正】初期値を true に設定し、UIの初期状態と一致させる
     followUser: true,
     mode: 'north-up', // 'north-up' or 'heading-up'
+    surveyMode: 'normal', // 【★追加】 'normal' or 'survey'
+    lastSetViewLatLng: null, // 【★追加】 最後にsetViewした緯度経度
     markerAnchor: 'center', // 'center' or 'bottom-quarter' (回転の中心)
     debugEnabled: true,
     // 方位情報をオブジェクトで管理
@@ -112,6 +120,20 @@ function setMode(newMode) {
     updateHeading(appState.heading); 
 }
 
+/**
+ * 【★追加】測量モード（閾値）を変更する
+ * @param {string} newSurveyMode - 'normal' または 'survey'
+ */
+function setSurveyMode(newSurveyMode) {
+    const oldMode = appState.surveyMode;
+    if (oldMode === newSurveyMode) return;
+
+    appState.surveyMode = newSurveyMode;
+    logJSON('state.js', 'survey_mode_changed', { from: oldMode, to: newSurveyMode, threshold: RECENTER_THRESHOLDS[newSurveyMode] });
+    
+    // (UI更新は現状不要)
+}
+
 // --- DOM要素 ---
 const dom = {
     map: document.getElementById('map'),
@@ -181,4 +203,5 @@ const dom = {
     debugPanel: null,
     modeDisplay: document.getElementById('mode-display'),
     modeSelector: null, // main.jsで設定
+    surveyModeSelector: null, // 【★追加】 main.jsで設定
 };

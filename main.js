@@ -18,6 +18,7 @@ window.onload = () => {
     dom.followUserBtn = document.getElementById('follow-user-btn');
     dom.fullscreenBtn = document.getElementById('fullscreen-btn');
     dom.modeSelector = document.getElementById('mode-selector');
+    dom.surveyModeSelector = document.getElementById('survey-mode-selector'); // 【★追加】
 
     if (dom.followUserBtn) {
         dom.followUserBtn.addEventListener('click', (e) => {
@@ -31,6 +32,13 @@ window.onload = () => {
     if (dom.modeSelector) {
         dom.modeSelector.addEventListener('change', (e) => {
             setMode(e.target.value);
+        });
+    }
+
+    // 【★追加】 測量モードセレクタのイベントリスナー
+    if (dom.surveyModeSelector) {
+        dom.surveyModeSelector.addEventListener('change', (e) => {
+            setSurveyMode(e.target.value);
         });
     }
 
