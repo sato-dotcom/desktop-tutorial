@@ -41,11 +41,21 @@ function initializeUI() {
     dom.pointList.addEventListener('click', handlePointListClick);
     dom.importedPointList.addEventListener('click', handleImportedListClick);
     
-    // 【★修正】 dragstart イベントで追従を強制的にオフにする
+    // 【★修正】 dragstart (一本指スライド) イベントで追従を強制的にオフにする
+    // (要件2: 一本指スライドで追従オフ)
     map.on('dragstart', () => {
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
         if (appState.followUser) {
-            toggleFollowUser(false);
+            toggleFollowUser(false); // (要件3: 内部で followUser_auto_off ログが出力される)
+        }
+    });
+
+    // 【★追加】 zoomstart (二本指ピンチ操作) でも追従を強制的にオフにする
+    // (要件2: 二本指スライドで追従オフ)
+    map.on('zoomstart', () => {
+        // 追従がオンの場合のみ、強制オフ (false) を呼び出す
+        if (appState.followUser) {
+            toggleFollowUser(false); // (要件3: 内部で followUser_auto_off ログが出力される)
         }
     });
 
