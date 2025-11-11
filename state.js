@@ -74,6 +74,15 @@ function logJSON(module, event, data) {
  */
 function setPosition(newPosition) {
     appState.position = newPosition;
+
+    // 【★修正】 要件1: lastSetViewLatLngが未設定(null)の場合、最初の測位位置で初期化する
+    if (appState.lastSetViewLatLng === null && typeof L !== 'undefined' && L.latLng) {
+        appState.lastSetViewLatLng = L.latLng(newPosition.coords.latitude, newPosition.coords.longitude);
+        logJSON('state.js', 'lastSetViewLatLng_initialized', {
+            lat: appState.lastSetViewLatLng.lat,
+            lon: appState.lastSetViewLatLng.lng
+        });
+    }
     
     logJSON('state.js', 'position_set', {
         lat: newPosition.coords.latitude,

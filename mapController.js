@@ -45,7 +45,14 @@ function updatePosition(position) {
         });
 
         // 【★追加】初回描画時は、この位置を「最後にsetViewした位置」として記録
-        appState.lastSetViewLatLng = currentLatLng;
+        // ※state.jsのsetPositionでも初期化されるが、こちらでも念のため実施
+        if (appState.lastSetViewLatLng === null) {
+            appState.lastSetViewLatLng = currentLatLng;
+            logJSON('mapController.js', 'lastSetViewLatLng_initialized_fallback', {
+                lat: appState.lastSetViewLatLng.lat,
+                lon: appState.lastSetViewLatLng.lng
+            });
+        }
 
     } else {
         // --- 2回目以降: マーカー位置を更新 ---
@@ -93,8 +100,18 @@ function updatePosition(position) {
         const distance = currentLatLng.distanceTo(appState.lastSetViewLatLng);
         const threshold = RECENTER_THRESHOLDS[appState.surveyMode] || 1; // 閾値を取得 (デフォルト1m)
 
+        // 【★修正】 要件2: 距離計算のログを常に出力
+        logJSON('mapController.js', 'distance_check', {
+            from: { lat: appState.lastSetViewLatLng.lat, lon: appState.lastSetViewLatLng.lng },
+            to: { lat: currentLatLng.lat, lon: currentLatLng.lng },
+            distance: distance.toFixed(2),
+            threshold: threshold,
+            surveyMode: appState.surveyMode
+        });
+
         if (distance < threshold) {
             // (要件4: 閾値未満のログ)
+            // 【★修正】 要件3: setView_skipped ログに詳細情報を追加 (既存ログを流用)
             logJSON('mapController.js', 'setView_skipped', {
                 reason: 'below threshold',
                 mode: appState.mode,
@@ -104,19 +121,26 @@ function updatePosition(position) {
             });
             return; // 閾値未満なら地図を動かさず終了
         }
+    } else {
+        // state.js で初期化されるはずだが、万が一 null だった場合のログ
+        logJSON('mapController.js', 'setView_skipped', {
+            reason: 'lastSetViewLatLng is null, skipping threshold check',
+            mode: appState.mode
+        });
     }
     
-    // --- 【★追加】閾値を超えた場合、setViewするので現在地を「最後にsetViewした位置」として更新
+    // --- 【★追加】閾値を超えた場合 (または初回)、setViewするので現在地を「最後にsetViewした位置」として更新
     appState.lastSetViewLatLng = currentLatLng;
 
     // --- 追従モードがオン (かつ閾値を超えた) の場合のみ、地図の中心を更新 (setViewを実行) ---
+    // 【★修正】 要件4: setView_called ログの出力位置を setView の直前に統一
     if (appState.mode === 'north-up') {
         // --- North-Up時はsetViewのみで中央固定し、直後にログ出力 ---
-        // 【★修正】ログ出力の理由を明確化
         logJSON('mapController.js', 'setView_called', {
             followUser: true,
             reason: 'updatePosition (north-up)',
-            target: latlng
+            target: latlng,
+            mode: appState.mode
         });
         map.setView(latlng, map.getZoom(), { animate: false });
         logJSON('mapController.js', 'recenter', {
@@ -128,7 +152,8 @@ function updatePosition(position) {
         logJSON('mapController.js', 'setView_called', {
             followUser: true,
             reason: 'updatePosition (heading-up)',
-            target: latlng
+            target: latlng,
+            mode: appState.mode
         });
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
         map.once('moveend', () => updateTransformOrigin('after_setView'));
@@ -437,7 +462,8 @@ function stabilizeAfterFullScreen() {
                     logJSON('mapController.js', 'setView_called', {
                         followUser: true,
                         reason: 'stabilizeAfterFullScreen (north-up)',
-                        target: latlng
+                        target: latlng,
+                        mode: appState.mode
                     });
                     map.setView(latlng, map.getZoom(), { animate: false });
                      logJSON('mapController.js', 'recenter', {
@@ -459,7 +485,8 @@ function stabilizeAfterFullScreen() {
                 logJSON('mapController.js', 'setView_called', {
                     followUser: true,
                     reason: 'stabilizeAfterFullScreen (heading-up)',
-                    target: latlng
+                    target: latlng,
+                    mode: appState.mode
                 });
                 map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
                 map.once('moveend', () => updateTransformOrigin('heading-up-fullscreen'));
@@ -478,7 +505,8 @@ function recenterAbsolutely(coords) {
         logJSON('mapController.js', 'setView_called', {
             followUser: appState.followUser,
             reason: 'recenterAbsolutely',
-            target: latlng
+            target: latlng,
+            mode: appState.mode
         });
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
     } else {
