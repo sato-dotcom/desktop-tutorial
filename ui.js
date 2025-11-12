@@ -52,16 +52,13 @@ function initializeUI() {
         }
     });
 
-    // 【★修正】 'zoomstart' (二本指ピンチ操作) で追従をオフにしないように変更
-    // (要望: 二本指スライドの場合は追従を維持する)
-    /*
+    // 【★ 2025/11/12 ご要望による修正】 'zoomstart' (二本指ピンチ操作) でも追従をオフにする
     map.on('zoomstart', () => {
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
         if (appState.followUser) {
-            toggleFollowUser(false); // (要件3: 内部で followUser_auto_off ログが出力される)
+            toggleFollowUser(false); // (内部で followUser_auto_off ログが出力される)
         }
     });
-    */
 
     dom.currentCoordSystemSelect.addEventListener('change', updateCurrentXYDisplay);
     dom.invertBearingBtn.addEventListener('click', toggleBearingInversion);
