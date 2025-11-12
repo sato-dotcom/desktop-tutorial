@@ -41,6 +41,7 @@ const appState = {
     lastSetViewLatLng: null, // 【★追加】 最後にsetViewした緯度経度
     markerAnchor: 'center', // 'center' or 'bottom-quarter' (回転の中心)
     debugEnabled: true,
+    isForcingRecenter: false, // 【★追加】 強制センタリング中フラグ
     // 方位情報をオブジェクトで管理
     heading: {
         value: null, // 現在の方位角 (0-360)

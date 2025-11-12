@@ -43,8 +43,28 @@ function initializeUI() {
     
     // 【★修正】 dragstart (一本指スライド) イベントで追従を強制的にオフにする
     // (要件2: 一本指スライドで追従オフ)
-    map.on('dragstart', () => {
+    map.on('dragstart', (e) => {
+        // 【★要件2】 dragstartが複数回発火してもauto-offが一度しか走らないようガード
+        if (!appState.followUser) {
+            return; // 既に追従オフなら何もしない
+        }
+
+        // 【★要件2】 originalEventからpointerCount（指の数）を取得
+        let pointerCount = 1; // デフォルト (MouseEventなど)
+        if (e.originalEvent && e.originalEvent.touches) {
+            pointerCount = e.originalEvent.touches.length;
+        } else if (map._pointers) {
+            // Leaflet 1.9.x は _pointers で管理している
+            pointerCount = Object.keys(map._pointers).length; 
+        }
+        
+        logJSON('ui.js', 'dragstart_detected', {
+            appStateFollowUser: appState.followUser,
+            pointerCount: pointerCount
+        });
+
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
+        // (ガードをL64に移動したので、このifは常にtrueだが念のため残す)
         if (appState.followUser) {
             // 【★2025/11/12 修正】 状態変更とログ出力を mapController 側に一任する
             // appState.followUser = false; // ← 先に変更しない
@@ -53,7 +73,25 @@ function initializeUI() {
     });
 
     // 【★ 2025/11/12 ご要望による修正】 'zoomstart' (二本指ピンチ操作) でも追従をオフにする
-    map.on('zoomstart', () => {
+    map.on('zoomstart', (e) => {
+        // 【★要件2】 zoomstartが複数回発火してもauto-offが一度しか走らないようガード
+        if (!appState.followUser) {
+            return; // 既に追従オフなら何もしない
+        }
+
+        // 【★要件2】 zoomstartは通常2本指
+        let pointerCount = 2; 
+        if (e.originalEvent && e.originalEvent.touches) {
+            pointerCount = e.originalEvent.touches.length;
+        } else if (map._pointers) {
+             pointerCount = Object.keys(map._pointers).length;
+        }
+
+        logJSON('ui.js', 'zoomstart_detected', {
+            appStateFollowUser: appState.followUser,
+            pointerCount: pointerCount
+        });
+
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
         if (appState.followUser) {
             toggleFollowUser(false); // (内部で followUser_auto_off ログが出力される)

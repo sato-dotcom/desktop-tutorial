@@ -424,15 +424,23 @@ function updateHeading(headingState) {
              markerPos: { lat: markerPos.lat, lon: markerPos.lng },
              targetPos: { lat: targetPos.lat, lon: targetPos.lng },
              discrepancy_m: discrepancy.toFixed(2), // 【★ 要件3 追加】
-             tolerance_m: RECENTER_TOLERANCE_M
+             tolerance_m: RECENTER_TOLERANCE_M,
+             isForcingRecenter: appState.isForcingRecenter // ★フラグの状態をログに
            });
 
-           // 【★ 要件2 修正】 ズレ許容閾値のチェック
-           // toggleFollowUser直後など、setViewの非同期実行中に
-           // mapCenterとtargetPosが一時的にズレることがある。
-           // ズレが許容範囲内の場合、この後の処理(apply_heading_north_up_fixedログ出力など)を
-           // スキップし、意図しない再センタリング（のログ）を防ぐ。
-           if (discrepancy < RECENTER_TOLERANCE_M) {
+           // 【★要件1 修正】 強制センタリングフラグが立っている場合は、ズレ許容閾値チェックをスキップ
+           if (appState.isForcingRecenter) {
+                logJSON('mapController.js', 'centering_check_forced', {
+                    reason: 'forced recentering by toggleFollowUser', // ★要望通りのログ
+                    discrepancy_m: discrepancy.toFixed(2)
+                });
+                // チェックをスキップし、センタリング処理（apply_heading_north_up_fixedログ）に進む
+           
+           } else if (discrepancy < RECENTER_TOLERANCE_M) { // 【★ 要件2 修正】 ズレ許容閾値のチェック
+                // toggleFollowUser直後など、setViewの非同期実行中に
+                // mapCenterとtargetPosが一時的にズレることがある。
+                // ズレが許容範囲内の場合、この後の処理(apply_heading_north_up_fixedログ出力など)を
+                // スキップし、意図しない再センタリング（のログ）を防ぐ。
                 logJSON('mapController.js', 'centering_check_skipped', {
                     reason: 'discrepancy within tolerance',
                     discrepancy_m: discrepancy.toFixed(2)
@@ -703,7 +711,9 @@ function toggleFollowUser(forceState) {
                         : 'followUser_toggled'; // それ以外 (ボタンクリック)
 
     logJSON('mapController.js', eventName, {
-        value: newState
+        value: newState,
+        // 【★要件3】 これが強制センタリング（ボタン押下または手動呼び出し）か
+        isForcedOn: (forceState === undefined || forceState === true)
     });
 
     updateFollowButtonState(); // ui.js の関数を呼び出し (appState.followUser を参照)
@@ -719,6 +729,12 @@ function toggleFollowUser(forceState) {
     // 【★修正】追従ONにした場合、現在地が取得済みなら即座に (閾値チェック付きの) updatePosition を呼ぶ
     // 【★修正】追従ONにした場合、累積距離をリセットし、現在地をsetViewの基点に設定
     if (newState && appState.position) {
+        // 【★要件1】 強制センタリングフラグを立てる
+        appState.isForcingRecenter = true; 
+        logJSON('mapController.js', 'forcing_recenter_flag_set', { 
+            reason: 'toggleFollowUser (ON)' 
+        });
+
         const currentLatLng = L.latLng(appState.position.coords.latitude, appState.position.coords.longitude);
 
         // 【★要件1 修正】 setView の *前* に lastSetViewLatLng を現在地に更新し、リセット
@@ -751,7 +767,7 @@ function toggleFollowUser(forceState) {
         
         logJSON('mapController.js', 'setView_called', {
             followUser: true,
-            reason: 'toggleFollowUser (ON)',
+            reason: 'toggleFollowUser (ON) - Forced Recenter', // ★理由を明記
             target: [appState.position.coords.latitude, appState.position.coords.longitude],
             mode: appState.mode,
             cumulativeDistance: appState.cumulativeDistance // 0
@@ -762,6 +778,15 @@ function toggleFollowUser(forceState) {
             map.getZoom(), 
             { animate: false }
         );
+
+        // 【★要件1】 setViewが完了したら強制フラグを下ろす
+        map.once('moveend', () => {
+            appState.isForcingRecenter = false;
+            logJSON('mapController.js', 'forcing_recenter_flag_unset', { 
+                reason: 'moveend after toggleFollowUser' 
+            });
+        });
+
         // setViewを呼んだので、改めてリセット（念のため）
         // ★ 修正: setViewの前に移動したため、ここのブロックは不要
         // appState.lastSetViewLatLng = currentLatLng;
