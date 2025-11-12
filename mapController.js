@@ -649,10 +649,17 @@ function toggleFollowUser(forceState) {
         }
 
     } else if (!newState) { // 新しい状態 (false) の場合
-        // --- 追従オフ時に予約済みのリスナーを全て解除 ---
-        map.off('moveend');
-        map.off('viewreset');
-        logJSON('mapController.js', 'listeners_cleared', { reason: 'follow_off' });
+        // --- 【★修正 2025/11/12】 ---
+        // (要件4: 追従オフ時(ドラッグ操作)でも、Heading-Upモードの回転基点更新に必要な
+        // イベントリスナー(moveend, viewreset)は解除しないように変更)
+        // map.off('moveend');
+        // map.off('viewreset');
+        // logJSON('mapController.js', 'listeners_cleared', { reason: 'follow_off' });
+        
+        // リスナーを解除しないことをログに残す
+        logJSON('mapController.js', 'follow_off_listeners_kept', { 
+            reason: (typeof forceState === 'boolean' && forceState === false) ? 'dragstart' : 'button_off'
+        });
     }
 }
 
