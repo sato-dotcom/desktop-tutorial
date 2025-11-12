@@ -684,7 +684,16 @@ function toggleFollowUser(forceState) {
     const newState = (typeof forceState === 'boolean') ? forceState : !appState.followUser;
 
     // 既にその状態なら何もしない (dragstart で何度も false が呼ばれるのを防ぐ)
-    if (newState === appState.followUser) return;
+    if (newState === appState.followUser) {
+        // 【★修正】 状態が変わらなくても、UIとstateの同期ズレ確認ログは出力する
+        logJSON('mapController.js', 'followUser_state_sync_check', {
+            reason: 'state unchanged',
+            appStateFollowUser: appState.followUser,
+            newState: newState,
+            buttonClassList: dom.followUserBtn ? dom.followUserBtn.className : 'null'
+        });
+        return;
+    }
 
     appState.followUser = newState;
 
@@ -698,6 +707,14 @@ function toggleFollowUser(forceState) {
     });
 
     updateFollowButtonState(); // ui.js の関数を呼び出し (appState.followUser を参照)
+
+    // --- 【★要件2, 3】 状態変更直後に、UIとstateの同期が取れているかログ出力 ---
+    logJSON('mapController.js', 'followUser_state_sync_check', {
+        reason: 'state changed',
+        appStateFollowUser: appState.followUser,
+        newState: newState,
+        buttonClassList: dom.followUserBtn ? dom.followUserBtn.className : 'null'
+    });
     
     // 【★修正】追従ONにした場合、現在地が取得済みなら即座に (閾値チェック付きの) updatePosition を呼ぶ
     // 【★修正】追従ONにした場合、累積距離をリセットし、現在地をsetViewの基点に設定

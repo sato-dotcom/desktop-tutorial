@@ -11,14 +11,18 @@ window.onload = () => {
     initializeCoordSystemDefinitions();
     initializeMap(); 
     initializeCoordSystemSelector();
-    initializeUI();
+    // initializeUI(); // ← ここでは呼ばない
     initializeDebugPanel();
     
-    // --- DOM要素の取得とイベントリスナーの設定 ---
+    // --- 【★修正】DOM要素の取得とイベントリスナーの設定 ---
+    // initializeUIよりも先に、UIで利用するDOM要素を取得する
     dom.followUserBtn = document.getElementById('follow-user-btn');
     dom.fullscreenBtn = document.getElementById('fullscreen-btn');
     dom.modeSelector = document.getElementById('mode-selector');
     dom.surveyModeSelector = document.getElementById('survey-mode-selector'); // 【★追加】
+
+    // 【★修正】DOM要素の取得が完了してからUIを初期化する
+    initializeUI(); 
 
     if (dom.followUserBtn) {
         dom.followUserBtn.addEventListener('click', (e) => {

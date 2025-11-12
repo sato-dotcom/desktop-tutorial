@@ -66,6 +66,12 @@ function initializeUI() {
     // UIの初期状態を設定
     updateFollowButtonState();
     updateModeUI();
+
+    // --- 【★要件1】 起動時の追従ボタンの状態をログに出力 ---
+    logJSON('ui.js', 'followUser_init_state', {
+        appStateFollowUser: appState.followUser,
+        buttonClassList: dom.followUserBtn ? dom.followUserBtn.className : 'null'
+    });
 }
 
 /**
