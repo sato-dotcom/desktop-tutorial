@@ -409,10 +409,20 @@ function updateHeading(headingState) {
         }
         
         // ---【ここから修正】---
-        if (map && currentUserMarker) {
+        // 【★ 2025/11/12 修正】 比較基準を map.getCenter() から appState.position (現在地) に変更 (要件2)
+        if (map && currentUserMarker && appState.position) {
            logJSON('mapController.js', 'marker_vs_map_center', {
+             mapCenter: map.getCenter(), // 地図の実際の中央（デバッグ用）
+             markerPos: currentUserMarker.getLatLng(), // マーカーの実際の位置（デバッグ用）
+             // 【★追加】 センタリングの基準（＝あるべき姿の現在地）
+             targetPos: { lat: appState.position.coords.latitude, lon: appState.position.coords.longitude }
+           });
+        } else if (map && currentUserMarker) {
+            // appState.position がない場合 (フォールバック)
+            logJSON('mapController.js', 'marker_vs_map_center', {
              mapCenter: map.getCenter(),
-             markerPos: currentUserMarker.getLatLng()
+             markerPos: currentUserMarker.getLatLng(),
+             targetPos: 'appState.position is null'
            });
         }
         // ---【ここまで修正】---
@@ -660,15 +670,27 @@ function toggleFollowUser(forceState) {
     if (newState && appState.position) {
         const currentLatLng = L.latLng(appState.position.coords.latitude, appState.position.coords.longitude);
 
-        // 追従をONにした瞬間、現在の位置を「最後にsetViewした位置」とみなし、累積距離をリセット
+        // 【★要件1 修正】 setView の *前* に lastSetViewLatLng を現在地に更新し、リセット
         appState.lastSetViewLatLng = currentLatLng;
         appState.cumulativeDistance = 0;
         
-        logJSON('mapController.js', 'followUser_on_reset', {
+        // 【★要件1 修正】 ログの追加
+        logJSON('mapController.js', 'lastSetViewLatLng_updated', {
+            reason: 'toggleFollowUser (ON)',
             lat: appState.lastSetViewLatLng.lat,
             lon: appState.lastSetViewLatLng.lng,
             cumulativeDistance: appState.cumulativeDistance
         });
+
+        // (旧) 追従をONにした瞬間、現在の位置を「最後にsetViewした位置」とみなし、累積距離をリセット
+        // appState.lastSetViewLatLng = currentLatLng;
+        // appState.cumulativeDistance = 0;
+        // 
+        // logJSON('mapController.js', 'followUser_on_reset', {
+        //     lat: appState.lastSetViewLatLng.lat,
+        //     lon: appState.lastSetViewLatLng.lng,
+        //     cumulativeDistance: appState.cumulativeDistance
+        // });
         
         // 強制的に updatePosition を呼び出し、地図を即座に中央に移動させる
         // (内部の閾値チェックは、cumulativeDistanceが0なので初回はスキップされ、setViewが実行されるはず)
@@ -685,13 +707,14 @@ function toggleFollowUser(forceState) {
         });
         
         map.setView(
-            [appState.position.coords.latitude, appState.position.coords.longitude],
+            currentLatLng, // ★ 変数を使用
             map.getZoom(), 
             { animate: false }
         );
         // setViewを呼んだので、改めてリセット（念のため）
-        appState.lastSetViewLatLng = currentLatLng;
-        appState.cumulativeDistance = 0;
+        // ★ 修正: setViewの前に移動したため、ここのブロックは不要
+        // appState.lastSetViewLatLng = currentLatLng;
+        // appState.cumulativeDistance = 0;
 
         // 【★追加】Heading-Upモードの場合、回転基点も即座に更新する
         if (appState.mode === 'heading-up') {
