@@ -49,6 +49,17 @@ function initializeUI() {
             return; // 既に追従オフなら何もしない
         }
 
+        // --- 【★ 2025/11/12 修正】 (要件1) ---
+        // 強制センタリング中 (isForcingRecenter=true) は、
+        // このイベントによる自動オフをスキップする
+        if (appState.isForcingRecenter) {
+            logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
+                reason: 'dragstart detected during forced recenter'
+            });
+            return;
+        }
+        // --- 【★ 修正ここまで】 ---
+
         // 【★要件2】 originalEventからpointerCount（指の数）を取得
         let pointerCount = 1; // デフォルト (MouseEventなど)
         if (e.originalEvent && e.originalEvent.touches) {
@@ -78,6 +89,17 @@ function initializeUI() {
         if (!appState.followUser) {
             return; // 既に追従オフなら何もしない
         }
+
+        // --- 【★ 2025/11/12 修正】 (要件1) ---
+        // 強制センタリング中 (isForcingRecenter=true) は、
+        // このイベントによる自動オフをスキップする
+        if (appState.isForcingRecenter) {
+            logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
+                reason: 'zoomstart detected during forced recenter'
+            });
+            return;
+        }
+        // --- 【★ 修正ここまで】 ---
 
         // 【★要件2】 zoomstartは通常2本指
         let pointerCount = 2; 
