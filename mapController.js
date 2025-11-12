@@ -780,12 +780,24 @@ function toggleFollowUser(forceState) {
         );
 
         // 【★要件1】 setViewが完了したら強制フラグを下ろす
-        map.once('moveend', () => {
+        // map.once('moveend', () => {
+        //     appState.isForcingRecenter = false;
+        //     logJSON('mapController.js', 'forcing_recenter_flag_unset', { 
+        //         reason: 'moveend after toggleFollowUser' 
+        //     });
+        // });
+        
+        // --- 【★ 2025/11/12 修正】 (要件2) ---
+        // moveend ではなく setTimeout でフラグを解除する
+        // 強制ON直後の残留イベント（主に zoomstart）を抑制するため
+        setTimeout(() => {
             appState.isForcingRecenter = false;
             logJSON('mapController.js', 'forcing_recenter_flag_unset', { 
-                reason: 'moveend after toggleFollowUser' 
+                reason: 'timeout after toggleFollowUser (300ms)' 
             });
-        });
+        }, 300); // 300ms後にフラグを解除
+        // --- 【★ 修正ここまで】 ---
+
 
         // setViewを呼んだので、改めてリセット（念のため）
         // ★ 修正: setViewの前に移動したため、ここのブロックは不要

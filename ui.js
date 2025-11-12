@@ -50,14 +50,14 @@ function initializeUI() {
         }
 
         // --- 【★ 2025/11/12 修正】 (要件1) ---
-        // 強制センタリング中 (isForcingRecenter=true) は、
-        // このイベントによる自動オフをスキップする
-        if (appState.isForcingRecenter) {
-            logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
-                reason: 'dragstart detected during forced recenter'
-            });
-            return;
-        }
+        // dragstart (一本指スライド) は強制センタリング中でも
+        // 常に auto-off を許可する（抑制しない）
+        // if (appState.isForcingRecenter) {
+        //     logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
+        //         reason: 'dragstart detected during forced recenter'
+        //     });
+        //     return;
+        // }
         // --- 【★ 修正ここまで】 ---
 
         // 【★要件2】 originalEventからpointerCount（指の数）を取得
@@ -90,17 +90,6 @@ function initializeUI() {
             return; // 既に追従オフなら何もしない
         }
 
-        // --- 【★ 2025/11/12 修正】 (要件1) ---
-        // 強制センタリング中 (isForcingRecenter=true) は、
-        // このイベントによる自動オフをスキップする
-        if (appState.isForcingRecenter) {
-            logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
-                reason: 'zoomstart detected during forced recenter'
-            });
-            return;
-        }
-        // --- 【★ 修正ここまで】 ---
-
         // 【★要件2】 zoomstartは通常2本指
         let pointerCount = 2; 
         if (e.originalEvent && e.originalEvent.touches) {
@@ -108,6 +97,19 @@ function initializeUI() {
         } else if (map._pointers) {
              pointerCount = Object.keys(map._pointers).length;
         }
+
+        // --- 【★ 2025/11/12 修正】 (要件1) ---
+        // 強制センタリング中 (isForcingRecenter=true) は、
+        // このイベントによる自動オフをスキップする
+        if (appState.isForcingRecenter) {
+            logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
+                reason: 'zoomstart detected during forced recenter',
+                pointerCount: pointerCount // 【★ 要件3】 ログ強化
+            });
+            return;
+        }
+        // --- 【★ 修正ここまで】 ---
+
 
         logJSON('ui.js', 'zoomstart_detected', {
             appStateFollowUser: appState.followUser,
