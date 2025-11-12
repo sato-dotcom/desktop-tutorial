@@ -87,7 +87,6 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
 
     // --- 【★修正】 追従オフ時はここで処理を終了し、setView を実行しない ---
     // (要件1: 追従オフ時は setView しない)
-    // 【★2025/11/12 修正】 このガードは既存のままで要件1を満たしている
     if (!appState.followUser) {
         logJSON('mapController.js', 'setView_skipped', {
             reason: 'followUser is false',
@@ -236,7 +235,30 @@ function updateHeading(headingState) {
     }
 
     if (appState.mode === 'heading-up') {
-        // (この部分は今回の修正対象外)
+        // --- 【★ 修正】 追従オフ時は地図の回転/基点更新をスキップ ---
+        if (!appState.followUser) {
+            logJSON('mapController.js', 'heading_update_skipped_transform', {
+                reason: 'followUser=false (heading-up)',
+                mode: appState.mode
+            });
+            // マーカーの向きだけは更新する (地図は回転させない)
+            rotator.style.transform = `rotate(${newHeading.toFixed(1)}deg)`;
+            lastDrawnMarkerAngle = newHeading;
+            // 地図の回転状態はリセット
+            mapPane.style.transform = '';
+            lastDrawnMapAngle = 0;
+            lastMapHeading = null;
+            
+            // 回転中心マーカーも削除
+            if (rotationCenterMarker) {
+                map.removeLayer(rotationCenterMarker);
+                rotationCenterMarker = null;
+            }
+            return; // これ以上処理しない
+        }
+        // --- 【★ 修正ここまで】 ---
+        
+        // (この部分は今回の修正対象外) -> 追従ON時のみ実行される
         updateTransformOrigin('heading_update');
         const currentMapHeading = lastMapHeading !== null ? lastMapHeading : newHeading;
         let mapDiff = newHeading - currentMapHeading;
@@ -394,7 +416,6 @@ function updateHeading(headingState) {
             });
         }
         // --- 【★2025/11/12 修正ここまで】 ---
-
         
         // 状態変数をリセット (追従のオンオフに関わらず実行)
         lastDrawnMarkerAngle = 0;
@@ -613,7 +634,6 @@ function toggleFollowUser(forceState) {
                         ? 'followUser_auto_off' // 強制オフ (dragstart)
                         : 'followUser_toggled'; // それ以外 (ボタンクリック)
 
-    // 【★2025/11/12 修正】 ここでログが正しく出力される
     logJSON('mapController.js', eventName, {
         value: newState
     });
