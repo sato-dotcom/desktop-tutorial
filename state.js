@@ -27,6 +27,8 @@ const RECENTER_THRESHOLDS = {
 // --- アプリケーションの状態を一元管理 ---
 const appState = {
     position: null, // 現在の位置情報 (GeolocationPosition object)
+    previousPosition: null, // 【★追加】前回の位置情報 (GeolocationPosition object)
+    cumulativeDistance: 0, // 【★追加】累積移動距離 (メートル)
     // 【★修正】初期値を true に設定し、UIの初期状態と一致させる
     followUser: true,
     mode: 'north-up', // 'north-up' or 'heading-up'
@@ -73,6 +75,9 @@ function logJSON(module, event, data) {
  * @param {GeolocationPosition} newPosition - Geolocation APIから取得した新しい位置情報
  */
 function setPosition(newPosition) {
+    // 【★修正】現在の位置を「前回」として保存
+    appState.previousPosition = appState.position;
+    // 【★修正】新しい位置を「現在」として更新
     appState.position = newPosition;
 
     // 【★修正】 要件1: lastSetViewLatLngが未設定(null)の場合、最初の測位位置で初期化する
@@ -87,11 +92,13 @@ function setPosition(newPosition) {
     logJSON('state.js', 'position_set', {
         lat: newPosition.coords.latitude,
         lon: newPosition.coords.longitude,
-        acc: newPosition.coords.accuracy
+        acc: newPosition.coords.accuracy,
+        previous_lat: appState.previousPosition ? appState.previousPosition.coords.latitude : null
     });
     
     // mapControllerに状態を渡して地図（マーカー）の更新を依頼
-    updatePosition(newPosition);
+    // 【★修正】前回の位置情報も渡す
+    updatePosition(newPosition, appState.previousPosition);
 }
 
 /**

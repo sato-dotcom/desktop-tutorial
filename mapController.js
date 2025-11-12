@@ -8,8 +8,9 @@ let rotationCenterMarker = null; // 回転中心マーカーのインスタン�
 /**
  * 位置情報に基づいて現在地マーカーを生成・更新する
  * @param {GeolocationPosition} position - GPSから取得した位置情報
+ * @param {GeolocationPosition | null} previousPosition - 【★追加】前回のGPS位置情報
  */
-function updatePosition(position) {
+function updatePosition(position, previousPosition) { // 【★修正】引数追加
     const latlng = [position.coords.latitude, position.coords.longitude];
     const currentLatLng = L.latLng(latlng[0], latlng[1]); // 【★追加】Leaflet用の緯度経度オブジェクト
 
@@ -94,52 +95,64 @@ function updatePosition(position) {
         return; // これ以降の setView 処理を実行しない
     }
 
-    // --- 【★追加】追従モードONの時、移動距離が閾値未満なら地図を動かさない ---
+    // --- 【★修正】 累積移動距離方式 (要件1) ---
     // (要件2: 閾値チェック)
-    if (appState.lastSetViewLatLng) {
-        const distance = currentLatLng.distanceTo(appState.lastSetViewLatLng);
+    if (appState.lastSetViewLatLng && previousPosition) {
+        
+        // 【★修正】 「前回のGPS位置」と「現在のGPS位置」の間の距離を計算
+        const previousLatLng = L.latLng(previousPosition.coords.latitude, previousPosition.coords.longitude);
+        const distance = currentLatLng.distanceTo(previousLatLng);
+        
+        // 【★修正】 距離を累積
+        appState.cumulativeDistance += distance;
+        
         const threshold = RECENTER_THRESHOLDS[appState.surveyMode] || 1; // 閾値を取得 (デフォルト1m)
 
-        // 【★修正】 要件2: 距離計算のログを常に出力
+        // 【★修正】 要件3: distance_check ログに cumulativeDistance を追加
         logJSON('mapController.js', 'distance_check', {
-            from: { lat: appState.lastSetViewLatLng.lat, lon: appState.lastSetViewLatLng.lng },
-            to: { lat: currentLatLng.lat, lon: currentLatLng.lng },
-            distance: distance.toFixed(2),
+            from_prev: { lat: previousLatLng.lat, lon: previousLatLng.lng },
+            to_current: { lat: currentLatLng.lat, lon: currentLatLng.lng },
+            distance_step: distance.toFixed(2), // 今回のステップでの移動距離
+            cumulativeDistance: appState.cumulativeDistance.toFixed(2), // 累積距離
             threshold: threshold,
             surveyMode: appState.surveyMode
         });
 
-        if (distance < threshold) {
+        // 【★修正】 累積距離が閾値未満なら地図を動かさない
+        if (appState.cumulativeDistance < threshold) {
             // (要件4: 閾値未満のログ)
             // 【★修正】 要件3: setView_skipped ログに詳細情報を追加 (既存ログを流用)
             logJSON('mapController.js', 'setView_skipped', {
                 reason: 'below threshold',
                 mode: appState.mode,
                 surveyMode: appState.surveyMode,
-                distance: distance.toFixed(2),
+                cumulativeDistance: appState.cumulativeDistance.toFixed(2),
                 threshold: threshold
             });
             return; // 閾値未満なら地図を動かさず終了
         }
-    } else {
+        
+    } else if (!previousPosition) {
         // state.js で初期化されるはずだが、万が一 null だった場合のログ
         logJSON('mapController.js', 'setView_skipped', {
-            reason: 'lastSetViewLatLng is null, skipping threshold check',
-            mode: appState.mode
+            reason: 'previousPosition is null, skipping threshold check',
+            mode: appState.mode,
+            cumulativeDistance: appState.cumulativeDistance.toFixed(2)
         });
         // 【★修正】 閾値チェックをスキップする場合でも、最初のsetViewは実行する必要があるため
-        // lastSetViewLatLng をここで更新し、以降のsetView処理に進む
-        appState.lastSetViewLatLng = currentLatLng;
-        logJSON('mapController.js', 'lastSetViewLatLng_updated_on_skip', {
-            lat: appState.lastSetViewLatLng.lat,
-            lon: appState.lastSetViewLatLng.lng
-        });
+        // lastSetViewLatLng をここで更新し（初回のみ）、以降のsetView処理に進む
+        if (appState.lastSetViewLatLng === null) {
+            appState.lastSetViewLatLng = currentLatLng;
+            logJSON('mapController.js', 'lastSetViewLatLng_updated_on_skip', {
+                lat: appState.lastSetViewLatLng.lat,
+                lon: appState.lastSetViewLatLng.lng
+            });
+        }
     }
     
     // --- 【★修正】 閾値を超えた場合 (または初回) のみ setView を実行するため、
-    // lastSetViewLatLng の更新は setView の *直後* に移動する
-    // appState.lastSetViewLatLng = currentLatLng; // ← この行を削除
-
+    // lastSetViewLatLng と cumulativeDistance の更新は setView の *直後* に移動する
+    
     // --- 追従モードがオン (かつ閾値を超えた) の場合のみ、地図の中心を更新 (setViewを実行) ---
     // 【★修正】 要件4: setView_called ログの出力位置を setView の直前に統一
     if (appState.mode === 'north-up') {
@@ -149,16 +162,18 @@ function updatePosition(position) {
             reason: 'updatePosition (north-up)',
             target: latlng,
             mode: appState.mode,
-            // 【★修正】 要件2: ログに lastSetViewLatLng (更新前の値) を追加
-            lastSetViewLatLng: appState.lastSetViewLatLng ? { lat: appState.lastSetViewLatLng.lat, lon: appState.lastSetViewLatLng.lng } : null
+            // 【★修正】 要件3: ログに cumulativeDistance (リセット前の値) を追加
+            cumulativeDistance: appState.cumulativeDistance.toFixed(2)
         });
         map.setView(latlng, map.getZoom(), { animate: false });
         
-        // 【★修正】 要件1: setView の直後に lastSetViewLatLng を更新
+        // 【★修正】 要件2: setView の直後に lastSetViewLatLng と cumulativeDistance を更新
         appState.lastSetViewLatLng = currentLatLng; 
-        logJSON('mapController.js', 'lastSetViewLatLng_updated', {
+        appState.cumulativeDistance = 0; // 累積距離をリセット
+        logJSON('mapController.js', 'lastSetViewLatLng_updated_and_cumulative_reset', {
             lat: appState.lastSetViewLatLng.lat,
-            lon: appState.lastSetViewLatLng.lng
+            lon: appState.lastSetViewLatLng.lng,
+            cumulativeDistance: appState.cumulativeDistance // 0 になっていることを確認
         });
         
         logJSON('mapController.js', 'recenter', {
@@ -172,16 +187,18 @@ function updatePosition(position) {
             reason: 'updatePosition (heading-up)',
             target: latlng,
             mode: appState.mode,
-            // 【★修正】 要件2: ログに lastSetViewLatLng (更新前の値) を追加
-            lastSetViewLatLng: appState.lastSetViewLatLng ? { lat: appState.lastSetViewLatLng.lat, lon: appState.lastSetViewLatLng.lng } : null
+            // 【★修正】 要件3: ログに cumulativeDistance (リセット前の値) を追加
+            cumulativeDistance: appState.cumulativeDistance.toFixed(2)
         });
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
 
-        // 【★修正】 要件1: setView の直後に lastSetViewLatLng を更新
+        // 【★修正】 要件2: setView の直後に lastSetViewLatLng と cumulativeDistance を更新
         appState.lastSetViewLatLng = currentLatLng; 
-        logJSON('mapController.js', 'lastSetViewLatLng_updated', {
+        appState.cumulativeDistance = 0; // 累積距離をリセット
+        logJSON('mapController.js', 'lastSetViewLatLng_updated_and_cumulative_reset', {
             lat: appState.lastSetViewLatLng.lat,
-            lon: appState.lastSetViewLatLng.lng
+            lon: appState.lastSetViewLatLng.lng,
+            cumulativeDistance: appState.cumulativeDistance // 0 になっていることを確認
         });
 
         map.once('moveend', () => updateTransformOrigin('after_setView'));
@@ -491,9 +508,16 @@ function stabilizeAfterFullScreen() {
                         followUser: true,
                         reason: 'stabilizeAfterFullScreen (north-up)',
                         target: latlng,
-                        mode: appState.mode
+                        mode: appState.mode,
+                        // 【★修正】全画面時は累積距離に関わらず強制実行
+                        cumulativeDistance: appState.cumulativeDistance.toFixed(2) + ' (fullscreen override)'
                     });
                     map.setView(latlng, map.getZoom(), { animate: false });
+                    
+                    // 【★修正】全画面復帰時も累積距離をリセット
+                    appState.lastSetViewLatLng = L.latLng(latlng[0], latlng[1]);
+                    appState.cumulativeDistance = 0;
+                    
                      logJSON('mapController.js', 'recenter', {
                         reason: 'north-up-fullscreen',
                         markerAnchor: 'center'
@@ -514,9 +538,16 @@ function stabilizeAfterFullScreen() {
                     followUser: true,
                     reason: 'stabilizeAfterFullScreen (heading-up)',
                     target: latlng,
-                    mode: appState.mode
+                    mode: appState.mode,
+                    // 【★修正】全画面時は累積距離に関わらず強制実行
+                    cumulativeDistance: appState.cumulativeDistance.toFixed(2) + ' (fullscreen override)'
                 });
                 map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+                
+                // 【★修正】全画面復帰時も累積距離をリセット
+                appState.lastSetViewLatLng = L.latLng(latlng[0], latlng[1]);
+                appState.cumulativeDistance = 0;
+                
                 map.once('moveend', () => updateTransformOrigin('heading-up-fullscreen'));
             }
         }
@@ -534,9 +565,15 @@ function recenterAbsolutely(coords) {
             followUser: appState.followUser,
             reason: 'recenterAbsolutely',
             target: latlng,
-            mode: appState.mode
+            mode: appState.mode,
+            cumulativeDistance: appState.cumulativeDistance.toFixed(2) + ' (recenter override)'
         });
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
+        
+        // 【★修正】recenter時も累積距離をリセット
+        appState.lastSetViewLatLng = L.latLng(latlng[0], latlng[1]);
+        appState.cumulativeDistance = 0;
+
     } else {
          logJSON('mapController.js', 'recenterAbsolutely_skipped', { reason: 'followUser is false' });
     }
@@ -569,8 +606,48 @@ function toggleFollowUser(forceState) {
     updateFollowButtonState(); // ui.js の関数を呼び出し (appState.followUser を参照)
     
     // 【★修正】追従ONにした場合、現在地が取得済みなら即座に (閾値チェック付きの) updatePosition を呼ぶ
+    // 【★修正】追従ONにした場合、累積距離をリセットし、現在地をsetViewの基点に設定
     if (newState && appState.position) {
-        updatePosition(appState.position);
+        const currentLatLng = L.latLng(appState.position.coords.latitude, appState.position.coords.longitude);
+
+        // 追従をONにした瞬間、現在の位置を「最後にsetViewした位置」とみなし、累積距離をリセット
+        appState.lastSetViewLatLng = currentLatLng;
+        appState.cumulativeDistance = 0;
+        
+        logJSON('mapController.js', 'followUser_on_reset', {
+            lat: appState.lastSetViewLatLng.lat,
+            lon: appState.lastSetViewLatLng.lng,
+            cumulativeDistance: appState.cumulativeDistance
+        });
+        
+        // 強制的に updatePosition を呼び出し、地図を即座に中央に移動させる
+        // (内部の閾値チェックは、cumulativeDistanceが0なので初回はスキップされ、setViewが実行されるはず)
+        // ※ 訂正：cumulativeDistanceが0なので、閾値チェック(0 < threshold)でスキップされてしまう。
+        //    -> (distance < threshold) のチェックなので、 0 < 15 は true。setView_skipped になる。
+        //    -> このため、追従ON時に強制的にsetViewを呼ぶ必要がある
+        
+        logJSON('mapController.js', 'setView_called', {
+            followUser: true,
+            reason: 'toggleFollowUser (ON)',
+            target: [appState.position.coords.latitude, appState.position.coords.longitude],
+            mode: appState.mode,
+            cumulativeDistance: appState.cumulativeDistance // 0
+        });
+        
+        map.setView(
+            [appState.position.coords.latitude, appState.position.coords.longitude],
+            map.getZoom(), 
+            { animate: false }
+        );
+        // setViewを呼んだので、改めてリセット（念のため）
+        appState.lastSetViewLatLng = currentLatLng;
+        appState.cumulativeDistance = 0;
+
+        // 【★追加】Heading-Upモードの場合、回転基点も即座に更新する
+        if (appState.mode === 'heading-up') {
+             map.once('moveend', () => updateTransformOrigin('after_toggleFollowUser'));
+        }
+
     } else if (!newState) { // 新しい状態 (false) の場合
         // --- 追従オフ時に予約済みのリスナーを全て解除 ---
         map.off('moveend');
