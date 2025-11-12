@@ -162,7 +162,7 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
             reason: 'updatePosition (north-up)',
             target: latlng,
             mode: appState.mode,
-            // 【★修正】 要件3: ログに cumulativeDistance (リセット前の値) を追加
+            // 【★修正】 要件3: ログに cumulativeDistance (リセット前のの値) を追加
             cumulativeDistance: appState.cumulativeDistance.toFixed(2)
         });
         map.setView(latlng, map.getZoom(), { animate: false });
@@ -187,7 +187,7 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
             reason: 'updatePosition (heading-up)',
             target: latlng,
             mode: appState.mode,
-            // 【★修正】 要件3: ログに cumulativeDistance (リセット前の値) を追加
+            // 【★修正】 要件3: ログに cumulativeDistance (リセット前のの値) を追加
             cumulativeDistance: appState.cumulativeDistance.toFixed(2)
         });
         map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
@@ -411,12 +411,46 @@ function updateHeading(headingState) {
         // ---【ここから修正】---
         // 【★ 2025/11/12 修正】 比較基準を map.getCenter() から appState.position (現在地) に変更 (要件2)
         if (map && currentUserMarker && appState.position) {
+           // 【★ 要件3 修正】 ズレ距離を計算
+           const mapCenter = map.getCenter();
+           const markerPos = currentUserMarker.getLatLng();
+           const targetPos = L.latLng(appState.position.coords.latitude, appState.position.coords.longitude);
+           
+           // map.getCenter() が返す地図の実際の中央 と appState.position (あるべき中央) とのズレ
+           const discrepancy = mapCenter.distanceTo(targetPos); 
+           
            logJSON('mapController.js', 'marker_vs_map_center', {
-             mapCenter: map.getCenter(), // 地図の実際の中央（デバッグ用）
-             markerPos: currentUserMarker.getLatLng(), // マーカーの実際の位置（デバッグ用）
-             // 【★追加】 センタリングの基準（＝あるべき姿の現在地）
-             targetPos: { lat: appState.position.coords.latitude, lon: appState.position.coords.longitude }
+             mapCenter: { lat: mapCenter.lat, lon: mapCenter.lng },
+             markerPos: { lat: markerPos.lat, lon: markerPos.lng },
+             targetPos: { lat: targetPos.lat, lon: targetPos.lng },
+             discrepancy_m: discrepancy.toFixed(2), // 【★ 要件3 追加】
+             tolerance_m: RECENTER_TOLERANCE_M
            });
+
+           // 【★ 要件2 修正】 ズレ許容閾値のチェック
+           // toggleFollowUser直後など、setViewの非同期実行中に
+           // mapCenterとtargetPosが一時的にズレることがある。
+           // ズレが許容範囲内の場合、この後の処理(apply_heading_north_up_fixedログ出力など)を
+           // スキップし、意図しない再センタリング（のログ）を防ぐ。
+           if (discrepancy < RECENTER_TOLERANCE_M) {
+                logJSON('mapController.js', 'centering_check_skipped', {
+                    reason: 'discrepancy within tolerance',
+                    discrepancy_m: discrepancy.toFixed(2)
+                });
+                
+                // ★ 状態変数のリセットのみ実行して終了する
+                lastDrawnMarkerAngle = 0;
+                lastDrawnMapAngle = null;
+                lastMapHeading = null;
+                return; // この後の apply_heading... ログをスキップ
+           } else {
+                logJSON('mapController.js', 'centering_check_needed', {
+                    reason: 'discrepancy exceeds tolerance',
+                    discrepancy_m: discrepancy.toFixed(2)
+                });
+                // ズレが大きい。 updatePosition が再センタリングすることを期待する
+           }
+           
         } else if (map && currentUserMarker) {
             // appState.position がない場合 (フォールバック)
             logJSON('mapController.js', 'marker_vs_map_center', {

@@ -24,6 +24,11 @@ const RECENTER_THRESHOLDS = {
     survey: 1   // 測量モード (高精度GNSS)
 };
 
+// 【★ 2025/11/12 追加】 センタリングのズレ許容値 (m)
+// toggleFollowUser直後などに map.getCenter() と appState.position が
+// 一時的にズレることを許容する
+const RECENTER_TOLERANCE_M = 5; 
+
 // --- アプリケーションの状態を一元管理 ---
 const appState = {
     position: null, // 現在の位置情報 (GeolocationPosition object)
