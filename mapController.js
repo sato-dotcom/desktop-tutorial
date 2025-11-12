@@ -87,6 +87,7 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
 
     // --- 【★修正】 追従オフ時はここで処理を終了し、setView を実行しない ---
     // (要件1: 追従オフ時は setView しない)
+    // 【★2025/11/12 修正】 このガードは既存のままで要件1を満たしている
     if (!appState.followUser) {
         logJSON('mapController.js', 'setView_skipped', {
             reason: 'followUser is false',
@@ -276,116 +277,129 @@ function updateHeading(headingState) {
             map.removeLayer(rotationCenterMarker);
             rotationCenterMarker = null;
         }
-
-        logJSON('mapController.js', 'north_up_transform_check', {
-            mapPaneTransform: mapPane.style.transform,
-            mapPaneOrigin: mapPane.style.transformOrigin,
-            rotatorTransform: rotator.style.transform,
-            rotatorOrigin: rotator.style.transformOrigin
-        });
-
-        const markerEl_dom = document.getElementById('userMarker');
-        if (markerEl_dom) {
-            const rect = markerEl_dom.getBoundingClientRect();
-            logJSON('mapController.js', 'north_up_dom_check', {
-                width: rect.width,
-                height: rect.height,
-                offsetTop: markerEl_dom.offsetTop,
-                offsetLeft: markerEl_dom.offsetLeft
+        
+        // --- 【★2025/11/12 修正】 追従オフ時はセンタリング処理をスキップ ---
+        if (appState.followUser) {
+            // --- 追従オンの場合のみ、センタリングチェックとDOM操作を実行 ---
+            logJSON('mapController.js', 'north_up_transform_check', {
+                mapPaneTransform: mapPane.style.transform,
+                mapPaneOrigin: mapPane.style.transformOrigin,
+                rotatorTransform: rotator.style.transform,
+                rotatorOrigin: rotator.style.transformOrigin
             });
-        }
 
-        const markerEl = document.getElementById('userMarker');
-        if (markerEl) {
-          // (デバッグ用ログ出力は省略せず維持)
-          const styleOuter = window.getComputedStyle(markerEl);
-          const rotatorEl = markerEl.querySelector('.user-location-marker-rotator');
-          const styleRotator = rotatorEl ? window.getComputedStyle(rotatorEl) : {};
-          const svgEl = markerEl.querySelector('svg');
-          const styleSvg = svgEl ? window.getComputedStyle(svgEl) : {};
-    
-          logJSON('mapController.js', 'north_up_style_deepcheck', {
-            outer: {
-              display: styleOuter.display,
-              lineHeight: styleOuter.lineHeight,
-              verticalAlign: styleOuter.verticalAlign
-            },
-            rotator: {
-              display: styleRotator.display,
-              lineHeight: styleRotator.lineHeight,
-              verticalAlign: styleRotator.verticalAlign
-            },
-            svg: {
-              display: styleSvg.display,
-              lineHeight: styleSvg.lineHeight,
-              verticalAlign: styleSvg.verticalAlign
+            const markerEl_dom = document.getElementById('userMarker');
+            if (markerEl_dom) {
+                const rect = markerEl_dom.getBoundingClientRect();
+                logJSON('mapController.js', 'north_up_dom_check', {
+                    width: rect.width,
+                    height: rect.height,
+                    offsetTop: markerEl_dom.offsetTop,
+                    offsetLeft: markerEl_dom.offsetLeft
+                });
             }
-          });
-
-          logJSON('mapController.js', 'north_up_dom_structure', {
-            outerHTML: markerEl.outerHTML
-          });
-
-          // 強制的に inline style を付与
-          markerEl.style.display = 'flex';
-          markerEl.style.alignItems = 'center';
-          markerEl.style.justifyContent = 'center';
-          markerEl.style.width = '30px';
-          markerEl.style.height = '30px';
-          markerEl.style.lineHeight = '30px';
-          markerEl.style.verticalAlign = 'middle';
-
-          const styleCheck = window.getComputedStyle(markerEl);
-          logJSON('mapController.js', 'north_up_inline_style_check', {
-            display: styleCheck.display,
-            lineHeight: styleCheck.lineHeight,
-            verticalAlign: styleCheck.verticalAlign,
-            width: styleCheck.width,
-            height: styleCheck.height
-          });
-          
-          // ---【ここから修正】---
-          const rotator_test = markerEl.querySelector('.user-location-marker-rotator');
-          if (rotator_test) {
-            rotator_test.style.display = 'flex';
-            rotator_test.style.alignItems = 'center';
-            rotator_test.style.justifyContent = 'center';
-            rotator_test.style.width = '30px';
-            rotator_test.style.height = '30px';
-            rotator_test.style.lineHeight = '30px';
-            rotator_test.style.verticalAlign = 'middle';
-
-            const styleRotator_test = window.getComputedStyle(rotator_test);
-            logJSON('mapController.js', 'north_up_inline_rotator_check', {
-              display: styleRotator_test.display,
-              lineHeight: styleRotator_test.lineHeight,
-              verticalAlign: styleRotator_test.verticalAlign,
-              width: styleRotator_test.width,
-              height: styleRotator_test.height
+    
+            const markerEl = document.getElementById('userMarker');
+            if (markerEl) {
+              // (デバッグ用ログ出力は省略せず維持)
+              const styleOuter = window.getComputedStyle(markerEl);
+              const rotatorEl = markerEl.querySelector('.user-location-marker-rotator');
+              const styleRotator = rotatorEl ? window.getComputedStyle(rotatorEl) : {};
+              const svgEl = markerEl.querySelector('svg');
+              const styleSvg = svgEl ? window.getComputedStyle(svgEl) : {};
+        
+              logJSON('mapController.js', 'north_up_style_deepcheck', {
+                outer: {
+                  display: styleOuter.display,
+                  lineHeight: styleOuter.lineHeight,
+                  verticalAlign: styleOuter.verticalAlign
+                },
+                rotator: {
+                  display: styleRotator.display,
+                  lineHeight: styleRotator.lineHeight,
+                  verticalAlign: styleRotator.verticalAlign
+                },
+                svg: {
+                  display: styleSvg.display,
+                  lineHeight: styleSvg.lineHeight,
+                  verticalAlign: styleSvg.verticalAlign
+                }
+              });
+    
+              logJSON('mapController.js', 'north_up_dom_structure', {
+                outerHTML: markerEl.outerHTML
+              });
+    
+              // 強制的に inline style を付与
+              markerEl.style.display = 'flex';
+              markerEl.style.alignItems = 'center';
+              markerEl.style.justifyContent = 'center';
+              markerEl.style.width = '30px';
+              markerEl.style.height = '30px';
+              markerEl.style.lineHeight = '30px';
+              markerEl.style.verticalAlign = 'middle';
+    
+              const styleCheck = window.getComputedStyle(markerEl);
+              logJSON('mapController.js', 'north_up_inline_style_check', {
+                display: styleCheck.display,
+                lineHeight: styleCheck.lineHeight,
+                verticalAlign: styleCheck.verticalAlign,
+                width: styleCheck.width,
+                height: styleCheck.height
+              });
+              
+              // ---【ここから修正】---
+              const rotator_test = markerEl.querySelector('.user-location-marker-rotator');
+              if (rotator_test) {
+                rotator_test.style.display = 'flex';
+                rotator_test.style.alignItems = 'center';
+                rotator_test.style.justifyContent = 'center';
+                rotator_test.style.width = '30px';
+                rotator_test.style.height = '30px';
+                rotator_test.style.lineHeight = '30px';
+                rotator_test.style.verticalAlign = 'middle';
+    
+                const styleRotator_test = window.getComputedStyle(rotator_test);
+                logJSON('mapController.js', 'north_up_inline_rotator_check', {
+                  display: styleRotator_test.display,
+                  lineHeight: styleRotator_test.lineHeight,
+                  verticalAlign: styleRotator_test.verticalAlign,
+                  width: styleRotator_test.width,
+                  height: styleRotator_test.height
+                });
+              }
+              // ---【ここまで修正】---
+            }
+            
+            // ---【ここから修正】---
+            if (map && currentUserMarker) {
+               logJSON('mapController.js', 'marker_vs_map_center', {
+                 mapCenter: map.getCenter(),
+                 markerPos: currentUserMarker.getLatLng()
+               });
+            }
+            // ---【ここまで修正】---
+            
+            logJSON('mapController.js', 'apply_heading_north_up_fixed', {
+                mode: appState.mode,
+                map_rotation: '0 (fixed)',
+                marker_rotation: '0 (fixed)',
             });
-          }
-          // ---【ここまで修正】---
+
+        } else {
+            // --- 追従オフ時はセンタリングをスキップしたログを出力 ---
+            logJSON('mapController.js', 'heading_update_skipped_centering', {
+                reason: 'followUser=false (north-up)',
+                mode: appState.mode
+            });
         }
+        // --- 【★2025/11/12 修正ここまで】 ---
+
         
-        // ---【ここから修正】---
-        if (map && currentUserMarker) {
-           logJSON('mapController.js', 'marker_vs_map_center', {
-             mapCenter: map.getCenter(),
-             markerPos: currentUserMarker.getLatLng()
-           });
-        }
-        // ---【ここまで修正】---
-        
-        // 状態変数をリセット
+        // 状態変数をリセット (追従のオンオフに関わらず実行)
         lastDrawnMarkerAngle = 0;
         lastDrawnMapAngle = null;
         lastMapHeading = null;
-
-        logJSON('mapController.js', 'apply_heading_north_up_fixed', {
-            mode: appState.mode,
-            map_rotation: '0 (fixed)',
-            marker_rotation: '0 (fixed)',
-        });
     }
 }
 
@@ -599,6 +613,7 @@ function toggleFollowUser(forceState) {
                         ? 'followUser_auto_off' // 強制オフ (dragstart)
                         : 'followUser_toggled'; // それ以外 (ボタンクリック)
 
+    // 【★2025/11/12 修正】 ここでログが正しく出力される
     logJSON('mapController.js', eventName, {
         value: newState
     });

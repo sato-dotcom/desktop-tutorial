@@ -46,12 +46,8 @@ function initializeUI() {
     map.on('dragstart', () => {
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
         if (appState.followUser) {
-            // 【★修正】 toggleFollowUserより先に同期的に状態を変更し、
-            // 直後の updatePosition で setView_skipped が呼ばれるようにする。
-            appState.followUser = false;
-            
-            // ログ出力とUI更新のために toggleFollowUser(false) を呼び出す
-            // (内部の二重変更防止ガードにより、appState.followUser は再変更されない)
+            // 【★2025/11/12 修正】 状態変更とログ出力を mapController 側に一任する
+            // appState.followUser = false; // ← 先に変更しない
             toggleFollowUser(false); // (要件3: 内部で followUser_auto_off ログが出力される)
         }
     });
