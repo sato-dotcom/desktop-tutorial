@@ -737,12 +737,12 @@ function toggleFollowUser(forceState) {
 
         const currentLatLng = L.latLng(appState.position.coords.latitude, appState.position.coords.longitude);
 
-        // 【★要件1 修正】 setView の *前* に lastSetViewLatLng を現在地に更新し、リセット
+        // 【★要件2 修正】 setView の *前* に lastSetViewLatLng を現在地に更新し、リセット
         appState.lastSetViewLatLng = currentLatLng;
         appState.cumulativeDistance = 0;
         
-        // 【★要件1 修正】 ログの追加
-        logJSON('mapController.js', 'lastSetViewLatLng_updated', {
+        // 【★要件2 修正】 ログのイベント名を変更
+        logJSON('mapController.js', 'lastSetViewLatLng_reset_on_toggle', {
             reason: 'toggleFollowUser (ON)',
             lat: appState.lastSetViewLatLng.lat,
             lon: appState.lastSetViewLatLng.lng,
@@ -765,12 +765,14 @@ function toggleFollowUser(forceState) {
         //    -> (distance < threshold) のチェックなので、 0 < 15 は true。setView_skipped になる。
         //    -> このため、追従ON時に強制的にsetViewを呼ぶ必要がある
         
+        // 【★要件1 修正】 ログに全画面フラグを追加
         logJSON('mapController.js', 'setView_called', {
             followUser: true,
             reason: 'toggleFollowUser (ON) - Forced Recenter', // ★理由を明記
             target: [appState.position.coords.latitude, appState.position.coords.longitude],
             mode: appState.mode,
-            cumulativeDistance: appState.cumulativeDistance // 0
+            cumulativeDistance: appState.cumulativeDistance, // 0
+            forced_centering_screen_mode: !!(document.fullscreenElement || document.webkitFullscreenElement) // 【★要件1 追加】
         });
         
         map.setView(
