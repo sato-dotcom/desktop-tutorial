@@ -22,15 +22,17 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
             </div>
         </div>`;
 
+    // --- 【★ 2025/11/13 修正】 iconOptions を定義 (要件2) ---
+    const iconOptions = {
+        html: userIconHTML,
+        className: 'user-marker',
+        iconSize: [30, 30],
+        iconAnchor: [15, 15] // iconSizeの半分 (中央)
+    };
+
     if (currentUserMarker === null) {
         // --- 初回: マーカーを生成 ---
-        const userIcon = L.divIcon({
-            html: userIconHTML,
-            className: 'user-marker',
-            iconSize: [30, 30],
-            // 【★修正】 iconAnchorは[15, 15]で中央基準に固定
-            iconAnchor: [15, 15] 
-        });
+        const userIcon = L.divIcon(iconOptions);
         
         currentUserMarker = L.marker(latlng, { icon: userIcon, pane: 'markerPane' }).addTo(map);
         // 【修正】現在地マーカーを最前面に表示
@@ -39,8 +41,11 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
         logJSON('mapController.js', 'marker_created', { lat: latlng[0], lon: latlng[1] });
 
         logJSON('mapController.js', 'marker_anchor_check', {
-         iconAnchor: currentUserMarker.options.icon.options.iconAnchor,
-         iconSize: currentUserMarker.options.icon.options.iconSize,
+         // --- 【★ 2025/11/13 修正】 (要件2) ---
+         iconAnchor: iconOptions.iconAnchor,
+         iconSize: iconOptions.iconSize,
+         marker_anchor_forced_center: true,
+         // --- 【★ 修正ここまで】 ---
          lat: latlng[0],
          lon: latlng[1]
         });
@@ -60,14 +65,8 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
         currentUserMarker.setLatLng(latlng);
 
         // ---【★修正】iconAnchorが確実に適用されるよう、setIconでアイコンを再設定 ---
-        currentUserMarker.setIcon(
-            L.divIcon({
-                html: userIconHTML,
-                className: 'user-marker',
-                iconSize: [30, 30],
-                iconAnchor: [15, 15] // アイコン中央を基準にする
-            })
-        );
+        currentUserMarker.setIcon(L.divIcon(iconOptions)); // 【★ 2025/11/13 修正】 (要件2)
+        
         // 【修正】アイコン再設定時もZ-Indexを維持
         currentUserMarker.setZIndexOffset(1000);
 
@@ -75,8 +74,11 @@ function updatePosition(position, previousPosition) { // 【★修正】引数�
 
         // ★追加：更新時にも anchor を確認
         logJSON('mapController.js', 'marker_anchor_check_update', {
-         iconAnchor: currentUserMarker.options.icon.options.iconAnchor,
-         iconSize: currentUserMarker.options.icon.options.iconSize,
+         // --- 【★ 2025/11/13 修正】 (要件2) ---
+         iconAnchor: iconOptions.iconAnchor,
+         iconSize: iconOptions.iconSize,
+         marker_anchor_forced_center: true,
+         // --- 【★ 修正ここまで】 ---
          lat: latlng[0],
          lon: latlng[1]
         });
@@ -776,11 +778,27 @@ function toggleFollowUser(forceState) {
             forced_centering_screen_mode: isFullscreen // 【★要件1 追加】
         });
         
+        // --- 【★ 2025/11/13 修正】 (要件1) ---
+        const viewOptions = { 
+            animate: false, 
+            paddingTopLeft: [0, 0], 
+            paddingBottomRight: [0, 0] 
+        };
         map.setView(
-            currentLatLng, // ★ 変数を使用
+            currentLatLng, 
             map.getZoom(), 
-            { animate: false }
+            viewOptions
         );
+
+        // --- 【★ 2025/11/13 修正】 (要件3) ---
+        // setViewの直後にpanToを呼び出し、中央を強制
+        map.panTo(currentLatLng, { animate: false });
+        logJSON('mapController.js', 'panTo_called_after_forced', {
+            reason: 'toggleFollowUser (ON)',
+            target: [currentLatLng.lat, currentLatLng.lng]
+        });
+        // --- 【★ 修正ここまで】 ---
+
 
         // --- 【★要件1 修正】 setView直後にinvalidateSizeを呼び出し、中央表示を強制する ---
         map.invalidateSize();
