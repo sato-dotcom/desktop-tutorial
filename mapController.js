@@ -367,7 +367,7 @@ function updateHeading(headingState) {
             outerHTML: markerEl.outerHTML
           });
 
-          // 強制的に inline style を付与
+          // 【★要件1 修正】 強制的に inline style を付与
           markerEl.style.display = 'flex';
           markerEl.style.alignItems = 'center';
           markerEl.style.justifyContent = 'center';
@@ -375,17 +375,8 @@ function updateHeading(headingState) {
           markerEl.style.height = '30px';
           markerEl.style.lineHeight = '30px';
           markerEl.style.verticalAlign = 'middle';
-
-          const styleCheck = window.getComputedStyle(markerEl);
-          logJSON('mapController.js', 'north_up_inline_style_check', {
-            display: styleCheck.display,
-            lineHeight: styleCheck.lineHeight,
-            verticalAlign: styleCheck.verticalAlign,
-            width: styleCheck.width,
-            height: styleCheck.height
-          });
           
-          // ---【ここから修正】---
+          // ---【★要件1 修正】---
           const rotator_test = markerEl.querySelector('.user-location-marker-rotator');
           if (rotator_test) {
             rotator_test.style.display = 'flex';
@@ -395,17 +386,17 @@ function updateHeading(headingState) {
             rotator_test.style.height = '30px';
             rotator_test.style.lineHeight = '30px';
             rotator_test.style.verticalAlign = 'middle';
-
-            const styleRotator_test = window.getComputedStyle(rotator_test);
-            logJSON('mapController.js', 'north_up_inline_rotator_check', {
-              display: styleRotator_test.display,
-              lineHeight: styleRotator_test.lineHeight,
-              verticalAlign: styleRotator_test.verticalAlign,
-              width: styleRotator_test.width,
-              height: styleRotator_test.height
-            });
           }
-          // ---【ここまで修正】---
+
+          logJSON('mapController.js', 'north_up_forced_style_check', {
+              reason: 'updateHeading (north-up)',
+              display: markerEl.style.display,
+              width: markerEl.style.width,
+              height: markerEl.style.height,
+              verticalAlign: markerEl.style.verticalAlign,
+              rotatorDisplay: rotator_test ? rotator_test.style.display : 'null'
+          });
+          // ---【★修正ここまで】---
         }
         
         // ---【ここから修正】---
@@ -737,18 +728,27 @@ function toggleFollowUser(forceState) {
 
         const currentLatLng = L.latLng(appState.position.coords.latitude, appState.position.coords.longitude);
 
-        // 【★要件2 修正】 setView の *前* に lastSetViewLatLng を現在地に更新し、リセット
+        // --- 【★要件2 修正】 ---
+        // setView の *前* に lastSetViewLatLng を現在地に更新
         appState.lastSetViewLatLng = currentLatLng;
-        appState.cumulativeDistance = 0;
         
-        // 【★要件2 修正】 ログのイベント名を変更
+        // cumulativeDistance を 0 ではなく、閾値の90%に設定
+        // これにより、次の updatePosition で必ず閾値を超え、setViewが実行される
+        const threshold = RECENTER_THRESHOLDS[appState.surveyMode] || 1;
+        const adjustedDistance = threshold * 0.9;
+        appState.cumulativeDistance = adjustedDistance;
+        
         logJSON('mapController.js', 'lastSetViewLatLng_reset_on_toggle', {
             reason: 'toggleFollowUser (ON)',
             lat: appState.lastSetViewLatLng.lat,
             lon: appState.lastSetViewLatLng.lng,
-            cumulativeDistance: appState.cumulativeDistance
+            cumulativeDistance: appState.cumulativeDistance,
+            // 【★要件2 ログ追加】
+            cumulativeDistance_adjusted_after_forced: true,
+            threshold: threshold
         });
-
+        // --- 【★要件2 修正ここまで】 ---
+        
         // (旧) 追従をONにした瞬間、現在の位置を「最後にsetViewした位置」とみなし、累積距離をリセット
         // appState.lastSetViewLatLng = currentLatLng;
         // appState.cumulativeDistance = 0;
@@ -766,13 +766,14 @@ function toggleFollowUser(forceState) {
         //    -> このため、追従ON時に強制的にsetViewを呼ぶ必要がある
         
         // 【★要件1 修正】 ログに全画面フラグを追加
+        const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
         logJSON('mapController.js', 'setView_called', {
             followUser: true,
             reason: 'toggleFollowUser (ON) - Forced Recenter', // ★理由を明記
             target: [appState.position.coords.latitude, appState.position.coords.longitude],
             mode: appState.mode,
             cumulativeDistance: appState.cumulativeDistance, // 0
-            forced_centering_screen_mode: !!(document.fullscreenElement || document.webkitFullscreenElement) // 【★要件1 追加】
+            forced_centering_screen_mode: isFullscreen // 【★要件1 追加】
         });
         
         map.setView(
@@ -780,6 +781,41 @@ function toggleFollowUser(forceState) {
             map.getZoom(), 
             { animate: false }
         );
+
+        // --- 【★要件1 追加】 DOMスタイル崩れを強制的に修正 ---
+        const markerEl = document.getElementById('userMarker');
+        if (markerEl) {
+            markerEl.style.display = 'flex';
+            markerEl.style.alignItems = 'center';
+            markerEl.style.justifyContent = 'center';
+            markerEl.style.width = '30px';
+            markerEl.style.height = '30px';
+            markerEl.style.lineHeight = '30px';
+            markerEl.style.verticalAlign = 'middle';
+
+            // rotatorにも適用
+            const rotatorEl = markerEl.querySelector('.user-location-marker-rotator');
+            if (rotatorEl) {
+                rotatorEl.style.display = 'flex';
+                rotatorEl.style.alignItems = 'center';
+                rotatorEl.style.justifyContent = 'center';
+                rotatorEl.style.width = '30px';
+                rotatorEl.style.height = '30px';
+                rotatorEl.style.lineHeight = '30px';
+                rotatorEl.style.verticalAlign = 'middle';
+            }
+
+            logJSON('mapController.js', 'force_marker_style_on_toggle', {
+                reason: 'toggleFollowUser (ON)',
+                display: markerEl.style.display,
+                width: markerEl.style.width,
+                height: markerEl.style.height,
+                verticalAlign: markerEl.style.verticalAlign,
+                rotatorDisplay: rotatorEl ? rotatorEl.style.display : 'null'
+            });
+        }
+        // --- 【★要件1 修正ここまで】 ---
+
 
         // 【★要件1】 setViewが完了したら強制フラグを下ろす
         // map.once('moveend', () => {
