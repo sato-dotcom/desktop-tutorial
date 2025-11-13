@@ -782,6 +782,15 @@ function toggleFollowUser(forceState) {
             { animate: false }
         );
 
+        // --- 【★要件1 修正】 setView直後にinvalidateSizeを呼び出し、中央表示を強制する ---
+        map.invalidateSize();
+        logJSON('mapController.js', 'invalidateSize_called_after_forced', {
+            reason: 'toggleFollowUser (ON)',
+            isFullscreen: isFullscreen
+        });
+        // --- 【★要件1 修正ここまで】 ---
+
+
         // --- 【★要件1 追加】 DOMスタイル崩れを強制的に修正 ---
         const markerEl = document.getElementById('userMarker');
         if (markerEl) {
@@ -827,13 +836,14 @@ function toggleFollowUser(forceState) {
         
         // --- 【★ 2025/11/12 修正】 (要件2) ---
         // moveend ではなく setTimeout でフラグを解除する
-        // 強制ON直後の残留イベント（主に zoomstart）を抑制するため
+        // 【★要件2 修正】 強制センタリングの維持時間を 300ms から 1000ms に延長
         setTimeout(() => {
             appState.isForcingRecenter = false;
             logJSON('mapController.js', 'forcing_recenter_flag_unset', { 
-                reason: 'timeout after toggleFollowUser (300ms)' 
+                reason: 'timeout after toggleFollowUser (1000ms)',
+                forcing_recenter_flag_timeout_extended: true // 【★要件2 ログ追加】
             });
-        }, 300); // 300ms後にフラグを解除
+        }, 1000); // 1000ms後にフラグを解除
         // --- 【★ 修正ここまで】 ---
 
 
