@@ -516,6 +516,11 @@ function updateTransformOrigin(reason = 'unknown') {
     });
 }
 
+/**
+ * 【★ 2025/11/13 修正】
+ * stabilizeAfterFullScreen
+ * 全画面切替時（または復帰時）の地図安定化処理
+ */
 function stabilizeAfterFullScreen() {
     const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
     document.body.classList.toggle('fullscreen-active', isFullscreen);
@@ -526,67 +531,60 @@ function stabilizeAfterFullScreen() {
         icon.classList.toggle('fa-compress', isFullscreen);
     }
     
+    // 1. サイズ変更を地図に通知
     map.invalidateSize({ animate: false });
-    
-    // 【要件2】全画面切替後の位置補正も、追従モードONの時のみ行う
-    if (appState.position && appState.followUser) {
+    logJSON('mapController.js', 'invalidateSize_called', {
+        reason: 'stabilizeAfterFullScreen',
+        isFullscreen: isFullscreen
+    });
+
+    // 2. 追従モードON かつ 現在地が取得済み の場合のみ、中央に強制移動
+    if (appState.followUser && appState.position) {
         const coords = appState.position.coords;
         const latlng = [coords.latitude, coords.longitude];
+        const currentLatLng = L.latLng(latlng[0], latlng[1]);
+
+        // 3. 累積距離をリセット
+        appState.lastSetViewLatLng = currentLatLng;
+        appState.cumulativeDistance = 0;
         
-        if (appState.mode === 'north-up') {
-            // --- 全画面切替後の中央固定処理 ---
-            map.once('viewreset', () => { 
-                // コールバック実行時にも再度、追従モードを確認
-                if (appState.followUser) {
-                    // setViewで中央固定し、指定されたログを出力
-                    logJSON('mapController.js', 'setView_called', {
-                        followUser: true,
-                        reason: 'stabilizeAfterFullScreen (north-up)',
-                        target: latlng,
-                        mode: appState.mode,
-                        // 【★修正】全画面時は累積距離に関わらず強制実行
-                        cumulativeDistance: appState.cumulativeDistance.toFixed(2) + ' (fullscreen override)'
-                    });
-                    map.setView(latlng, map.getZoom(), { animate: false });
-                    
-                    // 【★修正】全画面復帰時も累積距離をリセット
-                    appState.lastSetViewLatLng = L.latLng(latlng[0], latlng[1]);
-                    appState.cumulativeDistance = 0;
-                    
-                     logJSON('mapController.js', 'recenter', {
-                        reason: 'north-up-fullscreen',
-                        markerAnchor: 'center'
-                    });
-    
-                    map.once('moveend', () => {
-                        if (!appState.followUser) return;
-                        logJSON('mapController.js', 'center_check', {
-                           data: { center: map.getCenter(), zoom: map.getZoom() }
-                        });
-                    });
-                }
-            });
-        } else if (appState.mode === 'heading-up') {
-            // Heading-upも同様に追従オン時のみ実行
-             if (appState.followUser) {
-                logJSON('mapController.js', 'setView_called', {
-                    followUser: true,
-                    reason: 'stabilizeAfterFullScreen (heading-up)',
-                    target: latlng,
-                    mode: appState.mode,
-                    // 【★修正】全画面時は累積距離に関わらず強制実行
-                    cumulativeDistance: appState.cumulativeDistance.toFixed(2) + ' (fullscreen override)'
-                });
-                map.setView(latlng, map.getZoom(), { animate: false, noMoveStart: true });
-                
-                // 【★修正】全画面復帰時も累積距離をリセット
-                appState.lastSetViewLatLng = L.latLng(latlng[0], latlng[1]);
-                appState.cumulativeDistance = 0;
-                
-                map.once('moveend', () => updateTransformOrigin('heading-up-fullscreen'));
-            }
+        // 4. 強制センタリングフラグを立てる (zoomstart等との競合防止)
+        appState.isForcingRecenter = true; 
+        logJSON('mapController.js', 'forcing_recenter_flag_set', { 
+            reason: 'stabilizeAfterFullScreen' 
+        });
+
+        // 5. panToで強制的に中央へ移動
+        logJSON('mapController.js', 'panTo_called_after_fullscreen', {
+            reason: 'stabilizeAfterFullScreen',
+            target: latlng,
+            mode: appState.mode,
+            cumulativeDistance: appState.cumulativeDistance // 0
+        });
+        map.panTo(currentLatLng, { animate: false });
+
+        // 6. Heading-Upモードの場合は、回転基点も更新
+        if (appState.mode === 'heading-up') {
+             map.once('moveend', () => updateTransformOrigin('after_stabilizeFullScreen'));
         }
+
+        // 7. 1秒後に強制フラグを解除
+        setTimeout(() => {
+            appState.isForcingRecenter = false;
+            logJSON('mapController.js', 'forcing_recenter_flag_unset', { 
+                reason: 'timeout after stabilizeAfterFullScreen (1000ms)'
+            });
+        }, 1000);
+
+    } else {
+        // 追従オフ時は何もしない
+         logJSON('mapController.js', 'stabilizeAfterFullScreen_skipped', { 
+             reason: 'followUser is false or position is null',
+             followUser: appState.followUser
+         });
     }
+    
+    // --- 従来の viewreset/moveend 内の処理は panTo と重複するため削除 ---
 }
 
 // この関数はNorth-Upモードでは使用されない
@@ -684,11 +682,9 @@ function toggleFollowUser(forceState, triggerEvent = 'button') { // 【★ 2025/
         // setView の *前* に lastSetViewLatLng を現在地に更新
         appState.lastSetViewLatLng = currentLatLng;
         
-        // cumulativeDistance を 0 ではなく、閾値の90%に設定
-        // これにより、次の updatePosition で必ず閾値を超え、setViewが実行される
-        const threshold = RECENTER_THRESHOLDS[appState.surveyMode] || 1;
-        const adjustedDistance = threshold * 0.9;
-        appState.cumulativeDistance = adjustedDistance;
+        // 【★ 2025/11/13 修正】 累積距離のリセットは panTo の後（または updatePosition）で行われるため、
+        // ここでは閾値の調整は行わず、 0 にリセットする
+        appState.cumulativeDistance = 0;
         
         logJSON('mapController.js', 'lastSetViewLatLng_reset_on_toggle', {
             reason: 'toggleFollowUser (ON)',
@@ -696,13 +692,22 @@ function toggleFollowUser(forceState, triggerEvent = 'button') { // 【★ 2025/
             lon: appState.lastSetViewLatLng.lng,
             cumulativeDistance: appState.cumulativeDistance,
             // 【★要件2 ログ追加】
-            cumulativeDistance_adjusted_after_forced: true,
-            threshold: threshold
+            // cumulativeDistance_adjusted_after_forced: true, // 削除
+            threshold: RECENTER_THRESHOLDS[appState.surveyMode] || 1
         });
         // --- 【★要件2 修正ここまで】 ---
         
         // 【★要件1 修正】 ログに全画面フラグを追加
         const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        
+        // --- 【★ 2025/11/13 修正】 (問題3対策) ---
+        // setView や panTo の前に、現在の地図の慣性移動をすべて停止する
+        map.stop();
+        logJSON('mapController.js', 'map_stop_called', {
+             reason: 'toggleFollowUser (ON)',
+             trigger: triggerEvent
+        });
+        
         logJSON('mapController.js', 'setView_called', {
             followUser: true,
             reason: 'toggleFollowUser (ON) - Forced Recenter', // ★理由を明記
@@ -724,38 +729,24 @@ function toggleFollowUser(forceState, triggerEvent = 'button') { // 【★ 2025/
             viewOptions
         );
 
-        // --- 【★ 2025/11/13 修正】 (要件3) ---
-        // setViewの直後にpanToを呼び出し、中央を強制
+        // --- 【★ 2025/11/13 修正】 (問題1, 2対策) ---
+        // setViewの直後にinvalidateSizeを呼び出し、
+        // さらに panTo を強制実行して中央を確定させる
         
-        // --- 【★ 2025/11/14 修正】 (要望1) ゼロ誤差の場合は panTo をスキップ ---
-        const mapCenterAfterSetView = map.getCenter();
-        const discrepancy = mapCenterAfterSetView.distanceTo(currentLatLng);
-        
-        if (discrepancy >= FORCED_RECENTER_TOLERANCE_M) {
-            map.panTo(currentLatLng, { animate: false });
-            logJSON('mapController.js', 'panTo_called_after_forced', {
-                reason: 'toggleFollowUser (ON) - discrepancy high',
-                target: [currentLatLng.lat, currentLatLng.lng],
-                discrepancy_m: discrepancy.toFixed(2)
-            });
-        } else {
-            logJSON('mapController.js', 'panTo_skipped_after_forced', {
-                reason: 'toggleFollowUser (ON) - discrepancy near zero',
-                target: [currentLatLng.lat, currentLatLng.lng],
-                discrepancy_m: discrepancy.toFixed(2),
-                tolerance_m: FORCED_RECENTER_TOLERANCE_M
-            });
-        }
-        // --- 【★ 修正ここまで】 ---
-
-
-        // --- 【★要件1 修正】 setView直後にinvalidateSizeを呼び出し、中央表示を強制する ---
         map.invalidateSize();
         logJSON('mapController.js', 'invalidateSize_called_after_forced', {
             reason: 'toggleFollowUser (ON)',
             isFullscreen: isFullscreen
         });
-        // --- 【★要件1 修正ここまで】 ---
+
+        // 【★ 2025/11/13 修正】 誤差ゼロチェック (panTo_skipped_after_forced) を削除し、
+        // 常に panTo を実行して中央を強制する
+        map.panTo(currentLatLng, { animate: false });
+        logJSON('mapController.js', 'panTo_called_after_forced', {
+            reason: 'toggleFollowUser (ON) - Forced',
+            target: [currentLatLng.lat, currentLatLng.lng]
+        });
+        // --- 【★ 修正ここまで】 ---
 
 
         // --- 【★要件1 追加】 DOMスタイル崩れを強制的に修正 ---
@@ -791,15 +782,6 @@ function toggleFollowUser(forceState, triggerEvent = 'button') { // 【★ 2025/
             });
         }
         // --- 【★要件1 修正ここまで】 ---
-
-
-        // 【★要件1】 setViewが完了したら強制フラグを下ろす
-        // map.once('moveend', () => {
-        //     appState.isForcingRecenter = false;
-        //     logJSON('mapController.js', 'forcing_recenter_flag_unset', { 
-        //         reason: 'moveend after toggleFollowUser' 
-        //     });
-        // });
         
         // --- 【★ 2025/11/12 修正】 (要件2) ---
         // moveend ではなく setTimeout でフラグを解除する
@@ -844,6 +826,8 @@ function toggleFullscreen() {
     // 注: stabilizeAfterFullScreenでも呼び出されるが、確実性を高めるためにここでも実行
     // DOMの変更が反映されるのを待つために短い遅延を入れる
     setTimeout(() => {
-        map.invalidateSize();
+        // 【★ 2025/11/13 修正】 stabilizeAfterFullScreen に処理を一本化するため、
+        // ここでの invalidateSize 呼び出しは削除
+        // map.invalidateSize();
     }, 100); 
 }
