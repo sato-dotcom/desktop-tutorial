@@ -92,22 +92,17 @@ function initializeUI() {
              pointerCount = Object.keys(map._pointers).length;
         }
 
-        // --- 【★ 2025/11/12 修正】 (要件1) ---
-        // 強制センタリング中 (isForcingRecenter=true) は、
-        // このイベントによる自動オフをスキップする
-        if (appState.isForcingRecenter) {
-            logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
-                reason: 'zoomstart detected during forced recenter',
-                pointerCount: pointerCount // 【★ 要件3】 ログ強化
-            });
-            return;
-        }
+        // --- 【★ 2025/11/13 修正】 ---
+        // 強制センタリング中 (isForcingRecenter=true) であっても、
+        // ユーザーによるズーム操作は auto-off を実行する
+        // (isForcingRecenter のチェックブロックを削除)
         // --- 【★ 修正ここまで】 ---
 
 
         logJSON('ui.js', 'zoomstart_detected', {
             appStateFollowUser: appState.followUser,
-            pointerCount: pointerCount
+            pointerCount: pointerCount,
+            isForcingRecenter: appState.isForcingRecenter // ログには残す
         });
 
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
