@@ -29,6 +29,10 @@ const RECENTER_THRESHOLDS = {
 // 一時的にズレることを許容する
 const RECENTER_TOLERANCE_M = 5; 
 
+// 【★ 2025/11/14 追加】 強制センタリングを実行するズレの最小閾値 (m)
+// これ未満のズレは「ゼロ誤差」とみなし、panToをスキップする
+const FORCED_RECENTER_TOLERANCE_M = 0.1; 
+
 // --- アプリケーションの状態を一元管理 ---
 const appState = {
     position: null, // 現在の位置情報 (GeolocationPosition object)

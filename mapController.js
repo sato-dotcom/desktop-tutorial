@@ -317,7 +317,6 @@ function updateHeading(headingState) {
         
         // --- 【★2025/11/12 修正】 追従オフ時はセンタリング処理をスキップ ---
         // ※上記のガード節により、このブロックは appState.followUser が true の場合のみ実行される
-        // if (appState.followUser) { // <- この分岐は不要になった
             
         // --- 追従オンの場合のみ、センタリングチェックとDOM操作を実行 ---
         logJSON('mapController.js', 'north_up_transform_check', {
@@ -327,79 +326,12 @@ function updateHeading(headingState) {
             rotatorOrigin: rotator.style.transformOrigin
         });
 
-        const markerEl_dom = document.getElementById('userMarker');
-        if (markerEl_dom) {
-            const rect = markerEl_dom.getBoundingClientRect();
-            logJSON('mapController.js', 'north_up_dom_check', {
-                width: rect.width,
-                height: rect.height,
-                offsetTop: markerEl_dom.offsetTop,
-                offsetLeft: markerEl_dom.offsetLeft
-            });
-        }
-
-        const markerEl = document.getElementById('userMarker');
-        if (markerEl) {
-          // (デバッグ用ログ出力は省略せず維持)
-          const styleOuter = window.getComputedStyle(markerEl);
-          const rotatorEl = markerEl.querySelector('.user-location-marker-rotator');
-          const styleRotator = rotatorEl ? window.getComputedStyle(rotatorEl) : {};
-          const svgEl = markerEl.querySelector('svg');
-          const styleSvg = svgEl ? window.getComputedStyle(svgEl) : {};
-    
-          logJSON('mapController.js', 'north_up_style_deepcheck', {
-            outer: {
-              display: styleOuter.display,
-              lineHeight: styleOuter.lineHeight,
-              verticalAlign: styleOuter.verticalAlign
-            },
-            rotator: {
-              display: styleRotator.display,
-              lineHeight: styleRotator.lineHeight,
-              verticalAlign: styleRotator.verticalAlign
-            },
-            svg: {
-              display: styleSvg.display,
-              lineHeight: styleSvg.lineHeight,
-              verticalAlign: styleSvg.verticalAlign
-            }
-          });
-
-          logJSON('mapController.js', 'north_up_dom_structure', {
-            outerHTML: markerEl.outerHTML
-          });
-
-          // 【★要件1 修正】 強制的に inline style を付与
-          markerEl.style.display = 'flex';
-          markerEl.style.alignItems = 'center';
-          markerEl.style.justifyContent = 'center';
-          markerEl.style.width = '30px';
-          markerEl.style.height = '30px';
-          markerEl.style.lineHeight = '30px';
-          markerEl.style.verticalAlign = 'middle';
-          
-          // ---【★要件1 修正】---
-          const rotator_test = markerEl.querySelector('.user-location-marker-rotator');
-          if (rotator_test) {
-            rotator_test.style.display = 'flex';
-            rotator_test.style.alignItems = 'center';
-            rotator_test.style.justifyContent = 'center';
-            rotator_test.style.width = '30px';
-            rotator_test.style.height = '30px';
-            rotator_test.style.lineHeight = '30px';
-            rotator_test.style.verticalAlign = 'middle';
-          }
-
-          logJSON('mapController.js', 'north_up_forced_style_check', {
-              reason: 'updateHeading (north-up)',
-              display: markerEl.style.display,
-              width: markerEl.style.width,
-              height: markerEl.style.height,
-              verticalAlign: markerEl.style.verticalAlign,
-              rotatorDisplay: rotator_test ? rotator_test.style.display : 'null'
-          });
-          // ---【★修正ここまで】---
-        }
+        // --- 【★ 2025/11/14 修正】 (要望2) ---
+        // updateHeadingが呼ばれるたびに実行されていたDOMチェックを削除
+        // (これらのチェックは toggleFollowUser(true) 時に実行される)
+        // const markerEl_dom = ...
+        // const markerEl = ...
+        // --- 【★ 修正ここまで】 ---
         
         // ---【ここから修正】---
         // 【★ 2025/11/12 修正】 比較基準を map.getCenter() から appState.position (現在地) に変更 (要件2)
@@ -423,10 +355,23 @@ function updateHeading(headingState) {
 
            // 【★要件1 修正】 強制センタリングフラグが立っている場合は、ズレ許容閾値チェックをスキップ
            if (appState.isForcingRecenter) {
-                logJSON('mapController.js', 'centering_check_forced', {
-                    reason: 'forced recentering by toggleFollowUser', // ★要望通りのログ
-                    discrepancy_m: discrepancy.toFixed(2)
-                });
+                // --- 【★ 2025/11/14 修正】 (要望1) ---
+                // ゼロ誤差（0.1m未満）の場合は、強制センタリングをスキップ（フラグ解除）
+                if (discrepancy < FORCED_RECENTER_TOLERANCE_M) {
+                    logJSON('mapController.js', 'centering_check_skipped_forced', {
+                        reason: 'forced recentering skipped, discrepancy near zero',
+                        discrepancy_m: discrepancy.toFixed(2),
+                        tolerance_m: FORCED_RECENTER_TOLERANCE_M
+                    });
+                    // ゼロ誤差の場合は強制フラグだけを下ろす
+                    appState.isForcingRecenter = false; 
+                } else {
+                    logJSON('mapController.js', 'centering_check_forced', {
+                        reason: 'forced recentering by toggleFollowUser', // ★要望通りのログ
+                        discrepancy_m: discrepancy.toFixed(2)
+                    });
+                }
+                // --- 【★ 修正ここまで】 ---
                 // チェックをスキップし、センタリング処理（apply_heading_north_up_fixedログ）に進む
            
            } else if (discrepancy < RECENTER_TOLERANCE_M) { // 【★ 要件2 修正】 ズレ許容閾値のチェック
@@ -462,20 +407,15 @@ function updateHeading(headingState) {
         }
         // ---【ここまで修正】---
         
+        // --- 【★ 2025/11/14 修正】 (要望3) ---
         logJSON('mapController.js', 'apply_heading_north_up_fixed', {
             mode: appState.mode,
+            heading_value: newHeading.toFixed(1),
+            heading_status: 'not applied (north-up)', // ログに状態を明記
             map_rotation: '0 (fixed)',
             marker_rotation: '0 (fixed)',
         });
-
-        // } else { // ★要望1のガードにより、この else 節は到達不能になったため削除
-        //     // --- 追従オフ時はセンタリングをスキップしたログを出力 ---
-        //     logJSON('mapController.js', 'heading_update_skipped_centering', {
-        //         reason: 'followUser=false (north-up)',
-        //         mode: appState.mode
-        //     });
-        // }
-        // --- 【★2025/11/12 修正ここまで】 ---
+        // --- 【★ 修正ここまで】 ---
         
         // 状態変数をリセット (追従のオンオフに関わらず実行)
         lastDrawnMarkerAngle = 0;
@@ -679,8 +619,9 @@ function recenterAbsolutely(coords) {
  * @param {boolean | undefined} forceState 
  * - boolean (true/false): 状態を強制的に設定 (dragstart時は false が入る)
  * - undefined: 現在の状態を反転させる (ボタンクリック時)
+ * @param {string} [triggerEvent='button'] - (★追加) 呼び出し元のイベント
  */
-function toggleFollowUser(forceState) {
+function toggleFollowUser(forceState, triggerEvent = 'button') { // 【★ 2025/11/14 修正】 (要望4)
     // forceState が boolean であればその値を、undefined であれば現在の状態を反転させた値を使用
     const newState = (typeof forceState === 'boolean') ? forceState : !appState.followUser;
 
@@ -698,16 +639,25 @@ function toggleFollowUser(forceState) {
 
     appState.followUser = newState;
 
-    // ログイベント名を決定 (要求仕様に基づき、dragstart時は 'followUser_auto_off' を使用)
-    const eventName = (typeof forceState === 'boolean' && forceState === false) 
-                        ? 'followUser_auto_off' // 強制オフ (dragstart)
-                        : 'followUser_toggled'; // それ以外 (ボタンクリック)
-
+    // --- 【★ 2025/11/14 修正】 (要望4) ---
+    // ログイベント名を決定
+    let eventName;
+    if (triggerEvent === 'dragstart') {
+        eventName = 'followUser_auto_off_drag';
+    } else if (triggerEvent === 'zoomstart') {
+        eventName = 'followUser_auto_off_zoom';
+    } else if (typeof forceState === 'boolean' && forceState === false) {
+        eventName = 'followUser_auto_off'; // フォールバック
+    } else {
+        eventName = 'followUser_toggled';
+    }
+    
     logJSON('mapController.js', eventName, {
         value: newState,
-        // 【★要件3】 これが強制センタリング（ボタン押下または手動呼び出し）か
+        trigger: triggerEvent, // ★修正
         isForcedOn: (forceState === undefined || forceState === true)
     });
+    // --- 【★ 修正ここまで】 ---
 
     updateFollowButtonState(); // ui.js の関数を呼び出し (appState.followUser を参照)
 
@@ -751,22 +701,6 @@ function toggleFollowUser(forceState) {
         });
         // --- 【★要件2 修正ここまで】 ---
         
-        // (旧) 追従をONにした瞬間、現在の位置を「最後にsetViewした位置」とみなし、累積距離をリセット
-        // appState.lastSetViewLatLng = currentLatLng;
-        // appState.cumulativeDistance = 0;
-        // 
-        // logJSON('mapController.js', 'followUser_on_reset', {
-        //     lat: appState.lastSetViewLatLng.lat,
-        //     lon: appState.lastSetViewLatLng.lng,
-        //     cumulativeDistance: appState.cumulativeDistance
-        // });
-        
-        // 強制的に updatePosition を呼び出し、地図を即座に中央に移動させる
-        // (内部の閾値チェックは、cumulativeDistanceが0なので初回はスキップされ、setViewが実行されるはず)
-        // ※ 訂正：cumulativeDistanceが0なので、閾値チェック(0 < threshold)でスキップされてしまう。
-        //    -> (distance < threshold) のチェックなので、 0 < 15 は true。setView_skipped になる。
-        //    -> このため、追従ON時に強制的にsetViewを呼ぶ必要がある
-        
         // 【★要件1 修正】 ログに全画面フラグを追加
         const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
         logJSON('mapController.js', 'setView_called', {
@@ -792,11 +726,26 @@ function toggleFollowUser(forceState) {
 
         // --- 【★ 2025/11/13 修正】 (要件3) ---
         // setViewの直後にpanToを呼び出し、中央を強制
-        map.panTo(currentLatLng, { animate: false });
-        logJSON('mapController.js', 'panTo_called_after_forced', {
-            reason: 'toggleFollowUser (ON)',
-            target: [currentLatLng.lat, currentLatLng.lng]
-        });
+        
+        // --- 【★ 2025/11/14 修正】 (要望1) ゼロ誤差の場合は panTo をスキップ ---
+        const mapCenterAfterSetView = map.getCenter();
+        const discrepancy = mapCenterAfterSetView.distanceTo(currentLatLng);
+        
+        if (discrepancy >= FORCED_RECENTER_TOLERANCE_M) {
+            map.panTo(currentLatLng, { animate: false });
+            logJSON('mapController.js', 'panTo_called_after_forced', {
+                reason: 'toggleFollowUser (ON) - discrepancy high',
+                target: [currentLatLng.lat, currentLatLng.lng],
+                discrepancy_m: discrepancy.toFixed(2)
+            });
+        } else {
+            logJSON('mapController.js', 'panTo_skipped_after_forced', {
+                reason: 'toggleFollowUser (ON) - discrepancy near zero',
+                target: [currentLatLng.lat, currentLatLng.lng],
+                discrepancy_m: discrepancy.toFixed(2),
+                tolerance_m: FORCED_RECENTER_TOLERANCE_M
+            });
+        }
         // --- 【★ 修正ここまで】 ---
 
 
@@ -864,12 +813,6 @@ function toggleFollowUser(forceState) {
         }, 1000); // 1000ms後にフラグを解除
         // --- 【★ 修正ここまで】 ---
 
-
-        // setViewを呼んだので、改めてリセット（念のため）
-        // ★ 修正: setViewの前に移動したため、ここのブロックは不要
-        // appState.lastSetViewLatLng = currentLatLng;
-        // appState.cumulativeDistance = 0;
-
         // 【★追加】Heading-Upモードの場合、回転基点も即座に更新する
         if (appState.mode === 'heading-up') {
              map.once('moveend', () => updateTransformOrigin('after_toggleFollowUser'));
@@ -879,13 +822,12 @@ function toggleFollowUser(forceState) {
         // --- 【★修正 2025/11/12】 ---
         // (要件4: 追従オフ時(ドラッグ操作)でも、Heading-Upモードの回転基点更新に必要な
         // イベントリスナー(moveend, viewreset)は解除しないように変更)
-        // map.off('moveend');
-        // map.off('viewreset');
-        // logJSON('mapController.js', 'listeners_cleared', { reason: 'follow_off' });
         
         // リスナーを解除しないことをログに残す
         logJSON('mapController.js', 'follow_off_listeners_kept', { 
-            reason: (typeof forceState === 'boolean' && forceState === false) ? 'dragstart' : 'button_off'
+            // --- 【★ 2025/11/14 修正】 (要望4) ---
+            reason: triggerEvent // 'dragstart', 'zoomstart', 'button'
+            // --- 【★ 修正ここまで】 ---
         });
     }
 }

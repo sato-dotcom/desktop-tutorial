@@ -52,12 +52,6 @@ function initializeUI() {
         // --- 【★ 2025/11/12 修正】 (要件1) ---
         // dragstart (一本指スライド) は強制センタリング中でも
         // 常に auto-off を許可する（抑制しない）
-        // if (appState.isForcingRecenter) {
-        //     logJSON('ui.js', 'followUser_auto_off_skipped_due_to_forcing', {
-        //         reason: 'dragstart detected during forced recenter'
-        //     });
-        //     return;
-        // }
         // --- 【★ 修正ここまで】 ---
 
         // 【★要件2】 originalEventからpointerCount（指の数）を取得
@@ -75,11 +69,11 @@ function initializeUI() {
         });
 
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
-        // (ガードをL64に移動したので、このifは常にtrueだが念のため残す)
         if (appState.followUser) {
-            // 【★2025/11/12 修正】 状態変更とログ出力を mapController 側に一任する
-            // appState.followUser = false; // ← 先に変更しない
-            toggleFollowUser(false); // (要件3: 内部で followUser_auto_off ログが出力される)
+            // --- 【★ 2025/11/14 修正】 (要望4) ---
+            // 呼び出し理由 'dragstart' を渡す
+            toggleFollowUser(false, 'dragstart'); 
+            // --- 【★ 修正ここまで】 ---
         }
     });
 
@@ -118,7 +112,10 @@ function initializeUI() {
 
         // 追従がオンの場合のみ、強制オフ (false) を呼び出す
         if (appState.followUser) {
-            toggleFollowUser(false); // (内部で followUser_auto_off ログが出力される)
+            // --- 【★ 2025/11/14 修正】 (要望4) ---
+            // 呼び出し理由 'zoomstart' を渡す
+            toggleFollowUser(false, 'zoomstart');
+            // --- 【★ 修正ここまで】 ---
         }
     });
 
