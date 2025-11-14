@@ -1,11 +1,21 @@
 function initializeMap() {
     // --- 地図タイルの定義 (変更なし) ---
     const customBathymetryLayer = L.tileLayer('https://umineko-water-depth-76a08f.netlify.app/{z}/{x}/{y}.png', {
-        attribution: 'カスタム等深図',
+        attribution: '等深図（カスタム）', // 【★修正】 名称変更
         maxZoom: 22,
         minZoom: 15, 
         maxNativeZoom: 20
     });
+
+    // --- 【★追加】 海底地質レイヤーの定義 ---
+    const customGeologyLayer = L.tileLayer('https://umineko-kaiteidoshitu-80b000.netlify.app/{z}/{x}/{y}.png', {
+        attribution: 'TJL',
+        maxZoom: 22,
+        minZoom: 15,
+        maxNativeZoom: 20,
+        opacity: 0.5 // 透過度50%
+    });
+
     const gsiReliefLayer = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
         maxZoom: 22, maxNativeZoom: 15 
@@ -31,7 +41,10 @@ function initializeMap() {
         map.invalidateSize();
     });
 
-    customBathymetryLayer.addTo(map);
+    // --- 【★修正】 レイヤーの追加順序を調整 ---
+    customGeologyLayer.addTo(map); // 海底地質図 (下)
+    customBathymetryLayer.addTo(map); // 等深図 (上)
+    
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     
     const baseMaps = { 
@@ -39,8 +52,11 @@ function initializeMap() {
         "標準地図 (等高線)": gsiStdLayer, 
         "航空写真": gsiPhotoLayer
     };
+    
+    // --- 【★修正】 オーバーレイマップの定義を更新 ---
     const overlayMaps = {
-        "カスタム等深図 (重ね表示)": customBathymetryLayer
+        "海底地質（カスタム）": customGeologyLayer,
+        "等深図（カスタム）": customBathymetryLayer // 名称変更
     };
     L.control.layers(baseMaps, overlayMaps, { position: 'topright' }).addTo(map);
 
