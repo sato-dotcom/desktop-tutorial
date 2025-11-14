@@ -1,6 +1,6 @@
 function initializeMap() {
     // --- 地図タイルの定義 (変更なし) ---
-    const customBathymetryLayer = L.tileLayer('https://deep-c33f42.netlify.app/{z}/{x}/{y}.png', {
+    const customBathymetryLayer = L.tileLayer('https://umineko-water-depth-76a08f.netlify.app/{z}/{x}/{y}.png', {
         attribution: 'カスタム等深図',
         maxZoom: 22,
         minZoom: 0, 
