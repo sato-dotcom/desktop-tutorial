@@ -3,8 +3,8 @@ function initializeMap() {
     const customBathymetryLayer = L.tileLayer('https://umineko-water-depth-76a08f.netlify.app/{z}/{x}/{y}.png', {
         attribution: 'カスタム等深図',
         maxZoom: 22,
-        minZoom: 0, 
-        maxNativeZoom: 15
+        minZoom: 15, 
+        maxNativeZoom: 20
     });
     const gsiReliefLayer = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
